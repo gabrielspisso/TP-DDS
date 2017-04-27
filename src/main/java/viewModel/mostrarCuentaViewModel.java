@@ -6,8 +6,6 @@ import java.util.List;
 import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.MessageBox.Type;
 import org.uqbar.arena.windows.Window;
-import org.uqbar.commons.model.ObservableUtils;
-import org.uqbar.commons.utils.Dependencies;
 import org.uqbar.commons.utils.Observable;
 
 import model.CargadorDeEmpresas;

@@ -6,9 +6,6 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.windows.MainWindow;
-import org.uqbar.arena.windows.SimpleWindow;
-import org.uqbar.arena.windows.Window;
-import org.uqbar.arena.windows.WindowOwner;
 
 import model.Balance;
 import model.Cuenta;
@@ -49,6 +46,7 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 	}
 	public static void main(String[] args) {
 	    new mostrarCuentas().startApplication();
+		//new CargadorDeEmpresas().obtenerCuentasEmpresas();
 	}
 
 }
