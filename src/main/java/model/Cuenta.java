@@ -1,5 +1,7 @@
 package model;
 
+import org.uqbar.commons.utils.Observable;
+
 public class Cuenta {
 	private String nombre;
 	private int valor;

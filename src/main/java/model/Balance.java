@@ -2,6 +2,9 @@ package model;
 
 import java.util.List;
 
+import org.uqbar.commons.utils.Observable;
+
+
 public class Balance {
 	private String periodo;
 	private List<Cuenta> cuentas;

@@ -3,6 +3,9 @@ package viewModel;
 import java.util.Arrays;
 import java.util.List;
 
+import org.uqbar.arena.windows.MessageBox;
+import org.uqbar.arena.windows.MessageBox.Type;
+import org.uqbar.arena.windows.Window;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Dependencies;
 import org.uqbar.commons.utils.Observable;
@@ -17,28 +20,31 @@ public class mostrarCuentaViewModel {
 	private Empresa empresaActual= new Empresa(Arrays.asList());
 	private Balance balanceActual= new Balance("",Arrays.asList());
 	private Cuenta cuentaActual = new Cuenta("",0);
-	private List<Empresa> listaDeEmpresas;
 	private List<Balance> balances;
 	private List<Cuenta> cuentas;
 
 	
 	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
-		ObservableUtils.firePropertyChanged(this, "cuentaActual");
 	}
+
 
 	public void setBalances(List<Balance> balances) {
 		this.balances = balances;
-		ObservableUtils.firePropertyChanged(this, "balanceActual");
+		//this.setBalanceActual(balances.get(0));
 	}
+
 
 	public Empresa getEmpresaActual() {
 		return empresaActual;
 	}
 	
 	public void setEmpresaActual(Empresa empresaActual) {
-		this.empresaActual = empresaActual;
-		ObservableUtils.firePropertyChanged(this, "balances");
+				this.empresaActual = empresaActual;
+//ObservableUtils.firePropertyChanged(this, "cuentas");
+			this.setBalances(empresaActual.getBalances());	
+			//this.setCuentas(balances.get(0).getCuentas());
+
 	}
 	
 	public Balance getBalanceActual() {
@@ -47,7 +53,14 @@ public class mostrarCuentaViewModel {
 
 	public void setBalanceActual(Balance balanceActual) {
 		this.balanceActual = balanceActual;
-		ObservableUtils.firePropertyChanged(this, "cuentas");
+		if(balanceActual != null){
+			this.setCuentas(balanceActual.getCuentas());
+			//this.setCuentaActual(balanceActual.getCuentas().get(0));
+			
+		}
+		else{
+			this.setCuentaActual(null);
+		}
 	}
 
 	public Cuenta getCuentaActual() {
@@ -56,21 +69,23 @@ public class mostrarCuentaViewModel {
 
 	public void setCuentaActual(Cuenta cuentaActual) {
 		this.cuentaActual = cuentaActual;
-		ObservableUtils.firePropertyChanged(this, "valorActual");
 	}
 	
+	
 	public List<Balance> getBalances(){
-		return (empresaActual == null) ? null : empresaActual.getBalances();
+		return balances;
 	}
 	public List<Cuenta> getCuentas(){
-		return (balanceActual == null) ? null : balanceActual.getCuentas();
+		return cuentas;
 	}
 	public String getPeriodo(){		
-		return (balanceActual == null) ? null : balanceActual.getPeriodo();
+		return balanceActual.getPeriodo();
 	}
-	@Dependencies({"cuentaActual"})
-	public int getValorActual(){
-		return (cuentaActual == null) ? 0 : cuentaActual.getValor();
+	public void getValorActual(Window<?> owner){
+
+		MessageBox messageBox = new MessageBox( owner, Type.Information);
+		messageBox.setMessage("El valor de "+this.getCuentaActual().getNombre()+" es "+Integer.toString(cuentaActual.getValor()));
+		messageBox.open();
 	}
 	
 	public List<Empresa> getListaDeEmpresas(){

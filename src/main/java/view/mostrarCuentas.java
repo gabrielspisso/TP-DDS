@@ -1,6 +1,7 @@
 package view;
 
 import org.uqbar.arena.layout.ColumnLayout;
+import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
@@ -43,13 +44,11 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 		 selectorCuenta.bindItemsToProperty("cuentas");
 		 
 		 
-		 new Label(mainPanel).setText("Valor de cuenta");
-		 new Label(mainPanel).bindValueToProperty("valorActual");
-		 
+		 new Button(mainPanel).onClick(() -> getModelObject().getValorActual(this));
 		 
 	}
 	public static void main(String[] args) {
 	    new mostrarCuentas().startApplication();
-	  }
+	}
 
 }
