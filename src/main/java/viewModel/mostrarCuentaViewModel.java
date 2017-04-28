@@ -15,12 +15,12 @@ import model.Empresa;
 
 @Observable
 public class mostrarCuentaViewModel {
-	private Empresa empresaActual= new Empresa(Arrays.asList());
-	private Balance balanceActual= new Balance("",Arrays.asList());
-	private Cuenta cuentaActual = new Cuenta("",0);
+	private Empresa empresaActual; //= new Empresa("",Arrays.asList());
+	private Balance balanceActual ;//= new Balance("","",Arrays.asList());
+	private Cuenta cuentaActual; //= new Cuenta("",0);
 	private List<Balance> balances;
 	private List<Cuenta> cuentas;
-
+	private List<Empresa> empresas;
 	
 	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
@@ -38,12 +38,18 @@ public class mostrarCuentaViewModel {
 	}
 	
 	public void setEmpresaActual(Empresa empresaActual) {
-				this.empresaActual = empresaActual;
-//ObservableUtils.firePropertyChanged(this, "cuentas");
-			this.setBalances(empresaActual.getBalances());	
-			//this.setCuentas(balances.get(0).getCuentas());
-
-	}
+		try{
+			
+			this.empresaActual = empresaActual;
+			this.setBalances(empresaActual.getBalances());				
+		}
+		catch(RuntimeException ex){
+			this.empresaActual = empresaActual;
+			this.balances = null;
+			setBalanceActual(null);
+		}	
+			
+		}
 	
 	public Balance getBalanceActual() {
 		return balanceActual;
@@ -51,14 +57,15 @@ public class mostrarCuentaViewModel {
 
 	public void setBalanceActual(Balance balanceActual) {
 		this.balanceActual = balanceActual;
-		if(balanceActual != null){
-			this.setCuentas(balanceActual.getCuentas());
-			//this.setCuentaActual(balanceActual.getCuentas().get(0));
-			
+		try{
+			this.setCuentas(balanceActual.getCuentas());	
 		}
-		else{
+		catch(RuntimeException ex){
+			this.setCuentas(null);			
 			this.setCuentaActual(null);
 		}
+		
+		
 	}
 
 	public Cuenta getCuentaActual() {
@@ -79,15 +86,24 @@ public class mostrarCuentaViewModel {
 	public String getPeriodo(){		
 		return balanceActual.getPeriodo();
 	}
-	public void getValorActual(Window<?> owner){
-
-		MessageBox messageBox = new MessageBox( owner, Type.Information);
-		messageBox.setMessage("El valor de "+this.getCuentaActual().getNombre()+" es "+Integer.toString(cuentaActual.getValor()));
+	public void mostrarValorCuentaSeleccionada(Window<?> owner){
+		MessageBox messageBox;
+		try{
+			messageBox = new MessageBox( owner, Type.Information);
+			messageBox.setMessage("El valor de "+this.getCuentaActual().getNombre()+" es "+Integer.toString(cuentaActual.getValor()));
+		}
+		catch (RuntimeException ex){
+			messageBox = new MessageBox( owner, Type.Error);
+			messageBox.setMessage("No has seleccionado algun campo");
+		}
 		messageBox.open();
 	}
 	
-	public List<Empresa> getListaDeEmpresas(){
-		return CargadorDeEmpresas.obtenerCuentasEmpresas();
+	public List<Empresa> getEmpresas(){
+		return empresas;
+	}
+	public void cargarEmpresas(){
+		this.empresas = CargadorDeEmpresas.obtenerCuentasEmpresas();
 	}
 
 }

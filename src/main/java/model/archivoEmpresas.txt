@@ -1,1 +1,0 @@
-[{"balances":[{"periodo":"Primer Semestre","cuentas":[{"nombre":"burro","valor":1},{"nombre":"probando","valor":2}]},{"periodo":"Segundo Semestre","cuentas":[{"nombre":"hola","valor":1}]}]},{"balances":[{"periodo":"Anual","cuentas":[{"nombre":"pato","valor":3}]}]}]

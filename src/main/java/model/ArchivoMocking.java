@@ -13,14 +13,16 @@ import com.google.gson.reflect.TypeToken;
 
 public class ArchivoMocking {
 	private static List<Empresa> listaHarcodeada(){
-		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("burro",1),new Cuenta("probando",2));
-		List<Cuenta> listaDeCuentas2 = Arrays.asList(new Cuenta("hola",1));
+		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",1),new Cuenta("FREE CASH FLOW",2));
+		List<Cuenta> listaDeCuentas2 = Arrays.asList(new Cuenta("EBITDA",1));
+		List<Cuenta> listaDeCuentas3 = Arrays.asList(new Cuenta("FREE CASH FLOW",3));
+		List<Cuenta> listaDeCuentas4 = Arrays.asList(new Cuenta("EBITDA",1),new Cuenta("INGRESO NETO DISCONTINUO",25000),new Cuenta("FDS",5000));
 		
-		List<Balance> listaDeBalances = Arrays.asList(new Balance("Primer Semestre",listaDeCuentas),new Balance("Segundo Semestre",listaDeCuentas2));
-		List<Cuenta> listaDeCuentas3 = Arrays.asList(new Cuenta("pato",3));
+		List<Balance> listaDeBalances = Arrays.asList(new Balance("2017","Primer Semestre",listaDeCuentas),new Balance("2017","Segundo Semestre",listaDeCuentas2));
+		List<Balance> listaDeBalances2 = Arrays.asList(new Balance("2016","Anual",listaDeCuentas3));
+		List<Balance> listaDeBalances3 = Arrays.asList(new Balance("2016","Segundo Semestre",listaDeCuentas4));
 		
-		List<Balance> listaDeBalances2 = Arrays.asList(new Balance("Anual",listaDeCuentas3));
-		List<Empresa> x = Arrays.asList(new Empresa (listaDeBalances),new Empresa(listaDeBalances2));
+		List<Empresa> x = Arrays.asList(new Empresa ("Facebook",listaDeBalances),new Empresa("Twitter",listaDeBalances2),new Empresa("Instagram",listaDeBalances3));
 		return x;
 	}
 	
