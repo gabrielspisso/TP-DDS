@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import org.eclipse.ui.internal.EditorHistory;
+
 
 public class Empresa {
 	private String nombre;
@@ -19,5 +21,12 @@ public class Empresa {
 	@Override
 	public String toString() {
 		return nombre;
+	}
+	@Override
+	public boolean equals(Object Objeto){
+		Empresa empresa = (Empresa) Objeto;
+		return empresa.nombre.equals(this.toString());
+		//return empresa.nombre == this.nombre;
+		
 	}
 }

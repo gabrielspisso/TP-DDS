@@ -2,9 +2,11 @@ package view;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
+import org.uqbar.arena.widgets.FileSelector;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
+import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.MainWindow;
 
 import model.ArchivoMocking;
@@ -31,26 +33,37 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 		
 		Selector<Empresa> selectorEmpresa = new Selector<Empresa>(mainPanel);
 		selectorEmpresa.bindValueToProperty("empresaActual");
-		selectorEmpresa.setWidth(125);
+		selectorEmpresa.setWidth(165);
 		selectorEmpresa.bindItemsToProperty("empresas");
 		 
 		new Label(mainPanel).setText("Periodo: ");
 		
 		Selector<Balance> selectorPeriodo = new Selector<Balance>(mainPanel);
-		selectorPeriodo.setWidth(125);
+		selectorPeriodo.setWidth(165);
 		selectorPeriodo.bindValueToProperty("balanceActual");
 		selectorPeriodo.bindItemsToProperty("balances");
 		 
 		new Label(mainPanel).setText("Cuentas: ");
 		Selector<Cuenta> selectorCuenta = new Selector<Cuenta>(mainPanel);
-		selectorCuenta.setWidth(125);
+		selectorCuenta.setWidth(165);
 		selectorCuenta.bindValueToProperty("cuentaActual");
 		selectorCuenta.bindItemsToProperty("cuentas");
-		 
-		new Button(mainPanel)
-		.setCaption("Obtener datos desde archivo").onClick(() -> getModelObject().cargarEmpresas());
-		
+
+		new FileSelector(mainPanel)
+		.extensions("*.txt")
+		.setCaption("Seleccionar archivo")
+		.setWidth(165)
+		.bindValueToProperty("rutaArchivo");
+		//.extensions("*.txt"); no funciona, nu se porque, en la documentación está
+		//Era porque iba arriba, antes del setCaption (santiago).
 		new Button(mainPanel).setCaption("Obtener valor de cuenta").onClick(() -> getModelObject().mostrarValorCuentaSeleccionada(this));
+		
+		new TextBox(mainPanel).setWidth(155).bindValueToProperty("rutaArchivo");
+		
+		
+		new Button(mainPanel)
+		.setCaption("Procesar archivo").onClick(() -> getModelObject().cargarEmpresas(this));
+		
 
 		  
 	}
@@ -60,5 +73,4 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 		
 		//new CargadorDeEmpresas().obtenerCuentasEmpresas();
 	}
-
 }

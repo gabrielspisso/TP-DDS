@@ -5,8 +5,8 @@ import java.util.List;
 
 public class CargadorDeEmpresas {
 	
-	public static List<Empresa> obtenerCuentasEmpresas(){
-		return ArchivoMocking.leerArchivo("ArchivoEmpresas.txt");
+	public static List<Empresa> obtenerCuentasEmpresas(String ruta){
+		return ArchivoMocking.leerArchivo(ruta);
 	}
-	
+
 }

@@ -38,7 +38,7 @@ public class ArchivoMocking {
 		}
 	}
 	
-	private static String readFileAsString(String fileName){
+	public static String readFileAsString(String fileName){
 	    StringBuilder salida = new StringBuilder();
 	    String line;
 	    try {
@@ -51,7 +51,8 @@ public class ArchivoMocking {
 	        br.close();
 	    }
 	    catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException("Archivo no encontrado!");
+	    	//e.printStackTrace();
 		}
 	    return salida.toString();
 	}
