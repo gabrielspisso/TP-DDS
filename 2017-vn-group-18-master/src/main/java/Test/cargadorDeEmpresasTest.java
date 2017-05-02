@@ -25,16 +25,16 @@ public class cargadorDeEmpresasTest {
 		List<Balance> listaDeBalances3 = Arrays.asList(new Balance("2016","Segundo Semestre",listaDeCuentas4));
 		
 		List<Empresa> x = Arrays.asList(new Empresa ("Facebook",listaDeBalances),new Empresa("Twitter",listaDeBalances2),new Empresa("Instagram",listaDeBalances3));
-		assertEquals("Facebook", CargadorDeEmpresas.obtenerCuentasEmpresas().get(0).toString());
+		assertEquals("Facebook", CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt").get(0).toString());
 		
 		
-		assertEquals(x.get(0).toString(), CargadorDeEmpresas.obtenerCuentasEmpresas().get(0).toString());
-		assertEquals(x.get(1).toString(), CargadorDeEmpresas.obtenerCuentasEmpresas().get(1).toString());
-		assertEquals(x.get(2).toString(), CargadorDeEmpresas.obtenerCuentasEmpresas().get(2).toString());
+		assertEquals(x.get(0).toString(), CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt").get(0).toString());
+		assertEquals(x.get(1).toString(), CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt").get(1).toString());
+		assertEquals(x.get(2).toString(), CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt").get(2).toString());
 	
 	}
 	
-	/*@Test
+	@Test
 	public void testListaDeEmpresasCargadasCorrectamente() {
 		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",1),new Cuenta("FREE CASH FLOW",2));
 		List<Cuenta> listaDeCuentas2 = Arrays.asList(new Cuenta("EBITDA",1));
@@ -47,8 +47,7 @@ public class cargadorDeEmpresasTest {
 		
 		List<Empresa> x = Arrays.asList(new Empresa ("Facebook",listaDeBalances),new Empresa("Twitter",listaDeBalances2),new Empresa("Instagram",listaDeBalances3));
 		
-		assertEquals(x, CargadorDeEmpresas.obtenerCuentasEmpresas());
+		assertEquals(x, CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 	}
 	
-*/
 }

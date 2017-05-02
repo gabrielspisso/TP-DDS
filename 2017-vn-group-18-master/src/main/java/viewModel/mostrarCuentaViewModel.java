@@ -21,6 +21,15 @@ public class mostrarCuentaViewModel {
 	private List<Balance> balances;
 	private List<Cuenta> cuentas;
 	private List<Empresa> empresas;
+	private String rutaArchivo;
+	
+	public void setRutaArchivo(String rutaArchivo){
+		this.rutaArchivo = rutaArchivo;
+	}
+	
+	public String getRutaArchivo() {
+		return rutaArchivo;
+	}
 	
 	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
@@ -106,7 +115,7 @@ public class mostrarCuentaViewModel {
 		MessageBox messageBox;
 		try
 		{
-			this.empresas = CargadorDeEmpresas.obtenerCuentasEmpresas();
+			this.empresas = CargadorDeEmpresas.obtenerCuentasEmpresas(rutaArchivo);
 			messageBox = new MessageBox( owner, Type.Information);
 			messageBox.setMessage("Se han cargado exitosamente los datos!");
 		}
