@@ -8,6 +8,8 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.MainWindow;
+import org.uqbar.arena.windows.MessageBox;
+import org.uqbar.arena.windows.MessageBox.Type;
 
 import model.ArchivoMocking;
 import model.Balance;
@@ -62,8 +64,23 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 		
 		
 		new Button(mainPanel)
-		.setCaption("Procesar archivo").onClick(() -> getModelObject().cargarEmpresas(this));
+		.setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
 		
+		}
+		
+		private void cargarArchivo(){
+			
+			MessageBox messageBox;
+			
+			try{
+				this.getModelObject().cargarEmpresas(this);
+			}
+			
+			catch (RuntimeException ex){
+				messageBox = new MessageBox(this, Type.Error);
+				messageBox.setMessage("La ruta del archivo no puede estar vacía!");
+				messageBox.open();
+			}
 
 		  
 	}
