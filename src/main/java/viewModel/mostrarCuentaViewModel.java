@@ -48,7 +48,6 @@ public class mostrarCuentaViewModel {
 	
 	public void setEmpresaActual(Empresa empresaActual) {
 		try{
-			
 			this.empresaActual = empresaActual;
 			this.setBalances(empresaActual.getBalances());				
 		}
@@ -56,9 +55,8 @@ public class mostrarCuentaViewModel {
 			this.empresaActual = empresaActual;
 			this.balances = null;
 			setBalanceActual(null);
-		}	
-			
-		}
+		}		
+	}
 	
 	public Balance getBalanceActual() {
 		return balanceActual;
@@ -73,8 +71,6 @@ public class mostrarCuentaViewModel {
 			this.setCuentas(null);			
 			this.setCuentaActual(null);
 		}
-		
-		
 	}
 
 	public Cuenta getCuentaActual() {
@@ -95,23 +91,25 @@ public class mostrarCuentaViewModel {
 	public String getPeriodo(){		
 		return balanceActual.getPeriodo();
 	}
-	public void mostrarValorCuentaSeleccionada(Window<?> owner){
+	
+	/*public void mostrarValorCuentaSeleccionada(Window<?> owner){
 		MessageBox messageBox;
 		try{
 			messageBox = new MessageBox( owner, Type.Information);
-			messageBox.setMessage("El valor de "+this.getCuentaActual().getNombre()+" es "+Integer.toString(cuentaActual.getValor()));
+			//messageBox.setMessage("El valor de "+this.getCuentaActual().getNombre()+" es "+Integer.toString(cuentaActual.getValor()));
+			messageBox.setMessage("El valor de " + this.getCuentaActual().getNombre() + " es " + cuentaActual.getValor());
 		}
 		catch (RuntimeException ex){
 			messageBox = new MessageBox( owner, Type.Error);
 			messageBox.setMessage("No has seleccionado algun campo");
 		}
 		messageBox.open();
-	}
+	}*/
 	
 	public List<Empresa> getEmpresas(){
 		return empresas;
 	}
-	public void cargarEmpresas(Window<?> owner){
+	/*public void cargarEmpresas(Window<?> owner){
 		MessageBox messageBox;
 		try
 		{
@@ -125,6 +123,10 @@ public class mostrarCuentaViewModel {
 			messageBox.setMessage(ex.getMessage());	
 		}
 		messageBox.open();
+	}*/
+	
+	public void cargarEmpresas(){
+		this.empresas = CargadorDeEmpresas.obtenerCuentasEmpresas(rutaArchivo);
 	}
 
 }

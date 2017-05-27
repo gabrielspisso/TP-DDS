@@ -20,7 +20,7 @@ import viewModel.mostrarCuentaViewModel;
 
 
 public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
-
+	
 	public mostrarCuentas() {
 		super(new mostrarCuentaViewModel());
 		// TODO Auto-generated constructor stub
@@ -58,7 +58,8 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 		.bindValueToProperty("rutaArchivo");
 		//.extensions("*.txt"); no funciona, nu se porque, en la documentación está
 		//Era porque iba arriba, antes del setCaption (santiago).
-		new Button(mainPanel).setCaption("Obtener valor de cuenta").onClick(() -> getModelObject().mostrarValorCuentaSeleccionada(this));
+		//Buenísimo, pense que ya no tenía soporte, genial que funcione
+		new Button(mainPanel).setCaption("Obtener valor de cuenta").onClick(() -> this.mostrarValorCuentaSeleccionada());
 		
 		new TextBox(mainPanel).setWidth(155).bindValueToProperty("rutaArchivo");
 		
@@ -69,21 +70,38 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 		}
 		
 		private void cargarArchivo(){
-			
 			MessageBox messageBox;
 			
 			try{
-				this.getModelObject().cargarEmpresas(this);
+				this.getModelObject().cargarEmpresas();
+				messageBox = new MessageBox(this, Type.Information);
+				messageBox.setMessage("Se han cargado exitosamente los datos!");
 			}
 			
 			catch (RuntimeException ex){
 				messageBox = new MessageBox(this, Type.Error);
 				messageBox.setMessage("La ruta del archivo no puede estar vacía!");
-				messageBox.open();
 			}
-
-		  
-	}
+			messageBox.open();
+		}
+		
+		private void mostrarValorCuentaSeleccionada(){
+			MessageBox messageBox;
+			
+			try {
+				messageBox = new MessageBox(this, Type.Information);
+				messageBox.setMessage("El valor de " + this.getModelObject().getCuentaActual().getNombre() + " es " + this.getModelObject().getCuentaActual().getValor());
+			}
+			
+			catch (RuntimeException ex){
+				messageBox = new MessageBox(this, Type.Error);
+				messageBox.setMessage("No has seleccionado algun campo");
+			}
+			
+			messageBox.open();
+		}
+		
+		
 	public static void main(String[] args) {
 	    //ArchivoMocking.escribirEnArchivo("archivoEmpresas.txt");
 		new mostrarCuentas().startApplication();
