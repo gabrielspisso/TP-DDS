@@ -20,9 +20,9 @@ public class cargadorDeEmpresasTest {
 		List<Cuenta> listaDeCuentas3 = Arrays.asList(new Cuenta("FREE CASH FLOW",3));
 		List<Cuenta> listaDeCuentas4 = Arrays.asList(new Cuenta("EBITDA",1),new Cuenta("INGRESO NETO DISCONTINUO",25000),new Cuenta("FDS",5000));
 		
-		List<Balance> listaDeBalances = Arrays.asList(new Balance("2017","Primer Semestre",listaDeCuentas),new Balance("2017","Segundo Semestre",listaDeCuentas2));
-		List<Balance> listaDeBalances2 = Arrays.asList(new Balance("2016","Anual",listaDeCuentas3));
-		List<Balance> listaDeBalances3 = Arrays.asList(new Balance("2016","Segundo Semestre",listaDeCuentas4));
+		List<Balance> listaDeBalances = Arrays.asList(new Balance(2017,"Primer Semestre",listaDeCuentas),new Balance(2017,"Segundo Semestre",listaDeCuentas2));
+		List<Balance> listaDeBalances2 = Arrays.asList(new Balance(2016,"Anual",listaDeCuentas3));
+		List<Balance> listaDeBalances3 = Arrays.asList(new Balance(2016,"Segundo Semestre",listaDeCuentas4));
 		
 		List<Empresa> x = Arrays.asList(new Empresa ("Facebook",listaDeBalances),new Empresa("Twitter",listaDeBalances2),new Empresa("Instagram",listaDeBalances3));
 		assertEquals("Facebook", CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt").get(0).toString());
@@ -41,9 +41,9 @@ public class cargadorDeEmpresasTest {
 		List<Cuenta> listaDeCuentas3 = Arrays.asList(new Cuenta("FREE CASH FLOW",3));
 		List<Cuenta> listaDeCuentas4 = Arrays.asList(new Cuenta("EBITDA",1),new Cuenta("INGRESO NETO DISCONTINUO",25000),new Cuenta("FDS",5000));
 		
-		List<Balance> listaDeBalances = Arrays.asList(new Balance("2017","Primer Semestre",listaDeCuentas),new Balance("2017","Segundo Semestre",listaDeCuentas2));
-		List<Balance> listaDeBalances2 = Arrays.asList(new Balance("2016","Anual",listaDeCuentas3));
-		List<Balance> listaDeBalances3 = Arrays.asList(new Balance("2016","Segundo Semestre",listaDeCuentas4));
+		List<Balance> listaDeBalances = Arrays.asList(new Balance(2017,"Primer Semestre",listaDeCuentas),new Balance(2017,"Segundo Semestre",listaDeCuentas2));
+		List<Balance> listaDeBalances2 = Arrays.asList(new Balance(2016,"Anual",listaDeCuentas3));
+		List<Balance> listaDeBalances3 = Arrays.asList(new Balance(2016,"Segundo Semestre",listaDeCuentas4));
 		
 		List<Empresa> x = Arrays.asList(new Empresa ("Facebook",listaDeBalances),new Empresa("Twitter",listaDeBalances2),new Empresa("Instagram",listaDeBalances3));
 		

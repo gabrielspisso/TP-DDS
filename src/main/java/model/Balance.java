@@ -7,7 +7,7 @@ import org.uqbar.commons.utils.Observable;
 
 public class Balance {
 	private String periodo;
-	private String anio;
+	private int anio;
 	private List<Cuenta> cuentas;
 	public String getPeriodo() {
 		return periodo;
@@ -15,7 +15,7 @@ public class Balance {
 	public void setPeriodo(String periodo) {
 		this.periodo = periodo;
 	}
-	public Balance(String anio,String periodo, List<Cuenta> cuentas) {
+	public Balance(int anio,String periodo, List<Cuenta> cuentas) {
 		this.anio = anio;
 		this.periodo = periodo;
 		this.cuentas = cuentas;
@@ -26,7 +26,7 @@ public class Balance {
 	public void setCuentas( List<Cuenta>  cuentas) {
 		this.cuentas = cuentas;
 	}
-	public String getAnio(){
+	public int getAnio(){
 		return anio;
 	}
 	@Override

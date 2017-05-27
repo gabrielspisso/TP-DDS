@@ -59,6 +59,10 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 		//.extensions("*.txt"); no funciona, nu se porque, en la documentación está
 		//Era porque iba arriba, antes del setCaption (santiago).
 		//Buenísimo, pense que ya no tenía soporte, genial que funcione
+		
+		//new Button(mainPanel).setCaption("Obtener valor de cuenta").onClick(() -> this.getModelObject().this.mostrarValorCuentaSeleccionada(this));
+		
+		
 		new Button(mainPanel).setCaption("Obtener valor de cuenta").onClick(() -> this.mostrarValorCuentaSeleccionada());
 		
 		new TextBox(mainPanel).setWidth(155).bindValueToProperty("rutaArchivo");
