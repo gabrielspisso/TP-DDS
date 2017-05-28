@@ -1,0 +1,73 @@
+PARSER_BEGIN(test)
+class test{
+	
+	public static void main(String[] args) throws  ParseException{
+	  		String ruta = "C:\\Users\\Gabriel\\Desktop\\prueba.txt";
+			try
+			{
+			    BufferedReader br = new BufferedReader(new FileReader(ruta));
+				test analizador = new test(br);
+				analizador.Programa();
+				System.out.println("Se compilo con exito");	
+			}
+			catch(ParseException ex)
+			{
+				System.out.println(ex.getMessage());
+				System.out.println("Se han encontrado errores");	
+			}
+			catch (FileNotFoundException e) {
+				System.out.println("No se encontro el archivo");
+			}
+		
+	}
+	
+}
+PARSER_END(test)
+TOKEN:
+{
+  	
+	<Identificador: (["a"-"z","A"-"Z"])+>{
+	  	token = new TipoDeToken("Identificador", image);
+	  }
+	|<Asignacion: "="  >{
+	  	token = new TipoDeToken("Asignacion", image);
+	  }
+	|<NUMERO: (["0"-"9"])+  >{
+	  	token = new TipoDeToken("NUMERO", image);
+	  }
+	|<Operador: "+" |"-"|"*"|"/">{
+	  	token = new TipoDeToken("Operador", image);
+	  }
+	|<FinDeLinea: ";" > {
+	  	token = new TipoDeToken("FinDeLinea", image);
+	  }
+
+}
+
+
+void Programa():
+{}
+{
+	(<Identificador><Asignacion>Operando()Operaciones()<FinDeLinea>)* <EOF>	
+}
+void Operando():
+{}
+{
+	<NUMERO>
+	|<Identificador>
+}
+void Operaciones():
+{}
+{
+	(<Operador>Operando())*
+}	
+
+SKIP:
+{
+  " "
+| "\n"
+| "\t"
+| "\r"
+}
+
+	
