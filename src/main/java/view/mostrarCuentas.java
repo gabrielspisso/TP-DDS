@@ -18,6 +18,7 @@ import model.Cuenta;
 import model.Empresa;
 import viewModel.crearIndicadoresViewModel;
 import viewModel.mostrarCuentaViewModel;
+import viewModel.mostrarIndicadorViewModel;
 
 
 public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
@@ -75,8 +76,11 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 		
 		
 		new Button(mainPanel)
-		.setCaption("abrir").onClick(() -> new crearIndicadores(this, new crearIndicadoresViewModel()).open());
+		.setCaption("abrir crear indicadores").onClick(() -> new crearIndicadores(this, new crearIndicadoresViewModel()).open());
 		
+		new Button(mainPanel)
+		.setCaption("abrir mostrar indicadores").onClick(() -> new mostrarIndicador(this, new mostrarIndicadorViewModel()).open());
+
 		//new crearIndicadores(this, new crearIndicadoresViewModel()).open();
 		}
 		

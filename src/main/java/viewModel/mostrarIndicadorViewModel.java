@@ -1,41 +1,27 @@
 package viewModel;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.uqbar.arena.windows.MessageBox;
-import org.uqbar.arena.windows.MessageBox.Type;
-import org.uqbar.arena.windows.Window;
 import org.uqbar.commons.model.ObservableUtils;
-import org.uqbar.commons.utils.Dependencies;
-import org.uqbar.commons.utils.Observable;
 
-import model.CargadorDeEmpresas;
 import model.Balance;
+import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
+import parser.Indicador;
 import repositorios.RepositorioDeEmpresas;
 
-@Observable
-public class mostrarCuentaViewModel {
+public class mostrarIndicadorViewModel {
 	private Empresa empresaActual; //= new Empresa("",Arrays.asList());
 	private Balance balanceActual ;//= new Balance("","",Arrays.asList());
-	private Cuenta cuentaActual; //= new Cuenta("",0);
 	private List<Balance> balances;
-	private List<Cuenta> cuentas;
-	private List<Empresa> empresas;
-	private String rutaArchivo;
+	private Indicador indicadorActual;
+	private List<Indicador> indicadores;
+	private List<Empresa> empresas = new ArrayList<>();
 	
-	public void setRutaArchivo(String rutaArchivo){
-		this.rutaArchivo = rutaArchivo;
-	}
-	
-	public String getRutaArchivo() {
-		return rutaArchivo;
-	}
-	
-	public void setCuentas(List<Cuenta> cuentas) {
-		this.cuentas = cuentas;
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
 	}
 
 
@@ -67,30 +53,13 @@ public class mostrarCuentaViewModel {
 
 	public void setBalanceActual(Balance balanceActual) {
 		this.balanceActual = balanceActual;
-		try{
-			this.setCuentas(balanceActual.getCuentas());	
-		}
-		catch(RuntimeException ex){
-			this.setCuentas(null);			
-			this.setCuentaActual(null);
-		}
 	}
 
-	public Cuenta getCuentaActual() {
-		return cuentaActual;
-	}
-
-	public void setCuentaActual(Cuenta cuentaActual) {
-		this.cuentaActual = cuentaActual;
-	}
-	
 	
 	public List<Balance> getBalances(){
 		return balances;
 	}
-	public List<Cuenta> getCuentas(){
-		return cuentas;
-	}
+
 	public String getPeriodo(){		
 		return balanceActual.getPeriodo();
 	}
@@ -99,11 +68,25 @@ public class mostrarCuentaViewModel {
 	public List<Empresa> getEmpresas(){
 		return RepositorioDeEmpresas.mostrarEmpresas();
 	}
-
 	
-	public void cargarEmpresas(){
-		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas(rutaArchivo));
-		ObservableUtils.firePropertyChanged(this,  "empresas");
+
+	public Indicador getIndicadorActual() {
+		return indicadorActual;
 	}
 
+
+	public void setIndicadorActual(Indicador indicadorActual) {
+		this.indicadorActual = indicadorActual;
+	}
+
+
+	public List<Indicador> getIndicadores() {
+		return indicadores;
+	}
+
+
+	public void setIndicadores(List<Indicador> indicadores) {
+		this.indicadores = indicadores;
+	}
+	
 }

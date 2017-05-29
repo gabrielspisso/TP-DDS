@@ -33,20 +33,6 @@ public class crearIndicadores extends Window<crearIndicadoresViewModel>{
 		setTitle("Consulta de valores de cuenta");
 		
 		mainPanel.setLayout(new ColumnLayout(2));
-		new Label(mainPanel).setText("Empresa: ");
-		
-		Selector<Empresa> selectorEmpresa = new Selector<Empresa>(mainPanel);
-		selectorEmpresa.bindValueToProperty("empresaActual");
-		selectorEmpresa.setWidth(165);
-		selectorEmpresa.bindItemsToProperty("empresas");
-		 
-		new Label(mainPanel).setText("Periodo: ");
-		
-		Selector<Balance> selectorPeriodo = new Selector<Balance>(mainPanel);
-		selectorPeriodo.setWidth(165);
-		selectorPeriodo.bindValueToProperty("balanceActual");
-		selectorPeriodo.bindItemsToProperty("balances");
-		
 		
 		
 		new Label(mainPanel).setText("Indicador a crear:");

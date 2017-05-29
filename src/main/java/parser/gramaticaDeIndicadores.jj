@@ -1,7 +1,3 @@
-options {
-	static = false;
-}
-
 PARSER_BEGIN(test)
 class test{
 	
@@ -31,22 +27,22 @@ PARSER_END(test)
 TOKEN:
 {
  <Identificador: (["a"-"z","A"-"Z"])+>{
-     System.out.println("Identificador "+ image); 
+     token = new TokenYTipo("Identificador", image);
    }
  |<Asignacion: "="  >{
-     System.out.println("Asignacion "+ image); 
+     token = new TokenYTipo("Asignacion", image); 
    }
  |<NUMERO: (["0"-"9"])+  >{
-     System.out.println("NUMERO "+ image); 
+     token = new TokenYTipo("NUMERO", image); 
    }
  |<OperadorPrimario: "+" |"-">{
-      System.out.println("OperadorPrimario "+ image); 
+      token = new TokenYTipo("OperadorPrimario", image);
    }
  |<OperadorSecundario: "*"|"/">{
-     System.out.println("OperadorSecundario "+ image); 
+     token = new TokenYTipo("OperadorSecundario", image); 
    }
  |<FinDeLinea: ";" > {
- System.out.println("Fin de linea" + image); 
+ token = new TokenYTipo("FinDeLinea", image);
    }
 
 }

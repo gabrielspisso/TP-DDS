@@ -1,5 +1,9 @@
 package viewModel;
+import parser.Indicador;
+import parser.TokenYTipo;
 import parser.test;
+import repositorios.RepositorioDeEmpresas;
+import repositorios.RepositorioDeIndicadores;
 
 import java.util.List;
 
@@ -10,13 +14,9 @@ import model.Balance;
 import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
-import repositoriosDeEmpresa.RepositorioDeEmpresa;
 
 @Observable
 public class crearIndicadoresViewModel {
-	private Empresa empresaActual; //= new Empresa("",Arrays.asList());
-	private Balance balanceActual ;//= new Balance("","",Arrays.asList());
-	private List<Balance> balances;
 	
 	private String indicadorActual;
 
@@ -28,53 +28,18 @@ public class crearIndicadoresViewModel {
 	public void setIndicadorActual(String indicadorActual) {
 		this.indicadorActual = indicadorActual;
 	}
-
-
-	public void setBalances(List<Balance> balances) {
-		this.balances = balances;
-		//this.setBalanceActual(balances.get(0));
-	}
-
-
-	public Empresa getEmpresaActual() {
-		return empresaActual;
-	}
-	
-	public void setEmpresaActual(Empresa empresaActual) {
-		try{
-			this.empresaActual = empresaActual;
-			this.setBalances(empresaActual.getBalances());				
-		}
-		catch(RuntimeException ex){
-			this.empresaActual = empresaActual;
-			this.balances = null;
-			setBalanceActual(null);
-		}		
-	}
-	
-	public Balance getBalanceActual() {
-		return balanceActual;
-	}
-
-	public void setBalanceActual(Balance balanceActual) {
-		this.balanceActual = balanceActual;
-	}
-
-	
-	public List<Balance> getBalances(){
-		return balances;
-	}
-	public String getPeriodo(){		
-		return balanceActual.getPeriodo();
-	}
-	
-	
-	public List<Empresa> getEmpresas(){
-		return RepositorioDeEmpresa.mostrarEmpresas();
-	}
 	
 	public void crearIndicador(){
-		//test.obtenerTokens(ruta)
+		try{
+			test.analizarLinea(indicadorActual);
+			List<TokenYTipo> lista = test.obtenerTokens();		
+			Indicador nuevoIndicador = new Indicador(lista.subList(2, lista.size()), lista.get(0).getValor());
+			RepositorioDeIndicadores.agregarIndicador(nuevoIndicador);
+			//System.out.println(nuevoIndicador.calcular(0, null, null));
+		}
+		catch(RuntimeException ex){
+			System.out.println(ex.getMessage());
+			//System.out.println("Ingresaste mal, boludo");
+		}
 	}
-
 }

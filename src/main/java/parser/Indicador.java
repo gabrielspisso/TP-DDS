@@ -17,6 +17,10 @@ public class Indicador {
 		this.nombre = nombre.toString();
 	}
 	
+	public List<TokenYTipo> getListaDeTokens() {
+		return listaDeTokens;
+	}
+
 	public void recibirToken(TokenYTipo token){
 		listaDeTokens.add(token);
 	}
@@ -51,11 +55,15 @@ public class Indicador {
 		case NUMERO:
 			acumulado += Double.parseDouble(token.getValor()) + quedanTokens(indice, listaDeCuentas, listaDeIndicadores);
 			break;
-		case Operador:
+		case OperadorPrimario:
 			if(token.getValor().equals("+")) acumulado = acumulado + calcular(indice+1, listaDeCuentas, listaDeIndicadores);
 			if(token.getValor().equals("-")) acumulado = acumulado - calcular(indice+1, listaDeCuentas, listaDeIndicadores);
-			if(token.getValor().equals("*")) acumulado = acumulado * calcular(indice+1, listaDeCuentas, listaDeIndicadores);
+			break;
+		case OperadorSecundario:
 			if(token.getValor().equals("/")) acumulado = acumulado / calcular(indice+1, listaDeCuentas, listaDeIndicadores);
+			if(token.getValor().equals("*")) acumulado = acumulado * calcular(indice+1, listaDeCuentas, listaDeIndicadores);
+			break;
+		case FinDeLinea:
 			break;
 		}
 		return acumulado;
@@ -115,7 +123,9 @@ public class Indicador {
 	public enum enNumero{
 		Identificador,
 		NUMERO,
-		Operador
+		OperadorPrimario,
+		OperadorSecundario,
+		FinDeLinea
 	}
 	
 

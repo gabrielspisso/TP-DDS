@@ -15,7 +15,7 @@ public class constructorDeIndicadores {
 	static List<Indicador> listaDeIndicadores = new ArrayList<>();
 	static String ruta = "C:\u005c\u005cUsers\u005c\u005cGabriel\u005c\u005cDesktop\u005c\u005cprueba.txt";
 	public void leerIndicadores(){
-		listaDeTokens = test.obtenerTokens(ruta);
+		//listaDeTokens = test.obtenerTokens(ruta);
 		
 		System.out.println("hola");
 		/*
@@ -27,7 +27,7 @@ public class constructorDeIndicadores {
 	}
 	
 	public static Indicador algo(){
-		listaDeTokens = test.obtenerTokens(ruta);
+		//listaDeTokens = test.obtenerTokens(ruta);
 		String nombre = listaDeTokens.get(0).getValor();
 		listaDeTokens.remove(0);
 		listaDeTokens.remove(0);
@@ -41,7 +41,7 @@ public class constructorDeIndicadores {
 	
 	
 	public static void main(String[] args){
-		Indicador var = algo();
+		//Indicador var = algo();
 		
 		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",7),new Cuenta("FREECASHFLOW",2));
 		/*
@@ -50,18 +50,39 @@ public class constructorDeIndicadores {
 		                                        new TokenYTipo("NUMERO", "2")
 		                                        );*/
 		
-		listaDeIndicadores.add(var);
+		//listaDeIndicadores.add(var);
 
-		System.out.println(var.calcular(0, listaDeCuentas, listaDeIndicadores));
+		//System.out.println(var.calcular(0, listaDeCuentas, listaDeIndicadores));
 		
 		String expresion = "Hola = 4 + 2;";
 		
 		InputStream stream = new ByteArrayInputStream(expresion.getBytes(StandardCharsets.UTF_8));
         
+		//System.out.println(test.obtenerTokens(expresion).get(2).getValor());
+		//test.obtenerTokens(expresion);
+		/*
+		 try
+         {
+			 test analizador = new test(stream);
+             analizador.Programa();
+             System.out.println("Se compilo con exito");
+             analizador.ReInit(stream);
+             //test analizador2 = new test(stream);
+             analizador.Programa();
+             System.out.println("Se compilo con exito");
+         }
+         catch(ParseException ex)
+         {
+                 System.out.println(ex.getMessage());
+                 System.out.println("Se han encontrado errores");
+         }*/
+		 
 		
-		test.ReInit(stream);
+		//test.obtenerTokens(expresion);
 		
-		test.obtenerTokens2(expresion);
+		//test.ReInit(stream);
+		
+		//test.obtenerTokens2(expresion);
 		
 		//Indicador var2 = new Indicador(lista, "PUtoelquelee");
 		
