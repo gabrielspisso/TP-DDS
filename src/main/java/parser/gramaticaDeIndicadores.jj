@@ -1,3 +1,7 @@
+options {
+	static = false;
+}
+
 PARSER_BEGIN(test)
 class test{
 	
@@ -23,24 +27,27 @@ class test{
 	
 }
 PARSER_END(test)
+
 TOKEN:
 {
-  	
-	<Identificador: (["a"-"z","A"-"Z"])+>{
-	  	token = new TipoDeToken("Identificador", image);
-	  }
-	|<Asignacion: "="  >{
-	  	token = new TipoDeToken("Asignacion", image);
-	  }
-	|<NUMERO: (["0"-"9"])+  >{
-	  	token = new TipoDeToken("NUMERO", image);
-	  }
-	|<Operador: "+" |"-"|"*"|"/">{
-	  	token = new TipoDeToken("Operador", image);
-	  }
-	|<FinDeLinea: ";" > {
-	  	token = new TipoDeToken("FinDeLinea", image);
-	  }
+ <Identificador: (["a"-"z","A"-"Z"])+>{
+     System.out.println("Identificador "+ image); 
+   }
+ |<Asignacion: "="  >{
+     System.out.println("Asignacion "+ image); 
+   }
+ |<NUMERO: (["0"-"9"])+  >{
+     System.out.println("NUMERO "+ image); 
+   }
+ |<OperadorPrimario: "+" |"-">{
+      System.out.println("OperadorPrimario "+ image); 
+   }
+ |<OperadorSecundario: "*"|"/">{
+     System.out.println("OperadorSecundario "+ image); 
+   }
+ |<FinDeLinea: ";" > {
+ System.out.println("Fin de linea" + image); 
+   }
 
 }
 
@@ -48,26 +55,32 @@ TOKEN:
 void Programa():
 {}
 {
-	(<Identificador><Asignacion>Operando()Operaciones()<FinDeLinea>)* <EOF>	
+ (<Identificador><Asignacion>OperacionPrimaria()<FinDeLinea>)* <EOF> 
 }
 void Operando():
 {}
 {
-	<NUMERO>
-	|<Identificador>
+ <NUMERO>
+ |<Identificador>
 }
-void Operaciones():
+
+
+void OperacionPrimaria():
 {}
 {
-	(<Operador>Operando())*
-}	
+ OperacionSecundaria()(<OperadorPrimario>OperacionSecundaria())*
+} 
 
+void OperacionSecundaria():
+{}
+{
+ Operando()(<OperadorSecundario>Operando())*
+ 
+ } 
 SKIP:
 {
   " "
 | "\n"
 | "\t"
 | "\r"
-}
-
-	
+}	

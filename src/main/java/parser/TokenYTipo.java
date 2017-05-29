@@ -1,6 +1,6 @@
 package parser;
 
-public class TipoDeToken {
+public class TokenYTipo {
 	private String tipo;
 	private String valor;
 	
@@ -12,9 +12,15 @@ public class TipoDeToken {
 		return valor;
 	}
 
-	public TipoDeToken(String t, StringBuilder v) {
+	public TokenYTipo(String t, StringBuilder v) {
 		tipo = t;
 		valor = v.toString();
 	}
+
+
+	public double calcular(){
+		return 0;
+	}
+
 	
 }

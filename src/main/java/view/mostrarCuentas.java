@@ -16,6 +16,7 @@ import model.Balance;
 import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
+import viewModel.crearIndicadoresViewModel;
 import viewModel.mostrarCuentaViewModel;
 
 
@@ -71,6 +72,12 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 		new Button(mainPanel)
 		.setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
 		
+		
+		
+		new Button(mainPanel)
+		.setCaption("abrir").onClick(() -> new crearIndicadores(this, new crearIndicadoresViewModel()).open());
+		
+		//new crearIndicadores(this, new crearIndicadoresViewModel()).open();
 		}
 		
 		private void cargarArchivo(){
@@ -109,7 +116,6 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 	public static void main(String[] args) {
 	    //ArchivoMocking.escribirEnArchivo("archivoEmpresas.txt");
 		new mostrarCuentas().startApplication();
-		
 		//new CargadorDeEmpresas().obtenerCuentasEmpresas();
 	}
 }
