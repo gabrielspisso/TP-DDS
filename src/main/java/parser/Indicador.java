@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.google.common.io.LittleEndianDataOutputStream;
+
 import model.Cuenta;
 
 
@@ -34,34 +36,71 @@ public class Indicador {
 		//nombre = aux;
 	}
 	
-	private double getValor(){
-		double valor = 0;
+	
+	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
+		List<TokenYTipo> listaNueva = new ArrayList<TokenYTipo>();
+		int i = 0;
+		while(i<listaDeTokens.size()-1){
+			//Si el proximo token es una operacion secundaria, lo calculo
+			if(elProximoTokenEsOperadorSecundario(i)){
+				TokenYTipo nuevoToken = calcularOperacionSecundaria(i+1, listaDeCuentas, listaDeIndicadores);
+				//Calculo el valor de la operacion y genero un nuevo token de tipo numero
+				listaNueva.add(nuevoToken);
+				i = i+3;
+			}
+			else{
+				listaNueva.add(listaDeTokens.get(i));
+				i++;
+			}
+		}
 		
-		return valor;
+		return calcular(0,0, listaNueva, listaDeCuentas, listaDeIndicadores);
 	}
 	
+	private boolean elProximoTokenEsOperadorSecundario(int indice){
+		if(indice+1 < listaDeTokens.size())
+			return listaDeTokens.get(indice+1).getTipo().equals("OperadorSecundario");
+		return false;
+	}
 	
+	private TokenYTipo calcularOperacionSecundaria(int indice, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
+		double valor;
+		List<TokenYTipo> listaNueva = cortarLista(listaDeTokens, indice-1, indice+1);
+		valor = calcular(0,0, listaNueva, listaDeCuentas, listaDeIndicadores);
+		return new TokenYTipo("NUMERO", Double.toString(valor));
+	}
 	
-	public double calcular(int indice, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
+	public List<TokenYTipo> cortarLista(List<TokenYTipo> lista, int inicio, int fin){
+		List<TokenYTipo> listaNueva = new ArrayList<TokenYTipo>();
+		for (int i = inicio; i <= fin; i++) {
+			listaNueva.add(lista.get(i));
+		}
+		return listaNueva;
+	}
+	
+	private double calcular(int indice, double acumulado,List<TokenYTipo> listaDeTokens, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
 		
-		double acumulado = 0;
 		TokenYTipo token = listaDeTokens.get(indice);
 
 		enNumero enumval = enNumero.valueOf(token.getTipo());
 		switch(enumval){
 		case Identificador:
-			acumulado += buscarValorDeIdentificador(token, listaDeCuentas, listaDeIndicadores) + quedanTokens(indice, listaDeCuentas, listaDeIndicadores);
+			acumulado = buscarValorDeIdentificador(token, listaDeTokens, listaDeCuentas, listaDeIndicadores);
+			acumulado = quedanTokens(indice, acumulado, listaDeTokens, listaDeCuentas, listaDeIndicadores);
 			break;
 		case NUMERO:
-			acumulado += Double.parseDouble(token.getValor()) + quedanTokens(indice, listaDeCuentas, listaDeIndicadores);
+			acumulado = Double.parseDouble(token.getValor());
+			acumulado = quedanTokens(indice, acumulado, listaDeTokens, listaDeCuentas, listaDeIndicadores);
 			break;
 		case OperadorPrimario:
-			if(token.getValor().equals("+")) acumulado = acumulado + calcular(indice+1, listaDeCuentas, listaDeIndicadores);
-			if(token.getValor().equals("-")) acumulado = acumulado - calcular(indice+1, listaDeCuentas, listaDeIndicadores);
+			if(token.getValor().equals("+")) acumulado = acumulado + calcular(indice+1, acumulado, listaDeTokens, listaDeCuentas, listaDeIndicadores);
+			if(token.getValor().equals("-")) acumulado = acumulado - calcular(indice+1, acumulado, listaDeTokens, listaDeCuentas, listaDeIndicadores);
 			break;
 		case OperadorSecundario:
-			if(token.getValor().equals("/")) acumulado = acumulado / calcular(indice+1, listaDeCuentas, listaDeIndicadores);
-			if(token.getValor().equals("*")) acumulado = acumulado * calcular(indice+1, listaDeCuentas, listaDeIndicadores);
+			if(token.getValor().equals("/")) acumulado = acumulado / 
+															calcular(indice+1,acumulado, listaDeTokens, listaDeCuentas, listaDeIndicadores);
+			if(token.getValor().equals("*")) acumulado = acumulado * 
+															calcular(indice+1, acumulado, listaDeTokens, listaDeCuentas, listaDeIndicadores);
 			break;
 		case FinDeLinea:
 			break;
@@ -69,20 +108,20 @@ public class Indicador {
 		return acumulado;
 	}
 	
-	public double quedanTokens(int indice, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
+	public double quedanTokens(int indice,double acumulado, List<TokenYTipo> listaDeTokens, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
 		if(listaDeTokens.size()-1 >indice)
-			return calcular(indice +1, listaDeCuentas, listaDeIndicadores);
-		return 0;
+			return calcular(indice +1, acumulado, listaDeTokens, listaDeCuentas, listaDeIndicadores);
+		return acumulado;
 	}
 	
-	private double buscarValorDeIdentificador(TokenYTipo token, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
+	private double buscarValorDeIdentificador(TokenYTipo token, List<TokenYTipo> listaDeTokens, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
 		try{
 			return buscarEnCuentas(token, listaDeIndicadores, listaDeCuentas);
 		}
 		catch(RuntimeException ex){
 			
 			try{
-				return buscarEnIndicadores(token, listaDeIndicadores, listaDeCuentas);
+				return buscarEnIndicadores(token,listaDeTokens, listaDeIndicadores, listaDeCuentas);
 			}
 			
 			catch(RuntimeException ex2){
@@ -106,7 +145,7 @@ public class Indicador {
 		}
 		return cuenta.getValor();
 	}
-	private double buscarEnIndicadores(TokenYTipo token, List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
+	private double buscarEnIndicadores(TokenYTipo token,List<TokenYTipo> listaDeTokens, List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
 		Indicador indicador;
 		try{
 			indicador = listaDeIndicadores.stream()
@@ -116,7 +155,7 @@ public class Indicador {
 		catch(NoSuchElementException e){
 			throw new RuntimeException("No se encontro");
 		}
-		return indicador.calcular(0, listaDeCuentas, listaDeIndicadores);
+		return indicador.calcularValor(listaDeCuentas, listaDeIndicadores);
 	}
 	
 

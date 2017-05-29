@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.Cuenta;
+import repositorios.RepositorioDeIndicadores;
 
 public class constructorDeIndicadores {
 
@@ -54,10 +55,22 @@ public class constructorDeIndicadores {
 
 		//System.out.println(var.calcular(0, listaDeCuentas, listaDeIndicadores));
 		
-		String expresion = "Hola = 4 + 2;";
+		String expresion = "Hola = 5 / 2 +2 ;";
 		
-		InputStream stream = new ByteArrayInputStream(expresion.getBytes(StandardCharsets.UTF_8));
-        
+		try{
+			test.analizarLinea(expresion);
+			List<TokenYTipo> lista = test.obtenerTokens();
+			String nombre = lista.get(0).getValor();
+			lista.remove(0);
+			lista.remove(0);
+			Indicador nuevoIndicador = new Indicador(lista, nombre);
+			RepositorioDeIndicadores.agregarIndicador(nuevoIndicador);
+			System.out.println(nuevoIndicador.calcularValor(null, null));
+		}
+		catch(RuntimeException ex){
+			System.out.println(ex.getMessage());
+			//System.out.println("Ingresaste mal, boludo");
+		}
 		//System.out.println(test.obtenerTokens(expresion).get(2).getValor());
 		//test.obtenerTokens(expresion);
 		/*

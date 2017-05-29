@@ -312,29 +312,29 @@ static void TokenLexicalActions(Token matchedToken, List<TokenYTipo> lista)
    {
       case 1 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-     token = new TokenYTipo("Identificador", image);
+     token = new TokenYTipo("Identificador", image.toString());
          break;
       case 2 :
         image.append(jjstrLiteralImages[2]);
         lengthOfMatch = jjstrLiteralImages[2].length();
-     token = new TokenYTipo("Asignacion", image);
+     token = new TokenYTipo("Asignacion", image.toString());
          break;
       case 3 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-     token = new TokenYTipo("NUMERO", image);
+     token = new TokenYTipo("NUMERO", image.toString());
          break;
       case 4 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-      token = new TokenYTipo("OperadorPrimario", image);
+      token = new TokenYTipo("OperadorPrimario", image.toString());
          break;
       case 5 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-     token = new TokenYTipo("OperadorSecundario", image);
+     token = new TokenYTipo("OperadorSecundario", image.toString());
          break;
       case 6 :
         image.append(jjstrLiteralImages[6]);
         lengthOfMatch = jjstrLiteralImages[6].length();
- token = new TokenYTipo("FinDeLinea", image);
+ token = new TokenYTipo("FinDeLinea", image.toString());
          break;
       default :
          break;

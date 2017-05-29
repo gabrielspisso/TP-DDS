@@ -12,9 +12,9 @@ public class TokenYTipo {
 		return valor;
 	}
 
-	public TokenYTipo(String t, StringBuilder v) {
+	public TokenYTipo(String t, String v) {
 		tipo = t;
-		valor = v.toString();
+		valor = v;
 	}
 
 
