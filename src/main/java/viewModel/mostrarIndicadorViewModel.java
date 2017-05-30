@@ -10,7 +10,7 @@ import model.Balance;
 import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
-import parser.Indicador;
+import model.Indicador;
 import repositorios.RepositorioDeEmpresas;
 import repositorios.RepositorioDeIndicadores;
 

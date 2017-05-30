@@ -1,5 +1,4 @@
 package viewModel;
-import parser.Indicador;
 import parser.SCANNER;
 import parser.TokenYTipo;
 import repositorios.RepositorioDeEmpresas;
@@ -14,6 +13,7 @@ import model.Balance;
 import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
+import model.Indicador;
 
 @Observable
 public class crearIndicadoresViewModel {

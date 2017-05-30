@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Empresa;
-import parser.Indicador;
+import model.Indicador;
 
 public class RepositorioDeIndicadores {
 	private static List<Indicador> listaDeIndicadores = new ArrayList<>();

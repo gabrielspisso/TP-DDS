@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.Cuenta;
+import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
 public class constructorDeIndicadores {
@@ -56,7 +57,7 @@ public class constructorDeIndicadores {
 
 		//System.out.println(var.calcular(0, listaDeCuentas, listaDeIndicadores));
 		
-		String expresion = "Hola = 8/2;";
+		String expresion = "Hola = 1/2/2/2 * -2.3;";
 		
 		try{
 			SCANNER.analizarLinea(expresion);
