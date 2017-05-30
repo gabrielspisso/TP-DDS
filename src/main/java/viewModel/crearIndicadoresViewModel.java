@@ -1,7 +1,7 @@
 package viewModel;
 import parser.Indicador;
+import parser.SCANNER;
 import parser.TokenYTipo;
-import parser.test;
 import repositorios.RepositorioDeEmpresas;
 import repositorios.RepositorioDeIndicadores;
 
@@ -31,8 +31,8 @@ public class crearIndicadoresViewModel {
 	
 	public void crearIndicador(){
 		try{
-			test.analizarLinea(indicadorActual + ";");
-			List<TokenYTipo> lista = test.obtenerTokens();
+			SCANNER.analizarLinea(indicadorActual + ";");
+			List<TokenYTipo> lista = SCANNER.obtenerTokens();
 			String nombre = lista.get(0).getValor();
 			
 			//if(lista.subList(2, lista.size()).stream().anyMatch(predicate))

@@ -56,18 +56,18 @@ public class constructorDeIndicadores {
 
 		//System.out.println(var.calcular(0, listaDeCuentas, listaDeIndicadores));
 		
-		String expresion = "Hola = FDS * 2 ;";
+		String expresion = "Hola = 2 * 2 ;";
 		
 		try{
-			test.analizarLinea(expresion);
-			List<TokenYTipo> lista = test.obtenerTokens();
+			SCANNER.analizarLinea(expresion);
+			List<TokenYTipo> lista = SCANNER.obtenerTokens();
 			String nombre = lista.get(0).getValor();
 			
 			List<TokenYTipo> lista2 = lista.subList(2, lista.size());
 			
 			TokenYTipo a = lista2.get(0);
 			
-			Indicador nuevoIndicador = new Indicador(lista, nombre);
+			Indicador nuevoIndicador = new Indicador(lista2, nombre);
 			RepositorioDeIndicadores.agregarIndicador(nuevoIndicador);
 			System.out.println(nuevoIndicador.calcularValor(listaDeCuentas, null));
 		}

@@ -1,5 +1,12 @@
-PARSER_BEGIN(test)
-class test{
+options
+{
+  LOOKAHEAD=2;
+  FORCE_LA_CHECK = true;
+}
+
+PARSER_BEGIN(SCANNER)
+
+class SCANNER{
  
  public static void main(String[] args) throws  ParseException{
    try
@@ -18,7 +25,7 @@ class test{
  }
  
 }
-PARSER_END(test)
+PARSER_END(SCANNER)
 
 TOKEN:
 {
@@ -28,8 +35,8 @@ TOKEN:
  |<Asignacion: "="  >{
      token = new TokenYTipo("Asignacion", image.toString());
    }
- |<NUMERO: (["0"-"9"])+("."(["0"-"9"])+)?  >{
-     token = new TokenYTipo("NUMERO", image.toString()); 
+ |<NUMERO: ("-")?(["0"-"9"])+("."(["0"-"9"])+)?  >{
+     token = new TokenYTipo("NUMERO", image.toString());
    }
  |<OperadorPrimario: "+" |"-">{
       token = new TokenYTipo("OperadorPrimario", image.toString()); 
@@ -66,8 +73,8 @@ void OperacionPrimaria():
 void OperacionSecundaria():
 {}
 {
-	Operando()(<OperadorSecundario>Operando())*
-	
+ Operando()(<OperadorSecundario>Operando())*
+ 
  } 
 SKIP:
 {
@@ -75,4 +82,4 @@ SKIP:
 | "\n"
 | "\t"
 | "\r"
-}	
+}
