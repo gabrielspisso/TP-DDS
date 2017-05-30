@@ -9,8 +9,9 @@ import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.MainWindow;
 import org.uqbar.arena.windows.MessageBox;
+import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
-
+import org.uqbar.arena.windows.Window;
 import model.ArchivoMocking;
 import model.Balance;
 import model.CargadorDeEmpresas;
@@ -20,14 +21,12 @@ import viewModel.crearIndicadoresViewModel;
 import viewModel.mostrarCuentaViewModel;
 import viewModel.mostrarIndicadorViewModel;
 
-
-public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
+public class mostrarCuentas extends Window<mostrarCuentaViewModel>{
 	
-	public mostrarCuentas() {
-		super(new mostrarCuentaViewModel());
+	public mostrarCuentas(WindowOwner owner, mostrarCuentaViewModel model) {
+		super(owner, model);
 		// TODO Auto-generated constructor stub
 	}
-
 	@Override
 	public void createContents(Panel mainPanel) {
 		setTitle("Consulta de valores de cuenta");
@@ -52,54 +51,14 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 		selectorCuenta.setWidth(165);
 		selectorCuenta.bindValueToProperty("cuentaActual");
 		selectorCuenta.bindItemsToProperty("cuentas");
-
-		new FileSelector(mainPanel)
-		.extensions("*.txt")
-		.setCaption("Seleccionar archivo")
-		.setWidth(165)
-		.bindValueToProperty("rutaArchivo");
-		//.extensions("*.txt"); no funciona, nu se porque, en la documentación está
-		//Era porque iba arriba, antes del setCaption (santiago).
-		//Buenísimo, pense que ya no tenía soporte, genial que funcione
 		
-		//new Button(mainPanel).setCaption("Obtener valor de cuenta").onClick(() -> this.getModelObject().this.mostrarValorCuentaSeleccionada(this));
+		new Button(mainPanel).setCaption("Obtener valor de la cuenta").onClick(() -> this.mostrarValorCuentaSeleccionada());
 		
 		
-		new Button(mainPanel).setCaption("Obtener valor de cuenta").onClick(() -> this.mostrarValorCuentaSeleccionada());
-		
-		new TextBox(mainPanel).setWidth(155).bindValueToProperty("rutaArchivo");
-		
-		
-		new Button(mainPanel)
-		.setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
-		
-		
-		
-		new Button(mainPanel)
-		.setCaption("abrir crear indicadores").onClick(() -> new crearIndicadores(this, new crearIndicadoresViewModel()).open());
-		
-		new Button(mainPanel)
-		.setCaption("abrir mostrar indicadores").onClick(() -> new mostrarIndicador(this, new mostrarIndicadorViewModel()).open());
-
 		//new crearIndicadores(this, new crearIndicadoresViewModel()).open();
 		}
 		
-		private void cargarArchivo(){
-			MessageBox messageBox;
-			
-			try{
-				this.getModelObject().cargarEmpresas();
-				messageBox = new MessageBox(this, Type.Information);
-				messageBox.setMessage("Se han cargado exitosamente los datos!");
-			}
-			
-			catch (RuntimeException ex){
-				messageBox = new MessageBox(this, Type.Error);
-				messageBox.setMessage("La ruta del archivo no puede estar vacía!");
-			}
-			messageBox.open();
-		}
-		
+	
 		private void mostrarValorCuentaSeleccionada(){
 			MessageBox messageBox;
 			
@@ -116,10 +75,4 @@ public class mostrarCuentas extends MainWindow<mostrarCuentaViewModel>{
 			messageBox.open();
 		}
 		
-		
-	public static void main(String[] args) {
-	    //ArchivoMocking.escribirEnArchivo("archivoEmpresas.txt");
-		new mostrarCuentas().startApplication();
-		//new CargadorDeEmpresas().obtenerCuentasEmpresas();
-	}
 }

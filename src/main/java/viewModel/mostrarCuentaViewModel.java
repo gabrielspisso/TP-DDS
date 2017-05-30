@@ -24,15 +24,7 @@ public class mostrarCuentaViewModel {
 	private List<Balance> balances;
 	private List<Cuenta> cuentas;
 	private List<Empresa> empresas;
-	private String rutaArchivo;
-	
-	public void setRutaArchivo(String rutaArchivo){
-		this.rutaArchivo = rutaArchivo;
-	}
-	
-	public String getRutaArchivo() {
-		return rutaArchivo;
-	}
+
 	
 	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
@@ -101,9 +93,6 @@ public class mostrarCuentaViewModel {
 	}
 
 	
-	public void cargarEmpresas(){
-		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas(rutaArchivo));
-		ObservableUtils.firePropertyChanged(this,  "empresas");
-	}
+	
 
 }
