@@ -34,7 +34,12 @@ public class crearIndicadoresViewModel {
 			test.analizarLinea(indicadorActual + ";");
 			List<TokenYTipo> lista = test.obtenerTokens();
 			String nombre = lista.get(0).getValor();
+			
+			//if(lista.subList(2, lista.size()).stream().anyMatch(predicate))
+				
 			Indicador nuevoIndicador = new Indicador(lista.subList(2, lista.size()), nombre);
+			
+			
 			RepositorioDeIndicadores.agregarIndicador(nuevoIndicador);
 			//System.out.println(nuevoIndicador.calcularValor(null, RepositorioDeIndicadores.getListaDeIndicadores()));
 		}

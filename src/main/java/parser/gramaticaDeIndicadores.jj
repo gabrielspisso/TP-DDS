@@ -1,48 +1,44 @@
 PARSER_BEGIN(test)
 class test{
-	
-	public static void main(String[] args) throws  ParseException{
-	  		String ruta = "C:\\Users\\Gabriel\\Desktop\\prueba.txt";
-			try
-			{
-			    BufferedReader br = new BufferedReader(new FileReader(ruta));
-				test analizador = new test(br);
-				analizador.Programa();
-				System.out.println("Se compilo con exito");	
-			}
-			catch(ParseException ex)
-			{
-				System.out.println(ex.getMessage());
-				System.out.println("Se han encontrado errores");	
-			}
-			catch (FileNotFoundException e) {
-				System.out.println("No se encontro el archivo");
-			}
-		
-	}
-	
+ 
+ public static void main(String[] args) throws  ParseException{
+   try
+   {
+    test analizador = new test(System.in);
+    analizador.Programa();
+    System.out.println("Se compilo con exito"); 
+   }
+   catch(ParseException ex)
+   {
+    System.out.println(ex.getMessage());
+    System.out.println("Se han encontrado errores"); 
+   }
+
+  
+ }
+ 
 }
 PARSER_END(test)
 
 TOKEN:
 {
- <Identificador: (["a"-"z","A"-"Z"])+>{
-     token = new TokenYTipo("Identificador", image);
+ <Identificador: ["a"-"z","A"-"Z"](["a"-"z","A"-"Z","_","0"-"9"])*>{
+     token = new TokenYTipo("Identificador", image.toString());
    }
  |<Asignacion: "="  >{
-     token = new TokenYTipo("Asignacion", image); 
+     token = new TokenYTipo("Asignacion", image.toString());
    }
- |<NUMERO: (["0"-"9"])+  >{
-     token = new TokenYTipo("NUMERO", image); 
+ |<NUMERO: (["0"-"9"])+("."(["0"-"9"])+)?  >{
+     token = new TokenYTipo("NUMERO", image.toString()); 
    }
  |<OperadorPrimario: "+" |"-">{
-      token = new TokenYTipo("OperadorPrimario", image);
+      token = new TokenYTipo("OperadorPrimario", image.toString()); 
    }
  |<OperadorSecundario: "*"|"/">{
-     token = new TokenYTipo("OperadorSecundario", image); 
+     token = new TokenYTipo("OperadorSecundario", image.toString());
    }
  |<FinDeLinea: ";" > {
- token = new TokenYTipo("FinDeLinea", image);
+ 	token = new TokenYTipo("FinDeLinea", image.toString());
    }
 
 }
@@ -70,8 +66,8 @@ void OperacionPrimaria():
 void OperacionSecundaria():
 {}
 {
- Operando()(<OperadorSecundario>Operando())*
- 
+	Operando()(<OperadorSecundario>Operando())*
+	
  } 
 SKIP:
 {

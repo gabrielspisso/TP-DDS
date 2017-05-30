@@ -152,6 +152,7 @@ public class Indicador {
 	}
 	private double buscarEnIndicadores(TokenYTipo token,List<TokenYTipo> listaDeTokens, List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
 		Indicador indicador;
+		
 		try{
 			indicador = listaDeIndicadores.stream()
 				.filter(x -> x.getNombre().equals(token.getValor()))
