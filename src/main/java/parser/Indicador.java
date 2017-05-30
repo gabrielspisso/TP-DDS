@@ -14,6 +14,11 @@ public class Indicador {
 	int valor;
 	List<TokenYTipo> listaDeTokens;
 	
+	@Override
+	public String toString(){
+		return nombre;
+	}
+	
 	public Indicador(List<TokenYTipo> listaDeTokens, String nombre) { //Falta agregar la de cuentas
 		this.listaDeTokens = listaDeTokens;
 		this.nombre = nombre.toString();
@@ -127,7 +132,7 @@ public class Indicador {
 			catch(RuntimeException ex2){
 				throw new RuntimeException("el valor "+ 
 						token.getValor() +
-						"no se encontro enlistado en las cuentas ni los indicadores");
+						" no se encontro enlistado en las cuentas ni los indicadores");
 			}
 			
 		}

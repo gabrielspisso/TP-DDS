@@ -31,11 +31,12 @@ public class crearIndicadoresViewModel {
 	
 	public void crearIndicador(){
 		try{
-			test.analizarLinea(indicadorActual);
-			List<TokenYTipo> lista = test.obtenerTokens();		
-			Indicador nuevoIndicador = new Indicador(lista.subList(2, lista.size()), lista.get(0).getValor());
+			test.analizarLinea(indicadorActual + ";");
+			List<TokenYTipo> lista = test.obtenerTokens();
+			String nombre = lista.get(0).getValor();
+			Indicador nuevoIndicador = new Indicador(lista.subList(2, lista.size()), nombre);
 			RepositorioDeIndicadores.agregarIndicador(nuevoIndicador);
-			System.out.println(nuevoIndicador.calcularValor(null, null));
+			//System.out.println(nuevoIndicador.calcularValor(null, RepositorioDeIndicadores.getListaDeIndicadores()));
 		}
 		catch(RuntimeException ex){
 			System.out.println(ex.getMessage());

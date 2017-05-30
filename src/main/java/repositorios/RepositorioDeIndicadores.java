@@ -14,6 +14,8 @@ public class RepositorioDeIndicadores {
 	}
 
 	public static void agregarIndicador(Indicador indicador) {
+		//listaDeIndicadores.stream().anyMatch();
+		listaDeIndicadores.removeIf(x-> x.getNombre().equals(indicador.getNombre()));
 		listaDeIndicadores.add(indicador);
 	}
 	

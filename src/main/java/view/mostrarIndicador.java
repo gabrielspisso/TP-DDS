@@ -55,21 +55,37 @@ setTitle("Consulta de valores de indicadores");
 		selectorIndicador.bindValueToProperty("indicadorActual");
 		selectorIndicador.bindItemsToProperty("indicadores");
 		
-		new Button(mainPanel).setCaption("Obtener valor de cuenta").onClick(() -> this.mostrarValorDeIndicadorSeleccionado());
-	
-		
-		
-		
-		
-		new Button(mainPanel)
-		.setCaption("abrir").onClick(() -> new crearIndicadores(this, new crearIndicadoresViewModel()).open());
-
+		new Button(mainPanel).setCaption("Obtener valor de indicador").onClick(() -> this.mostrarValorDeIndicadorSeleccionado());
 		
 	}
 
-	private Object mostrarValorDeIndicadorSeleccionado() {
+	private void mostrarValorDeIndicadorSeleccionado() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		MessageBox messageBox;
+		
+		try {
+			messageBox = new MessageBox(this, Type.Information);
+			messageBox.setMessage("El valor del indicador " + 
+							this.getModelObject().getIndicadorActual().getNombre() + 
+							" es " + 
+							this.getModelObject().obtenerValorDeIndicador());
+		}
+		
+		catch (RuntimeException ex){
+			messageBox = new MessageBox(this, Type.Error);
+			try{
+			messageBox.setMessage("ERROR EN EL INDICADOR " +
+									getModelObject().getIndicadorActual().getNombre()+
+									": " +
+									ex.getMessage());
+			}
+			catch(RuntimeException ex2){
+				messageBox.setMessage("Se deben completar los campos");
+			}
+		}
+		
+		messageBox.open();
 	}
 	
 }

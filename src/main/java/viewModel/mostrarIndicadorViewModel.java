@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uqbar.commons.model.ObservableUtils;
+import org.uqbar.commons.utils.Observable;
 
 import model.Balance;
 import model.CargadorDeEmpresas;
@@ -11,7 +12,9 @@ import model.Cuenta;
 import model.Empresa;
 import parser.Indicador;
 import repositorios.RepositorioDeEmpresas;
+import repositorios.RepositorioDeIndicadores;
 
+@Observable
 public class mostrarIndicadorViewModel {
 	private Empresa empresaActual; //= new Empresa("",Arrays.asList());
 	private Balance balanceActual ;//= new Balance("","",Arrays.asList());
@@ -81,12 +84,17 @@ public class mostrarIndicadorViewModel {
 
 
 	public List<Indicador> getIndicadores() {
-		return indicadores;
+		return RepositorioDeIndicadores.getListaDeIndicadores();
 	}
 
 
 	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
+	}
+	
+	public String obtenerValorDeIndicador(){
+			return 
+					Double.toString(indicadorActual.calcularValor(balanceActual.getCuentas(), RepositorioDeIndicadores.getListaDeIndicadores()));			
 	}
 	
 }
