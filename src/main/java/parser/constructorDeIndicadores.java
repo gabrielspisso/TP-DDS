@@ -56,14 +56,14 @@ public class constructorDeIndicadores {
 
 		//System.out.println(var.calcular(0, listaDeCuentas, listaDeIndicadores));
 		
-		String expresion = "Hola = 2 * 2 ;";
+		String expresion = "Hola = 8/2;";
 		
 		try{
 			SCANNER.analizarLinea(expresion);
 			List<TokenYTipo> lista = SCANNER.obtenerTokens();
 			String nombre = lista.get(0).getValor();
 			
-			List<TokenYTipo> lista2 = lista.subList(2, lista.size());
+			List<TokenYTipo> lista2 = lista.subList(2, lista.size()-1);
 			
 			TokenYTipo a = lista2.get(0);
 			

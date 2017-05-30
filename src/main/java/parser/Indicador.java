@@ -36,57 +36,50 @@ public class Indicador {
 		return nombre;
 	}
 	
-	private void arreglarNombre(StringBuilder nombre){
-		String aux = nombre.substring(nombre.toString().length()-1);
-		//nombre = aux;
-	}
-	
-	
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
-		List<TokenYTipo> listaNueva = new ArrayList<TokenYTipo>();
-		int i = 0;
-		while(i<listaDeTokens.size()-1){
-			//Si el proximo token es una operacion secundaria, lo calculo
-			if(elProximoTokenEsOperadorSecundario(i)){
-				TokenYTipo nuevoToken = calcularOperacionSecundaria(i+1, listaDeCuentas, listaDeIndicadores);
-				//Calculo el valor de la operacion y genero un nuevo token de tipo numero
-				listaNueva.add(nuevoToken);
-				i = i+3;
+		
+		double valorAcumulado = 0;
+		int indiceDelUltimoOperador = 0;
+		int proximoSigno = 1;
+		for (int i = 0; i < listaDeTokens.size(); i++) {
+			if(esOperadorPrimario(i)){
+				valorAcumulado += calcularTermino(
+						listaDeTokens.subList(indiceDelUltimoOperador, i),
+						listaDeCuentas, listaDeIndicadores)
+						* proximoSigno;
+				proximoSigno = valorDeOperacion(i);
+				indiceDelUltimoOperador = i+1;
 			}
-			else{
-				listaNueva.add(listaDeTokens.get(i));
-				i++;
+			if(i == listaDeTokens.size()-1){
+				valorAcumulado += calcularTermino(
+						listaDeTokens.subList(indiceDelUltimoOperador, i+1),
+						listaDeCuentas, listaDeIndicadores)
+						* proximoSigno;
 			}
 		}
 		
-		return calcular(0,0, listaNueva, listaDeCuentas, listaDeIndicadores);
+		return valorAcumulado;
 	}
 	
-	private boolean elProximoTokenEsOperadorSecundario(int indice){
-		if(indice+1 < listaDeTokens.size())
-			return listaDeTokens.get(indice+1).getTipo().equals("OperadorSecundario");
-		return false;
+	private int valorDeOperacion(int i) {
+		if(listaDeTokens.get(i).getValor().equals("+"))
+			return 1;
+		else
+			return -1;
+	}
+
+	private boolean esOperadorPrimario(int index){
+		return listaDeTokens.get(index).getTipo().equals("OperadorPrimario");
 	}
 	
-	private TokenYTipo calcularOperacionSecundaria(int indice, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
-		double valor;
-		List<TokenYTipo> listaNueva = cortarLista(listaDeTokens, indice-1, indice+1);
-		valor = calcular(0,0, listaNueva, listaDeCuentas, listaDeIndicadores);
-		return new TokenYTipo("NUMERO", Double.toString(valor));
-	}
-	
-	public List<TokenYTipo> cortarLista(List<TokenYTipo> lista, int inicio, int fin){
-		List<TokenYTipo> listaNueva = new ArrayList<TokenYTipo>();
-		for (int i = inicio; i <= fin; i++) {
-			listaNueva.add(lista.get(i));
-		}
-		return listaNueva;
+	private double calcularTermino(List<TokenYTipo> lista, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
+		
+		return calcular(0, 0, lista, listaDeCuentas,listaDeIndicadores);
 	}
 	
 	private double calcular(int indice, double acumulado,List<TokenYTipo> listaDeTokens, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
 		
 		TokenYTipo token = listaDeTokens.get(indice);
-
 		enNumero enumval = enNumero.valueOf(token.getTipo());
 		switch(enumval){
 		case Identificador:
@@ -96,10 +89,6 @@ public class Indicador {
 		case NUMERO:
 			acumulado = Double.parseDouble(token.getValor());
 			acumulado = quedanTokens(indice, acumulado, listaDeTokens, listaDeCuentas, listaDeIndicadores);
-			break;
-		case OperadorPrimario:
-			if(token.getValor().equals("+")) acumulado = acumulado + calcular(indice+1, acumulado, listaDeTokens, listaDeCuentas, listaDeIndicadores);
-			if(token.getValor().equals("-")) acumulado = acumulado - calcular(indice+1, acumulado, listaDeTokens, listaDeCuentas, listaDeIndicadores);
 			break;
 		case OperadorSecundario:
 			if(token.getValor().equals("/")) acumulado = acumulado / 
@@ -113,8 +102,10 @@ public class Indicador {
 		return acumulado;
 	}
 	
+
+	
 	public double quedanTokens(int indice,double acumulado, List<TokenYTipo> listaDeTokens, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
-		if(listaDeTokens.size()-1 >indice)
+		if(listaDeTokens.size()-1 >indice+1)
 			return calcular(indice +1, acumulado, listaDeTokens, listaDeCuentas, listaDeIndicadores);
 		return acumulado;
 	}
