@@ -1,1 +1,23 @@
-{"nombre":"a","listaDeTokens":[{"tipo":"NUMERO","valor":"2"},{"tipo":"OperadorPrimario","valor":"+"},{"tipo":"NUMERO","valor":"2"},{"tipo":"FinDeLinea","valor":";"}]}{"nombre":"b","listaDeTokens":[{"tipo":"NUMERO","valor":"1"},{"tipo":"OperadorPrimario","valor":"+"},{"tipo":"NUMERO","valor":"1"},{"tipo":"FinDeLinea","valor":";"}]}
+[
+  {
+    "nombre": "a",
+    "listaDeTokens": [
+      {
+        "tipo": "NUMERO",
+        "valor": "1"
+      },
+      {
+        "tipo": "OperadorPrimario",
+        "valor": "+"
+      },
+      {
+        "tipo": "NUMERO",
+        "valor": "1"
+      },
+      {
+        "tipo": "FinDeLinea",
+        "valor": ";"
+      }
+    ]
+  }
+]

@@ -100,4 +100,8 @@ public class mostrarIndicadorViewModel {
 	public void cargarIndicadoresDefinidos(){
 		RepositorioDeIndicadores.cargarIndicadoresDefinidos();
 	}
+	
+	public void guardarIndicadores(){
+		RepositorioDeIndicadores.guardarIndicadores();
+	}
 }

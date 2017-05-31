@@ -50,7 +50,7 @@ public class crearIndicadoresViewModel {
 			RepositorioDeIndicadores.agregarIndicador(nuevoIndicador);
 			//System.out.println(nuevoIndicador.calcularValor(null, RepositorioDeIndicadores.getListaDeIndicadores()));
 			
-			IOIndicadores.escribirArchivo(nuevoIndicador);
+			//IOIndicadores.escribirArchivo(nuevoIndicador);
 	
 	}
 	public boolean isNoEstaVacio(){

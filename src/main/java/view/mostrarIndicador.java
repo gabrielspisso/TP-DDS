@@ -59,6 +59,8 @@ setTitle("Consulta de valores de indicadores");
 		
 		new Button(mainPanel).setCaption("Cargar indicadores ya ingresados").onClick(() -> this.cargarIndicadoresDefinidos());
 		
+		new Button(mainPanel).setCaption("Guardar indicadores ingresados").onClick(() -> this.guardarIndicadores());
+		
 	}
 
 	private void mostrarValorDeIndicadorSeleccionado() {
@@ -95,7 +97,16 @@ setTitle("Consulta de valores de indicadores");
 			this.getModelObject().cargarIndicadoresDefinidos();
 		}
 		catch(RuntimeException e) {
-			System.out.println("aaaa"); //<---son las 5 AM y me quiero ir a dormir
+			System.out.println("NO SE PUDO"); //<---son las 6 AM y me quiero ir a dormir
+		}
+	}
+	
+	private void guardarIndicadores(){
+		try {
+			this.getModelObject().guardarIndicadores();
+		}
+		catch(RuntimeException e) {
+			System.out.println("ROTO");
 		}
 	}
 	

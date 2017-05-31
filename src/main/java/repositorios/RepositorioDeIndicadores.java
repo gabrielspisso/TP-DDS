@@ -24,5 +24,9 @@ public class RepositorioDeIndicadores {
 	public static void cargarIndicadoresDefinidos(){
 		IOIndicadores.leerArchivo();
 	}
-
+	
+	public static void guardarIndicadores(){
+		IOIndicadores.escribirArchivo(listaDeIndicadores);
+	}
+	
 }
