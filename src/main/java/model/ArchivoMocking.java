@@ -60,7 +60,9 @@ public class ArchivoMocking {
 	public static List<Empresa> leerArchivo(String ruta){
 		String json = readFileAsString(ruta);
 		Type listType = new TypeToken<List<Empresa>>(){}.getType();
+			
 		List<Empresa> listaDeEmpresas = new Gson().fromJson(json, listType); 
+	
 		return listaDeEmpresas;
 	}
 }

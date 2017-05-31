@@ -39,7 +39,10 @@ public class crearIndicadores extends Window<crearIndicadoresViewModel>{
 		
 		new TextBox(mainPanel).bindValueToProperty("indicadorActual");
 		
-		new Button(mainPanel).setCaption("Crear Indicador").onClick(() -> this.getModelObject().crearIndicador());
+		new Button(mainPanel)
+		.setCaption("Crear indicador")
+		.onClick(() -> this.crearIndicador())
+		.bindEnabledToProperty("noEstaVacio");
 		//.extensions("*.txt"); no funciona, nu se porque, en la documentación está
 		//Era porque iba arriba, antes del setCaption (santiago).
 		//Buenísimo, pense que ya no tenía soporte, genial que funcione
@@ -51,5 +54,20 @@ public class crearIndicadores extends Window<crearIndicadoresViewModel>{
 		
 
 		
+	}
+	public void crearIndicador(){
+		MessageBox messageBox;
+		
+		try {
+			this.getModelObject().crearIndicador();
+			messageBox = new MessageBox(this, Type.Information);
+			messageBox.setMessage("Se creo correctamente!" );
+		}
+		
+		catch (RuntimeException ex){
+			messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage(ex.getMessage());
+		}
+		messageBox.open();
 	}
 }

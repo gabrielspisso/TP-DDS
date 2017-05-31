@@ -18,8 +18,9 @@ import model.Indicador;
 @Observable
 public class crearIndicadoresViewModel {
 	
-	private String indicadorActual;
-
+	private String indicadorActual="";
+	
+	
 	public String getIndicadorActual() {
 		return indicadorActual;
 	}
@@ -27,13 +28,18 @@ public class crearIndicadoresViewModel {
 
 	public void setIndicadorActual(String indicadorActual) {
 		this.indicadorActual = indicadorActual;
+		ObservableUtils.firePropertyChanged(this, "noEstaVacio");
 	}
 	
 	public void crearIndicador(){
-		try{
+
 			SCANNER.analizarLinea(indicadorActual + ";");
 			List<TokenYTipo> lista = SCANNER.obtenerTokens();
 			String nombre = lista.get(0).getValor();
+			List<TokenYTipo> listaDeTokens =lista.subList(2, lista.size());
+			if (listaDeTokens.stream().anyMatch(x->x.getValor().equals(nombre)) )
+				throw new RuntimeException("Ingreso una definicion recursiva ") ;
+			
 			
 			//if(lista.subList(2, lista.size()).stream().anyMatch(predicate))
 				
@@ -42,10 +48,11 @@ public class crearIndicadoresViewModel {
 			
 			RepositorioDeIndicadores.agregarIndicador(nuevoIndicador);
 			//System.out.println(nuevoIndicador.calcularValor(null, RepositorioDeIndicadores.getListaDeIndicadores()));
-		}
-		catch(RuntimeException ex){
-			System.out.println(ex.getMessage());
-			//System.out.println("Ingresaste mal, boludo");
-		}
+			
+	
 	}
+	public boolean isNoEstaVacio(){
+		return !indicadorActual.isEmpty();
+	}
+
 }

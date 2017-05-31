@@ -57,7 +57,7 @@ public class constructorDeIndicadores {
 
 		//System.out.println(var.calcular(0, listaDeCuentas, listaDeIndicadores));
 		
-		String expresion = "Hola = 1/2/2/2 * -2.3;";
+		String expresion = "Hola = -2.3 * Hola;";
 		
 		try{
 			SCANNER.analizarLinea(expresion);
@@ -67,6 +67,10 @@ public class constructorDeIndicadores {
 			List<TokenYTipo> lista2 = lista.subList(2, lista.size()-1);
 			
 			TokenYTipo a = lista2.get(0);
+			if (lista2.stream().anyMatch(x->x.getValor().equals(nombre)) )
+				System.out.println("puto");
+				//throw new RuntimeException("Ingreso una definicion recursiva ") ;
+			 
 			
 			Indicador nuevoIndicador = new Indicador(lista2, nombre);
 			RepositorioDeIndicadores.agregarIndicador(nuevoIndicador);

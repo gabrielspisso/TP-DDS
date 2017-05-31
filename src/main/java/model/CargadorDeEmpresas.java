@@ -6,7 +6,8 @@ import java.util.List;
 public class CargadorDeEmpresas {
 	
 	public static List<Empresa> obtenerCuentasEmpresas(String ruta){
-		return ArchivoMocking.leerArchivo(ruta);
+
+			return ArchivoMocking.leerArchivo(ruta);
 	}
 
 }

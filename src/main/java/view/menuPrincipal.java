@@ -9,6 +9,7 @@ import org.uqbar.arena.windows.MainWindow;
 
 import parser.Token;
 import viewModel.cargarArchivoViewModel;
+import viewModel.crearIndicadoresViewModel;
 import viewModel.mostrarCuentaViewModel;
 import viewModel.mostrarIndicadorViewModel;
 
@@ -23,16 +24,19 @@ public class menuPrincipal extends MainWindow<mostrarCuentaViewModel> {
 		// TODO Auto-generated method stub
 		setTitle("Menú principal para inversionistas");
 		
-		mainPanel.setLayout(new ColumnLayout(3));
+		mainPanel.setLayout(new ColumnLayout(2));
 		
-		new Label(mainPanel).setText("Indicador a crear:");
-		new Label(mainPanel).setText("Indicador a crear:");
-		new Label(mainPanel).setText("Indicador a crear:");
-		
-		
-		new Button(mainPanel).setCaption("Ver el valor de una cuentas").onClick(() -> new mostrarCuentas(this,new mostrarCuentaViewModel()).open());
+		new Label(mainPanel).setText("Ver valor de un indicador:");
+		new Label(mainPanel).setText("ver valor de un indicador:");
 		new Button(mainPanel).setCaption("Ver el valor de un indicador").onClick(() -> new mostrarIndicador(this, new mostrarIndicadorViewModel()).open());
+		new Button(mainPanel).setCaption("Ver el valor de una cuentas").onClick(() -> new mostrarCuentas(this,new mostrarCuentaViewModel()).open());
+		
+		
+		new Label(mainPanel).setText("Cargar un archivo:");
+		new Label(mainPanel).setText("Crear un indicador:");
+
 		new Button(mainPanel).setCaption("Cargar un archivo de empresas").onClick(() -> new cargarArchivo(this,new cargarArchivoViewModel()).open());
+		new Button(mainPanel).setCaption("Crear indicador ").onClick(() -> new crearIndicadores(this,new crearIndicadoresViewModel()).open());
 		
 	}
 	public static void main(String[] args) {
