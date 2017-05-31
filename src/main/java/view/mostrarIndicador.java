@@ -57,6 +57,8 @@ setTitle("Consulta de valores de indicadores");
 		
 		new Button(mainPanel).setCaption("Obtener valor de indicador").onClick(() -> this.mostrarValorDeIndicadorSeleccionado());
 		
+		new Button(mainPanel).setCaption("Cargar indicadores ya ingresados").onClick(() -> this.cargarIndicadoresDefinidos());
+		
 	}
 
 	private void mostrarValorDeIndicadorSeleccionado() {
@@ -85,6 +87,16 @@ setTitle("Consulta de valores de indicadores");
 		}
 		
 		messageBox.open();
+	}
+	
+	private void cargarIndicadoresDefinidos() {
+		MessageBox messageBox;
+		try {
+			this.getModelObject().cargarIndicadoresDefinidos();
+		}
+		catch(RuntimeException e) {
+			System.out.println("aaaa"); //<---son las 5 AM y me quiero ir a dormir
+		}
 	}
 	
 }

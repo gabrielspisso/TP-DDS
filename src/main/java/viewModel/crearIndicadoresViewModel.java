@@ -14,6 +14,7 @@ import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
 import model.Indicador;
+import model.IOIndicadores;
 
 @Observable
 public class crearIndicadoresViewModel {
@@ -49,6 +50,7 @@ public class crearIndicadoresViewModel {
 			RepositorioDeIndicadores.agregarIndicador(nuevoIndicador);
 			//System.out.println(nuevoIndicador.calcularValor(null, RepositorioDeIndicadores.getListaDeIndicadores()));
 			
+			IOIndicadores.escribirArchivo(nuevoIndicador);
 	
 	}
 	public boolean isNoEstaVacio(){
