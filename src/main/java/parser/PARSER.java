@@ -80,8 +80,10 @@ public static double calcularValor(String nombre2,List<TokenYTipo> lista,List<Cu
 	private static double calcularOperacionSecundaria(double acumulador, int indice, List<TokenYTipo> lista, List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
 		if(lista.get(indice).getValor().equals("*"))
 			return acumulador * conseguirValorDeToken(lista.get(indice+1), listaDeCuentas, listaDeIndicadores);
-		else
+		else if(lista.get(indice).getValor().equals("/"))
 			return acumulador / conseguirValorDeToken(lista.get(indice+1), listaDeCuentas, listaDeIndicadores);
+		else
+			return acumulador * (-1) * conseguirValorDeToken(lista.get(indice+1), listaDeCuentas, listaDeIndicadores);
 	}
 	
 	private static boolean esOperadorSecundario(int index, List<TokenYTipo> lista){
@@ -116,7 +118,7 @@ public static double calcularValor(String nombre2,List<TokenYTipo> lista,List<Cu
 		}
 		catch(NoSuchElementException e){
 			throw new RuntimeException("el valor "+ 
-					token.getValor() +"No se encontro en el listado de indicadores");
+					token.getValor() +"No se encontro en el listado de cuentas ni de indicadores");
 		}
 		return cuenta.getValor();
 	}
@@ -130,7 +132,7 @@ public static double calcularValor(String nombre2,List<TokenYTipo> lista,List<Cu
 		}
 		catch(NoSuchElementException e){
 			throw new RuntimeException("el valor "+ 
-						token.getValor() +": No se encontro en el listado de indicadores");
+						token.getValor() +": No se encontro en el listado de cuentas ni de indicadores");
 		}
 		if(indicador.getListaDeTokens().stream().anyMatch(x-> x.getValor().equals(nombre)))
 			throw new RuntimeException("Es recursivo, modifique uno de los dos para calcular el valor nuevamente");

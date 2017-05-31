@@ -1,4 +1,5 @@
 package parser;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -23,11 +24,10 @@ public class SCANNER implements SCANNERConstants {
         	}
         	else{
         		analizador.ReInit(stream);
-        		listaDeTokens = new ArrayList<>();
+        		listaDeTokens.clear();
         	}
         	
                 analizador.Programa();
-                System.out.println("Se compilo con exito");
         }
         catch(ParseException ex)
         {

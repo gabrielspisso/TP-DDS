@@ -37,7 +37,7 @@ public class crearIndicadores extends Window<crearIndicadoresViewModel>{
 		
 		new Label(mainPanel).setText("Indicador a crear:");
 		
-		new TextBox(mainPanel).bindValueToProperty("indicadorActual");
+		new TextBox(mainPanel).setWidth(100).bindValueToProperty("indicadorActual");
 		
 		new Button(mainPanel)
 		.setCaption("Crear indicador")

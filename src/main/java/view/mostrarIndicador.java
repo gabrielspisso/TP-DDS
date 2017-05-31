@@ -66,7 +66,9 @@ setTitle("Consulta de valores de indicadores");
 		
 		try {
 			messageBox = new MessageBox(this, Type.Information);
-			messageBox.setMessage("El valor del indicador " + 
+			messageBox.setMessage("La expresion del indicador es:"+ 
+							this.getModelObject().getIndicadorActual().mostrarFormula()
+							+" el valor del indicador " + 
 							this.getModelObject().getIndicadorActual().getNombre() + 
 							" es " + 
 							this.getModelObject().obtenerValorDeIndicador());
