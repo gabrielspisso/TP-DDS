@@ -75,10 +75,7 @@ setTitle("Consulta de valores de indicadores");
 		catch (RuntimeException ex){
 			messageBox = new MessageBox(this, Type.Error);
 			try{
-			messageBox.setMessage("ERROR EN EL INDICADOR " +
-									getModelObject().getIndicadorActual().getNombre()+
-									": " +
-									ex.getMessage());
+			messageBox.setMessage(ex.getMessage());
 			}
 			catch(RuntimeException ex2){
 				messageBox.setMessage("Se deben completar los campos");

@@ -7,9 +7,11 @@ import model.Cuenta;
 import model.Indicador;
 
 public class PARSER {
-	
+
+private static String nombre= "";
 private static List<TokenYTipo> listaDeTokens;
-public static double calcularValor(List<TokenYTipo> lista,List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
+public static double calcularValor(String nombre2,List<TokenYTipo> lista,List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
+		nombre= nombre2;
 		listaDeTokens = lista;
 		double valorAcumulado = 0;
 		int indiceDelUltimoOperador = 0;
@@ -98,9 +100,8 @@ public static double calcularValor(List<TokenYTipo> lista,List<Cuenta> listaDeCu
 			}
 			
 			catch(RuntimeException ex2){
-				throw new RuntimeException("el valor "+ 
-						token.getValor() +
-						" no se encontro enlistado en las cuentas ni los indicadores");
+				throw new RuntimeException(
+						ex2.getMessage());
 			}
 			
 		}
@@ -114,7 +115,8 @@ public static double calcularValor(List<TokenYTipo> lista,List<Cuenta> listaDeCu
 				.findFirst().get();
 		}
 		catch(NoSuchElementException e){
-			throw new RuntimeException("No se encontro");
+			throw new RuntimeException("el valor "+ 
+					token.getValor() +"No se encontro en el listado de indicadores");
 		}
 		return cuenta.getValor();
 	}
@@ -127,8 +129,12 @@ public static double calcularValor(List<TokenYTipo> lista,List<Cuenta> listaDeCu
 				.findFirst().get();
 		}
 		catch(NoSuchElementException e){
-			throw new RuntimeException("No se encontro");
+			throw new RuntimeException("el valor "+ 
+						token.getValor() +": No se encontro en el listado de indicadores");
 		}
+		if(indicador.getListaDeTokens().stream().anyMatch(x-> x.getValor().equals(nombre)))
+			throw new RuntimeException("Es recursivo, modifique uno de los dos para calcular el valor nuevamente");
+			
 		return indicador.calcularValor(listaDeCuentas, listaDeIndicadores);
 	}
 	

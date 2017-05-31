@@ -35,7 +35,7 @@ public class Indicador {
 	}
 
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-		return PARSER.calcularValor(listaDeTokens, listaDeCuentas, listaDeIndicadores);
+		return PARSER.calcularValor(nombre,listaDeTokens, listaDeCuentas, listaDeIndicadores);
 	}
 	
 	
