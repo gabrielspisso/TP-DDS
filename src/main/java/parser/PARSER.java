@@ -102,8 +102,7 @@ public static double calcularValor(String nombre2,List<TokenYTipo> lista,List<Cu
 			}
 			
 			catch(RuntimeException ex2){
-				throw new RuntimeException(
-						ex2.getMessage());
+				throw new RuntimeException(ex.getMessage() + ex2.getMessage());
 			}
 			
 		}
@@ -117,8 +116,10 @@ public static double calcularValor(String nombre2,List<TokenYTipo> lista,List<Cu
 				.findFirst().get();
 		}
 		catch(NoSuchElementException e){
-			throw new RuntimeException("el valor "+ 
-					token.getValor() +"No se encontro en el listado de cuentas ni de indicadores");
+			throw new RuntimeException("El valor "
+									+"\""
+									+token.getValor() 
+									+"\" no se encontro en el listado de cuentas");
 		}
 		return cuenta.getValor();
 	}
@@ -131,8 +132,7 @@ public static double calcularValor(String nombre2,List<TokenYTipo> lista,List<Cu
 				.findFirst().get();
 		}
 		catch(NoSuchElementException e){
-			throw new RuntimeException("el valor "+ 
-						token.getValor() +": No se encontro en el listado de cuentas ni de indicadores");
+			throw new RuntimeException(" ni de indicadores");
 		}
 		if(indicador.getListaDeTokens().stream().anyMatch(x-> x.getValor().equals(nombre)))
 			throw new RuntimeException("Es recursivo, modifique uno de los dos para calcular el valor nuevamente");
