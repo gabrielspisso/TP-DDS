@@ -9,11 +9,11 @@ import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
 
-import viewModel.cargarArchivoViewModel;
+import viewModel.cargarEmpresasViewModel;
 
-public class cargarArchivo extends Window<cargarArchivoViewModel>{
+public class cargarEmpresas extends Window<cargarEmpresasViewModel>{
 
-	public cargarArchivo(WindowOwner owner, cargarArchivoViewModel model) {
+	public cargarEmpresas(WindowOwner owner, cargarEmpresasViewModel model) {
 		super(owner, model);
 		// TODO Auto-generated constructor stub
 	}

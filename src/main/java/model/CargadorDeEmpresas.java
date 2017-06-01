@@ -7,7 +7,7 @@ public class CargadorDeEmpresas {
 	
 	public static List<Empresa> obtenerCuentasEmpresas(String ruta){
 
-			return ArchivoMocking.leerArchivo(ruta);
+			return IOs.leerArchivo(ruta);
 	}
 
 }

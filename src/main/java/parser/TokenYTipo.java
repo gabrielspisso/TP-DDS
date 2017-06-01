@@ -16,11 +16,5 @@ public class TokenYTipo {
 		tipo = t;
 		valor = v;
 	}
-
-
-	public double calcular(){
-		return 0;
-	}
-
 	
 }

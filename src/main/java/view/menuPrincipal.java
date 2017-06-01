@@ -4,24 +4,25 @@ import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
-import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.MainWindow;
-
-import parser.Token;
-import viewModel.cargarArchivoViewModel;
+import model.IOs;
+import viewModel.cargarEmpresasViewModel;
 import viewModel.crearIndicadoresViewModel;
 import viewModel.mostrarCuentaViewModel;
 import viewModel.mostrarIndicadorViewModel;
 
-public class menuPrincipal extends MainWindow<mostrarCuentaViewModel> {
+public class menuPrincipal extends MainWindow<Object> {
 	public menuPrincipal() {
-		super(new mostrarCuentaViewModel());
+		super(new Object());
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	@Override
 	public void createContents(Panel mainPanel) {
 		// TODO Auto-generated method stub
+		
+		
 		setTitle("Menú principal para inversionistas");
 		
 		mainPanel.setLayout(new ColumnLayout(2));
@@ -35,13 +36,19 @@ public class menuPrincipal extends MainWindow<mostrarCuentaViewModel> {
 		new Label(mainPanel).setText("Cargar un archivo:");
 		new Label(mainPanel).setText("Crear un indicador:");
 
-		new Button(mainPanel).setCaption("Cargar un archivo de empresas").onClick(() -> new cargarArchivo(this,new cargarArchivoViewModel()).open());
+		new Button(mainPanel).setCaption("Cargar un archivo de empresas").onClick(() -> new cargarEmpresas(this,new cargarEmpresasViewModel()).open());
 		new Button(mainPanel).setCaption("Crear indicador ").onClick(() -> new crearIndicadores(this,new crearIndicadoresViewModel()).open());
 		
+		try{
+			IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
+		}
+		catch(RuntimeException e){
+			new Label(mainPanel).setText("El archivo de indicadores esta dañado, no se pudo cargar");
+		}
 	}
+	
+
 	public static void main(String[] args) {
-	    //ArchivoMocking.escribirEnArchivo("archivoEmpresas.txt");
 		new menuPrincipal().startApplication();
-		//new CargadorDeEmpresas().obtenerCuentasEmpresas();
 	}
 }

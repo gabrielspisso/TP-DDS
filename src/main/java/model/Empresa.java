@@ -2,7 +2,6 @@ package model;
 
 import java.util.List;
 
-import org.eclipse.ui.internal.EditorHistory;
 
 
 public class Empresa {

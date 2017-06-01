@@ -1,25 +1,18 @@
 package view;
 
 import org.uqbar.arena.layout.ColumnLayout;
+import org.uqbar.arena.layout.HorizontalLayout;
+import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
-import org.uqbar.arena.widgets.FileSelector;
+import org.uqbar.arena.widgets.CheckBox;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
-import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
-import org.uqbar.arena.windows.MainWindow;
 import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.MessageBox.Type;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
-
-import model.ArchivoMocking;
-import model.Balance;
-import model.CargadorDeEmpresas;
-import model.Cuenta;
-import model.Empresa;
 import viewModel.crearIndicadoresViewModel;
-import viewModel.mostrarCuentaViewModel;
 
 public class crearIndicadores extends Window<crearIndicadoresViewModel>{
 
@@ -30,7 +23,7 @@ public class crearIndicadores extends Window<crearIndicadoresViewModel>{
 
 	@Override
 	public void createContents(Panel mainPanel) {
-		setTitle("Consulta de valores de cuenta");
+		setTitle("Creaci�n de indicadores");
 		
 		mainPanel.setLayout(new ColumnLayout(2));
 		
@@ -39,20 +32,20 @@ public class crearIndicadores extends Window<crearIndicadoresViewModel>{
 		
 		new TextBox(mainPanel).setWidth(100).bindValueToProperty("indicadorActual");
 		
+		
+		new Label(mainPanel).setText("Seleccione, si desea guardar");
+		CheckBox check = new CheckBox(mainPanel);
+		check.bindEnabledToProperty("noEstaVacio");
+		check.bindValueToProperty("guardarEnArchivo");
+		new Label(mainPanel).setText("este indicador permanentemente");
+		
+
+		
 		new Button(mainPanel)
 		.setCaption("Crear indicador")
 		.onClick(() -> this.crearIndicador())
+		.setWidth(100)
 		.bindEnabledToProperty("noEstaVacio");
-		//.extensions("*.txt"); no funciona, nu se porque, en la documentación está
-		//Era porque iba arriba, antes del setCaption (santiago).
-		//Buenísimo, pense que ya no tenía soporte, genial que funcione
-		
-		//new Button(mainPanel).setCaption("Obtener valor de cuenta").onClick(() -> this.getModelObject().this.mostrarValorCuentaSeleccionada(this));
-		
-		
-		//new Button(mainPanel).setCaption("Obtener valor de cuenta").onClick(() -> this.mostrarValorCuentaSeleccionada());
-		
-
 		
 	}
 	public void crearIndicador(){

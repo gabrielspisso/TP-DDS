@@ -1,12 +1,11 @@
 package viewModel;
 
-import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import model.CargadorDeEmpresas;
 import repositorios.RepositorioDeEmpresas;
 @Observable
-public class cargarArchivoViewModel {
+public class cargarEmpresasViewModel {
 	private String rutaArchivo;
 	
 	public void setRutaArchivo(String rutaArchivo){

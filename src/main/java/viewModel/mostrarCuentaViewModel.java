@@ -1,16 +1,7 @@
 package viewModel;
 
-import java.util.Arrays;
 import java.util.List;
-
-import org.uqbar.arena.windows.MessageBox;
-import org.uqbar.arena.windows.MessageBox.Type;
-import org.uqbar.arena.windows.Window;
-import org.uqbar.commons.model.ObservableUtils;
-import org.uqbar.commons.utils.Dependencies;
 import org.uqbar.commons.utils.Observable;
-
-import model.CargadorDeEmpresas;
 import model.Balance;
 import model.Cuenta;
 import model.Empresa;
@@ -23,7 +14,6 @@ public class mostrarCuentaViewModel {
 	private Cuenta cuentaActual; //= new Cuenta("",0);
 	private List<Balance> balances;
 	private List<Cuenta> cuentas;
-	private List<Empresa> empresas;
 
 	
 	public void setCuentas(List<Cuenta> cuentas) {

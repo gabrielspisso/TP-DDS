@@ -1,12 +1,8 @@
 package model;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-//import String.join;
 import parser.PARSER;
+import parser.SCANNER;
 import parser.TokenYTipo;
 
 
@@ -19,11 +15,16 @@ public class Indicador {
 		return nombre;
 	}
 	
-	public Indicador(List<TokenYTipo> listaDeTokens, String nombre) { //Falta agregar la de cuentas
-		this.listaDeTokens = listaDeTokens;
-		
-		this.nombre = nombre.toString();
-		mostrarFormula();
+	public Indicador(String expresion) { //Falta agregar la de cuentas
+		SCANNER.analizarLinea(expresion);
+    	List<TokenYTipo> lista = SCANNER.obtenerTokens();
+    	
+    	this.listaDeTokens =lista.subList(2, lista.size()-1);
+    	this.nombre = lista.get(0).getValor();
+    	
+		if (listaDeTokens.stream().anyMatch(x->x.getValor().equals(nombre)) )
+			throw new RuntimeException("Ingreso una definicion recursiva ") ;
+
 	}
 	
 	public List<TokenYTipo> getListaDeTokens() {
@@ -47,7 +48,7 @@ public class Indicador {
 		List<String> l = new ArrayList<>();
 		
 		listaDeTokens.stream().forEach(x->l.add(x.getValor()));
-		formula = String.join("", l );
+		formula = String.join(" ", l );
 
 		return nombre + " = " + formula;
 	}

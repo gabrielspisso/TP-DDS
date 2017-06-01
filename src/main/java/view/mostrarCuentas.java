@@ -2,24 +2,17 @@ package view;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
-import org.uqbar.arena.widgets.FileSelector;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
-import org.uqbar.arena.widgets.TextBox;
-import org.uqbar.arena.windows.MainWindow;
 import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
 import org.uqbar.arena.windows.Window;
-import model.ArchivoMocking;
 import model.Balance;
-import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
-import viewModel.crearIndicadoresViewModel;
 import viewModel.mostrarCuentaViewModel;
-import viewModel.mostrarIndicadorViewModel;
 
 public class mostrarCuentas extends Window<mostrarCuentaViewModel>{
 	

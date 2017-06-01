@@ -2,25 +2,16 @@ package view;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
-import org.uqbar.arena.widgets.FileSelector;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
-import org.uqbar.arena.widgets.TextBox;
-import org.uqbar.arena.windows.MainWindow;
 import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.MessageBox.Type;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
-
-import model.ArchivoMocking;
 import model.Balance;
-import model.CargadorDeEmpresas;
-import model.Cuenta;
 import model.Empresa;
 import model.Indicador;
-import viewModel.crearIndicadoresViewModel;
-import viewModel.mostrarCuentaViewModel;
 import viewModel.mostrarIndicadorViewModel;
 
 public class mostrarIndicador extends Window<mostrarIndicadorViewModel>{
@@ -32,7 +23,7 @@ public class mostrarIndicador extends Window<mostrarIndicadorViewModel>{
 
 	@Override
 	public void createContents(Panel mainPanel) {
-setTitle("Consulta de valores de indicadores");
+		setTitle("Consulta de valores de indicadores");
 		
 		mainPanel.setLayout(new ColumnLayout(2));
 		new Label(mainPanel).setText("Empresa: ");
@@ -57,10 +48,6 @@ setTitle("Consulta de valores de indicadores");
 		
 		new Button(mainPanel).setCaption("Obtener valor de indicador").onClick(() -> this.mostrarValorDeIndicadorSeleccionado());
 		
-		new Button(mainPanel).setCaption("Cargar indicadores ya ingresados").onClick(() -> this.cargarIndicadoresDefinidos());
-		
-		new Button(mainPanel).setCaption("Guardar indicadores ingresados").onClick(() -> this.guardarIndicadores());
-		
 	}
 
 	private void mostrarValorDeIndicadorSeleccionado() {
@@ -70,9 +57,9 @@ setTitle("Consulta de valores de indicadores");
 		
 		try {
 			messageBox = new MessageBox(this, Type.Information);
-			messageBox.setMessage("La expresion del indicador es:"+ 
+			messageBox.setMessage("La expresion del indicador es:\n"+ 
 							this.getModelObject().getIndicadorActual().mostrarFormula()
-							+" el valor del indicador " + 
+							+"\nEl valor del indicador " + 
 							this.getModelObject().getIndicadorActual().getNombre() + 
 							" es " + 
 							this.getModelObject().obtenerValorDeIndicador());
@@ -89,25 +76,6 @@ setTitle("Consulta de valores de indicadores");
 		}
 		
 		messageBox.open();
-	}
-	
-	private void cargarIndicadoresDefinidos() {
-		MessageBox messageBox;
-		try {
-			this.getModelObject().cargarIndicadoresDefinidos();
-		}
-		catch(RuntimeException e) {
-			System.out.println("NO SE PUDO"); //<---son las 6 AM y me quiero ir a dormir
-		}
-	}
-	
-	private void guardarIndicadores(){
-		try {
-			this.getModelObject().guardarIndicadores();
-		}
-		catch(RuntimeException e) {
-			System.out.println("ROTO");
-		}
 	}
 	
 }
