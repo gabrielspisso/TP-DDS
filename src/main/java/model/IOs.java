@@ -17,7 +17,7 @@ public class IOs {
 	public static void cargarIndicador(Indicador indicador, String path) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(path,true));
-			writer.write("\n" + indicador.mostrarFormula() + ";");
+			writer.write(indicador.mostrarFormula() + ";");
 			writer.newLine();
 			writer.close();
 
@@ -36,7 +36,6 @@ public class IOs {
 		    String line;
 
 		    while ((line = br.readLine()) != null) {
-		    	
 				RepositorioDeIndicadores.agregarIndicador(new Indicador(line));
 		    }
 		    br.close();

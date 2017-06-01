@@ -24,7 +24,7 @@ public class SCANNER implements SCANNERConstants {
         	}
         	else{
         		analizador.ReInit(stream);
-        		listaDeTokens.clear();
+        		listaDeTokens = new ArrayList<>();
         	}
         	
                 analizador.Programa();

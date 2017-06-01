@@ -78,6 +78,7 @@ public class mostrarIndicadorViewModel {
 
 	
 	public String obtenerValorDeIndicador(){
+		
 			return 
 					Double.toString(indicadorActual.calcularValor(balanceActual.getCuentas(), RepositorioDeIndicadores.getListaDeIndicadores()));			
 	}
