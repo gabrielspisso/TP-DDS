@@ -8,7 +8,7 @@ import parser.TokenYTipo;
 
 public class Indicador {
 	String nombre;
-	List<TokenYTipo> listaDeTokens;
+	List<TokenYTipo> listaDeTokens; 
 	
 	@Override
 	public String toString(){
