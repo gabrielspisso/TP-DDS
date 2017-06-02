@@ -1,6 +1,9 @@
 package model;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.w3c.dom.ranges.RangeException;
+
 import parser.PARSER;
 import parser.SCANNER;
 import parser.TokenYTipo;
@@ -39,8 +42,8 @@ public class Indicador {
 		return nombre;
 	}
 
-	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-		return PARSER.calcularValor(nombre,listaDeTokens, listaDeCuentas, listaDeIndicadores);
+	public double calcularValor(List<Cuenta> listaDeCuentas) {
+		return PARSER.calcularValor(nombre,listaDeTokens, listaDeCuentas);
 	}
 
 	public String mostrarFormula() {

@@ -12,11 +12,12 @@ import org.uqbar.arena.windows.Window;
 import model.Balance;
 import model.Cuenta;
 import model.Empresa;
-import viewModel.mostrarCuentaViewModel;
+import model.Indicador;
+import viewModel.mostrarValoresDeEmpresasViewModel;
 
-public class mostrarCuentas extends Window<mostrarCuentaViewModel>{
+public class mostrarValoresDeEmpresas extends Window<mostrarValoresDeEmpresasViewModel>{
 	
-	public mostrarCuentas(WindowOwner owner, mostrarCuentaViewModel model) {
+	public mostrarValoresDeEmpresas(WindowOwner owner, mostrarValoresDeEmpresasViewModel model) {
 		super(owner, model);
 		// TODO Auto-generated constructor stub
 	}
@@ -45,12 +46,54 @@ public class mostrarCuentas extends Window<mostrarCuentaViewModel>{
 		selectorCuenta.bindValueToProperty("cuentaActual");
 		selectorCuenta.bindItemsToProperty("cuentas");
 		
+		
+		new Label(mainPanel).setText("Indicadores: ");
+		Selector<Indicador> selectorIndicador = new Selector<Indicador>(mainPanel);
+		selectorIndicador.setWidth(165);
+		selectorIndicador.bindValueToProperty("indicadorActual");
+		selectorIndicador.bindItemsToProperty("indicadores");
+		
 		new Button(mainPanel).setCaption("Obtener valor de la cuenta").onClick(() -> this.mostrarValorCuentaSeleccionada());
+		new Button(mainPanel).setCaption("Obtener valor de indicador").onClick(() -> this.mostrarValorDeIndicadorSeleccionado());
 		
 		
 		//new crearIndicadores(this, new crearIndicadoresViewModel()).open();
 		}
 		
+	
+	private void mostrarValorDeIndicadorSeleccionado() {
+		// TODO Auto-generated method stub
+		
+		MessageBox messageBox;
+		
+		try {
+			messageBox = new MessageBox(this, Type.Information);
+			messageBox.setMessage(datosDelIndicador()+
+							" es " + 
+							this.getModelObject().obtenerValorDeIndicador());
+		}
+		catch (RuntimeException ex){
+			messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage(ex.getMessage());
+		}
+
+		try{
+			messageBox.open();
+		}
+		catch(Exception ex){
+			messageBox.setMessage("No has seleccionado los campos necesarios (Empresa, Balance E Indicador)");
+			messageBox.open();
+		}
+	}
+	
+	private String datosDelIndicador(){
+
+			return "La expresion del indicador es:\n"+ 
+					this.getModelObject().getIndicadorActual().mostrarFormula()
+					+"\nEl valor del indicador " + 
+					this.getModelObject().getIndicadorActual().getNombre();
+
+	}
 	
 		private void mostrarValorCuentaSeleccionada(){
 			MessageBox messageBox;
@@ -62,7 +105,7 @@ public class mostrarCuentas extends Window<mostrarCuentaViewModel>{
 			
 			catch (RuntimeException ex){
 				messageBox = new MessageBox(this, Type.Error);
-				messageBox.setMessage("No has seleccionado algun campo");
+				messageBox.setMessage("No has seleccionado los campos necesarios (Empresa, Balance y Cuenta)");
 			}
 			
 			messageBox.open();

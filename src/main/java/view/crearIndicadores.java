@@ -1,7 +1,8 @@
 package view;
 
+import java.awt.Color;
+
 import org.uqbar.arena.layout.ColumnLayout;
-import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.CheckBox;
@@ -25,21 +26,41 @@ public class crearIndicadores extends Window<crearIndicadoresViewModel>{
 	public void createContents(Panel mainPanel) {
 		setTitle("Creación de indicadores");
 		
-		mainPanel.setLayout(new ColumnLayout(2));
+		mainPanel.setLayout(new VerticalLayout());
+		
+		Panel panel3 = new Panel(mainPanel).setLayout(new ColumnLayout(1));
+		
+		new Label(panel3).setText("La formula se tiene que ingresar de la forma: ")
+		.setForeground(Color.WHITE)
+		.setBackground(Color.DARK_GRAY)
+		.setFontSize(12);
+		new Label(panel3).setText("NombreDeIndicador = FormulaDeIndicador   ")
+		.setForeground(Color.WHITE)
+		.setBackground(Color.DARK_GRAY)
+		.setFontSize(12);
+		new Label(panel3).setText("Ejemplo: indicador = FDS * 4                             ")
+		.setForeground(Color.WHITE)
+		.setBackground(Color.DARK_GRAY)
+		.setFontSize(12);
 		
 		
-		new Label(mainPanel).setText("Indicador a crear:");
-		
-		new TextBox(mainPanel).setWidth(100).bindValueToProperty("indicadorActual");
 		
 		
-		new Label(mainPanel).setText("Seleccione, si desea guardar");
-		CheckBox check = new CheckBox(mainPanel);
+		Panel panel2 = new Panel(mainPanel);
+		panel2.setLayout(new ColumnLayout(2));
+		
+		new Label(panel2).setText("Indicador a crear:");
+		
+		new TextBox(panel2).setWidth(100).bindValueToProperty("indicadorActual");
+		
+		
+		new Label(panel2).setText("Guardar permanentemente");
+		CheckBox check = new CheckBox(panel2);
 		check.bindEnabledToProperty("noEstaVacio");
 		check.bindValueToProperty("guardarEnArchivo");
-		new Label(mainPanel).setText("este indicador permanentemente");
-		
 
+		
+		
 		
 		new Button(mainPanel)
 		.setCaption("Crear indicador")

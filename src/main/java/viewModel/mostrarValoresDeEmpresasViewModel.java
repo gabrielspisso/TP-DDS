@@ -1,26 +1,25 @@
 package viewModel;
 
 import java.util.List;
+
+import org.apache.commons.lang.NullArgumentException;
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 import model.Balance;
+import model.Cuenta;
 import model.Empresa;
 import model.Indicador;
 import repositorios.RepositorioDeEmpresas;
 import repositorios.RepositorioDeIndicadores;
 
 @Observable
-public class mostrarIndicadorViewModel {
+public class mostrarValoresDeEmpresasViewModel {
 	private Empresa empresaActual; //= new Empresa("",Arrays.asList());
 	private Balance balanceActual ;//= new Balance("","",Arrays.asList());
-	private List<Balance> balances;
+	private Cuenta cuentaActual; //= new Cuenta("",0);
 	private Indicador indicadorActual;
 
-
-	public void setBalances(List<Balance> balances) {
-		this.balances = balances;
-		//this.setBalanceActual(balances.get(0));
-	}
-
+	
 
 	public Empresa getEmpresaActual() {
 		return empresaActual;
@@ -29,11 +28,10 @@ public class mostrarIndicadorViewModel {
 	public void setEmpresaActual(Empresa empresaActual) {
 		try{
 			this.empresaActual = empresaActual;
-			this.setBalances(empresaActual.getBalances());				
+			ObservableUtils.firePropertyChanged(this, "balances");				
 		}
 		catch(RuntimeException ex){
 			this.empresaActual = empresaActual;
-			this.balances = null;
 			setBalanceActual(null);
 		}		
 	}
@@ -44,13 +42,35 @@ public class mostrarIndicadorViewModel {
 
 	public void setBalanceActual(Balance balanceActual) {
 		this.balanceActual = balanceActual;
+		ObservableUtils.firePropertyChanged(this, "cuentas");
 	}
 
+	public Cuenta getCuentaActual() {
+		return cuentaActual;
+	}
+
+	public void setCuentaActual(Cuenta cuentaActual) {
+		this.cuentaActual = cuentaActual;
+	}
+	
 	
 	public List<Balance> getBalances(){
-		return balances;
+		try{
+			return empresaActual.getBalances();
+		}
+		catch(NullPointerException ex){
+			return null;
+		}
 	}
-
+	public List<Cuenta> getCuentas(){
+		try{
+			return balanceActual.getCuentas();
+		}
+		catch(NullPointerException ex){
+			return null;
+		}
+		
+	}
 	public String getPeriodo(){		
 		return balanceActual.getPeriodo();
 	}
@@ -59,7 +79,6 @@ public class mostrarIndicadorViewModel {
 	public List<Empresa> getEmpresas(){
 		return RepositorioDeEmpresas.mostrarEmpresas();
 	}
-	
 
 	public Indicador getIndicadorActual() {
 		return indicadorActual;
@@ -78,9 +97,9 @@ public class mostrarIndicadorViewModel {
 
 	
 	public String obtenerValorDeIndicador(){
-		
-			return 
-					Double.toString(indicadorActual.calcularValor(balanceActual.getCuentas(), RepositorioDeIndicadores.getListaDeIndicadores()));			
+		return 
+				Double.toString(indicadorActual.calcularValor(balanceActual.getCuentas()));			
 	}
 	
+
 }

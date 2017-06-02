@@ -5,8 +5,8 @@ import org.uqbar.commons.utils.Observable;
 import model.CargadorDeEmpresas;
 import repositorios.RepositorioDeEmpresas;
 @Observable
-public class cargarEmpresasViewModel {
-	private String rutaArchivo;
+public class menuPrincipalViewModel {
+	private String rutaArchivo = "archivoEmpresas.txt";
 	
 	public void setRutaArchivo(String rutaArchivo){
 		this.rutaArchivo = rutaArchivo;

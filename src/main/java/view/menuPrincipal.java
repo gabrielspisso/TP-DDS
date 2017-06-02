@@ -1,19 +1,29 @@
 package view;
 
+
+
+import java.awt.Color;
+
 import org.uqbar.arena.layout.ColumnLayout;
+import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
+import org.uqbar.arena.widgets.FileSelector;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
+import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.MainWindow;
-import model.IOs;
-import viewModel.cargarEmpresasViewModel;
-import viewModel.crearIndicadoresViewModel;
-import viewModel.mostrarCuentaViewModel;
-import viewModel.mostrarIndicadorViewModel;
+import org.uqbar.arena.windows.MessageBox;
+import org.uqbar.arena.windows.MessageBox.Type;
 
-public class menuPrincipal extends MainWindow<Object> {
+import model.IOs;
+import viewModel.menuPrincipalViewModel;
+import viewModel.crearIndicadoresViewModel;
+import viewModel.mostrarValoresDeEmpresasViewModel;
+
+
+public class menuPrincipal extends MainWindow<menuPrincipalViewModel> {
 	public menuPrincipal() {
-		super(new Object());
+		super(new menuPrincipalViewModel());
 		// TODO Auto-generated constructor stub
 	}
 
@@ -23,21 +33,48 @@ public class menuPrincipal extends MainWindow<Object> {
 		// TODO Auto-generated method stub
 		
 		
-		setTitle("Men˙ principal para inversionistas");
+setTitle("øDÛnde invierto?");
 		
-		mainPanel.setLayout(new ColumnLayout(2));
+		mainPanel.setLayout(new VerticalLayout());
+		new Label(mainPanel).setText("Men˙ Principal").setFontSize(15).setForeground(Color.RED);
+		new Label(mainPanel).setText("Seleccionar la opciÛn deseada").setFontSize(13).setForeground(Color.BLACK);
 		
-		new Label(mainPanel).setText("Ver valor de un indicador:");
-		new Label(mainPanel).setText("ver valor de un indicador:");
-		new Button(mainPanel).setCaption("Ver el valor de un indicador").onClick(() -> new mostrarIndicador(this, new mostrarIndicadorViewModel()).open());
-		new Button(mainPanel).setCaption("Ver el valor de una cuentas").onClick(() -> new mostrarCuentas(this,new mostrarCuentaViewModel()).open());
+		new Label(mainPanel).setText(" ").setFontSize(5);
+		
+		//new Label(mainPanel).setText("Cargar un archivo de empresas");
+		//new Button(mainPanel).setCaption("Seleccionar").onClick(() -> new cargarEmpresas(this,new cargarEmpresasViewModel()).open());
 		
 		
-		new Label(mainPanel).setText("Cargar un archivo:");
-		new Label(mainPanel).setText("Crear un indicador:");
 
-		new Button(mainPanel).setCaption("Cargar un archivo de empresas").onClick(() -> new cargarEmpresas(this,new cargarEmpresasViewModel()).open());
-		new Button(mainPanel).setCaption("Crear indicador ").onClick(() -> new crearIndicadores(this,new crearIndicadoresViewModel()).open());
+		new Label(mainPanel).setText(" ").setFontSize(2);
+		
+		new Label(mainPanel).setText("Mostrar el valor de una cuenta predefinida");
+		new Button(mainPanel).setCaption("Mostrar cuentas").onClick(() -> new mostrarValoresDeEmpresas(this,new mostrarValoresDeEmpresasViewModel()).open());
+		
+		new Label(mainPanel).setText(" ").setFontSize(2);
+
+		new Label(mainPanel).setText("Crear un nuevo indicador");
+		new Button(mainPanel).setCaption("Escribir formula").onClick(() -> new crearIndicadores(this,new crearIndicadoresViewModel()).open());
+		
+		new Label(mainPanel).setText(" ").setFontSize(2);
+		
+		new Label(mainPanel).setText("Cargar un archivo de empresas");
+		Panel panel2 = new Panel(mainPanel);
+		panel2.setLayout(new ColumnLayout(2));
+		
+		FileSelector fileSelector = new FileSelector(panel2);
+		fileSelector.extensions("*.txt");
+		fileSelector.setCaption("Seleccionar archivo");
+		fileSelector.setWidth(125);
+		fileSelector.bindValueToProperty("rutaArchivo");
+		fileSelector.onClick(() -> this.cargarArchivo());
+		
+		
+		new TextBox(panel2).setWidth(125).bindValueToProperty("rutaArchivo");
+		
+		
+		new Button(mainPanel)
+		.setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
 		
 		try{
 			IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
@@ -48,6 +85,23 @@ public class menuPrincipal extends MainWindow<Object> {
 	}
 	
 
+	private void cargarArchivo(){
+		MessageBox messageBox;
+		
+		try{
+			this.getModelObject().cargarEmpresas();
+			messageBox = new MessageBox(this, Type.Information);
+			messageBox.setMessage("Se han cargado exitosamente los datos!");
+			messageBox.open();
+		}
+		
+		catch (RuntimeException ex){
+			messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage("La ruta del archivo no puede estar vac√≠a!");
+			messageBox.open();
+		}
+	}
+	
 	public static void main(String[] args) {
 		new menuPrincipal().startApplication();
 	}
