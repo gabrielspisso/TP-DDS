@@ -49,7 +49,10 @@ setTitle("¿Dónde invierto?");
 		new Label(mainPanel).setText(" ").setFontSize(2);
 		
 		new Label(mainPanel).setText("Mostrar el valor de una cuenta predefinida");
-		new Button(mainPanel).setCaption("Mostrar cuentas").onClick(() -> new mostrarValoresDeEmpresas(this,new mostrarValoresDeEmpresasViewModel()).open());
+		Button bot_MostrarCuentas= new Button(mainPanel);
+		
+		bot_MostrarCuentas.setCaption("Mostrar cuentas").bindEnabledToProperty("bloq");
+		bot_MostrarCuentas.onClick(() -> new mostrarValoresDeEmpresas(this,new mostrarValoresDeEmpresasViewModel()).open());
 		
 		new Label(mainPanel).setText(" ").setFontSize(2);
 

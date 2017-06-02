@@ -1,5 +1,2 @@
 indicador1 = FDS + 4;
-qwe = 78 * 1;
-a = 36;
-b = FDS *- 6;
-c = a + 2;
+cc = FDS + 10;

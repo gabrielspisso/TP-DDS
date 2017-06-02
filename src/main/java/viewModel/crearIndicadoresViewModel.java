@@ -29,6 +29,8 @@ public class crearIndicadoresViewModel {
 			RepositorioDeIndicadores.agregarIndicador(nuevoIndicador);
 			if(guardarEnArchivo) 
 				IOs.cargarIndicador(nuevoIndicador, "archivoIndicadores.txt");
+			
+			indicadorActual="";
 	}
 	public boolean isNoEstaVacio(){
 		return !indicadorActual.isEmpty();
@@ -43,5 +45,6 @@ public class crearIndicadoresViewModel {
 	public void setGuardarEnArchivo(boolean guardarEnArchivo) {
 		this.guardarEnArchivo = guardarEnArchivo;
 	}
+	
 
 }

@@ -26,26 +26,16 @@ public class crearIndicadores extends Window<crearIndicadoresViewModel>{
 	public void createContents(Panel mainPanel) {
 		setTitle("Creación de indicadores");
 		
-		mainPanel.setLayout(new VerticalLayout());
+		mainPanel.setLayout(new ColumnLayout(1));
 		
 		Panel panel3 = new Panel(mainPanel).setLayout(new ColumnLayout(1));
 		
-		new Label(panel3).setText("La formula se tiene que ingresar de la forma: ")
-		.setForeground(Color.WHITE)
-		.setBackground(Color.DARK_GRAY)
-		.setFontSize(12);
-		new Label(panel3).setText("NombreDeIndicador = FormulaDeIndicador   ")
-		.setForeground(Color.WHITE)
-		.setBackground(Color.DARK_GRAY)
-		.setFontSize(12);
-		new Label(panel3).setText("Ejemplo: indicador = FDS * 4                             ")
-		.setForeground(Color.WHITE)
-		.setBackground(Color.DARK_GRAY)
-		.setFontSize(12);
-		
-		
-		
-		
+		new Label(panel3).setText("Ejemplo de creacion: \n\n     NombreDeIndicador = FormulaDeIndicador     \nEjemplo: indicador = FDS * 4")
+		.setForeground(Color.BLACK)
+		.setBackground(Color.WHITE)
+		.setFontSize(10);
+
+					
 		Panel panel2 = new Panel(mainPanel);
 		panel2.setLayout(new ColumnLayout(2));
 		
@@ -60,9 +50,11 @@ public class crearIndicadores extends Window<crearIndicadoresViewModel>{
 		check.bindValueToProperty("guardarEnArchivo");
 
 		
+		Panel panel4 = new Panel(mainPanel).setLayout(new ColumnLayout(3));
 		
+		new Label(panel4).setText("");
 		
-		new Button(mainPanel)
+		new Button(panel4)
 		.setCaption("Crear indicador")
 		.onClick(() -> this.crearIndicador())
 		.setWidth(100)
