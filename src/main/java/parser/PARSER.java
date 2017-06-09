@@ -120,7 +120,7 @@ public static double calcularValor(String nombre2,List<TokenYTipo> lista,List<Cu
 	}
 	private static double buscarEnIndicadores(TokenYTipo token,List<TokenYTipo> listaDeTokens, List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
 		Indicador indicador;
-		
+		/*
 		try{
 			indicador = listaDeIndicadores.stream()
 				.filter(x -> x.getNombre().equals(token.getValor()))
@@ -134,8 +134,9 @@ public static double calcularValor(String nombre2,List<TokenYTipo> lista,List<Cu
 					+token.getValor() 
 					+"\" no se encontro en el listado de cuentas ni de indicadores");
 		}
-			
-		return indicador.calcularValor(listaDeCuentas);
+			*/
+		//return indicador.calcularValor(listaDeCuentas);
+		return 0;
 	}
 	
 

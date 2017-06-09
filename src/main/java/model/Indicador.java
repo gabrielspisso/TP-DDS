@@ -6,54 +6,56 @@ import org.w3c.dom.ranges.RangeException;
 
 import parser.PARSER;
 import parser.SCANNER;
+import parser.Termino;
 import parser.TokenYTipo;
 
 
 public class Indicador {
-	String nombre;
-	List<TokenYTipo> listaDeTokens; 
+	private String nombre;
+	private List<Termino> listaDeTerminos; 
 	
 	@Override
 	public String toString(){
 		return nombre;
 	}
 	
-	public Indicador(String expresion) { //Falta agregar la de cuentas
-		SCANNER.analizarLinea(expresion);
-    	List<TokenYTipo> lista = SCANNER.obtenerTokens();
-    	
-    	this.listaDeTokens =lista.subList(2, lista.size()-1);
-    	this.nombre = lista.get(0).getValor();
-    	
-		if (listaDeTokens.stream().anyMatch(x->x.getValor().equals(nombre)) )
-			throw new RuntimeException("Ingreso una definicion recursiva ") ;
-
-	}
 	
-	public List<TokenYTipo> getListaDeTokens() {
-		return listaDeTokens;
+	public Indicador(String nombre, List<Termino> listaDeTerminos) {
+		this.nombre = nombre;
+		this.listaDeTerminos = listaDeTerminos;
 	}
 
-	public void recibirToken(TokenYTipo token){
-		listaDeTokens.add(token);
-	}
-	
-	public String getNombre(){
-		return nombre;
-	}
+	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
+		//Si alguien encuentra como hacer un SUM en Java, lo deja mas lindo
 
-	public double calcularValor(List<Cuenta> listaDeCuentas) {
-		return PARSER.calcularValor(nombre,listaDeTokens, listaDeCuentas);
+		return listaDeTerminos
+			.stream()
+			.mapToDouble(termino -> termino.calcular(listaDeCuentas, listaDeIndicadores))
+			.sum();
 	}
 
 	public String mostrarFormula() {
-		String formula = "";
+		/*String formula = "";
 		List<String> l = new ArrayList<>();
 		
 		listaDeTokens.stream().forEach(x->l.add(x.getValor()));
 		formula = String.join(" ", l );
 
-		return nombre + " = " + formula;
+		return nombre + " = " + formula;*/
+		return "Puto el que lee";
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public boolean contieneEsteToken(TokenYTipo token) {
+		return listaDeTerminos
+				.stream()
+				.anyMatch(termino -> termino.contieneEsteToken(token)
+						);
 	}
 	
 	

@@ -7,6 +7,7 @@ import org.uqbar.commons.utils.Observable;
 
 import model.IOs;
 import model.Indicador;
+import parser.IndicadorBuilder;
 
 @Observable
 public class crearIndicadoresViewModel {
@@ -25,7 +26,7 @@ public class crearIndicadoresViewModel {
 	}
 	
 	public void crearIndicador(){	
-			Indicador nuevoIndicador = new Indicador(indicadorActual + ";");
+			Indicador nuevoIndicador = IndicadorBuilder.Build(indicadorActual + ";");
 			RepositorioDeIndicadores.agregarIndicador(nuevoIndicador);
 			if(guardarEnArchivo) 
 				IOs.cargarIndicador(nuevoIndicador, "archivoIndicadores.txt");

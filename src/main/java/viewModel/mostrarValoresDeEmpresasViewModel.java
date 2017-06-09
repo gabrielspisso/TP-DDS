@@ -98,7 +98,11 @@ public class mostrarValoresDeEmpresasViewModel {
 	
 	public String obtenerValorDeIndicador(){
 		return 
-				Double.toString(indicadorActual.calcularValor(balanceActual.getCuentas()));			
+				Double.toString(indicadorActual
+						.calcularValor(
+								balanceActual.getCuentas(),
+								RepositorioDeIndicadores.getListaDeIndicadores()
+								));			
 	}
 	
 

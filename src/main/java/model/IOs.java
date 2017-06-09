@@ -9,6 +9,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import parser.IndicadorBuilder;
 import repositorios.RepositorioDeIndicadores;
 
 
@@ -36,7 +38,8 @@ public class IOs {
 		    String line;
 
 		    while ((line = br.readLine()) != null) {
-				RepositorioDeIndicadores.agregarIndicador(new Indicador(line));
+		    	Indicador indicador = IndicadorBuilder.Build(line);
+				RepositorioDeIndicadores.agregarIndicador(indicador);
 		    }
 		    br.close();
 		} catch (IOException e) {

@@ -14,7 +14,7 @@ public class SCANNER implements SCANNERConstants {
 	private static boolean seUso = false;
 	private static SCANNER analizador = null;
 	
-	public static void analizarLinea(String expresion){
+	private static void analizarLinea(String expresion){
 		try
         {
         	InputStream stream = new ByteArrayInputStream(expresion.getBytes(StandardCharsets.UTF_8));
@@ -37,8 +37,9 @@ public class SCANNER implements SCANNERConstants {
         }
 	}
 	
-	public static List<TokenYTipo> obtenerTokens(){
-	      return listaDeTokens;
+	public static List<TokenYTipo> obtenerTokens(String expresion){
+		analizarLinea(expresion);
+	    return listaDeTokens;
 	}
 
   static final public void Programa() throws ParseException {

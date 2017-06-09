@@ -1,2 +1,4 @@
 indicador1 = FDS + 4;
 cc = FDS + 10;
+a=30;
+b=2+2;
