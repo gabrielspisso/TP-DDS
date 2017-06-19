@@ -19,9 +19,9 @@ public class Raiz implements Nodo{
 	@Override
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
 		if(ramaDerecha == null)
-			return ((Numero)ramaIzquierda).calcularValor(listaDeCuentas, listaDeIndicadores);
+			return ((NodoCalculable)ramaIzquierda).calcularValor(listaDeCuentas, listaDeIndicadores);
 		if(ramaIzquierda == null)
-			return ((Numero)ramaDerecha).calcularValor(listaDeCuentas, listaDeIndicadores);
+			return ((NodoCalculable)ramaDerecha).calcularValor(listaDeCuentas, listaDeIndicadores);
 		double valor = 0;
 		Operacion valorDeEnum = Operacion.valueOf(operadorEscritoEnLetras());
 		switch(valorDeEnum){
@@ -71,8 +71,15 @@ public class Raiz implements Nodo{
 	}
 
 	@Override
-	public boolean contieneEsteToken(String string) {
-		return ramaDerecha.contieneEsteToken(string) || ramaIzquierda.contieneEsteToken(string);
+	public boolean contieneEsteToken(String token) {
+		if(ramaDerecha == null) {
+			return ((NodoCalculable)ramaIzquierda).contieneEsteToken(token);
+		}
+		else if(ramaIzquierda == null){
+			return ((NodoCalculable)ramaDerecha).contieneEsteToken(token);
+		}
+		else
+			return ramaDerecha.contieneEsteToken(token) || ramaIzquierda.contieneEsteToken(token);
 	}
 	
 	public void cargarValor(Nodo nuevaRama){
@@ -92,8 +99,7 @@ public class Raiz implements Nodo{
 	}
 
 	public Raiz cargarOperacionPrimaria(String nuevaOperacion) {
-		if(this.laOperacionEstaCargada())
-			moverArbolActualALaRamaIzquierda(nuevaOperacion);
+		moverArbolActualALaRamaIzquierda(nuevaOperacion);
 		
 		operacion = nuevaOperacion;
 		this.ramaDerecha = new Raiz(null, null, null);
@@ -119,19 +125,4 @@ public class Raiz implements Nodo{
 		this.ramaIzquierda = nuevaRamaIzquierda;
 	}
 	
-	private Recorrido dondeHayLugar(){
-		if(ramaIzquierda == null)
-			return Recorrido.izquierda;
-		else if(ramaDerecha == null)
-			return Recorrido.derecha;
-		else 
-			return Recorrido.noHayLugar;
-	}
-	
-	
-	private enum Recorrido{
-		izquierda,
-		derecha,
-		noHayLugar
-	}
 }

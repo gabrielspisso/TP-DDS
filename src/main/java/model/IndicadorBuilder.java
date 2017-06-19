@@ -30,7 +30,7 @@ public class IndicadorBuilder {
 		enNumero enumval = enNumero.valueOf(token.getTipo());
 		switch(enumval){
 		case Identificador:{
-			nodoActual.cargarValor(new IndicadorOCuenta(token.getValor()));
+			nodoActual.cargarValor(new NodoCalculable(token.getValor(), false));
 			esElPrimerElemento = false;
 		}break;
 			
@@ -46,7 +46,7 @@ public class IndicadorBuilder {
 		}break;
 			
 		case NUMERO:{
-			nodoActual.cargarValor(new Numero(token.getValor()));
+			nodoActual.cargarValor(new NodoCalculable(token.getValor(), true));
 			esElPrimerElemento = false;
 		}break;
 		case FinDeLinea:

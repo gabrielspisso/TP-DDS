@@ -71,10 +71,12 @@ public class mostrarValoresDeEmpresas extends Window<mostrarValoresDeEmpresasVie
 			messageBox.setMessage(datosDelIndicador()+
 							" es " + 
 							this.getModelObject().obtenerValorDeIndicador());
+			messageBox.open();
 		}
-		catch (RuntimeException ex){
+		catch (Exception ex){
 			messageBox = new MessageBox(this, Type.Error);
 			messageBox.setMessage(ex.getMessage());
+			messageBox.open();
 		}
 
 		try{

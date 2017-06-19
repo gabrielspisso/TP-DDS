@@ -97,6 +97,8 @@ public class mostrarValoresDeEmpresasViewModel {
 
 	
 	public String obtenerValorDeIndicador(){
+		
+		System.out.println(indicadorActual.toString());
 		return 
 				Double.toString(indicadorActual
 						.calcularValor(
