@@ -1,21 +1,18 @@
-package parser;
+package model;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import model.Cuenta;
-import model.Indicador;
+public class IndicadorOCuenta implements Nodo{
 
-public class IndicadorOCuenta implements etiquetaCalculable{
-
-	private TokenYTipo token;
+	private String nombre;
 	
-	public IndicadorOCuenta(TokenYTipo unToken) {
-		this.token = unToken;
+	public IndicadorOCuenta(String unToken) {
+		this.nombre = unToken;
 	}
 	
 	@Override
-	public double obtenerValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
+	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
 		try{
 			return buscarValorDeIdentificador(listaDeCuentas, listaDeIndicadores);
 		}
@@ -25,8 +22,8 @@ public class IndicadorOCuenta implements etiquetaCalculable{
 	}
 
 	@Override
-	public String obtenerEtiqueta() {
-		return token.getValor();
+	public String mostrarFormula() {
+		return nombre;
 	}
 
 	private double buscarValorDeIdentificador(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
@@ -41,7 +38,7 @@ public class IndicadorOCuenta implements etiquetaCalculable{
 	private double buscarEnCuentas(List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
 		Cuenta cuenta;
 		cuenta = listaDeCuentas.stream()
-				.filter(x -> x.getNombre().equals(token.getValor()))
+				.filter(cuent -> cuent.getNombre().equals(nombre))
 				.findFirst().get();
 
 		return cuenta.getValor();
@@ -49,21 +46,24 @@ public class IndicadorOCuenta implements etiquetaCalculable{
 	
 	private double buscarEnIndicadores(List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
 		Indicador indicador;
-		
 		try{
-			indicador = listaDeIndicadores.stream()
-				.filter(x -> x.getNombre().equals(token.getValor()))
-				.findFirst().get();
-			if(indicador.contieneEsteToken(token))
+			if(listaDeIndicadores.stream().anyMatch(indic -> indic.contieneEsteToken(nombre)))
 				throw new RuntimeException("Es recursivo, modifique uno de los dos para calcular el valor nuevamente");
+			indicador = listaDeIndicadores.stream()
+					.filter(indic -> indic.getNombre().equals(nombre))
+					.findFirst().get();
 		}
 		catch(NoSuchElementException e){
 			throw new RuntimeException("El valor "
-					+"\""
-					+token.getValor() 
+					+"\"" +  nombre
 					+"\" no se encontro en el listado de cuentas ni de indicadores");
 		}
 			
 		return indicador.calcularValor(listaDeCuentas, listaDeIndicadores);
+	}
+
+	@Override
+	public boolean contieneEsteToken(String string) {
+		return nombre.equals(string);
 	}
 }

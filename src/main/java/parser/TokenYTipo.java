@@ -16,5 +16,4 @@ public class TokenYTipo {
 		tipo = t;
 		valor = v;
 	}
-	
 }

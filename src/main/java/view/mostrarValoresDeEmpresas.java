@@ -81,7 +81,8 @@ public class mostrarValoresDeEmpresas extends Window<mostrarValoresDeEmpresasVie
 			messageBox.open();
 		}
 		catch(Exception ex){
-			messageBox.setMessage("No has seleccionado los campos necesarios (Empresa, Balance E Indicador)");
+			//messageBox.setMessage("No has seleccionado los campos necesarios (Empresa, Balance E Indicador)");
+			messageBox.setMessage(ex.getMessage());
 			messageBox.open();
 		}
 	}
