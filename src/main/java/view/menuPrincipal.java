@@ -18,6 +18,7 @@ import org.uqbar.arena.windows.MessageBox.Type;
 import model.IOs;
 import viewModel.menuPrincipalViewModel;
 import viewModel.crearIndicadoresViewModel;
+import viewModel.menuMetodologiasViewModel;
 import viewModel.mostrarValoresDeEmpresasViewModel;
 
 
@@ -54,6 +55,10 @@ setTitle("¿Dónde invierto?");
 		bot_MostrarCuentas.setCaption("Mostrar cuentas").bindEnabledToProperty("bloq");
 		bot_MostrarCuentas.onClick(() -> new mostrarValoresDeEmpresas(this,new mostrarValoresDeEmpresasViewModel()).open());
 		
+		
+		
+		
+		
 		new Label(mainPanel).setText(" ").setFontSize(2);
 
 		new Label(mainPanel).setText("Crear un nuevo indicador");
@@ -78,6 +83,14 @@ setTitle("¿Dónde invierto?");
 		
 		new Button(mainPanel)
 		.setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
+		
+		
+		
+		
+		
+		new Button(mainPanel)
+		.setCaption("Metodologias").onClick(() -> new menuMetodologias(this,new menuMetodologiasViewModel()).open());
+		
 		
 		try{
 			IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
