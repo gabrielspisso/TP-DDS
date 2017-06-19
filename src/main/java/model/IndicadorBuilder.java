@@ -9,13 +9,14 @@ public class IndicadorBuilder {
 	
 	private static Raiz arbol = null;
 	private static Raiz nodoActual = null;
+	private static boolean esElPrimerElemento = true;
 	
 	public static Indicador Build(String expresion) {
     	List<TokenYTipo> lista = SCANNER.obtenerTokens(expresion);
     	String nombre = lista.get(0).getValor();
     	List<TokenYTipo> listaDeTokens =lista.subList(2, lista.size()-1);
     	
-    	nodoActual = new Raiz();
+    	nodoActual = new Raiz(null, null, null);
     	arbol = nodoActual;
     	
     	listaDeTokens.stream().forEach(token -> clasificarToken(token));
@@ -29,28 +30,24 @@ public class IndicadorBuilder {
 		enNumero enumval = enNumero.valueOf(token.getTipo());
 		switch(enumval){
 		case Identificador:{
-			arbol.cargarRama(new IndicadorOCuenta(token.getValor()));
+			nodoActual.cargarValor(new IndicadorOCuenta(token.getValor()));
+			esElPrimerElemento = false;
 		}break;
 			
 		case OperadorPrimario:{
-			if(nodoActual.laOperacionEstaCargada()){
-				Raiz nuevaRaiz = new Raiz();
-				nuevaRaiz.cargarRama(arbol);
-				arbol = nuevaRaiz;
-			}
-			arbol.cargarOperacion(token.getValor());
+			if(!esElPrimerElemento)
+				nodoActual = arbol.cargarOperacionPrimaria(token.getValor());
+			else
+				arbol.cargarOperacion(token.getValor());
+			
 		}break;
 		case OperadorSecundario:{
-			if(nodoActual.laOperacionEstaCargada()){
-				Raiz nuevaRaiz = new Raiz();
-				nuevaRaiz.cargarRama(arbol);
-				arbol = nuevaRaiz;
-			}
-			arbol.cargarOperacion(token.getValor());
+			nodoActual = nodoActual.cargarOperacionSecundaria(token.getValor());
 		}break;
 			
 		case NUMERO:{
-			arbol.cargarRama(new Numero(token.getValor()));
+			nodoActual.cargarValor(new Numero(token.getValor()));
+			esElPrimerElemento = false;
 		}break;
 		case FinDeLinea:
 		default:
