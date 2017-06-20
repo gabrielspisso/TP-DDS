@@ -10,10 +10,11 @@ public class claseDePruebas {
 
 	public static void main(String[] args) {
 		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",1),new Cuenta("FREE CASH FLOW",2));
-		Indicador indicador = IndicadorBuilder.Build("a = 1 + FREE CASH FLOW*3 + b;");
+		Indicador indicador = IndicadorBuilder.Build("j = 1*2 + FREE CASH FLOW *4/4 + 6;");
 		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
+		
 		
 		System.out.println(indicador.calcularValor(listaDeCuentas, RepositorioDeIndicadores.getListaDeIndicadores()));
 	}

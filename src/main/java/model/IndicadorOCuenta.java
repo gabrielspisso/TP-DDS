@@ -3,20 +3,14 @@ package model;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class NodoCalculable implements Nodo{
-
-	private String valor;
-	private boolean esUnNumero;
+public class IndicadorOCuenta extends Nodo{
 	
-	public NodoCalculable(String unToken, boolean esUnNumero) {
-		this.valor = unToken;
-		this.esUnNumero = esUnNumero;
+	public IndicadorOCuenta(String valor) {
+		super(valor);
 	}
-	
+
 	@Override
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-		if(esUnNumero)
-			return Double.parseDouble(valor);
 		try{
 			return buscarValorDeIdentificador(listaDeCuentas, listaDeIndicadores);
 		}
@@ -27,7 +21,7 @@ public class NodoCalculable implements Nodo{
 
 	@Override
 	public String mostrarFormula() {
-		return valor;
+		return valorDelNodo;
 	}
 
 	private double buscarValorDeIdentificador(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
@@ -42,7 +36,7 @@ public class NodoCalculable implements Nodo{
 	private double buscarEnCuentas(List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
 		Cuenta cuenta;
 		cuenta = listaDeCuentas.stream()
-				.filter(cuent -> cuent.getNombre().equals(valor))
+				.filter(cuent -> cuent.getNombre().equals(valorDelNodo))
 				.findFirst().get();
 
 		return cuenta.getValor();
@@ -51,15 +45,15 @@ public class NodoCalculable implements Nodo{
 	private double buscarEnIndicadores(List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
 		Indicador indicador;
 		try{
-			if(listaDeIndicadores.stream().anyMatch(indic -> indic.contieneEsteToken(valor)))
+			if(listaDeIndicadores.stream().anyMatch(indic -> indic.contieneEsteToken(valorDelNodo)))
 				throw new RuntimeException("Es recursivo, modifique uno de los dos para calcular el valor nuevamente");
 			indicador = listaDeIndicadores.stream()
-					.filter(indic -> indic.getNombre().equals(valor))
+					.filter(indic -> indic.getNombre().equals(valorDelNodo))
 					.findFirst().get();
 		}
 		catch(NoSuchElementException e){
 			throw new RuntimeException("El valor "
-					+"\"" +  valor
+					+"\"" +  valorDelNodo
 					+"\" no se encontro en el listado de cuentas ni de indicadores");
 		}
 			
@@ -68,6 +62,6 @@ public class NodoCalculable implements Nodo{
 
 	@Override
 	public boolean contieneEsteToken(String string) {
-		return valor.equals(string);
+		return valorDelNodo.equals(string);
 	}
 }

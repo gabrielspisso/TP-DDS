@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import parser.SCANNER;
@@ -7,53 +8,59 @@ import parser.TokenYTipo;
 
 public class IndicadorBuilder {
 	
-	private static Raiz arbol = null;
+	
 	private static Raiz nodoActual = null;
-	private static boolean esElPrimerElemento = true;
+	private static List<Termino> listaDeTerminos;
+	private static boolean raizTomada = false;
 	
 	public static Indicador Build(String expresion) {
     	List<TokenYTipo> lista = SCANNER.obtenerTokens(expresion);
     	String nombre = lista.get(0).getValor();
     	List<TokenYTipo> listaDeTokens =lista.subList(2, lista.size()-1);
     	
+    	listaDeTerminos = new ArrayList<>();
     	nodoActual = new Raiz(null, null, null);
-    	arbol = nodoActual;
-    	
+    	listaDeTerminos.add(new Termino("+", nodoActual));
     	listaDeTokens.stream().forEach(token -> clasificarToken(token));
     	
     	
     	
-		return new Indicador(nombre, arbol);
+		return new Indicador(nombre, listaDeTerminos);
 	}
 	
 	private static void clasificarToken(TokenYTipo token) {
 		enNumero enumval = enNumero.valueOf(token.getTipo());
 		switch(enumval){
 		case Identificador:{
-			nodoActual.cargarValor(new NodoCalculable(token.getValor(), false));
-			esElPrimerElemento = false;
+			Nodo identificador = new IndicadorOCuenta(token.getValor());
+			insertarHoja(identificador);
 		}break;
 			
 		case OperadorPrimario:{
-			if(!esElPrimerElemento)
-				nodoActual = arbol.cargarOperacionPrimaria(token.getValor());
-			else
-				arbol.cargarOperacion(token.getValor());
-			
+			nodoActual = new Raiz(null, null, null);
+			listaDeTerminos.add(new Termino(token.getValor(), nodoActual));
 		}break;
 		case OperadorSecundario:{
-			nodoActual = nodoActual.cargarOperacionSecundaria(token.getValor());
+			nodoActual.cargarOperacion(token.getValor());
 		}break;
 			
 		case NUMERO:{
-			nodoActual.cargarValor(new NodoCalculable(token.getValor(), true));
-			esElPrimerElemento = false;
+			Nodo numero = new Numero(token.getValor());
+			insertarHoja(numero);
 		}break;
-		case FinDeLinea:
+		case FinDeLinea:break;
 		default:
 		}
 	}
-	
+
+	private static void insertarHoja(Nodo hoja){
+		if(nodoActual.getRamaDerecha() == null){
+			nodoActual.setRamaDerecha(hoja);
+		}
+		else
+			nodoActual.setRamaIzquierda(hoja);
+			
+	}
 	
 	private enum enNumero{
 		Identificador,

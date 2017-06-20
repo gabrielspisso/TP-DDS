@@ -3,27 +3,33 @@ import java.util.List;
 
 
 
+
 public class Indicador {
 	private String nombre;
-	private Nodo arbolDeOperaciones; 
+	private List<Termino> terminos;
 	
 	@Override
 	public String toString(){
 		return nombre;
 	}
 	
-	
-	public Indicador(String nombre, Nodo arbolDeOperaciones) {
+
+	public Indicador(String nombre, List<Termino> listaDeTerminos) {
 		this.nombre = nombre;
-		this.arbolDeOperaciones = arbolDeOperaciones;
+		this.terminos = listaDeTerminos;
 	}
 
+
+
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-		return arbolDeOperaciones.calcularValor(listaDeCuentas, listaDeIndicadores);
+		return terminos.stream().
+				mapToDouble(
+					termino -> termino.calcular(listaDeCuentas, listaDeIndicadores))
+				.sum();
 	}
 
 	public String mostrarFormula() {
-		return arbolDeOperaciones.mostrarFormula();
+		return "";
 	}
 
 
@@ -33,7 +39,7 @@ public class Indicador {
 
 
 	public boolean contieneEsteToken(String token) {
-		return arbolDeOperaciones.contieneEsteToken(token);
+		return terminos.stream().anyMatch(termino -> termino.contieneEsteToken(token));
 	}
 	
 	
