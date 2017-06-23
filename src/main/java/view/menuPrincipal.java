@@ -42,11 +42,6 @@ setTitle("¿Dónde invierto?");
 		
 		new Label(mainPanel).setText(" ").setFontSize(5);
 		
-		//new Label(mainPanel).setText("Cargar un archivo de empresas");
-		//new Button(mainPanel).setCaption("Seleccionar").onClick(() -> new cargarEmpresas(this,new cargarEmpresasViewModel()).open());
-		
-		
-
 		new Label(mainPanel).setText(" ").setFontSize(2);
 		
 		new Label(mainPanel).setText("Mostrar el valor de una cuenta predefinida");
@@ -54,9 +49,6 @@ setTitle("¿Dónde invierto?");
 		
 		bot_MostrarCuentas.setCaption("Mostrar cuentas").bindEnabledToProperty("bloq");
 		bot_MostrarCuentas.onClick(() -> new mostrarValoresDeEmpresas(this,new mostrarValoresDeEmpresasViewModel()).open());
-		
-		
-		
 		
 		
 		new Label(mainPanel).setText(" ").setFontSize(2);
@@ -83,9 +75,6 @@ setTitle("¿Dónde invierto?");
 		
 		new Button(mainPanel)
 		.setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
-		
-		
-		
 		
 		
 		new Button(mainPanel)

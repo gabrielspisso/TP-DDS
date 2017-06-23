@@ -3,6 +3,7 @@ package view;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
+import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.windows.MessageBox;
@@ -15,7 +16,7 @@ import model.Cuenta;
 import model.Empresa;
 import model.Indicador;
 import viewModel.compararEmpresasViewModel;
-import viewModel.configurarMetodologiaViewModel;
+import viewModel.crearNuevaMetodologiaViewModel;
 import viewModel.evaluarEmpresasViewModel;
 import viewModel.menuMetodologiasViewModel;
 import viewModel.mostrarValoresDeEmpresasViewModel;
@@ -30,7 +31,7 @@ public class menuMetodologias extends Window<menuMetodologiasViewModel> {
 
 	@Override
 	public void createContents(Panel mainPanel) {
-		setTitle("Medologia");
+		setTitle("Metodologias");
 	
 		
 		mainPanel.setLayout(new ColumnLayout(3));
@@ -39,17 +40,14 @@ public class menuMetodologias extends Window<menuMetodologiasViewModel> {
 		new Label(mainPanel).setText("\n");		
 		new Label(mainPanel).setText("\n");
 		
-		new Label(mainPanel).setText("Seleccione esta Opcion\nPara comparar entre dos empresas!         \n ");
+		new Label(mainPanel).setText("Metodologias Existentes");
 		new Label(mainPanel).setText("Seleccione esta Opcion\nPara evaluar una empresa en particular!   \n ");
 		new Label(mainPanel).setText("Seleccione esta Opcion\nPara Configurar las Metodologias!         \n ");
 	
 
 		
-		Button bot_compararEmpresas= new Button(mainPanel);
-		bot_compararEmpresas.setCaption("Comparar dos empresas");
-		bot_compararEmpresas.setWidth(150);
-		bot_compararEmpresas.setHeight(50);
-		bot_compararEmpresas.onClick(() -> new compararEmpresas(this, new compararEmpresasViewModel()).open());
+		List<Empresa> listado_Empresas = new List<Empresa>(mainPanel);
+		listado_Empresas.setWidth(140);
 		
 	
 		Button bot_evaluarEmpresas= new Button(mainPanel);
@@ -59,10 +57,10 @@ public class menuMetodologias extends Window<menuMetodologiasViewModel> {
 		bot_evaluarEmpresas.onClick(() -> new evaluarEmpresas(this, new evaluarEmpresasViewModel()).open());
 		
 		Button bot_configurarMetodologia= new Button(mainPanel);
-		bot_configurarMetodologia.setCaption("Administrar Metodologias");
+		bot_configurarMetodologia.setCaption("Crear Nueva Metodologias");
 		bot_configurarMetodologia.setWidth(150);
 		bot_configurarMetodologia.setHeight(50);
-		bot_configurarMetodologia.onClick(() -> new configurarMetodologia(this, new configurarMetodologiaViewModel()).open());
+		bot_configurarMetodologia.onClick(() -> new crearNuevaMetodologia(this, new crearNuevaMetodologiaViewModel()).open());
 		
 
 		new Label(mainPanel).setText("\n");
