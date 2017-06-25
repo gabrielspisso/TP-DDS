@@ -7,7 +7,7 @@ import org.uqbar.commons.utils.Observable;
 
 import model.IOs;
 import model.Indicador;
-import model.IndicadorBuilder;
+import model.Builders.IndicadorBuilder;
 
 @Observable
 public class crearIndicadoresViewModel {

@@ -1,9 +1,6 @@
 package model;
 import java.util.List;
 
-
-
-
 public class Indicador {
 	private String nombre;
 	private List<Termino> terminos;
@@ -24,14 +21,22 @@ public class Indicador {
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
 		return terminos.stream().
 				mapToDouble(
-					termino -> termino.calcular(listaDeCuentas, listaDeIndicadores))
+					termino -> termino.calcularValor(listaDeCuentas, listaDeIndicadores))
 				.sum();
 	}
 
+	//SI ALGUIEN LO VE, ARREGLE ESTA ASQUEROSIDAD
 	public String mostrarFormula() {
-		return "";
+		String formula = terminos.get(0).mostrarFormulaSinSigno();//Agarro la formula sin signo porque el parser no lo soporta en el primer termino
+		for (int i = 1; i < terminos.size(); i++) {
+			formula += " " + terminos.get(i).mostrarFormula();
+		}
+		return formula;
 	}
 
+	public String mostrarFormulaCompleta(){
+		return nombre + " = " + mostrarFormula();
+	}
 
 	public String getNombre() {
 		return nombre;
