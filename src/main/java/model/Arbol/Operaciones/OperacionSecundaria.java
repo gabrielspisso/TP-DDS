@@ -7,13 +7,13 @@ import model.Indicador;
 
 public class OperacionSecundaria implements Operacion{
 	
-	String operacion;
+	String operador;
 	protected Operacion izquierda;
 	protected Operacion derecha;
 	
 	public OperacionSecundaria(String operacion, Operacion izquierda, Operacion derecha) {
 		super();
-		this.operacion = operacion;
+		this.operador = operacion;
 		this.izquierda = izquierda;
 		this.derecha = derecha;
 	}
@@ -30,6 +30,6 @@ public class OperacionSecundaria implements Operacion{
 
 	@Override
 	public String mostrarFormula() {
-		return izquierda.mostrarFormula() + operacion + derecha.mostrarFormula();
+		return izquierda.mostrarFormula() + operador + derecha.mostrarFormula();
 	}
 }
