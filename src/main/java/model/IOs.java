@@ -19,7 +19,7 @@ public class IOs {
 	public static void cargarIndicador(Indicador indicador, String path) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(path,true));
-			writer.write(indicador.mostrarFormula() + ";");
+			writer.write(indicador.getNombre() + "=" +indicador.mostrarFormula() + ";");
 			writer.newLine();
 			writer.close();
 

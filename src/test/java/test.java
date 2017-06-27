@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import model.CargadorDeEmpresas;
+import model.Cuenta;
+import model.IOs;
 import model.Indicador;
 import model.Termino;
 import model.Arbol.Hojas.Hoja;
@@ -13,6 +16,8 @@ import model.Arbol.Operaciones.DIVISION;
 import model.Arbol.Operaciones.MULTIPLICACION;
 import model.Arbol.Operaciones.Operacion;
 import model.Builders.IndicadorBuilder;
+import repositorios.RepositorioDeEmpresas;
+import repositorios.RepositorioDeIndicadores;
 
 public class test {
 
@@ -86,4 +91,43 @@ public class test {
 		Indicador indicador = IndicadorBuilder.Build("ind1 = 5 -23;");
 		assertEquals(-18.0, indicador.calcularValor(null, null), DELTA);
 	}
+	
+	@Test
+	public void CargoDatosDeUnaEmpresaYMuestroLaFormula(){
+		
+		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",1),new Cuenta("FREE CASH FLOW",2));
+		Indicador indicador = IndicadorBuilder.Build("j = 1*2 + FREE CASH FLOW + 6 + b;");
+		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
+		
+		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
+		
+	
+		assertTrue(indicador.mostrarFormula().equals("1*2 +FREE CASH FLOW +6 +b"));
+	}
+	
+	@Test
+	public void CargoDatosDeUnaEmpresaYMuestroLaFormulaCompleta(){
+		
+		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",1),new Cuenta("FREE CASH FLOW",2));
+		Indicador indicador = IndicadorBuilder.Build("j = 1*2 + FREE CASH FLOW + 6 + b;");
+		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
+		
+		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
+
+		assertTrue(indicador.mostrarFormulaCompleta().equals("j = 1*2 +FREE CASH FLOW +6 +b"));
+	}
+	
+	@Test
+	public void CargoDatosDeUnaEmpresaYCalculoValor(){
+		
+		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",1),new Cuenta("FREE CASH FLOW",2));
+		Indicador indicador = IndicadorBuilder.Build("j = 1*2 + FREE CASH FLOW + 6 + b;");
+		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
+		
+		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
+		
+		assertEquals(14.0, indicador.calcularValor(listaDeCuentas, RepositorioDeIndicadores.getListaDeIndicadores()), DELTA);
+	}
+	
+	
 }
