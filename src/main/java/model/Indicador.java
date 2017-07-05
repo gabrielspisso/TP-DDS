@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.uqbar.commons.utils.Observable;
 
 import model.Builders.ArbolBuilder;
+import repositorios.RepositorioDeIndicadores;
 @Observable
 public class Indicador {
 	private String nombre;
@@ -23,27 +24,25 @@ public class Indicador {
 	}
 
 
-	private boolean esRecursivo(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
-		return terminos.stream().anyMatch(termino -> termino.contieneEsteToken(nombre) );
+	private boolean esRecursivo(){
+		return terminos.stream().anyMatch(termino -> termino.contieneEsteToken(nombre));
 	}
-	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-		if(esRecursivo( listaDeCuentas, listaDeIndicadores)){
+	public double calcularValor(List<Cuenta> listaDeCuentas) {
+		if(esRecursivo()){
 			throw new RuntimeException("Es recursivo, modifique uno de los dos para calcular el valor nuevamente");
 			
 		}
-		List<Indicador> listaDeIndicadores2 = listaDeIndicadores.stream().filter(x->!x.equals(this)).collect(Collectors.toList());
+
 		return terminos.stream().
 				mapToDouble(
-					termino -> termino.calcularValor(listaDeCuentas, listaDeIndicadores2))
+					termino -> termino.calcularValor(listaDeCuentas, RepositorioDeIndicadores.getListaDeIndicadores()))
 				.sum();
 	}
 
-	//SI ALGUIEN LO VE, ARREGLE ESTA ASQUEROSIDAD
+	private String formula;
 	public String mostrarFormula() {
-		String formula = terminos.get(0).mostrarFormulaSinSigno();//Agarro la formula sin signo porque el parser no lo soporta en el primer termino
-		for (int i = 1; i < terminos.size(); i++) {
-			formula += " " + terminos.get(i).mostrarFormula();
-		}
+			formula = "";
+		terminos.forEach(x-> formula += x.mostrarFormula());
 		return formula;
 	}
 

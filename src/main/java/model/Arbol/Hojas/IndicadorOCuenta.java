@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import model.Cuenta;
 import model.Indicador;
 import model.Arbol.Operaciones.Operacion;
+import repositorios.RepositorioDeIndicadores;
 
 public class IndicadorOCuenta extends Hoja{
 	private String nombreDelIndicadorFinal;
@@ -42,22 +43,11 @@ public class IndicadorOCuenta extends Hoja{
 
 		return cuenta.getValor();
 	}
-	private void funcionRandom(Indicador indic){
-		if(indic.contieneEsteToken(valorDeHoja) &&!indic.getNombre().equals(valorDeHoja) ){
-			System.out.println(indic.getNombre() + "Esto es valido");	
-			System.out.println(valorDeHoja + "Esto no es valido");	
-		}
-		System.out.println(indic.getNombre() + "Esto es valido");
-		System.out.println(valorDeHoja + "Esto no es valido");	
-	}
+
 	private double buscarEnIndicadores(List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
 		Indicador indicador;
 		try{
-		/*	if(listaDeIndicadores.stream().anyMatch(indic -> indic.contieneEsteToken(valorDeHoja))){
-				throw new RuntimeException("Es recursivo, modifique uno de los dos para calcular el valor nuevamente");
-				
-			}
-			*/
+
 			indicador = listaDeIndicadores.stream()
 					.filter(indic -> indic.getNombre().equals(valorDeHoja))
 					.findFirst().get();
@@ -68,12 +58,24 @@ public class IndicadorOCuenta extends Hoja{
 					+"\" no se encontro en el listado de cuentas ni de indicadores");
 		}
 			
-		return indicador.calcularValor(listaDeCuentas, listaDeIndicadores);
+		return indicador.calcularValor(listaDeCuentas);
 	}
+	public boolean algo(String token){
+		Indicador indicador;
+		try{
 
+			indicador = RepositorioDeIndicadores.getListaDeIndicadores().stream()
+					.filter(indic -> indic.getNombre().equals(valorDeHoja))
+					.findFirst().get();
+			return indicador.contieneEsteToken(token);
+		}
+		catch(NoSuchElementException e){
+			return false;
+		}
+	}
 	@Override
 	public boolean contieneEsteToken(String string) {
-		return valorDeHoja.equals(string);
+		return valorDeHoja.equals(string) || algo(string);
 	}
 
 }

@@ -2,6 +2,8 @@ package viewModel;
 
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import org.apache.commons.lang.NullArgumentException;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
@@ -99,12 +101,8 @@ public class mostrarValoresDeEmpresasViewModel {
 
 	
 	public String obtenerValorDeIndicador(){
-		return 
-				Double.toString(indicadorActual
-						.calcularValor(
-								balanceActual.getCuentas(),
-								RepositorioDeIndicadores.getListaDeIndicadores()
-								));			
+					return 	Double.toString(indicadorActual
+							.calcularValor(balanceActual.getCuentas()));			
 	}
 	
 	public boolean getSeleccionoEmpresaYPeriodo(){

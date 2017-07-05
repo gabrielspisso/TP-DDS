@@ -29,7 +29,7 @@ public class Termino implements Operacion{
 		return arbol.calcularValor(listaDeCuentas, listaDeIndicadores) * calcularValorSigno() ;
 	}
 	private int calcularValorSigno(){
-		return (signo.equals("+")) ? 1:-1;
+		return (signo.equals("-")) ? -1:1;
 	}
 	@Override
 	public String mostrarFormula() {

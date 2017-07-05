@@ -47,7 +47,7 @@ setTitle("¿Dónde invierto?");
 		new Label(mainPanel).setText("Mostrar el valor de una cuenta predefinida");
 		Button bot_MostrarCuentas= new Button(mainPanel);
 		
-		bot_MostrarCuentas.setCaption("Mostrar cuentas").bindEnabledToProperty("bloq");
+		bot_MostrarCuentas.setCaption("Mostrar valores de la Empresa").bindEnabledToProperty("bloq");
 		bot_MostrarCuentas.onClick(() -> new mostrarValoresDeEmpresas(this,new mostrarValoresDeEmpresasViewModel()).open());
 		
 		

@@ -16,7 +16,8 @@ import repositorios.RepositorioDeIndicadores;
 
 public class IOs {
 	
-	public static void cargarIndicador(Indicador indicador, String path) {
+	private static void escribirEnArchivo(Indicador indicador,String path){
+
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(path,true));
 			writer.write(indicador.getNombre() + "=" +indicador.mostrarFormula() + ";");
@@ -29,6 +30,20 @@ public class IOs {
 		catch (RuntimeException e) {
 			throw new RuntimeException("Error al cargar el indicador");
 		}
+	}
+	private static void vaciarArchivo(String path){
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+			writer.write("");
+			writer.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void cargarIndicador(Indicador indicador, String path) {
+		vaciarArchivo(path);
+		RepositorioDeIndicadores.getListaDeIndicadores().forEach(x->escribirEnArchivo(x,path));
 	}
 
 	

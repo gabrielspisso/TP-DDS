@@ -85,12 +85,12 @@ public class test {
 		Termino termino1 = new Termino("+", new Numero("5"));
 		Termino termino2 = new Termino("-", new Numero("23"));
 		Indicador indicador = new Indicador("ind1", Arrays.asList(termino1,termino2));
-		assertEquals(-18.0, indicador.calcularValor(null, RepositorioDeIndicadores.getListaDeIndicadores()), DELTA);
+		assertEquals(-18.0, indicador.calcularValor(null), DELTA);
 	}
 	@Test
 	public void CreoUnIndicadorComoElTestAnteriorPeroDesdeElBuilderYCalculoElResultadoQueSigueSiendoMenos18(){
 		Indicador indicador = IndicadorBuilder.Build("ind1 = 5 -23;");
-		assertEquals(-18.0, indicador.calcularValor(null, RepositorioDeIndicadores.getListaDeIndicadores()), DELTA);
+		assertEquals(-18.0, indicador.calcularValor(null), DELTA);
 	}
 	
 	@Test
@@ -102,8 +102,7 @@ public class test {
 		
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		
-	
-		assertTrue(indicador.mostrarFormula().equals("1*2 +FREE CASH FLOW +6 +b"));
+		assertTrue(indicador.mostrarFormula().equals("1*2+FREE CASH FLOW+6+b"));
 	}
 	
 	@Test
@@ -115,7 +114,7 @@ public class test {
 		
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 
-		assertTrue(indicador.mostrarFormulaCompleta().equals("j = 1*2 +FREE CASH FLOW +6 +b"));
+		assertTrue(indicador.mostrarFormulaCompleta().equals("j = 1*2+FREE CASH FLOW+6+b"));
 	}
 	
 	@Test
@@ -127,7 +126,7 @@ public class test {
 		
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		
-		assertEquals(14.0, indicador.calcularValor(listaDeCuentas, RepositorioDeIndicadores.getListaDeIndicadores()), DELTA);
+		assertEquals(14.0, indicador.calcularValor(listaDeCuentas), DELTA);
 	}
 	@Test
 	public void algo(){
@@ -136,7 +135,7 @@ public class test {
 		RepositorioDeIndicadores.agregarIndicador(indicador1);
 		Indicador indicador2 = IndicadorBuilder.Build("indicador2 = 2;");
 		RepositorioDeIndicadores.agregarIndicador(indicador2);
-		assertEquals(2.0,indicador2.calcularValor(listaDeCuentas , RepositorioDeIndicadores.getListaDeIndicadores()),DELTA);
+		assertEquals(2.0,indicador2.calcularValor(listaDeCuentas),DELTA);
 	}
 	
 	

@@ -22,7 +22,7 @@ public class ArbolBuilder {
 	public static List<Termino> Build(List<TokenYTipo> lista){
 		listaDeTokens =  lista;
 		arbolActual = consumirHoja();
-		terminoActual = new Termino("+", arbolActual);
+		terminoActual = new Termino("", arbolActual);
 		
 		listaDeTerminos = new ArrayList<>();
 		listaDeTerminos.add(terminoActual);
