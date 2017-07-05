@@ -8,9 +8,10 @@ import model.Indicador;
 import model.Arbol.Operaciones.Operacion;
 
 public class IndicadorOCuenta extends Hoja{
-	
+	private String nombreDelIndicadorFinal;
 	public IndicadorOCuenta(String valorDeHoja) {
 		super(valorDeHoja);
+		
 	}
 
 
@@ -26,14 +27,14 @@ public class IndicadorOCuenta extends Hoja{
 
 	private double buscarValorDeIdentificador(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
 		try{
-			return buscarEnCuentas(listaDeIndicadores, listaDeCuentas);
+			return buscarEnCuentas(listaDeCuentas);
 		}
 		catch(NoSuchElementException ex){
 			return buscarEnIndicadores(listaDeIndicadores, listaDeCuentas);
 		}
 	}
 	
-	private double buscarEnCuentas(List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
+	private double buscarEnCuentas( List<Cuenta> listaDeCuentas){
 		Cuenta cuenta;
 		cuenta = listaDeCuentas.stream()
 				.filter(cuent -> cuent.getNombre().equals(valorDeHoja))
@@ -41,12 +42,22 @@ public class IndicadorOCuenta extends Hoja{
 
 		return cuenta.getValor();
 	}
-	
+	private void funcionRandom(Indicador indic){
+		if(indic.contieneEsteToken(valorDeHoja) &&!indic.getNombre().equals(valorDeHoja) ){
+			System.out.println(indic.getNombre() + "Esto es valido");	
+			System.out.println(valorDeHoja + "Esto no es valido");	
+		}
+		System.out.println(indic.getNombre() + "Esto es valido");
+		System.out.println(valorDeHoja + "Esto no es valido");	
+	}
 	private double buscarEnIndicadores(List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
 		Indicador indicador;
 		try{
-			if(listaDeIndicadores.stream().anyMatch(indic -> indic.contieneEsteToken(valorDeHoja)))
+		/*	if(listaDeIndicadores.stream().anyMatch(indic -> indic.contieneEsteToken(valorDeHoja))){
 				throw new RuntimeException("Es recursivo, modifique uno de los dos para calcular el valor nuevamente");
+				
+			}
+			*/
 			indicador = listaDeIndicadores.stream()
 					.filter(indic -> indic.getNombre().equals(valorDeHoja))
 					.findFirst().get();

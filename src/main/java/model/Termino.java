@@ -26,10 +26,11 @@ public class Termino implements Operacion{
 
 	@Override
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-		return (signo.equals("+")) ? arbol.calcularValor(listaDeCuentas, listaDeIndicadores)
-				: -arbol.calcularValor(listaDeCuentas, listaDeIndicadores);
+		return arbol.calcularValor(listaDeCuentas, listaDeIndicadores) * calcularValorSigno() ;
 	}
-
+	private int calcularValorSigno(){
+		return (signo.equals("+")) ? 1:-1;
+	}
 	@Override
 	public String mostrarFormula() {
 		return signo + arbol.mostrarFormula();

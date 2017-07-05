@@ -1,5 +1,9 @@
 package model;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import model.Builders.ArbolBuilder;
 
 public class Indicador {
 	private String nombre;
@@ -17,11 +21,18 @@ public class Indicador {
 	}
 
 
-
+	private boolean esRecursivo(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores){
+		return terminos.stream().anyMatch(termino -> termino.contieneEsteToken(nombre) );
+	}
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
+		if(esRecursivo( listaDeCuentas, listaDeIndicadores)){
+			throw new RuntimeException("Es recursivo, modifique uno de los dos para calcular el valor nuevamente");
+			
+		}
+		List<Indicador> listaDeIndicadores2 = listaDeIndicadores.stream().filter(x->!x.equals(this)).collect(Collectors.toList());
 		return terminos.stream().
 				mapToDouble(
-					termino -> termino.calcularValor(listaDeCuentas, listaDeIndicadores))
+					termino -> termino.calcularValor(listaDeCuentas, listaDeIndicadores2))
 				.sum();
 	}
 

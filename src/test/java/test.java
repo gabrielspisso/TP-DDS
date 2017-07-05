@@ -81,15 +81,16 @@ public class test {
 	
 	@Test
 	public void CreoUnIndicadorConDosTerminosQueTienenUn5YUnMenos23YCalculoSuValorQueEsMenos18(){
+		
 		Termino termino1 = new Termino("+", new Numero("5"));
 		Termino termino2 = new Termino("-", new Numero("23"));
 		Indicador indicador = new Indicador("ind1", Arrays.asList(termino1,termino2));
-		assertEquals(-18.0, indicador.calcularValor(null, null), DELTA);
+		assertEquals(-18.0, indicador.calcularValor(null, RepositorioDeIndicadores.getListaDeIndicadores()), DELTA);
 	}
 	@Test
 	public void CreoUnIndicadorComoElTestAnteriorPeroDesdeElBuilderYCalculoElResultadoQueSigueSiendoMenos18(){
 		Indicador indicador = IndicadorBuilder.Build("ind1 = 5 -23;");
-		assertEquals(-18.0, indicador.calcularValor(null, null), DELTA);
+		assertEquals(-18.0, indicador.calcularValor(null, RepositorioDeIndicadores.getListaDeIndicadores()), DELTA);
 	}
 	
 	@Test
@@ -127,6 +128,15 @@ public class test {
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		
 		assertEquals(14.0, indicador.calcularValor(listaDeCuentas, RepositorioDeIndicadores.getListaDeIndicadores()), DELTA);
+	}
+	@Test
+	public void algo(){
+		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",1),new Cuenta("FREE CASH FLOW",2));
+		Indicador indicador1 = IndicadorBuilder.Build("indicador1 = indicador2;");
+		RepositorioDeIndicadores.agregarIndicador(indicador1);
+		Indicador indicador2 = IndicadorBuilder.Build("indicador2 = 2;");
+		RepositorioDeIndicadores.agregarIndicador(indicador2);
+		assertEquals(2.0,indicador2.calcularValor(listaDeCuentas , RepositorioDeIndicadores.getListaDeIndicadores()),DELTA);
 	}
 	
 	

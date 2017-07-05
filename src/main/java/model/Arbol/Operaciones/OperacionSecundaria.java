@@ -23,11 +23,10 @@ public class OperacionSecundaria implements Operacion{
 		return izquierda.contieneEsteToken(token) || derecha.contieneEsteToken(token);
 	}
 
-	@Override
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
 		return 0;
 	}
-
+	
 	@Override
 	public String mostrarFormula() {
 		return izquierda.mostrarFormula() + operador + derecha.mostrarFormula();

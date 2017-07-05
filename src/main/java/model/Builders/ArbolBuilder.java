@@ -2,6 +2,7 @@ package model.Builders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 import model.Termino;
 import model.Arbol.Hojas.IndicadorOCuenta;
@@ -20,37 +21,29 @@ public class ArbolBuilder {
 
 	public static List<Termino> Build(List<TokenYTipo> lista){
 		listaDeTokens =  lista;
-
 		arbolActual = consumirHoja();
 		terminoActual = new Termino("+", arbolActual);
 		
 		listaDeTerminos = new ArrayList<>();
 		listaDeTerminos.add(terminoActual);
-		
-		while(!listaDeTokens.isEmpty()){
+		while(!listaDeTokens.isEmpty()){ //Deberia ser mas decente, con un foreach o algo.
 			
 			TokenYTipo token = consumirToken();
-			if(esUnaOperacionPrimaria(token)){
+			if(token.esOperacionPrimaria()){
 				agregarUnNuevoTermino(token);
 			}
 			else{
 				agregarOperacionSecundaria(token);
-			}
-				
+			}	
 		}
+		
 		return listaDeTerminos;
 	}
 	
 	//Hay que mejorar esto
 	private static void agregarOperacionSecundaria(TokenYTipo token) {
-		OperacionSecundaria nuevaOperacion = null;
-		if(token.getValor().equals("*")){
-			nuevaOperacion = new MULTIPLICACION(arbolActual, consumirHoja());
-		}
-		if(token.getValor().equals("/")){
-			nuevaOperacion = new DIVISION(arbolActual, consumirHoja());
-		}
-		arbolActual = nuevaOperacion;
+		
+		arbolActual = token.convertirAOperacionSecundaria(arbolActual, consumirHoja());
 		terminoActual.setArbol(arbolActual);
 	}
 
@@ -60,9 +53,7 @@ public class ArbolBuilder {
 		listaDeTerminos.add(terminoActual);
 	}
 	
-	private static boolean esUnaOperacionPrimaria(TokenYTipo token){
-		return token.getTipo().equals("OperadorPrimario");
-	}
+	
 	
 	private static TokenYTipo consumirToken(){
 		TokenYTipo token = listaDeTokens.get(0);
@@ -71,28 +62,8 @@ public class ArbolBuilder {
 	}
 	
 	private static Operacion consumirHoja(){
-		return clasificarToken(consumirToken());
+		return consumirToken().convertirEnHoja();
 	}
 
-	private static Operacion clasificarToken(TokenYTipo token) {
-		Operacion valor = null;
-		tipo enumval = tipo.valueOf(token.getTipo());
-		switch(enumval){
-			case Identificador:{
-				valor = new IndicadorOCuenta(token.getValor());
-			}break;
-			case NUMERO:{
-				valor = new Numero(token.getValor());
-			}break;
-		}
-		return valor;
-	}
-	
-	private enum tipo{
-		Identificador,
-		NUMERO,
-		OperadorPrimario,
-		OperadorSecundario,
-		FinDeLinea
-	}
+
 }
