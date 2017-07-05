@@ -4,8 +4,11 @@ package view;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
+import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
+import org.uqbar.arena.widgets.tables.Column;
+import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
@@ -42,23 +45,25 @@ public class mostrarValoresDeEmpresas extends Window<mostrarValoresDeEmpresasVie
 		selectorPeriodo.bindItemsToProperty("balances");
 		 
 		new Label(mainPanel).setText("Cuentas: ");
-		Selector<Cuenta> selectorCuenta = new Selector<Cuenta>(mainPanel);
+		new Label(mainPanel).setText("Indicadores: ");
+		List<Cuenta> selectorCuenta = new List<Cuenta>(mainPanel);
 		selectorCuenta.setWidth(165);
+		selectorCuenta.setHeight(75);
 		selectorCuenta.bindValueToProperty("cuentaActual");
 		selectorCuenta.bindItemsToProperty("cuentas");
+		selectorCuenta.bindEnabledToProperty("seleccionoEmpresaYPeriodo");
 		
-		
-		new Label(mainPanel).setText("Indicadores: ");
-		Selector<Indicador> selectorIndicador = new Selector<Indicador>(mainPanel);
-		selectorIndicador.setWidth(165);
+		List<Indicador> selectorIndicador = new List<Indicador>(mainPanel);
+		selectorIndicador.setWidth(130);
+		selectorIndicador.setHeight(75);
 		selectorIndicador.bindValueToProperty("indicadorActual");
 		selectorIndicador.bindItemsToProperty("indicadores");
+		selectorIndicador.bindEnabledToProperty("seleccionoEmpresaYPeriodo");
 		
 		new Button(mainPanel).setCaption("Obtener valor de la cuenta").onClick(() -> this.mostrarValorCuentaSeleccionada());
 		new Button(mainPanel).setCaption("Obtener valor de indicador").onClick(() -> this.mostrarValorDeIndicadorSeleccionado());
 		
 		
-		//new crearIndicadores(this, new crearIndicadoresViewModel()).open();
 		}
 		
 	

@@ -18,7 +18,7 @@ public class mostrarValoresDeEmpresasViewModel {
 	private Balance balanceActual ;//= new Balance("","",Arrays.asList());
 	private Cuenta cuentaActual; //= new Cuenta("",0);
 	private Indicador indicadorActual;
-
+	
 	
 
 	public Empresa getEmpresaActual() {
@@ -28,7 +28,8 @@ public class mostrarValoresDeEmpresasViewModel {
 	public void setEmpresaActual(Empresa empresaActual) {
 		try{
 			this.empresaActual = empresaActual;
-			ObservableUtils.firePropertyChanged(this, "balances");				
+			ObservableUtils.firePropertyChanged(this, "balances");	
+			ObservableUtils.firePropertyChanged(this, "seleccionoEmpresaYPeriodo");
 		}
 		catch(RuntimeException ex){
 			this.empresaActual = empresaActual;
@@ -43,6 +44,7 @@ public class mostrarValoresDeEmpresasViewModel {
 	public void setBalanceActual(Balance balanceActual) {
 		this.balanceActual = balanceActual;
 		ObservableUtils.firePropertyChanged(this, "cuentas");
+		ObservableUtils.firePropertyChanged(this, "seleccionoEmpresaYPeriodo");
 	}
 
 	public Cuenta getCuentaActual() {
@@ -105,5 +107,8 @@ public class mostrarValoresDeEmpresasViewModel {
 								));			
 	}
 	
+	public boolean getSeleccionoEmpresaYPeriodo(){
+		return balanceActual != null;
+	}
 
 }

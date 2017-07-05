@@ -3,8 +3,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import model.Builders.ArbolBuilder;
+import org.uqbar.commons.utils.Observable;
 
+import model.Builders.ArbolBuilder;
+@Observable
 public class Indicador {
 	private String nombre;
 	private List<Termino> terminos;
