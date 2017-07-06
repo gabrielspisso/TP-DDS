@@ -37,7 +37,7 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 		new Label(mainPanel).setText("Ingrese el valor minimo");
 		new TextBox(mainPanel).bindValueToProperty("valorMinimo");
 
-		new Label(mainPanel).setText("es taxativas?");
+		new Label(mainPanel).setText("Es taxativa?");
 		new CheckBox(mainPanel).bindValueToProperty("taxatividad");
 
 		new Label(mainPanel).setText("Ingrese cantidad de años").bindVisibleToProperty("visibleCantidadDeAños");
@@ -49,7 +49,7 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 		TextBox t2 =new TextBox(mainPanel);
 		t2.bindValueToProperty("calculo");
 		t2.bindVisibleToProperty("visibleCalculo");
-		new Label(mainPanel).setText("Ingrese comportamiento deseada").bindVisibleToProperty("visibleComportamiento");
+		new Label(mainPanel).setText("Ingrese comportamiento deseado").bindVisibleToProperty("visibleComportamiento");
 		TextBox t3 =new TextBox(mainPanel);
 		t3.bindValueToProperty("comportamiento");
 		t3.bindVisibleToProperty("visibleComportamiento");

@@ -22,6 +22,7 @@ import viewModel.menuMetodologiasViewModel;
 import viewModel.mostrarValoresDeEmpresasViewModel;
 
 
+@SuppressWarnings("serial")
 public class menuPrincipal extends MainWindow<menuPrincipalViewModel> {
 	public menuPrincipal() {
 		super(new menuPrincipalViewModel());
@@ -102,7 +103,7 @@ setTitle("¿Dónde invierto?");
 		
 		catch (RuntimeException ex){
 			messageBox = new MessageBox(this, Type.Error);
-			messageBox.setMessage("La ruta del archivo no puede estar vacÃ­a!");
+			messageBox.setMessage("La ruta del archivo es incorrecta!");
 			messageBox.open();
 		}
 	}

@@ -44,8 +44,8 @@ public class menuMetodologias extends Window<menuMetodologiasViewModel> {
 		new Label(mainPanel).setText("\n");
 		
 		new Label(mainPanel).setText("Metodologias Existentes");
-		new Label(mainPanel).setText("Seleccione esta Opcion\nPara evaluar una empresa en particular!   \n ");
-		new Label(mainPanel).setText("Seleccione esta Opcion\nPara Configurar las Metodologias!         \n ");
+		new Label(mainPanel).setText("Seleccione esta opcion\npara evaluar una empresa en particular!   \n ");
+		new Label(mainPanel).setText("Seleccione esta opcion\npara configurar las Metodologias!         \n ");
 	
 
 		
@@ -61,7 +61,7 @@ public class menuMetodologias extends Window<menuMetodologiasViewModel> {
 		bot_evaluarEmpresas.onClick(() -> new evaluarEmpresas(this, new evaluarEmpresasViewModel()).open());
 		
 		Button bot_configurarMetodologia= new Button(mainPanel);
-		bot_configurarMetodologia.setCaption("Crear Nueva Metodologias");
+		bot_configurarMetodologia.setCaption("Crear nueva Metodologia");
 		bot_configurarMetodologia.setWidth(150);
 		bot_configurarMetodologia.setHeight(50);
 		bot_configurarMetodologia.onClick(() -> new crearNuevaMetodologia(this, new crearNuevaMetodologiaViewModel()).open());
