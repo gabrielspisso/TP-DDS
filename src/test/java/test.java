@@ -146,35 +146,54 @@ public class test {
 		assertEquals(2.0,indicador2.calcularValor(listaDeCuentas),DELTA);
 	}
 	@Test
-	public void pruebaDeCondicion1(){
-		condicionTipo1 test = new condicionTipo1(3, 1,RepositorioDeIndicadores.getListaDeIndicadores().get(2),false);
+	public void pruebaFacebookTieneCCMayorA3(){
+		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+		condicionTipo1 test = new condicionTipo1(3, 1,indicador,false);
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
+	@Test
+	public void pruebaFacebookNoTieneCCMayorA30(){
+		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+		condicionTipo1 test = new condicionTipo1(30, 1,indicador,false);
+		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
+	}
+	
+	
 	
 	@Test
 	public void pruebaDeCondicion3(){
-		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
-		condicionTipo3 test = new condicionTipo3(new Promedio(),9,RepositorioDeIndicadores.getListaDeIndicadores().get(2),false); //Deberian ser estaticos
+		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+		condicionTipo3 test = new condicionTipo3(new Promedio(),9,indicador,false); //Deberian ser estaticos
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
 	public void pruebaDeCondicion4(){
-		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
-		CondicionTipo4 test = new CondicionTipo4("Creciente",RepositorioDeIndicadores.getListaDeIndicadores().get(2),false); //Deberian ser estaticos
+		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+		CondicionTipo4 test = new CondicionTipo4("Creciente",indicador,false);
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
-	public void pruebaMetodologias(){
-		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
-		condicionTipo1 test = new condicionTipo1(300,1,RepositorioDeIndicadores.getListaDeIndicadores().get(1),false);
-		condicionTipo3 test2 = new condicionTipo3(new Promedio(),9,RepositorioDeIndicadores.getListaDeIndicadores().get(1),false); //Deberian ser estaticos
+	public void testFacebookTieneCiencuentaPorcientoDeccConCondicion1YCondicion3(){
+		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+		condicionTipo1 test = new condicionTipo1(300,1,indicador,false);
+		condicionTipo3 test2 = new condicionTipo3(new Promedio(),9,indicador,false); //Deberian ser estaticos
 		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test,test2));
 		assertEquals(50,metodologia.evaluarMetodologia(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
+	}
+	@Test(expected = RuntimeException.class)
+	public void pruebaDeQueUnaMetodologiaSeRechazaSinoCumpleUnaCondicionTaxativa(){
+		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
+		Indicador indicador = IndicadorBuilder.Build("cc=FDSA;");
+		condicionTipo1 test = new condicionTipo1(300,1,indicador,false);
+		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test));
+		
+		metodologia.evaluarMetodologia(RepositorioDeEmpresas.mostrarEmpresas().get(0));	
 	}
 	@Test
 	public void pruebaOrdenarMetodologias(){
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
-		condicionTipo1 test = new condicionTipo1(7,1,RepositorioDeIndicadores.getListaDeIndicadores().get(0),false);
+		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		condicionTipo1 test = new condicionTipo1(7,1,indicador,false);
 		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test));
 		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(1),RepositorioDeEmpresas.mostrarEmpresas().get(2),RepositorioDeEmpresas.mostrarEmpresas().get(0));
 		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(RepositorioDeEmpresas.mostrarEmpresas() ));
