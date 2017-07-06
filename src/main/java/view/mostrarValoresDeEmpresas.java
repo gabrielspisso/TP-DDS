@@ -80,7 +80,7 @@ public class mostrarValoresDeEmpresas extends Window<mostrarValoresDeEmpresasVie
 		}
 		catch (RuntimeException ex){
 			messageBox = new MessageBox(this, Type.Error);
-			messageBox.setMessage(	this.getModelObject().getIndicadorActual().mostrarFormulaCompleta()+ "\n"+ex.getMessage());
+			messageBox.setMessage(ex.getMessage());
 		}
 		messageBox.open();
 
@@ -93,7 +93,7 @@ public class mostrarValoresDeEmpresas extends Window<mostrarValoresDeEmpresasVie
 					+"\nEl valor del indicador " + 
 					this.getModelObject().getIndicadorActual().getNombre();
 		}
-		catch(NullPointerException ex){
+		catch(Exception ex){
 			throw new RuntimeException("No ingreso todos los campos necesarios para mostrar el valor de un indicador.");
 		}
 
