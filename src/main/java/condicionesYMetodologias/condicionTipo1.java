@@ -13,8 +13,11 @@ public class condicionTipo1 extends Condicion{
 		this.valorMinimo = valorMinimo;
 		this.cantidadDeAños = cantidadDeAños;		
 	}
-	
+	@Override
 	public boolean cumpleCondicion(Empresa empresa){
+		if(empresa.getBalances().size() < cantidadDeAños){
+			return false;
+		}
 		List<Balance> listaDeBalances = empresa.getBalances().subList(0, cantidadDeAños);
 		return listaDeBalances.stream().allMatch(balance->this.valorMinimo <=indicador.calcularValor(balance.getCuentas()));	
 	}

@@ -1,5 +1,6 @@
 package condicionesYMetodologias;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ public class condicionTipo3 extends Condicion {
 		this.valorMinimo = valorMinimo;
 		this.calculo = calculo;	
 	}
+	@Override
 	public boolean cumpleCondicion(Empresa empresa){
 		Stream<Double>  x= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
 		return calculo.realizarCalculo(x.collect(Collectors.toList())) > valorMinimo;

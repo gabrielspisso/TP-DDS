@@ -2,9 +2,9 @@ package Calculos;
 
 import java.util.List;
 
-public class Mediana extends Calculo {
+public  class Mediana implements Calculo {
 	
-	@Override
+	
 	public double realizarCalculo(List<Double> listaDeResultados){
 		int cantidadDeElementos = listaDeResultados.size();
 		double mediana = listaDeResultados.get(cantidadDeElementos/2);
