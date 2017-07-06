@@ -285,7 +285,7 @@ static int jjmatchedPos;
 static int jjmatchedKind;
 
 /** Get the next Token. */
-public static Token getNextToken(List<TokenYTipo> lista) 
+public static Token getNextToken(List<NodoNoClasificado> lista) 
 {
   Token matchedToken;
   int curPos = 0;
@@ -353,36 +353,36 @@ public static Token getNextToken(List<TokenYTipo> lista)
   }
 }
 
-static void TokenLexicalActions(Token matchedToken, List<TokenYTipo> lista)
+static void TokenLexicalActions(Token matchedToken, List<NodoNoClasificado> lista)
 {
-	TokenYTipo token = null;
+	NodoNoClasificado token = null;
    switch(jjmatchedKind)
    {
       case 1 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-     token = new TokenYTipo("Identificador", image.toString());
+     token = new NodoNoClasificado("Identificador", image.toString());
          break;
       case 2 :
         image.append(jjstrLiteralImages[2]);
         lengthOfMatch = jjstrLiteralImages[2].length();
-     token = new TokenYTipo("Asignacion", image.toString());
+     token = new NodoNoClasificado("Asignacion", image.toString());
          break;
       case 3 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-     token = new TokenYTipo("NUMERO", image.toString());
+     token = new NodoNoClasificado("NUMERO", image.toString());
          break;
       case 4 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-      token = new TokenYTipo("OperadorPrimario", image.toString());
+      token = new NodoNoClasificado("OperadorPrimario", image.toString());
          break;
       case 5 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-     token = new TokenYTipo("OperadorSecundario", image.toString());
+     token = new NodoNoClasificado("OperadorSecundario", image.toString());
          break;
       case 6 :
         image.append(jjstrLiteralImages[6]);
         lengthOfMatch = jjstrLiteralImages[6].length();
-        token = new TokenYTipo("FinDeLinea", image.toString());
+        token = new NodoNoClasificado("FinDeLinea", image.toString());
          break;
       default :
          break;
