@@ -59,7 +59,7 @@ public class IndicadorOCuenta extends Hoja{
 			
 		return indicador.calcularValor(listaDeCuentas);
 	}
-	public boolean algo(String token){
+	public boolean noEsRecursivo(String token){
 		Indicador indicador;
 		try{
 
@@ -74,7 +74,7 @@ public class IndicadorOCuenta extends Hoja{
 	}
 	@Override
 	public boolean contieneEsteToken(String string) {
-		return valorDeHoja.equals(string) || algo(string);
+		return valorDeHoja.equals(string) || noEsRecursivo(string);
 	}
 
 }
