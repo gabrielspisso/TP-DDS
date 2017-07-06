@@ -198,5 +198,16 @@ public class test {
 		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(1),RepositorioDeEmpresas.mostrarEmpresas().get(2),RepositorioDeEmpresas.mostrarEmpresas().get(0));
 		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(RepositorioDeEmpresas.mostrarEmpresas() ));
 	}
+	@Test
+	public void pruebaOrdenarMetodologias2(){
+		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
+		Indicador indicador = IndicadorBuilder.Build("indicador4=FDS+4;");
+		condicionTipo1 test = new condicionTipo1(1,1,indicador,true);
+		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test));
+		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(0));
+		List<Empresa> listaDeEmpresa2s = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(0),RepositorioDeEmpresas.mostrarEmpresas().get(1));
+		
+		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(listaDeEmpresa2s));
+	}
 	
 }
