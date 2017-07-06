@@ -18,8 +18,8 @@ public class condicionTipo3 extends Condicion {
 
 	int valorMinimo;
 	Calculo calculo;
-	public condicionTipo3(Calculo calculo, int valorMinimo, Indicador indicador){
-		super(indicador);
+	public condicionTipo3(Calculo calculo, int valorMinimo, Indicador indicador,boolean taxatividad){
+		super(indicador,taxatividad);
 		this.valorMinimo = valorMinimo;
 		this.calculo = calculo;	
 	}

@@ -40,7 +40,6 @@ public class IndicadorOCuenta extends Hoja{
 		cuenta = listaDeCuentas.stream()
 				.filter(cuent -> cuent.getNombre().equals(valorDeHoja))
 				.findFirst().get();
-
 		return cuenta.getValor();
 	}
 

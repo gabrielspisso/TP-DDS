@@ -8,8 +8,8 @@ import repositorios.RepositorioDeIndicadores;
 public class condicionTipo1 extends Condicion{
 	int valorMinimo;
 	int cantidadDeAños;
-	public condicionTipo1(int valorMinimo,int cantidadDeAños,Indicador indicador){
-		super(indicador);
+	public condicionTipo1(int valorMinimo,int cantidadDeAños,Indicador indicador, boolean taxatividad){
+		super(indicador,taxatividad);
 		this.valorMinimo = valorMinimo;
 		this.cantidadDeAños = cantidadDeAños;		
 	}
@@ -19,6 +19,6 @@ public class condicionTipo1 extends Condicion{
 			return false;
 		}
 		List<Balance> listaDeBalances = empresa.getBalances().subList(0, cantidadDeAños);
-		return listaDeBalances.stream().allMatch(balance->this.valorMinimo <=indicador.calcularValor(balance.getCuentas()));	
+		return listaDeBalances.stream().allMatch(balance->this.valorMinimo <=this.indicador.calcularValor(balance.getCuentas()));	
 	}
 }

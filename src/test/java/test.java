@@ -147,35 +147,35 @@ public class test {
 	}
 	@Test
 	public void pruebaDeCondicion1(){
-		condicionTipo1 test = new condicionTipo1(3, 1,RepositorioDeIndicadores.getListaDeIndicadores().get(2));
+		condicionTipo1 test = new condicionTipo1(3, 1,RepositorioDeIndicadores.getListaDeIndicadores().get(2),false);
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	
 	@Test
 	public void pruebaDeCondicion3(){
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
-		condicionTipo3 test = new condicionTipo3(new Promedio(),9,RepositorioDeIndicadores.getListaDeIndicadores().get(2)); //Deberian ser estaticos
+		condicionTipo3 test = new condicionTipo3(new Promedio(),9,RepositorioDeIndicadores.getListaDeIndicadores().get(2),false); //Deberian ser estaticos
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
 	public void pruebaDeCondicion4(){
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
-		CondicionTipo4 test = new CondicionTipo4("Creciente",RepositorioDeIndicadores.getListaDeIndicadores().get(2)); //Deberian ser estaticos
+		CondicionTipo4 test = new CondicionTipo4("Creciente",RepositorioDeIndicadores.getListaDeIndicadores().get(2),false); //Deberian ser estaticos
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
 	public void pruebaMetodologias(){
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
-		condicionTipo1 test = new condicionTipo1(300,1,RepositorioDeIndicadores.getListaDeIndicadores().get(1));
-		condicionTipo3 test2 = new condicionTipo3(new Promedio(),9,RepositorioDeIndicadores.getListaDeIndicadores().get(1)); //Deberian ser estaticos
-		Metodologia metodologia = new Metodologia(Arrays.asList(test,test2));
+		condicionTipo1 test = new condicionTipo1(300,1,RepositorioDeIndicadores.getListaDeIndicadores().get(1),false);
+		condicionTipo3 test2 = new condicionTipo3(new Promedio(),9,RepositorioDeIndicadores.getListaDeIndicadores().get(1),false); //Deberian ser estaticos
+		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test,test2));
 		assertEquals(50,metodologia.evaluarMetodologia(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
 	public void pruebaOrdenarMetodologias(){
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
-		condicionTipo1 test = new condicionTipo1(7,1,RepositorioDeIndicadores.getListaDeIndicadores().get(0));
-		Metodologia metodologia = new Metodologia(Arrays.asList(test));
+		condicionTipo1 test = new condicionTipo1(7,1,RepositorioDeIndicadores.getListaDeIndicadores().get(0),false);
+		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test));
 		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(1),RepositorioDeEmpresas.mostrarEmpresas().get(2),RepositorioDeEmpresas.mostrarEmpresas().get(0));
 		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(RepositorioDeEmpresas.mostrarEmpresas() ));
 	}

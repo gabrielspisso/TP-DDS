@@ -8,6 +8,9 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.WindowOwner;
+
+import condicionesYMetodologias.Metodologia;
+
 import org.uqbar.arena.windows.MessageBox.Type;
 import org.uqbar.arena.windows.Window;
 
@@ -46,8 +49,9 @@ public class menuMetodologias extends Window<menuMetodologiasViewModel> {
 	
 
 		
-		List<Empresa> listado_Empresas = new List<Empresa>(mainPanel);
+		List<Metodologia> listado_Empresas = new List<Metodologia>(mainPanel);
 		listado_Empresas.setWidth(140);
+		listado_Empresas.bindItemsToProperty("metodologias");
 		
 	
 		Button bot_evaluarEmpresas= new Button(mainPanel);

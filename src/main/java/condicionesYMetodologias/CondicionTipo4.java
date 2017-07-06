@@ -17,8 +17,8 @@ import repositorios.RepositorioDeIndicadores;
 public class CondicionTipo4 extends Condicion {
 
 	String comportamiento;
-	public CondicionTipo4(String comportamiento, Indicador indicador){
-		super(indicador);
+	public CondicionTipo4(String comportamiento, Indicador indicador,boolean taxatividad){
+		super(indicador,taxatividad);
 		this.comportamiento = comportamiento;
 	}
 	@Override
