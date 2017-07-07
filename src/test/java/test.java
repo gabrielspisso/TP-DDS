@@ -64,6 +64,21 @@ public class test {
 		Operacion op = new DIVISION(hoja1, hoja2);
 		assertEquals(2, op.calcularValor(null, null), DELTA);
 	}
+	@Test
+	public void CreoUnaDivisionConUnaHojaDeValor0YOtraDeValor24YCalculoElResultadoQueEs0() {
+		Hoja hoja1 = new Numero("0");
+		Hoja hoja2 = new Numero("24");
+		Operacion op = new DIVISION(hoja1, hoja2);
+		assertEquals(0, op.calcularValor(null, null), DELTA);
+	}
+	
+	@Test
+	public void CreoUnaDivisionConUnaHojaDeValor24YOtraDeValor0YElResultadoEsInfinity() {
+		Hoja hoja1 = new Numero("24");
+		Hoja hoja2 = new Numero("0");
+		Operacion op = new DIVISION(hoja1, hoja2);
+		assertTrue(Double.isInfinite(op.calcularValor(null, null)));
+	}
 	
 	@Test
 	public void CreoDosTerminosUnoPositivoConUn7YOtroPositivoConUn9YCalculoSuSumaQueEs16(){
@@ -95,6 +110,7 @@ public class test {
 		Indicador indicador = new Indicador("ind1", Arrays.asList(termino1,termino2));
 		assertEquals(-18.0, indicador.calcularValor(null), DELTA);
 	}
+	
 	@Test
 	public void CreoUnIndicadorComoElTestAnteriorPeroDesdeElBuilderYCalculoElResultadoQueSigueSiendoMenos18(){
 		Indicador indicador = IndicadorBuilder.Build("ind1 = 5 -23;");
@@ -173,7 +189,7 @@ public class test {
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
-	public void testFacebookTieneCiencuentaPorcientoDeccConCondicion1YCondicion3(){
+	public void testFacebookTieneCincuentaPorcientoDeccConCondicion1YCondicion3(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		condicionTipo1 test = new condicionTipo1(300,1,indicador,false);
 		condicionTipo3 test2 = new condicionTipo3(new Promedio(),9,indicador,false); //Deberian ser estaticos
