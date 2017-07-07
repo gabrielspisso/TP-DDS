@@ -170,38 +170,40 @@ public class test {
 	
 	
 	@Test
-	public void pruebaDeCondicion3FacebookTieneUnCCpromedioMayorA9(){
+	public void pruebaDeCondicionConCalculoFacebookTieneUnCCpromedioMayorA9(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		condicionConCalculo test = new condicionConCalculo(new Promedio(),9,indicador,false,new Mayor()); //Deberian ser estaticos
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
-	public void pruebaDeCondicion3FacebookTieneUnCCpromedioMenorA9(){
+	public void pruebaDeCondicionConCalculoFacebookTieneUnCCpromedioMenorA9(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		condicionConCalculo test = new condicionConCalculo(new Promedio(),9,indicador,false,new Menor()); //Deberian ser estaticos
 		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
-	public void pruebaDeCondicion3FacebookTieneUnCCpromedioMenorA30(){
+	public void pruebaDeCondicionConCalculoFacebookTieneUnCCpromedioMenorA30(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		condicionConCalculo test = new condicionConCalculo(new Promedio(),30,indicador,false,new Menor()); //Deberian ser estaticos
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
-	public void pruebaDeCondicion4FacebookEsCreciente(){
+	public void pruebaDeCondicionConComportamientoFacebookConCCEsCreciente(){
+		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,false,new Mayor());
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	
 	@Test
-	public void pruebaDeCondicion4(){
+	public void pruebaDeCondicionConComportamientoFacebookConCCEsDecreciente(){
+		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConComportamiento test = new CondicionConComportamiento(indicador,false,new Mayor());
-		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,false,new Menor());
+		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
-	public void testFacebookTieneCincuentaPorcientoDeccConCondicion1YCondicion3(){
+	public void testFacebookTieneCincuentaPorcientoDeccConCondicionConAñoYCondicionConCalculo(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		CondicionConAño test = new CondicionConAño(300,1,indicador,false,new Mayor());
 		condicionConCalculo test2 = new condicionConCalculo(new Promedio(),9,indicador,false,new Mayor()); //Deberian ser estaticos

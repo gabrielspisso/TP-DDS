@@ -26,8 +26,8 @@ public class condicionConCalculo extends Condicion {
 	}
 	@Override
 	public boolean cumpleCondicion(Empresa empresa){
-		Stream<Double>  x= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
-		double resultado =calculo.realizarCalculo(x.collect(Collectors.toList()));
+		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
+		double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));
 		return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);
 	}
 }
