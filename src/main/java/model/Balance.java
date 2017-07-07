@@ -11,9 +11,6 @@ public class Balance {
 	public String getPeriodo() {
 		return periodo;
 	}
-	public void setPeriodo(String periodo) {
-		this.periodo = periodo;
-	}
 	public Balance(int anio,String periodo, List<Cuenta> cuentas) {
 		this.anio = anio;
 		this.periodo = periodo;
@@ -22,9 +19,7 @@ public class Balance {
 	public  List<Cuenta>getCuentas() {
 		return cuentas;
 	}
-	public void setCuentas( List<Cuenta>  cuentas) {
-		this.cuentas = cuentas;
-	}
+
 	public int getAnio(){
 		return anio;
 	}
