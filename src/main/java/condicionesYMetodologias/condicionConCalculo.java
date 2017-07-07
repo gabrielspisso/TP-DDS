@@ -9,23 +9,25 @@ import java.util.stream.Stream;
 import com.ibm.icu.util.IndianCalendar;
 
 import Calculos.Calculo;
+import Calculos.criterioDeAceptacionDeCondicion;
 import model.Balance;
 import model.Empresa;
 import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
-public class condicionTipo3 extends Condicion {
+public class condicionConCalculo extends Condicion {
 
 	int valorMinimo;
 	Calculo calculo;
-	public condicionTipo3(Calculo calculo, int valorMinimo, Indicador indicador,boolean taxatividad){
-		super(indicador,taxatividad);
+	public condicionConCalculo(Calculo calculo, int valorMinimo, Indicador indicador,boolean taxatividad,criterioDeAceptacionDeCondicion criterio){
+		super(indicador,taxatividad,criterio);
 		this.valorMinimo = valorMinimo;
 		this.calculo = calculo;	
 	}
 	@Override
 	public boolean cumpleCondicion(Empresa empresa){
 		Stream<Double>  x= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
-		return calculo.realizarCalculo(x.collect(Collectors.toList())) > valorMinimo;
+		double resultado =calculo.realizarCalculo(x.collect(Collectors.toList()));
+		return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);
 	}
 }

@@ -5,13 +5,15 @@ import java.util.List;
 
 import org.junit.Test;
 
+import Calculos.Mayor;
+import Calculos.Menor;
 import Calculos.Promedio;
 import Calculos.Sumatoria;
 import condicionesYMetodologias.Condicion;
-import condicionesYMetodologias.CondicionTipo4;
+import condicionesYMetodologias.CondicionConComportamiento;
 import condicionesYMetodologias.Metodologia;
-import condicionesYMetodologias.condicionTipo1;
-import condicionesYMetodologias.condicionTipo3;
+import condicionesYMetodologias.CondicionConAño;
+import condicionesYMetodologias.condicionConCalculo;
 import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
@@ -153,46 +155,56 @@ public class test {
 		assertEquals(14.0, indicador.calcularValor(listaDeCuentas), DELTA);
 	}
 	@Test
-	public void algo(){
-		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",1),new Cuenta("FREE CASH FLOW",2));
-		Indicador indicador1 = IndicadorBuilder.Build("indicador1 = indicador2;");
-		RepositorioDeIndicadores.agregarIndicador(indicador1);
-		Indicador indicador2 = IndicadorBuilder.Build("indicador2 = 2;");
-		RepositorioDeIndicadores.agregarIndicador(indicador2);
-		assertEquals(2.0,indicador2.calcularValor(listaDeCuentas),DELTA);
-	}
-	@Test
 	public void pruebaFacebookTieneCCMayorA3(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		condicionTipo1 test = new condicionTipo1(3, 1,indicador,false);
+		CondicionConAño test = new CondicionConAño(3, 1,indicador,false,new Mayor());
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
 	public void pruebaFacebookNoTieneCCMayorA30(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		condicionTipo1 test = new condicionTipo1(30, 1,indicador,false);
+		CondicionConAño test = new CondicionConAño(30, 1,indicador,false,new Mayor());
 		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	
 	
 	
 	@Test
-	public void pruebaDeCondicion3(){
+	public void pruebaDeCondicion3FacebookTieneUnCCpromedioMayorA9(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		condicionTipo3 test = new condicionTipo3(new Promedio(),9,indicador,false); //Deberian ser estaticos
+		condicionConCalculo test = new condicionConCalculo(new Promedio(),9,indicador,false,new Mayor()); //Deberian ser estaticos
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
+	public void pruebaDeCondicion3FacebookTieneUnCCpromedioMenorA9(){
+		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+		condicionConCalculo test = new condicionConCalculo(new Promedio(),9,indicador,false,new Menor()); //Deberian ser estaticos
+		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
+	}
+	@Test
+	public void pruebaDeCondicion3FacebookTieneUnCCpromedioMenorA30(){
+		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+		condicionConCalculo test = new condicionConCalculo(new Promedio(),30,indicador,false,new Menor()); //Deberian ser estaticos
+		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
+	}
+	@Test
+	public void pruebaDeCondicion4FacebookEsCreciente(){
+		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,false,new Mayor());
+		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
+	}
+	
+	@Test
 	public void pruebaDeCondicion4(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionTipo4 test = new CondicionTipo4("Creciente",indicador,false);
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,false,new Mayor());
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
 	@Test
 	public void testFacebookTieneCincuentaPorcientoDeccConCondicion1YCondicion3(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		condicionTipo1 test = new condicionTipo1(300,1,indicador,false);
-		condicionTipo3 test2 = new condicionTipo3(new Promedio(),9,indicador,false); //Deberian ser estaticos
+		CondicionConAño test = new CondicionConAño(300,1,indicador,false,new Mayor());
+		condicionConCalculo test2 = new condicionConCalculo(new Promedio(),9,indicador,false,new Mayor()); //Deberian ser estaticos
 		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test,test2));
 		assertEquals(50,metodologia.evaluarMetodologia(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
@@ -200,7 +212,7 @@ public class test {
 	public void pruebaDeQueUnaMetodologiaSeRechazaSinoCumpleUnaCondicionTaxativa(){
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		Indicador indicador = IndicadorBuilder.Build("cc=FDSA;");
-		condicionTipo1 test = new condicionTipo1(300,1,indicador,false);
+		CondicionConAño test = new CondicionConAño(300,1,indicador,false,new Mayor());
 		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test));
 		
 		metodologia.evaluarMetodologia(RepositorioDeEmpresas.mostrarEmpresas().get(0));	
@@ -209,16 +221,16 @@ public class test {
 	public void pruebaOrdenarMetodologias(){
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
-		condicionTipo1 test = new condicionTipo1(7,1,indicador,false);
+		CondicionConAño test = new CondicionConAño(7,1,indicador,false,new Mayor());
 		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test));
 		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(1),RepositorioDeEmpresas.mostrarEmpresas().get(2),RepositorioDeEmpresas.mostrarEmpresas().get(0));
 		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(RepositorioDeEmpresas.mostrarEmpresas() ));
 	}
 	@Test
-	public void pruebaOrdenarMetodologias2(){
+	public void pruebaOrdenarMetodologiasSegunIndicador4MayorA1(){
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		Indicador indicador = IndicadorBuilder.Build("indicador4=FDS+4;");
-		condicionTipo1 test = new condicionTipo1(1,1,indicador,true);
+		CondicionConAño test = new CondicionConAño(1,1,indicador,true,new Mayor());
 		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test));
 		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(0));
 		List<Empresa> listaDeEmpresa2s = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(0),RepositorioDeEmpresas.mostrarEmpresas().get(1));

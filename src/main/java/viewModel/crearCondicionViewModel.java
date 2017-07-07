@@ -11,9 +11,6 @@ import Calculos.Mediana;
 import Calculos.Promedio;
 import Calculos.Sumatoria;
 import condicionesYMetodologias.Condicion;
-import condicionesYMetodologias.CondicionTipo4;
-import condicionesYMetodologias.condicionTipo1;
-import condicionesYMetodologias.condicionTipo3;
 import model.Indicador;
 import repositorios.RepositorioDeCondiciones;
 import repositorios.RepositorioDeIndicadores;
@@ -99,20 +96,20 @@ public class crearCondicionViewModel {
 		Condicion condicion = null;
 		switch(opcion){
 			case "Opcion 1":{
-				condicion = new condicionTipo1(valorMinimo, cantidadDeAños, indicador, taxatividad);
+				//condicion = new condicionTipo1(valorMinimo, cantidadDeAños, indicador, taxatividad);
 			}
 			case "Opcion 2":{
-				condicion = new condicionTipo1(valorMinimo, 1, indicador, taxatividad);
+				//condicion = new condicionTipo1(valorMinimo, 1, indicador, taxatividad);
 			}
 			case "Opcion 3":{
-				Calculo calculo = opcion=="Promedio"? new Promedio() : opcion == "Sumatoria" ? new Sumatoria() : new Mediana(); 
-				condicion = new condicionTipo3(calculo,valorMinimo, indicador, taxatividad);
+				//Calculo calculo = opcion=="Promedio"? new Promedio() : opcion == "Sumatoria" ? new Sumatoria() : new Mediana(); 
+				//condicion = new condicionTipo3(calculo,valorMinimo, indicador, taxatividad);
 			}
 			case "Opcion 4":{
-				condicion = new CondicionTipo4(comportamiento, indicador, taxatividad);
+				//condicion = new CondicionTipo4(comportamiento, indicador, taxatividad);
 			}
 		
 		}
-		RepositorioDeCondiciones.agregarCondicion(Arrays.asList(condicion));
+		//RepositorioDeCondiciones.agregarCondicion(Arrays.asList(condicion));
 	}
 }
