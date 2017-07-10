@@ -35,11 +35,11 @@ public class menuPrincipal extends MainWindow<menuPrincipalViewModel> {
 		// TODO Auto-generated method stub
 		
 		
-setTitle("Â¿DÃ³nde invierto?");
+setTitle("¿Dónde invierto?");
 		
 		mainPanel.setLayout(new VerticalLayout());
-		new Label(mainPanel).setText("MenÃº Principal").setFontSize(15).setForeground(Color.RED);
-		new Label(mainPanel).setText("Seleccionar la opciÃ³n deseada").setFontSize(13).setForeground(Color.BLACK);
+		new Label(mainPanel).setText("Menú Principal").setFontSize(15).setForeground(Color.RED);
+		new Label(mainPanel).setText("Seleccionar la opción deseada").setFontSize(13).setForeground(Color.BLACK);
 		
 		new Label(mainPanel).setText(" ").setFontSize(5);
 		
@@ -86,7 +86,7 @@ setTitle("Â¿DÃ³nde invierto?");
 			IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		}
 		catch(RuntimeException e){
-			new Label(mainPanel).setText("El archivo de indicadores esta daï¿½ado, no se pudo cargar");
+			new Label(mainPanel).setText("El archivo de indicadores esta dañado, no se pudo cargar");
 		}
 	}
 	
