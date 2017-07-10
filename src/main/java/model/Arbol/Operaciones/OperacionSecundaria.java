@@ -31,4 +31,6 @@ public class OperacionSecundaria implements Operacion{
 	public String mostrarFormula() {
 		return izquierda.mostrarFormula() + operador + derecha.mostrarFormula();
 	}
+	
+
 }

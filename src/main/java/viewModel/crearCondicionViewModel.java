@@ -47,7 +47,7 @@ public class crearCondicionViewModel {
 	}
 	public void setOpcion(String opcion) {
 		this.opcion = opcion;
-		ObservableUtils.firePropertyChanged(this, "visibleCantidadDeAños");
+		ObservableUtils.firePropertyChanged(this, "visibleCantidadDeAï¿½os");
 		ObservableUtils.firePropertyChanged(this, "visibleCalculo");
 		ObservableUtils.firePropertyChanged(this, "visibleComportamiento");
 	}
@@ -96,7 +96,7 @@ public class crearCondicionViewModel {
 		Condicion condicion = null;
 		switch(opcion){
 			case "Opcion 1":{
-				//condicion = new condicionTipo1(valorMinimo, cantidadDeAños, indicador, taxatividad);
+				//condicion = new condicionTipo1(valorMinimo, cantidadDeAï¿½os, indicador, taxatividad);
 			}
 			case "Opcion 2":{
 				//condicion = new condicionTipo1(valorMinimo, 1, indicador, taxatividad);

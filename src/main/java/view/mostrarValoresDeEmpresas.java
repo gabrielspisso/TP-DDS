@@ -29,23 +29,25 @@ public class mostrarValoresDeEmpresas extends Window<mostrarValoresDeEmpresasVie
 	public void createContents(Panel mainPanel) {
 		setTitle("Consulta de valores de cuenta");
 		
-		mainPanel.setLayout(new ColumnLayout(2));
+		mainPanel.setLayout(new ColumnLayout(3));
 		new Label(mainPanel).setText("Empresa: ");
 		
 		Selector<Empresa> selectorEmpresa = new Selector<Empresa>(mainPanel);
 		selectorEmpresa.bindValueToProperty("empresaActual");
 		selectorEmpresa.setWidth(165);
 		selectorEmpresa.bindItemsToProperty("empresas");
+		new Label(mainPanel).setText(" ");
 		 
 		new Label(mainPanel).setText("Periodo: ");
+		new Label(mainPanel).setText("Cuentas: ");
+		new Label(mainPanel).setText("Indicadores: ");
 		
-		Selector<Balance> selectorPeriodo = new Selector<Balance>(mainPanel);
+		List<Balance> selectorPeriodo = new List<Balance>(mainPanel);
 		selectorPeriodo.setWidth(165);
+		selectorPeriodo.setHeight(75);
 		selectorPeriodo.bindValueToProperty("balanceActual");
 		selectorPeriodo.bindItemsToProperty("balances");
 		 
-		new Label(mainPanel).setText("Cuentas: ");
-		new Label(mainPanel).setText("Indicadores: ");
 		List<Cuenta> listaCuenta = new List<Cuenta>(mainPanel);
 		listaCuenta.setWidth(165);
 		listaCuenta.setHeight(75);
@@ -54,11 +56,12 @@ public class mostrarValoresDeEmpresas extends Window<mostrarValoresDeEmpresasVie
 		listaCuenta.bindEnabledToProperty("seleccionoEmpresaYPeriodo");
 		
 		List<Indicador> listaIndicador = new List<Indicador>(mainPanel);
-		listaIndicador.setWidth(130);
+		listaIndicador.setWidth(175);
 		listaIndicador.setHeight(75);
 		listaIndicador.bindValueToProperty("indicadorActual");
 		listaIndicador.bindItemsToProperty("indicadores");
 		listaIndicador.bindEnabledToProperty("seleccionoEmpresaYPeriodo");
+		Label l23 =new Label(mainPanel).setText(" ");
 		
 		new Button(mainPanel).setCaption("Obtener valor de la cuenta").onClick(() -> this.mostrarValorCuentaSeleccionada());
 		new Button(mainPanel).setCaption("Obtener valor de indicador").onClick(() -> this.mostrarValorDeIndicadorSeleccionado());
@@ -77,10 +80,12 @@ public class mostrarValoresDeEmpresas extends Window<mostrarValoresDeEmpresasVie
 			messageBox.setMessage(datosDelIndicador()+
 							" es " + 
 							this.getModelObject().obtenerValorDeIndicador());
+			
 		}
 		catch (RuntimeException ex){
 			messageBox = new MessageBox(this, Type.Error);
 			messageBox.setMessage(ex.getMessage());
+
 		}
 		messageBox.open();
 

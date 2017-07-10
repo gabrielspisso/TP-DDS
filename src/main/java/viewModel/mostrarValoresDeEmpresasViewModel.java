@@ -32,6 +32,9 @@ public class mostrarValoresDeEmpresasViewModel {
 			this.empresaActual = empresaActual;
 			ObservableUtils.firePropertyChanged(this, "balances");	
 			ObservableUtils.firePropertyChanged(this, "seleccionoEmpresaYPeriodo");
+			indicadorActual = null;
+			ObservableUtils.firePropertyChanged(this, "indicadorActual");
+			
 		}
 		catch(RuntimeException ex){
 			this.empresaActual = empresaActual;
@@ -101,8 +104,9 @@ public class mostrarValoresDeEmpresasViewModel {
 
 	
 	public String obtenerValorDeIndicador(){
-					return 	Double.toString(indicadorActual
-							.calcularValor(balanceActual.getCuentas()));			
+		return 	Double.toString(
+			indicadorActual.calcularValor(balanceActual.getCuentas())
+		);			
 	}
 	
 	public boolean getSeleccionoEmpresaYPeriodo(){

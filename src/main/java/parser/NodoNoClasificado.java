@@ -1,9 +1,10 @@
 package parser;
 
-import model.Arbol.Hojas.IndicadorOCuenta;
+import model.Arbol.Hojas.Identificador;
 import model.Arbol.Hojas.Numero;
 import model.Arbol.Operaciones.DIVISION;
 import model.Arbol.Operaciones.MULTIPLICACION;
+import model.Arbol.Operaciones.MultiplicacionNegativa;
 import model.Arbol.Operaciones.Operacion;
 
 public class NodoNoClasificado {
@@ -27,7 +28,7 @@ public class NodoNoClasificado {
 		tipoDeHoja enumval = tipoDeHoja.valueOf(tipo);
 		switch(enumval){
 			case Identificador:{
-				operacion = new IndicadorOCuenta(valor);
+				operacion = new Identificador(valor);
 			}break;
 			case NUMERO:{
 				operacion = new Numero(valor);
@@ -42,6 +43,9 @@ public class NodoNoClasificado {
 		}
 		else if(valor.equals("/")){
 			nuevaOperacion = new DIVISION(ramaDerecha, ramaIzquierda);
+		}
+		else if(valor.equals("*-")){
+			nuevaOperacion = new MultiplicacionNegativa(ramaDerecha, ramaIzquierda);
 		}
 		return nuevaOperacion;
 	}

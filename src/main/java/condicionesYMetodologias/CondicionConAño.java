@@ -20,7 +20,7 @@ public class CondicionConAño extends Condicion{
 		if(empresa.getBalances().size() < cantidadDeAños){
 			return false;
 		}
-		List<Balance> listaDeBalances = empresa.getBalances().subList(0, cantidadDeAños);
+		List<Balance> listaDeBalances = empresa.getBalances().subList(0,cantidadDeAños);
 		return listaDeBalances.stream().allMatch(balance->criterio.cumpleCriterioDeAceptacionDeCondicion(this.valorMinimo,this.indicador.calcularValor(balance.getCuentas())));	
 	}
 }

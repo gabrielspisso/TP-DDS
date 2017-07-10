@@ -154,6 +154,21 @@ public class test {
 		
 		assertEquals(14.0, indicador.calcularValor(listaDeCuentas), DELTA);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Test
 	public void pruebaFacebookTieneCCMayorA3(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
@@ -202,6 +217,7 @@ public class test {
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,false,new Menor());
 		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
+	
 	@Test
 	public void testFacebookTieneCincuentaPorcientoDeccConCondicionConAñoYCondicionConCalculo(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");

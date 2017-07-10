@@ -17,4 +17,9 @@ public class Numero extends Hoja{
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
 		return Double.parseDouble(valorDeHoja);
 	}
+
+	@Override
+	public boolean contieneEsteToken(String token) {
+		return false;
+	}
 }
