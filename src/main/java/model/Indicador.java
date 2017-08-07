@@ -1,53 +1,45 @@
 package model;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.uqbar.commons.utils.Observable;
 
-import model.Builders.ArbolBuilder;
+import model.Arbol.Operaciones.NODO;
 import repositorios.RepositorioDeIndicadores;
-
 @Observable
 public class Indicador {
 	private String nombre;
-	private List<Termino> terminos;
-
+	private NODO arbol;
+	
 	@Override
-	public String toString() {
+	public String toString(){
 		return nombre;
 	}
+	
 
-	public Indicador(String nombre, List<Termino> listaDeTerminos) {
+	public Indicador(String nombre, NODO arbol) {
 		this.nombre = nombre;
-		this.terminos = listaDeTerminos;
+		this.arbol = arbol;
 	}
 
-	private boolean esRecursivo() {
-		return terminos.stream().anyMatch(termino -> termino.contieneEsteToken(nombre));
-	}
 
+	private boolean esRecursivo(){
+		return arbol.contieneEsteToken(nombre);
+	}
 	public double calcularValor(List<Cuenta> listaDeCuentas) {
-		if (esRecursivo()) {
+		if(esRecursivo()){
 			throw new RuntimeException("Es recursivo, modifique uno de los dos para calcular el valor nuevamente");
-
+			
 		}
 
-		return terminos.stream().mapToDouble(
-				termino -> termino.calcularValor(listaDeCuentas, RepositorioDeIndicadores.getListaDeIndicadores()))
-				.sum();
+		return arbol.calcularValor(listaDeCuentas, RepositorioDeIndicadores.getListaDeIndicadores());
 	}
-
-	private String formula;
-
 	public String mostrarFormula() {
-		formula = "";
-		terminos.forEach(x -> formula += x.mostrarFormula());
-		return formula;
+		return arbol.mostrarFormula();
 	}
 
-	public String mostrarFormulaCompleta() {
+	public String mostrarFormulaCompleta(){
 		return nombre + " = " + mostrarFormula();
 	}
 
@@ -55,8 +47,11 @@ public class Indicador {
 		return nombre;
 	}
 
+
 	public boolean contieneEsteToken(String token) {
-		return terminos.stream().anyMatch(termino -> termino.contieneEsteToken(token));
+		return arbol.contieneEsteToken(token);
 	}
+	
+	
 
 }

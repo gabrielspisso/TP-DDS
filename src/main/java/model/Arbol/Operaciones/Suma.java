@@ -5,15 +5,14 @@ import java.util.List;
 import model.Cuenta;
 import model.Indicador;
 
-public class Multiplicacion extends Operacion {
+public class Suma extends Operacion{
 
-	public Multiplicacion(NODO izquierda, NODO derecha) {
-		super("*", izquierda, derecha);
+	public Suma(NODO izquierda, NODO derecha) {
+		super("+", izquierda, derecha);
 	}
-
 	@Override
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-		return izquierda.calcularValor(listaDeCuentas, listaDeIndicadores) *
+		return izquierda.calcularValor(listaDeCuentas, listaDeIndicadores) +
 				derecha.calcularValor(listaDeCuentas, listaDeIndicadores);
 	}
 }

@@ -5,9 +5,9 @@ import java.util.List;
 import model.Cuenta;
 import model.Indicador;
 
-public class DIVISION extends OperacionSecundaria{
+public class Division extends Operacion{
 
-	public DIVISION(Operacion izquierda, Operacion derecha) {
+	public Division(NODO izquierda, NODO derecha) {
 		super("/", izquierda, derecha);
 	}
 	@Override

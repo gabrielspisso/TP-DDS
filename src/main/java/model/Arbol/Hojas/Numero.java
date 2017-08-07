@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.Cuenta;
 import model.Indicador;
-import model.Arbol.Operaciones.Operacion;
+import model.Arbol.Operaciones.NODO;
 
 public class Numero extends Hoja{
 
@@ -16,10 +16,5 @@ public class Numero extends Hoja{
 	@Override
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
 		return Double.parseDouble(valorDeHoja);
-	}
-
-	@Override
-	public boolean contieneEsteToken(String token) {
-		return false;
 	}
 }

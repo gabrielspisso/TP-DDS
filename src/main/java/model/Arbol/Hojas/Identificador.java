@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 import model.Cuenta;
 import model.Indicador;
-import model.Arbol.Operaciones.Operacion;
+import model.Arbol.Operaciones.NODO;
 import repositorios.RepositorioDeIndicadores;
 
 public class Identificador extends Hoja{

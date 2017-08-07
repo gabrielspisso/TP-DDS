@@ -3,7 +3,7 @@ package model.Builders;
 import java.util.List;
 
 import model.Indicador;
-import model.Termino;
+import model.Arbol.Operaciones.NODO;
 import parser.SCANNER;
 import parser.NodoNoClasificado;
 
@@ -15,8 +15,8 @@ public class IndicadorBuilder {
     	String nombre = lista.get(0).getValor();
     	List<NodoNoClasificado> listaDeTokens =lista.subList(2, lista.size()-1);
     	
-    	List<Termino> listaDeTerminos = ArbolBuilder.Build(listaDeTokens);
+    	NODO arbol = OperacionPrimariaBuilder.Build(listaDeTokens);
     	
-		return new Indicador(nombre, listaDeTerminos);
+		return new Indicador(nombre, arbol);
 	}
 }

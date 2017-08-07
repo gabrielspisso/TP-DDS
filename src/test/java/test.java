@@ -19,12 +19,12 @@ import model.Cuenta;
 import model.Empresa;
 import model.IOs;
 import model.Indicador;
-import model.Termino;
 import model.Arbol.Hojas.Hoja;
 import model.Arbol.Hojas.Numero;
-import model.Arbol.Operaciones.DIVISION;
-import model.Arbol.Operaciones.MULTIPLICACION;
-import model.Arbol.Operaciones.Operacion;
+import model.Arbol.Operaciones.Division;
+import model.Arbol.Operaciones.Multiplicacion;
+import model.Arbol.Operaciones.NODO;
+import model.Arbol.Operaciones.Suma;
 import model.Builders.IndicadorBuilder;
 import repositorios.RepositorioDeEmpresas;
 import repositorios.RepositorioDeIndicadores;
@@ -42,35 +42,35 @@ public class test {
 	public void CreoUnaMultiplicacionConDosHojasDeValor2YCalculoElResultadoQueEs4(){
 		Hoja hoja1 = new Numero("2");
 		Hoja hoja2 = new Numero("2");
-		Operacion op = new MULTIPLICACION(hoja1, hoja2);
+		NODO op = new Multiplicacion(hoja1, hoja2);
 		assertEquals(4.0, op.calcularValor(null, null), DELTA);
 	}
 	@Test
 	public void CreoUnaMultiplicacionConUnaHojaDeValor2YOtraDeValor4YCalculoElResultadoQueEs8(){
 		Hoja hoja1 = new Numero("2");
 		Hoja hoja2 = new Numero("4");
-		Operacion op = new MULTIPLICACION(hoja1, hoja2);
+		NODO op = new Multiplicacion(hoja1, hoja2);
 		assertEquals(8.0, op.calcularValor(null, null), DELTA);
 	}
 	@Test
 	public void CreoUnaDivisionConUnaHojaDeValor2YOtraDeValor4YCalculoElResultadoQueEsUnMedio(){
 		Hoja hoja1 = new Numero("2");
 		Hoja hoja2 = new Numero("4");
-		Operacion op = new DIVISION(hoja1, hoja2);
+		NODO op = new Division(hoja1, hoja2);
 		assertEquals(0.5, op.calcularValor(null, null), DELTA);
 	}
 	@Test
 	public void CreoUnaDivisionConUnaHojaDeValor4YOtraDeValor2YCalculoElResultadoQueEs2(){
 		Hoja hoja1 = new Numero("4");
 		Hoja hoja2 = new Numero("2");
-		Operacion op = new DIVISION(hoja1, hoja2);
+		NODO op = new Division(hoja1, hoja2);
 		assertEquals(2, op.calcularValor(null, null), DELTA);
 	}
 	@Test
 	public void CreoUnaDivisionConUnaHojaDeValor0YOtraDeValor24YCalculoElResultadoQueEs0() {
 		Hoja hoja1 = new Numero("0");
 		Hoja hoja2 = new Numero("24");
-		Operacion op = new DIVISION(hoja1, hoja2);
+		NODO op = new Division(hoja1, hoja2);
 		assertEquals(0, op.calcularValor(null, null), DELTA);
 	}
 	
@@ -78,38 +78,38 @@ public class test {
 	public void CreoUnaDivisionConUnaHojaDeValor24YOtraDeValor0YElResultadoEsInfinity() {
 		Hoja hoja1 = new Numero("24");
 		Hoja hoja2 = new Numero("0");
-		Operacion op = new DIVISION(hoja1, hoja2);
+		NODO op = new Division(hoja1, hoja2);
 		assertTrue(Double.isInfinite(op.calcularValor(null, null)));
 	}
 	
 	@Test
-	public void CreoDosTerminosUnoPositivoConUn7YOtroPositivoConUn9YCalculoSuSumaQueEs16(){
-		Termino termino1 = new Termino("+", new Numero("7"));
-		Termino termino2 = new Termino("+", new Numero("9"));
-		assertEquals(16.0, termino1.calcularValor(null, null) + termino2.calcularValor(null, null), DELTA);
-	}
-	@Test
-	public void CreoDosTerminosUnoPositivoConUn7YOtroNegativoConUn9YCalculoSuSumaQueEsMenos2(){
-		Termino termino1 = new Termino("+", new Numero("7"));
-		Termino termino2 = new Termino("-", new Numero("9"));
-		assertEquals(-2.0, termino1.calcularValor(null, null) + termino2.calcularValor(null, null), DELTA);
+	public void CreoUnaSumaConUn7YUn9YCalculoSuSumaQueEs16(){
+		Hoja hoja1 = new Numero("7");
+		Hoja hoja2 = new Numero("9");
+		NODO op = new Suma(hoja1, hoja2);
+		assertEquals(16.0, op.calcularValor(null, null), DELTA);
 	}
 	
 	@Test
-	public void CreoDosTerminosComoLosDelTestAnteriorYLosPongoEnUnaListaParaCalcularSuValor(){
-		Termino termino1 = new Termino("+", new Numero("7"));
-		Termino termino2 = new Termino("-", new Numero("9"));
-		List<Termino> lista = Arrays.asList(termino1,termino2);
-		assertEquals(-2.0, 
-				lista.stream().mapToDouble(termino -> termino.calcularValor(null, null)).sum(), DELTA);
-	}
-	
-	@Test
-	public void CreoUnIndicadorConDosTerminosQueTienenUn5YUnMenos23YCalculoSuValorQueEsMenos18(){
+	public void CreoUnaSumaCompuestaPorUnaMultiplicacionDe2Y8YTambienPorUnaDivisionEntre5Y2YCalculoSuValorQueEs18Coma5(){
+		Hoja hoja2 = new Numero("2");
+		Hoja hoja5 = new Numero("5");
+		Hoja hoja8 = new Numero("8");
 		
-		Termino termino1 = new Termino("+", new Numero("5"));
-		Termino termino2 = new Termino("-", new Numero("23"));
-		Indicador indicador = new Indicador("ind1", Arrays.asList(termino1,termino2));
+		NODO mul = new Multiplicacion(hoja2, hoja8);
+		NODO div = new Division(hoja5, hoja2);
+		
+		NODO op = new Suma(mul, div);
+		assertEquals(18.5, op.calcularValor(null, null), DELTA);
+	}
+	
+	@Test
+	public void CreoUnIndicadorConUnaSumaQueTieneUn5YUnMenos23YCalculoSuValorQueEsMenos18(){
+		
+		Hoja hoja1 = new Numero("5");
+		Hoja hoja2 = new Numero("-23");
+		NODO op = new Suma(hoja1, hoja2);
+		Indicador indicador = new Indicador("ind1", op);
 		assertEquals(-18.0, indicador.calcularValor(null), DELTA);
 	}
 	
@@ -154,21 +154,6 @@ public class test {
 		
 		assertEquals(14.0, indicador.calcularValor(listaDeCuentas), DELTA);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Test
 	public void pruebaFacebookTieneCCMayorA3(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
@@ -217,7 +202,6 @@ public class test {
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,false,new Menor());
 		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0)));
 	}
-	
 	@Test
 	public void testFacebookTieneCincuentaPorcientoDeccConCondicionConAñoYCondicionConCalculo(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");

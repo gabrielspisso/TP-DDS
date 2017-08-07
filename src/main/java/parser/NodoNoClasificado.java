@@ -2,10 +2,12 @@ package parser;
 
 import model.Arbol.Hojas.Identificador;
 import model.Arbol.Hojas.Numero;
-import model.Arbol.Operaciones.DIVISION;
-import model.Arbol.Operaciones.MULTIPLICACION;
+import model.Arbol.Operaciones.Division;
+import model.Arbol.Operaciones.Multiplicacion;
 import model.Arbol.Operaciones.MultiplicacionNegativa;
-import model.Arbol.Operaciones.Operacion;
+import model.Arbol.Operaciones.NODO;
+import model.Arbol.Operaciones.Resta;
+import model.Arbol.Operaciones.Suma;
 
 public class NodoNoClasificado {
 	private String tipo;
@@ -19,34 +21,47 @@ public class NodoNoClasificado {
 		tipo = t;
 		valor = v;
 	}
-	public boolean esOperacionPrimaria(){
-		return tipo.equals("OperadorPrimario");
+	public boolean esOperacion(){
+		return tipo.equals("OperadorPrimario") || tipo.equals("OperadorSecundario");
 	}
 	
-	public Operacion convertirEnHoja() {
-		Operacion operacion = null;
+	public boolean esParentesisDerecho() {
+		return tipo.equals("ParentesisDerecho");
+	}
+	public boolean esParentesisIzquierdo() {
+		return tipo.equals("ParentesisIzquierdo");
+	}
+	
+	public NODO convertirEnHoja() {
+		NODO nODO = null;
 		tipoDeHoja enumval = tipoDeHoja.valueOf(tipo);
 		switch(enumval){
 			case Identificador:{
-				operacion = new Identificador(valor);
+				nODO = new Identificador(valor);
 			}break;
 			case NUMERO:{
-				operacion = new Numero(valor);
+				nODO = new Numero(valor);
 			}break;
 		}
-		return operacion;
+		return nODO;
 	}
-	public Operacion convertirAOperacionSecundaria(Operacion ramaDerecha,Operacion ramaIzquierda){
-		Operacion nuevaOperacion = null;
+	public NODO convertirAOperacion(){
+		NODO nuevaOperacion = null;
 		if(valor.equals("*")){
-			nuevaOperacion = new MULTIPLICACION(ramaDerecha, ramaIzquierda);
+			nuevaOperacion = new Multiplicacion(null, null);
 		}
 		else if(valor.equals("/")){
-			nuevaOperacion = new DIVISION(ramaDerecha, ramaIzquierda);
+			nuevaOperacion = new Division(null, null);
 		}
 		else if(valor.equals("*-")){
-			nuevaOperacion = new MultiplicacionNegativa(ramaDerecha, ramaIzquierda);
+			nuevaOperacion = new MultiplicacionNegativa(null, null);
 		}
+		else if(valor.equals("+")){
+			nuevaOperacion = new Suma(null, null);
+		}else if(valor.equals("-")){
+			nuevaOperacion = new Resta(null, null);
+		}
+		
 		return nuevaOperacion;
 	}
 	private enum tipoDeHoja{
