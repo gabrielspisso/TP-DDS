@@ -27,9 +27,7 @@ public class Metodologia {
 	public int evaluarMetodologia(Empresa empresa){
 		Stream<Condicion> streamDeCondiciones =Condiciones.stream().filter(condicion -> condicion.cumpleCondicion(empresa));
 		List<Condicion> condicionesFiltradas = streamDeCondiciones.collect(Collectors.toList());
-		if(Condiciones.stream().anyMatch(x-> x.getTaxatividad()&& !x.cumpleCondicion(empresa))){
-			throw new RuntimeException();
-		}
+		
 		return condicionesFiltradas.size()*100/Condiciones.size();
 	}
 	public List<Empresa> listarEmpresas(List<Empresa> listaDeEmpresas){
