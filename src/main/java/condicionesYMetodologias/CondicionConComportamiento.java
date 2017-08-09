@@ -17,8 +17,8 @@ import repositorios.RepositorioDeIndicadores;
 
 public class CondicionConComportamiento extends Condicion {
 
-	public CondicionConComportamiento(Indicador indicador,boolean taxatividad,criterioDeAceptacionDeCondicion criterio){
-		super(indicador,taxatividad,criterio);
+	public CondicionConComportamiento(Indicador indicador,criterioDeAceptacionDeCondicion criterio){
+		super(indicador,criterio);
 	}
 	@Override
 	public boolean cumpleCondicion(Empresa empresa){

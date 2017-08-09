@@ -9,8 +9,8 @@ import repositorios.RepositorioDeIndicadores;
 public class CondicionConAño extends Condicion{
 	double valorMinimo;
 	int cantidadDeAños;
-	public CondicionConAño(double valorMinimo,int cantidadDeAños,Indicador indicador, boolean taxatividad,criterioDeAceptacionDeCondicion criterio){
-		super(indicador,taxatividad,criterio);
+	public CondicionConAño(double valorMinimo,int cantidadDeAños,Indicador indicador,criterioDeAceptacionDeCondicion criterio){
+		super(indicador,criterio);
 		this.valorMinimo = valorMinimo;
 		this.cantidadDeAños = cantidadDeAños;
 		
