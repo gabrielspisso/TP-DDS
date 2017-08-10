@@ -15,6 +15,6 @@ public class Numero extends Hoja{
 
 	@Override
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-		return Double.parseDouble(valorDeHoja);
+		return Double.parseDouble(valor);
 	}
 }

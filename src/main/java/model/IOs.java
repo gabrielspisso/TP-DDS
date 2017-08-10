@@ -10,6 +10,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import Excepciones.RecursiveException;
 import model.Builders.IndicadorBuilder;
 import repositorios.RepositorioDeIndicadores;
 
@@ -50,8 +51,7 @@ public class IOs {
 	public static void leerIndicadoresDeArchivo(String path) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(path));
-		    String line;
-
+			String line;
 		    while ((line = br.readLine()) != null) {
 		    	Indicador indicador = IndicadorBuilder.Build(line);
 				RepositorioDeIndicadores.agregarIndicador(indicador);
@@ -59,6 +59,10 @@ public class IOs {
 		    br.close();
 		} catch (IOException e) {
 				e.printStackTrace();
+		}
+		catch(RecursiveException ex){
+			//Es por un tema de que el build tira una excepcion si le mandas algo recursivo, pero si ya estaba creado, te deberia dejar crearlo pero no ver su valor!
+			//Otra opcion seria que no te deje leerlo si son recursivos
 		}
 
 	}

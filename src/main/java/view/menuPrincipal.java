@@ -15,6 +15,7 @@ import org.uqbar.arena.windows.MainWindow;
 import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.MessageBox.Type;
 
+import Excepciones.RecursiveException;
 import model.IOs;
 import viewModel.menuPrincipalViewModel;
 import viewModel.crearIndicadoresViewModel;
@@ -82,12 +83,8 @@ setTitle("¿Dónde invierto?");
 		.setCaption("Metodologias").onClick(() -> new menuMetodologias(this,new menuMetodologiasViewModel()).open());
 		
 		
-		try{
 			IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
-		}
-		catch(RuntimeException e){
-			new Label(mainPanel).setText("El archivo de indicadores esta dañado, no se pudo cargar");
-		}
+	
 	}
 	
 

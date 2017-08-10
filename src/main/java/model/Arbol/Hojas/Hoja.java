@@ -7,10 +7,10 @@ import model.Indicador;
 import model.Arbol.Operaciones.NODO;
 
 public abstract class Hoja implements NODO{
-	protected String valorDeHoja;
+	protected String valor;
 
-	public Hoja(String valorDeHoja) {
-		this.valorDeHoja = valorDeHoja;
+	public Hoja(String valor) {
+		this.valor = valor;
 	}
 	
 	@Override
@@ -27,7 +27,7 @@ public abstract class Hoja implements NODO{
 	
 	@Override
 	public String mostrarFormula() {
-		return valorDeHoja;
+		return valor;
 	}
 
 }

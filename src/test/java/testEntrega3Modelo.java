@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import Calculos.Mayor;
@@ -22,13 +23,17 @@ import repositorios.RepositorioDeEmpresas;
 
 public class testEntrega3Modelo {
 
-
-	
-	@Test
-	public void pruebaDeCondicionConCalculoFacebookTieneUnCCpromedioMayorA9(){
+	@BeforeClass
+	public static void setUp(){
+		
 		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
+	
+	}
+	
+	@Test
+	public void pruebaDeCondicionConCalculoFacebookTieneUnCCpromedioMayorA9(){
 	
 		//Parche provisiorio hasta saber como hacer que se ejecuten antes de todo los test.
 		

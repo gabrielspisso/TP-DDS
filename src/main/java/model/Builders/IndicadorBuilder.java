@@ -2,6 +2,7 @@ package model.Builders;
 
 import java.util.List;
 
+import Excepciones.RecursiveException;
 import model.Indicador;
 import model.Arbol.Operaciones.NODO;
 import parser.SCANNER;
@@ -16,7 +17,10 @@ public class IndicadorBuilder {
     	List<NodoNoClasificado> listaDeTokens =lista.subList(2, lista.size()-1);
     	
     	NODO arbol = OperacionPrimariaBuilder.Build(listaDeTokens);
-    	
-		return new Indicador(nombre, arbol);
+    	Indicador indicador = new Indicador(nombre, arbol);
+		if(indicador.contieneEsteToken(nombre)){
+			throw new RecursiveException("No se pudo crear ya que es recursivo");
+		}
+    	return indicador;
 	}
 }
