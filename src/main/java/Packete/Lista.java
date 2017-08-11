@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Lista<E> extends ArrayList<E>{
 	
@@ -71,11 +72,8 @@ public class Lista<E> extends ArrayList<E>{
 	
 	
 	public boolean areEquals(List<E> lista) {
-		if(lista.size() != this.size()) return false;
-		for(int i = 0; i < this.size(); i++) {
-			if(this.get(i) != lista.get(i)) return false;
-		}
-		return true;
+		return this.all(elemento-> lista.contains(elemento))&&lista.size() == this.size();		
+		
 	}
 	
 	public Lista<E> filter(Predicate <? super E> predicate){
