@@ -16,7 +16,7 @@ public class CondicionConAño extends Condicion{
 		
 	}
 	@Override
-	public boolean cumpleCondicion(Empresa empresa){
+	public boolean cumpleCondicion(Empresa empresa, Empresa empresa1){
 		if(empresa.getBalances().size() < cantidadDeAños){
 			return false;
 		}

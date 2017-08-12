@@ -24,39 +24,35 @@ public class Metodologia {
 	public String getNombre(){
 		return nombre;
 	}
-	public int evaluarMetodologia(Empresa empresa){
-		Stream<Condicion> streamDeCondiciones =Condiciones.stream().filter(condicion -> condicion.cumpleCondicion(empresa));
+	public int evaluarMetodologia(Empresa empresa,Empresa empresa2){
+				
+		if(sacarPorcentajeMetodologia(empresa,empresa2)>sacarPorcentajeMetodologia(empresa2,empresa)){
+			return -1;
+		}
+		else if(sacarPorcentajeMetodologia(empresa,empresa2) <sacarPorcentajeMetodologia(empresa2,empresa) ){
+			return 1;
+		}
+		return 0;
+
+	}
+	//No deberia ser public, pero por los test
+	public int sacarPorcentajeMetodologia(Empresa empresa, Empresa empresa2) {
+		Stream<Condicion> streamDeCondiciones =Condiciones.stream().filter(condicion -> condicion.cumpleCondicion(empresa,empresa2));
 		List<Condicion> condicionesFiltradas = streamDeCondiciones.collect(Collectors.toList());
-		
 		return condicionesFiltradas.size()*100/Condiciones.size();
 	}
+
 	public List<Empresa> listarEmpresas(List<Empresa> listaDeEmpresas){
-		List<Empresa> listaDeEmpresasFiltradas=	this.filtrarEmpresas(listaDeEmpresas);
-		ordenarListadeEmpresasDeAcuerdoALaEvaluacionDeMetodologias(listaDeEmpresasFiltradas);
-		return listaDeEmpresasFiltradas;
+		ordenarListadeEmpresasDeAcuerdoALaEvaluacionDeMetodologias(listaDeEmpresas);
+		return listaDeEmpresas;
 	}
 	private void ordenarListadeEmpresasDeAcuerdoALaEvaluacionDeMetodologias(List<Empresa> listaDeEmpresas){
 		Collections.sort(listaDeEmpresas,new Comparator<Empresa>() {
 			public int compare(Empresa empresa1, Empresa empresa2) {
-		        int res1 =  evaluarMetodologia(empresa1);
-		        int res2 =  evaluarMetodologia(empresa2);
-		        return res1 > res2 ? -1 : res1 == res2 ? 0 : 1;
+
+				return evaluarMetodologia(empresa1,empresa2);
 		    }
 		});
 	}
-	private List<Empresa> filtrarEmpresas(List<Empresa> listaDeEmpresas){
-		Stream<Empresa> streamDeEmpresasFiltradas = listaDeEmpresas.stream().filter(x-> this.sePuedeInvertir(x));
-		return	streamDeEmpresasFiltradas.collect(Collectors.toList()); 
-	}
-	private boolean sePuedeInvertir(Empresa empresa){
 	
-		try{
-			evaluarMetodologia(empresa);
-			return true;
-		}
-		catch(Exception ex){
-			return false;
-		}
-		
-	}
 }

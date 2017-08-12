@@ -21,7 +21,7 @@ public class CondicionConComportamiento extends Condicion {
 		super(indicador,criterio);
 	}
 	@Override
-	public boolean cumpleCondicion(Empresa empresa){
+	public boolean cumpleCondicion(Empresa empresa,Empresa empresa1){
 		int posicionActual = 0;
 		List<Balance> balances = empresa.getBalances();
 		return empresa.getBalances().stream().allMatch(x-> revisarComportamiento(balances,posicionActual));

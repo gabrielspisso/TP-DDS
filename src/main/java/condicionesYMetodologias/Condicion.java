@@ -12,7 +12,7 @@ public class Condicion {
 		this.indicador = indicador;
 		this.criterio = criterio;
 	}
-	public boolean cumpleCondicion(Empresa empresa){
+	public boolean cumpleCondicion(Empresa empresa,Empresa empresa2){
 		return false;
 	}
 	
