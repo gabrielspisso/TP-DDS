@@ -64,7 +64,7 @@ public class crearNuevaMetodologia extends Window<crearNuevaMetodologiaViewModel
 		new Button(sub_parte1).setCaption("Quitar Condicion").onClick(() ->this.quitarCondicion());
 		new Button(sub_parte1).setCaption("Agregar Condicion").onClick(() -> this.agregarCondicion());
 		
-		new Button(sub_parte1).onClick(() -> this.getModelObject().crearMetodologia()).setCaption("Finalizar Metodologia!").setBackground(Color.RED);
+		new Button(sub_parte1).onClick(() -> this.crearMetodologia()).setCaption("Finalizar Metodologia!").setBackground(Color.RED);
 
 		
 		new Label(mainPanel).setText(" ----------------------------------------------------------  ");
@@ -84,6 +84,23 @@ public class crearNuevaMetodologia extends Window<crearNuevaMetodologiaViewModel
 		*/
 	}
 
+	private void crearMetodologia() {
+		// TODO Auto-generated method stub
+		try{
+			this.getModelObject().crearMetodologia();			
+			MessageBox messageBox = new MessageBox(this, Type.Information);
+			messageBox.setMessage("Metodologia creada");
+			messageBox.open();
+		}
+		catch(NoItemSelectedException ex){
+			MessageBox messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage("No selecciono condiciones");
+			messageBox.open();
+		}
+		 
+	}
+
+
 	public void crearNuevaCondicion(){
 		new crearCondicionView(this, new crearCondicionViewModel()).open();
 		this.getModelObject().cambiaronLasCondiciones();
@@ -91,7 +108,7 @@ public class crearNuevaMetodologia extends Window<crearNuevaMetodologiaViewModel
 	}
 	public void agregarCondicion(){
 		try{
-			this.getModelObject().agregarCondicion();		
+			this.getModelObject().agregarCondicion();	
 		}
 		catch(NoItemSelectedException ex){
 			MessageBox messageBox = new MessageBox(this, Type.Error);

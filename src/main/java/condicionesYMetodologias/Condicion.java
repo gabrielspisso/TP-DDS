@@ -15,9 +15,6 @@ public class Condicion {
 	public boolean cumpleCondicion(Empresa empresa,Empresa empresa2){
 		return false;
 	}
-	@Override
-	public String toString(){
-		return indicador.toString();
-	}
+	
 	
 }

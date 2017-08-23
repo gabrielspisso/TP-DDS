@@ -8,4 +8,8 @@ public class Promedio implements Calculo {
 	public double realizarCalculo(List<Double> listaDeResultados){
 		return new Sumatoria().realizarCalculo(listaDeResultados) / listaDeResultados.size();
 	}
+	@Override
+	public String toString(){
+		return "Promedio";
+	}
 }

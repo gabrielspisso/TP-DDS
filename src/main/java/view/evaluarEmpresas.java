@@ -11,10 +11,12 @@ import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
+
+import condicionesYMetodologias.Metodologia;
+
 import org.uqbar.arena.widgets.List;
 
 import model.Empresa;
-import model.Metodologia;
 import viewModel.evaluarEmpresasViewModel;
 
 public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {

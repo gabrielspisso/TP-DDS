@@ -25,6 +25,9 @@ public class Metodologia {
 	public String getNombre(){
 		return nombre;
 	}
+	public String toString(){
+		return nombre;
+	}
 	public int evaluarMetodologia(Empresa empresa,Empresa empresa2){
 				
 		if(sacarPorcentajeMetodologia(empresa,empresa2)>sacarPorcentajeMetodologia(empresa2,empresa)){

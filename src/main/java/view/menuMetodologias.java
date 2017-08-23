@@ -63,7 +63,7 @@ public class menuMetodologias extends Window<menuMetodologiasViewModel> {
 		bot_configurarMetodologia.setCaption("Crear nueva Metodologia");
 		bot_configurarMetodologia.setWidth(150);
 		bot_configurarMetodologia.setHeight(50);
-		bot_configurarMetodologia.onClick(() -> new crearNuevaMetodologia(this, new crearNuevaMetodologiaViewModel()).open());
+		bot_configurarMetodologia.onClick(() ->crearNuevaMetodologia());
 		
 
 		new Label(mainPanel).setText("\n");
@@ -71,7 +71,11 @@ public class menuMetodologias extends Window<menuMetodologiasViewModel> {
 		new Label(mainPanel).setText("\n");
 		
 		
-		}		
+		}
+	private void crearNuevaMetodologia(){
+		 new crearNuevaMetodologia(this, new crearNuevaMetodologiaViewModel()).open();
+		 this.getModelObject().seCambiaronLasMetodologias();
+	}
 }
 
 

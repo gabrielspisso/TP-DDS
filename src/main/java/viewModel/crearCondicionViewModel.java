@@ -96,27 +96,22 @@ public class crearCondicionViewModel {
 			throw new RuntimeException("No existe el indicador para esta condicion");
 		}
 		Condicion condicion = null;
-		switch(opcion){
-			case "Tipo 1":{
+		//Le falta terrible abstraccion para usar polimorfismo, pero no lo pienso hacer ahora
+			if(opcion.equals( "Tipo 1")){
 				condicion = new CondicionConAño(valorMinimo, cantidadDeAños, indicador,comportamiento);
 			}
-			case "Tipo 2":{
+			else if(opcion.equals("Tipo 2")){
 				condicion = new CondicionEntreDosEmpresas(indicador,comportamiento);
 			}
-			case "Tipo 3":{
+			else if(opcion.equals("Tipo 3")){
 					condicion = new condicionConCalculo(calculo,valorMinimo, indicador, comportamiento);
 			}
-			case "Tipo 4":{
+			else if(opcion.equals("Tipo 4")){
 				condicion = new CondicionConComportamiento(indicador, comportamiento);
-			}
-		
-		}
+			}		
 		if(condicion != null){
 			RepositorioDeCondiciones.agregarCondicion(Arrays.asList(condicion));
 			
-		}
-		else{
-			System.out.println("hola");
 		}
 	}
 }

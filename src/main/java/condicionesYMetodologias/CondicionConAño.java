@@ -25,6 +25,8 @@ public class CondicionConAño extends Condicion{
 	}
 	@Override
 	public String toString(){
-		return this.toString()+" es "+criterio.toString()+" a "+ valorMinimo + " durante "+cantidadDeAños;
+		return indicador.toString()+" es "+criterio.toString()+" a "+ valorMinimo + " durante "+cantidadDeAños;
+		
+		//Intente que no repita lo de indicador to string y que se ocupe la clase padre, pero a java no le importo y me tomaba la del padre.
 	}
 }

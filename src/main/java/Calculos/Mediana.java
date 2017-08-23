@@ -14,4 +14,8 @@ public  class Mediana implements Calculo {
 		}
 		return mediana;
 	}
+	@Override
+	public String toString(){
+		return "Mediana";
+	}
 }

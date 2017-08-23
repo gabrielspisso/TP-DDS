@@ -9,4 +9,8 @@ public class Sumatoria implements Calculo{
 		listaDeResultados.forEach(x-> total+=x);
 		return total;
 	}
+	@Override
+	public String toString(){
+		return "Sumatoria";
+	}
 }

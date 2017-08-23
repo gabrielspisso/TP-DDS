@@ -64,8 +64,14 @@ public class crearNuevaMetodologiaViewModel {
 			this.nombreMetodologia = nombreMetodologia;
 		}
 		public void crearMetodologia(){
+			if(condicionesSeleccionadas.isEmpty() ){
+				throw new NoItemSelectedException();
+			}
 			Metodologia metodologia = new Metodologia(nombreMetodologia, condicionesSeleccionadas);
 			RepositorioDeMetodologias.agregarMetodologia(metodologia);
+			condicionesRestantes.addAll(condicionesSeleccionadas);
+			condicionesSeleccionadas.clear();
+			
 		}
 		public void quitarCondicion(){
 			if(condicionActualAQuitar != null){
