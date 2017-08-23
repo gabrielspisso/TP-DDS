@@ -19,6 +19,7 @@ import Excepciones.RecursiveException;
 import model.IOs;
 import viewModel.menuPrincipalViewModel;
 import viewModel.crearIndicadoresViewModel;
+import viewModel.crearNuevaMetodologiaViewModel;
 import viewModel.menuMetodologiasViewModel;
 import viewModel.mostrarValoresDeEmpresasViewModel;
 

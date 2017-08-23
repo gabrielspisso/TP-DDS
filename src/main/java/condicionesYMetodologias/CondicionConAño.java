@@ -23,4 +23,8 @@ public class CondicionConAño extends Condicion{
 		List<Balance> listaDeBalances = empresa.getBalances().subList(0,cantidadDeAños);
 		return listaDeBalances.stream().allMatch(balance->criterio.cumpleCriterioDeAceptacionDeCondicion(this.valorMinimo,this.indicador.calcularValor(balance.getCuentas())));	
 	}
+	@Override
+	public String toString(){
+		return this.toString()+" es "+criterio.toString()+" a "+ valorMinimo + " durante "+cantidadDeAños;
+	}
 }

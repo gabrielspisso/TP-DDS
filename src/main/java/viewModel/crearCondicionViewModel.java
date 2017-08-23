@@ -7,10 +7,17 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import Calculos.Calculo;
+import Calculos.Mayor;
 import Calculos.Mediana;
+import Calculos.Menor;
 import Calculos.Promedio;
 import Calculos.Sumatoria;
+import Calculos.criterioDeAceptacionDeCondicion;
 import condicionesYMetodologias.Condicion;
+import condicionesYMetodologias.CondicionConAño;
+import condicionesYMetodologias.CondicionConComportamiento;
+import condicionesYMetodologias.CondicionEntreDosEmpresas;
+import condicionesYMetodologias.condicionConCalculo;
 import model.Indicador;
 import repositorios.RepositorioDeCondiciones;
 import repositorios.RepositorioDeIndicadores;
@@ -20,21 +27,14 @@ public class crearCondicionViewModel {
 	String nombreDeIndicador;
 	String opcion;
 	int cantidadDeAños;
-	String calculo;
+	Calculo calculo;
 	int valorMinimo;
-	boolean taxatividad;
-	String comportamiento;
-	public String getComportamiento() {
+	criterioDeAceptacionDeCondicion comportamiento;
+	public criterioDeAceptacionDeCondicion getComportamiento() {
 		return comportamiento;
 	}
-	public void setComportamiento(String comportamiento) {
+	public void setComportamiento(criterioDeAceptacionDeCondicion comportamiento) {
 		this.comportamiento = comportamiento;
-	}
-	public boolean isTaxatividad() {
-		return taxatividad;
-	}
-	public void setTaxatividad(boolean taxatividad) {
-		this.taxatividad = taxatividad;
 	}
 	public String getNombreDeIndicador() {
 		return nombreDeIndicador;
@@ -45,22 +45,28 @@ public class crearCondicionViewModel {
 	public String getOpcion() {
 		return opcion;
 	}
+	public List<Calculo> getCalculos(){
+		return Arrays.asList(new Sumatoria(),new Mediana(),new Promedio());
+	}
 	public void setOpcion(String opcion) {
 		this.opcion = opcion;
-		ObservableUtils.firePropertyChanged(this, "visibleCantidadDeAï¿½os");
+		ObservableUtils.firePropertyChanged(this, "visibleCantidadDeAños");
 		ObservableUtils.firePropertyChanged(this, "visibleCalculo");
-		ObservableUtils.firePropertyChanged(this, "visibleComportamiento");
 	}
 	public int getCantidadDeAños() {
 		return cantidadDeAños;
 	}
+
+	public List<criterioDeAceptacionDeCondicion> getComportamientos(){
+		return Arrays.asList(new Mayor(),new Menor());
+	}
 	public void setCantidadDeAños(int cantidadDeAños) {
 		this.cantidadDeAños = cantidadDeAños;
 	}
-	public String getCalculo() {
+	public Calculo getCalculo() {
 		return calculo;
 	}
-	public void setCalculo(String calculo) {
+	public void setCalculo(Calculo calculo) {
 		this.calculo = calculo;
 	}
 	public int getValorMinimo() {
@@ -79,10 +85,6 @@ public class crearCondicionViewModel {
 		return opcion.equals("Tipo 3");
 		
 	}
-	public boolean isVisibleComportamiento(){
-		return opcion.equals("Tipo 4");
-	}
-	
 	public void crearCondiciones(){
 		Indicador indicador;
 		try{
@@ -95,21 +97,26 @@ public class crearCondicionViewModel {
 		}
 		Condicion condicion = null;
 		switch(opcion){
-			case "Opcion 1":{
-				//condicion = new condicionTipo1(valorMinimo, cantidadDeAï¿½os, indicador, taxatividad);
+			case "Tipo 1":{
+				condicion = new CondicionConAño(valorMinimo, cantidadDeAños, indicador,comportamiento);
 			}
-			case "Opcion 2":{
-				//condicion = new condicionTipo1(valorMinimo, 1, indicador, taxatividad);
+			case "Tipo 2":{
+				condicion = new CondicionEntreDosEmpresas(indicador,comportamiento);
 			}
-			case "Opcion 3":{
-				//Calculo calculo = opcion=="Promedio"? new Promedio() : opcion == "Sumatoria" ? new Sumatoria() : new Mediana(); 
-				//condicion = new condicionTipo3(calculo,valorMinimo, indicador, taxatividad);
+			case "Tipo 3":{
+					condicion = new condicionConCalculo(calculo,valorMinimo, indicador, comportamiento);
 			}
-			case "Opcion 4":{
-				//condicion = new CondicionTipo4(comportamiento, indicador, taxatividad);
+			case "Tipo 4":{
+				condicion = new CondicionConComportamiento(indicador, comportamiento);
 			}
 		
 		}
-		//RepositorioDeCondiciones.agregarCondicion(Arrays.asList(condicion));
+		if(condicion != null){
+			RepositorioDeCondiciones.agregarCondicion(Arrays.asList(condicion));
+			
+		}
+		else{
+			System.out.println("hola");
+		}
 	}
 }

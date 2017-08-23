@@ -13,6 +13,7 @@ import javax.management.RuntimeErrorException;
 import model.Empresa;
 import repositorios.RepositorioDeEmpresas;
 
+
 public class Metodologia {
 	String nombre;
 	List<Condicion> Condiciones;

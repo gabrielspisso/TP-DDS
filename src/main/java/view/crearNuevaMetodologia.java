@@ -9,10 +9,13 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.TextBox;
+import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.arena.windows.MessageBox.Type;
 import org.uqbar.commons.model.ObservableUtils;
 
+import Excepciones.NoItemSelectedException;
 import condicionesYMetodologias.Condicion;
 import model.Empresa;
 import viewModel.crearCondicionViewModel;
@@ -30,25 +33,37 @@ public class crearNuevaMetodologia extends Window<crearNuevaMetodologiaViewModel
 		setTitle("Crear una nueva Metodologia");
 		
 			
-		Panel parte1 =new Panel(mainPanel, this);
+		Panel parte1 =new Panel(mainPanel);
 		parte1.setLayout(new ColumnLayout(2));
 		
 		new Label(parte1).setText("Nombre de la metodologia:");
-		new TextBox(parte1).setWidth(100);//.bindValueToProperty("nombreMetodologia");
+		new TextBox(parte1).setWidth(100).bindValueToProperty("nombreMetodologia");
 		
-		new Label(parte1).setText("Lista de condiciones:");
-		new Label(parte1).setText("   ");
+		Panel panel23 =new Panel(parte1);
+		panel23.setLayout(new ColumnLayout(2));
 		
-		List<Condicion> listado_Condiciones = new List<Condicion>(parte1);
+		new Label(panel23).setText("Lista de condiciones disponibles:");
+		new Label(panel23).setText("Lista de condiciones:");
+		
+		
+		List<Condicion> listado_Condiciones = new List<Condicion>(panel23);
 		listado_Condiciones.setWidth(140);
-		//listado_Condiciones.bindValueToProperty("condicionActual");
-		//listado_Condiciones.bindItemsToProperty("condiciones");
+		listado_Condiciones.bindValueToProperty("condicionActualAAgregar");
+		listado_Condiciones.bindItemsToProperty("condicionesRestantes");
+		
+		List<Condicion> listadoDeCondicionesSeleccionadas = new List<Condicion>(panel23);
+		listadoDeCondicionesSeleccionadas.setWidth(140);
+		listadoDeCondicionesSeleccionadas.bindValueToProperty("condicionActualAQuitar");
+		listadoDeCondicionesSeleccionadas.bindItemsToProperty("condicionesSeleccionadas");
+		
 		
 		Panel sub_parte1 =new Panel(parte1, this);
 		sub_parte1.setLayout(new VerticalLayout());
 		sub_parte1.setWidth(50);
 		new Button(sub_parte1).setCaption("Crear Nueva Condicion").onClick(() ->crearNuevaCondicion() );
-		new Button(sub_parte1).setCaption("Quitar Condicion").onClick(() -> quitarCondicion());
+		new Button(sub_parte1).setCaption("Quitar Condicion").onClick(() ->this.quitarCondicion());
+		new Button(sub_parte1).setCaption("Agregar Condicion").onClick(() -> this.agregarCondicion());
+		
 		new Button(sub_parte1).onClick(() -> this.getModelObject().crearMetodologia()).setCaption("Finalizar Metodologia!").setBackground(Color.RED);
 
 		
@@ -71,9 +86,30 @@ public class crearNuevaMetodologia extends Window<crearNuevaMetodologiaViewModel
 
 	public void crearNuevaCondicion(){
 		new crearCondicionView(this, new crearCondicionViewModel()).open();
-	}
-	public void quitarCondicion(){
+		this.getModelObject().cambiaronLasCondiciones();
 		
 	}
+	public void agregarCondicion(){
+		try{
+			this.getModelObject().agregarCondicion();		
+		}
+		catch(NoItemSelectedException ex){
+			MessageBox messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage("No selecciono condicion a quitar");
+			messageBox.open();
+		}
+	}
+	public void quitarCondicion(){
+		try{
+			this.getModelObject().quitarCondicion();		
+		}
+		catch(NoItemSelectedException ex){
+			MessageBox messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage("No selecciono condicion a quitar");
+			messageBox.open();
+		}
+	}
+	
+
 }
 

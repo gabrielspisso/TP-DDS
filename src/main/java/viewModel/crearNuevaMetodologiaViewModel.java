@@ -6,8 +6,11 @@ import java.util.List;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
+import Excepciones.NoItemSelectedException;
 import condicionesYMetodologias.Condicion;
+import condicionesYMetodologias.Metodologia;
 import repositorios.RepositorioDeCondiciones;
+import repositorios.RepositorioDeMetodologias;
 
 @Observable
 public class crearNuevaMetodologiaViewModel {
@@ -16,10 +19,16 @@ public class crearNuevaMetodologiaViewModel {
 		private List<Condicion> condicionesRestantes = RepositorioDeCondiciones.mostrarListaDeCondiciones();
 		private List<Condicion> condicionesSeleccionadas = new ArrayList<Condicion>();
 		private Condicion condicionActualAAgregar;
+		public void setCondicionesRestantes(List<Condicion> condicionesRestantes) {
+			this.condicionesRestantes = condicionesRestantes;
+		}
+		public void setCondicionesSeleccionadas(List<Condicion> condicionesSeleccionadas) {
+			this.condicionesSeleccionadas = condicionesSeleccionadas;
+		}
 		private Condicion condicionActualAQuitar;
 	
 		
-
+		
 		public List<Condicion> getCondiciones(){
 			return RepositorioDeCondiciones.mostrarListaDeCondiciones();
 		}
@@ -55,18 +64,34 @@ public class crearNuevaMetodologiaViewModel {
 			this.nombreMetodologia = nombreMetodologia;
 		}
 		public void crearMetodologia(){
-			
+			Metodologia metodologia = new Metodologia(nombreMetodologia, condicionesSeleccionadas);
+			RepositorioDeMetodologias.agregarMetodologia(metodologia);
 		}
 		public void quitarCondicion(){
+			if(condicionActualAQuitar != null){
 			condicionesSeleccionadas.removeIf(condicion1 -> condicion1.equals(condicionActualAQuitar));
 			condicionesRestantes.add(condicionActualAQuitar);
 			ObservableUtils.firePropertyChanged(this, "condicionesRestantes");
 			ObservableUtils.firePropertyChanged(this, "condicionesSeleccionadas");
+			}
+			else{
+				throw new NoItemSelectedException();
+			}
 		}
 		public void agregarCondicion(){
-			condicionesSeleccionadas.add(condicionActualAAgregar);
+			if(condicionActualAAgregar != null){
+				condicionesRestantes.removeIf(condicion1 -> condicion1.equals(condicionActualAAgregar));
+				condicionesSeleccionadas.add(condicionActualAAgregar);
+				ObservableUtils.firePropertyChanged(this, "condicionesRestantes");
+				ObservableUtils.firePropertyChanged(this, "condicionesSeleccionadas");				
+			}
+			else{
+				throw new NoItemSelectedException();
+			}
+		}
+		public void cambiaronLasCondiciones() {
 			ObservableUtils.firePropertyChanged(this, "condicionesRestantes");
-			ObservableUtils.firePropertyChanged(this, "condicionesSeleccionadas");
+			
 		}
 
 }

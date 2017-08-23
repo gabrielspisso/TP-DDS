@@ -13,7 +13,7 @@ public class RepositorioDeMetodologias {
 		return listaDeMetodologias;
 	}
 
-	public static void agregarIndicador(Metodologia metodologia) {
+	public static void agregarMetodologia(Metodologia metodologia) {
 		listaDeMetodologias.removeIf(metodologia2-> metodologia2.getNombre().equals(metodologia.getNombre()));
 		listaDeMetodologias.add(metodologia);
 	}

@@ -11,7 +11,6 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import condicionesYMetodologias.Metodologia;
 
-import org.uqbar.arena.windows.MessageBox.Type;
 import org.uqbar.arena.windows.Window;
 
 import model.Balance;

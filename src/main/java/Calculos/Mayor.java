@@ -5,5 +5,9 @@ public class Mayor implements criterioDeAceptacionDeCondicion{
 	public boolean cumpleCriterioDeAceptacionDeCondicion(double valorMinimo, double valorActual) {
 		return valorMinimo <= valorActual;
 	}
-
+	@Override
+	public String toString(){
+		return "Mayor";
+	}
+	
 }
