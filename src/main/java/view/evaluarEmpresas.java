@@ -9,9 +9,12 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.tables.Table;
+import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.arena.windows.MessageBox.Type;
 
+import Excepciones.NoItemSelectedException;
 import condicionesYMetodologias.Metodologia;
 
 import org.uqbar.arena.widgets.List;
@@ -33,7 +36,7 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 	
 		/// ----  Primer Panel ---- ///
 		
-		Panel parte1 =new Panel(mainPanel, this);
+		Panel parte1 =new Panel(mainPanel);
 		
 		parte1.setLayout(new ColumnLayout(3));	
 
@@ -55,17 +58,19 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		//*** Liena 3
 		List<Empresa> listado_Empresas = new List<Empresa>(parte1);
 		listado_Empresas.setWidth(140);
-//		listado_Empresas.bindValueToProperty("empresaActual");
-//		listado_Empresas.bindItemsToProperty("empresas");
+		listado_Empresas.bindValueToProperty("empresaAAgregar");
+		listado_Empresas.bindItemsToProperty("empresasRestantes");
 		
-		Panel sub_parte1 =new Panel(parte1, this);
+		Panel sub_parte1 =new Panel(parte1);
 		sub_parte1.setLayout(new VerticalLayout());
 		sub_parte1.setWidth(50);
-		new Button(sub_parte1).setCaption("Añadir -->");//.onClick(() -> this.mostrarValorCuentaSeleccionada());
-		new Button(sub_parte1).setCaption("<-- Quitar"); //.onClick(() -> this.mostrarValorDeIndicadorSeleccionado());
+		new Button(sub_parte1).setCaption("Añadir -->").onClick(() -> this.agregarEmpresa());
+		new Button(sub_parte1).setCaption("<-- Quitar").onClick(() -> this.quitarEmpresa());
 
 		List<Empresa> listado_EmpresasAEvaluar = new List<Empresa>(parte1);
 		listado_EmpresasAEvaluar.setWidth(140);
+		listado_EmpresasAEvaluar.bindValueToProperty("empresaAQuitar");
+		listado_EmpresasAEvaluar.bindItemsToProperty("empresasSeleccionadas");
 	
 		//*** Linea 4
 		new Label(parte1).setText("   ");
@@ -78,8 +83,8 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		
 		Selector<Metodologia> selector_Metodologia = new Selector<Metodologia>(parte1);
 		selector_Metodologia.setWidth(165);
-//		selectorPeriodo.bindValueToProperty("");
-//		selectorPeriodo.bindItemsToProperty("");
+		//selector_Metodologia.bindValueToProperty("empresaAQuitar");
+		//selector_Metodologia.bindItemsToProperty("empresasSeleccionadas");
 
 		//*** Linea 6
 		new Label(parte1).setText(" ");
@@ -97,7 +102,7 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		
 		/// ---- Segundo Panel ---- ///
 		
-		Panel parte2 =new Panel(mainPanel, this);
+		Panel parte2 =new Panel(mainPanel);
 		
 		parte2.setLayout(new ColumnLayout(1));	
 
@@ -113,6 +118,37 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 //	    tableNotas.setHeight(500);
 //	    tableNotas.setWidth(350);
 		
+		
+	}
+	
+	public void agregarEmpresa(){
+		MessageBox messageBox;
+		try{
+			this.getModelObject().seleccionarEmpresa();
+			messageBox = new MessageBox(this, Type.Information);
+			messageBox.setMessage("Se creo la condicion");
+		}
+		catch (NoItemSelectedException ex){
+			messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage("No selecciono Empresa");
+		}
+		catch (Exception ex){
+			System.out.println("hola");
+		}
+		
+	}
+	
+	public void quitarEmpresa(){
+		MessageBox messageBox;
+		try{
+			this.getModelObject().quitarEmpresa();
+			messageBox = new MessageBox(this, Type.Information);
+			messageBox.setMessage("Se creo la condicion");
+		}
+		catch (NoItemSelectedException ex){
+			messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage("No selecciono Empresa");
+		}
 		
 	}
 }

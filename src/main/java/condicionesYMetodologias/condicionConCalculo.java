@@ -30,4 +30,9 @@ public class condicionConCalculo extends Condicion {
 		double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));
 		return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);
 	}
+	public String toString(){
+		return "el " + calculo.toString()+ "del indicador"+ indicador.toString() +"es "+ criterio.toString() + " a "+ valorMinimo;
+		
+		//Intente que no repita lo de indicador to string y que se ocupe la clase padre, pero a java no le importo y me tomaba la del padre.
+	}
 }

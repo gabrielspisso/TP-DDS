@@ -20,6 +20,7 @@ import model.IOs;
 import viewModel.menuPrincipalViewModel;
 import viewModel.crearIndicadoresViewModel;
 import viewModel.crearNuevaMetodologiaViewModel;
+import viewModel.evaluarEmpresasViewModel;
 import viewModel.menuMetodologiasViewModel;
 import viewModel.mostrarValoresDeEmpresasViewModel;
 
@@ -82,8 +83,10 @@ setTitle("¿Dónde invierto?");
 		
 		new Button(mainPanel)
 		.setCaption("Metodologias").onClick(() -> new menuMetodologias(this,new menuMetodologiasViewModel()).open());
-		
-		
+		/*
+		new Button(mainPanel)
+		.setCaption("2").onClick(() -> new viewPrueba(this,new evaluarEmpresasViewModel()).open());
+	*/
 			IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 	
 	}
