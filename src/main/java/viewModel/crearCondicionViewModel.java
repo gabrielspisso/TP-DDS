@@ -79,7 +79,7 @@ public class crearCondicionViewModel {
 		return Arrays.asList("Tipo 1", "Tipo 2", "Tipo 3", "Tipo 4");
 	}
 	public boolean isVisibleCantidadDeAños(){
-		return opcion.equals("Tipo 1");
+		return opcion.equals("Tipo 1")||opcion.equals("Tipo 4");
 	}
 	public boolean isVisibleCalculo(){
 		return opcion.equals("Tipo 3");
@@ -107,7 +107,7 @@ public class crearCondicionViewModel {
 					condicion = new condicionConCalculo(calculo,valorMinimo, indicador, comportamiento);
 			}
 			else if(opcion.equals("Tipo 4")){
-				condicion = new CondicionConComportamiento(indicador, comportamiento);
+				condicion = new CondicionConComportamiento(indicador, comportamiento,cantidadDeAños);
 			}		
 		if(condicion != null){
 			RepositorioDeCondiciones.agregarCondicion(Arrays.asList(condicion));

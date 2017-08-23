@@ -56,7 +56,7 @@ public class testEntrega3Modelo {
 	public void pruebaDeCondicionConComportamientoFacebookConCCEsCreciente(){
 		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor());
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2);
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
 	}
 	
@@ -64,7 +64,7 @@ public class testEntrega3Modelo {
 	public void pruebaDeCondicionConComportamientoFacebookConCCEsDecreciente(){
 		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Menor());
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Menor(),2);
 		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
 	}
 	@Test

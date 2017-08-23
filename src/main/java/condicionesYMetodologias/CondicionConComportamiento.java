@@ -18,16 +18,16 @@ import repositorios.RepositorioDeIndicadores;
 public class CondicionConComportamiento extends Condicion {
 
 	int cantidadDeAños= 0;
-	public CondicionConComportamiento(Indicador indicador,criterioDeAceptacionDeCondicion criterio){
+	public CondicionConComportamiento(Indicador indicador,criterioDeAceptacionDeCondicion criterio,int cantidadDeAños){
 		super(indicador,criterio);
+		this.cantidadDeAños = cantidadDeAños;
 	}
 	
 	@Override
 	
 	public boolean cumpleCondicion(Empresa empresa,Empresa empresa1){
-		int posicionActual = 0;
-		List<Balance> balances = empresa.getBalances();
-		return empresa.getBalances().stream().allMatch(x-> revisarComportamiento(balances,posicionActual));
+		List<Balance> balances = empresa.getBalances().subList(0, (cantidadDeAños>empresa.getBalances().size()?cantidadDeAños:empresa.getBalances().size()));
+		return balances.stream().allMatch(x-> revisarComportamiento(balances,x));
 	}
 	/*
 	public boolean cumpleCondicion(Empresa empresa, Empresa empresa1){
@@ -37,11 +37,15 @@ public class CondicionConComportamiento extends Condicion {
 		return empresa.all(x-> revisarComportamiento(balances,posicionActual))
 	}
 	*/
-	public boolean revisarComportamiento(List<Balance> balances, int posicion){
+	public boolean revisarComportamiento(List<Balance> balances, Balance balance){
+		if(balances.isEmpty()) return false;
+		int posicion = balances.indexOf(balance);
+		
+		
 		if(posicion == balances.size()-1){
 			return true;
 		}
-		double res1 = indicador.calcularValor(balances.get(posicion).getCuentas());
+		double res1 = indicador.calcularValor(balance.getCuentas());
 		double res2 = indicador.calcularValor(balances.get(posicion+1).getCuentas());
 		return criterio.cumpleCriterioDeAceptacionDeCondicion(res1, res2);
 	}
