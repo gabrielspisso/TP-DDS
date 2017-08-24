@@ -17,7 +17,6 @@ import model.Balance;
 import model.Cuenta;
 import model.Empresa;
 import model.Indicador;
-import viewModel.compararEmpresasViewModel;
 import viewModel.crearNuevaMetodologiaViewModel;
 import viewModel.evaluarEmpresasViewModel;
 import viewModel.menuMetodologiasViewModel;

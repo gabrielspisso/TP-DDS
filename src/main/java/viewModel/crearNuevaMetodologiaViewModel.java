@@ -68,10 +68,16 @@ public class crearNuevaMetodologiaViewModel {
 			if(condicionesSeleccionadas.isEmpty() ){
 				throw new NoItemSelectedException();
 			}
-			Metodologia metodologia = new Metodologia(nombreMetodologia, descripcion,condicionesSeleccionadas);
+			
+		//	List<Condicion> listitaCondiciones = new ArrayList<Condicion>();
+			
+			Metodologia metodologia = new Metodologia(nombreMetodologia, descripcion, condicionesSeleccionadas);
+			
+			System.out.println("sasdfasdf "+ getCondicionesSeleccionadas().size());
+			
 			RepositorioDeMetodologias.agregarMetodologia(metodologia);
 			condicionesRestantes.addAll(condicionesSeleccionadas);
-			condicionesSeleccionadas.clear();
+			condicionesSeleccionadas = null;
 			
 		}
 		public void quitarCondicion(){

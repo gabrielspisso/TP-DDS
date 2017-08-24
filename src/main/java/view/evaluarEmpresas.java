@@ -89,7 +89,7 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		//*** Linea 6
 		new Label(parte1).setText(" ");
 		new Button(parte1).setCaption("Ver detalle Metodologia").onClick(() -> this.mostrarDescripcion());
-		new Button(parte1).setCaption("Aplicar evaluacion"); //.onClick(() -> this.mostrarValorDeIndicadorSeleccionado());
+		new Button(parte1).setCaption("Aplicar evaluacion").onClick(() -> getModelObject().evaluarMetodologia());
 
 		//*** Linea 7
 		new Label(parte1).setText("   ");
@@ -114,11 +114,10 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		new Label(parte2).setText("   ");
 		
 		new Label(parte2).setText("Aca va la tabla de resultados");
-//		Table<Metodologia> table_Resultados = new Table<Metodologia>(parte2, Metodologia.class);
-//	    tableNotas.setHeight(500);
-//	    tableNotas.setWidth(350);
 		
 		
+		List<Empresa> lista_Resultados = new List<Empresa>(parte1);
+		lista_Resultados.bindItemsToProperty("empresasOrdenadas");		
 	}
 	
 	private void mostrarDescripcion() {

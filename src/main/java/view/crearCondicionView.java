@@ -20,7 +20,6 @@ import org.uqbar.arena.windows.MessageBox.Type;
 
 import model.Balance;
 import model.Indicador;
-import viewModel.compararEmpresasViewModel;
 import viewModel.crearCondicionViewModel;
 
 public class crearCondicionView extends Window<crearCondicionViewModel> {

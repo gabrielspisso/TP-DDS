@@ -19,7 +19,7 @@ public class evaluarEmpresasViewModel {
 	private Empresa empresaAQuitar ;
 	private List<Empresa> empresasSeleccionadas = new ArrayList<Empresa>();
 	private List<Empresa> empresasRestantes = RepositorioDeEmpresas.mostrarEmpresas();
-	
+	private List<Empresa> empresasOrdenadas  = new ArrayList<Empresa>();
 	private Metodologia metodologia;
 	
 	public void quitarEmpresa(){
@@ -88,5 +88,22 @@ public class evaluarEmpresasViewModel {
 	public List<Metodologia> getMetodologias(){
 		return RepositorioDeMetodologias.getListaDeMetodologias();
 	}
+	
+	
+	
+	public void evaluarMetodologia()
+	{
+		empresasOrdenadas = metodologia.listarEmpresas(empresasSeleccionadas);
+		ObservableUtils.firePropertyChanged(this,"empresasOrdenadas");
+
+	}
+	public List<Empresa> getEmpresasOrdenadas() {
+		return empresasOrdenadas;
+	}
+	public void setEmpresasOrdenadas(List<Empresa> empresasOrdenadas) {
+		this.empresasOrdenadas = empresasOrdenadas;
+	}
+	
+	
 	
 }

@@ -44,8 +44,8 @@ public class crearNuevaMetodologia extends Window<crearNuevaMetodologiaViewModel
 		Panel panel23 =new Panel(parte1);
 		panel23.setLayout(new ColumnLayout(2));
 		
-		new Label(panel23).setText("Lista de condiciones disponibles:");
-		new Label(panel23).setText("Lista de condiciones:");
+		new Label(panel23).setText("Lista de condiciones disponibles: ");
+		new Label(panel23).setText("Lista de condiciones elegidas: ");
 		
 		
 		List<Condicion> listado_Condiciones = new List<Condicion>(panel23);

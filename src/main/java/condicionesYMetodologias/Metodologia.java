@@ -35,12 +35,11 @@ public class Metodologia {
 	}
 	public int evaluarMetodologia(Empresa empresa,Empresa empresa2){
 				
-		if(sacarPorcentajeMetodologia(empresa,empresa2)>sacarPorcentajeMetodologia(empresa2,empresa)){
+		if(sacarPorcentajeMetodologia(empresa,empresa2)>sacarPorcentajeMetodologia(empresa2,empresa))
 			return -1;
-		}
-		else if(sacarPorcentajeMetodologia(empresa,empresa2) <sacarPorcentajeMetodologia(empresa2,empresa) ){
+		else if(sacarPorcentajeMetodologia(empresa,empresa2) <sacarPorcentajeMetodologia(empresa2,empresa) )
 			return 1;
-		}
+		
 		return 0;
 
 	}
@@ -48,6 +47,14 @@ public class Metodologia {
 	public int sacarPorcentajeMetodologia(Empresa empresa, Empresa empresa2) {
 		Stream<Condicion> streamDeCondiciones =Condiciones.stream().filter(condicion -> condicion.cumpleCondicion(empresa,empresa2));
 		List<Condicion> condicionesFiltradas = streamDeCondiciones.collect(Collectors.toList());
+		
+		if(Condiciones.isEmpty())
+			System.out.println("ACA\n");
+		else
+			System.out.println("ACA 2");
+			
+		
+		
 		return condicionesFiltradas.size()*100/Condiciones.size();
 	}
 
