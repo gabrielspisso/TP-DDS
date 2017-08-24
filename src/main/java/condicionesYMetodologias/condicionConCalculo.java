@@ -17,9 +17,9 @@ import repositorios.RepositorioDeIndicadores;
 
 public class condicionConCalculo extends Condicion {
 
-	int valorMinimo;
+	double valorMinimo;
 	Calculo calculo;
-	public condicionConCalculo(Indicador indicador, criterioDeAceptacionDeCondicion criterio, Calculo calculo, int valorMinimo){
+	public condicionConCalculo(Indicador indicador, criterioDeAceptacionDeCondicion criterio, Calculo calculo, double valorMinimo){
 		super(indicador,criterio);
 		this.valorMinimo = valorMinimo;
 		this.calculo = calculo;	

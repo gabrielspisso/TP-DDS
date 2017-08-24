@@ -2,11 +2,12 @@ package condicionesYMetodologias;
 
 import Calculos.Calculo;
 import model.Indicador;
+import opciones.Opcion;
 
 public class ValoresParaEvaluar {
 
 	Indicador indicadorActual;
-	String opcion = "Default";
+	Opcion opcion = null;
 	Calculo calculo;
 	int cantidadDeAños;
 	int valorMinimo;
@@ -17,11 +18,10 @@ public class ValoresParaEvaluar {
 	public void setIndicadorActual(Indicador indicadorActual) {
 		this.indicadorActual = indicadorActual;
 	}
-	public String getOpcion() {
+	public Opcion getOpcion() {
 		return opcion;
 	}
-	public void setOpcion(String opcion) {
-		System.out.println("sfasdf: "+opcion);
+	public void setOpcion(Opcion opcion) {
 		this.opcion = opcion;
 	}
 	public Calculo getCalculo() {

@@ -9,6 +9,7 @@ import model.Indicador;
 public class RepositorioDeMetodologias {
 	private static List<Metodologia> listaDeMetodologias = new ArrayList<>();
 
+	
 	public static List<Metodologia> getListaDeMetodologias() {
 		return listaDeMetodologias;
 	}
