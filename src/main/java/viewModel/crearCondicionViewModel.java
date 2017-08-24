@@ -79,7 +79,7 @@ public class crearCondicionViewModel {
 	public String getAclaracionTipo(){
 		
 		if(opcion.equals("Tipo 1"))
-			return "Que un indicador sea mayor o menor a cierto valor\n, en el último año o durante los últimos N años";
+			return "Que un indicador sea mayor o menor a cierto valor,\n en el último año o durante los últimos N años";
 		if(opcion.equals("Tipo 2"))
 			return "Que un indicador sea mayor o menor que el de otra empresa";
 		if(opcion.equals("Tipo 3"))

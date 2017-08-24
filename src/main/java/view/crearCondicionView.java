@@ -40,8 +40,8 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 	
 		
 		// Linea 1
-		new Label(mainPanel).setText("Seleccione opcion deseada");
-		Selector<String> selector = new Selector<String>(mainPanel);
+		new Label(mainPanel).setText("Seleccione opcion deseada: ");
+		List<String> selector = new List<String>(mainPanel);
 				selector.bindValueToProperty("opcion");
 				selector.bindItemsToProperty("opciones");
 				selector.setWidth(80);
@@ -51,22 +51,22 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 		new Button(mainPanel).onClick(()->this.leerDescripcion()).setCaption("Leer Descripcion");
 
 		// Linea 3
-		new Label(mainPanel).setText("Ingrese nombre de indicador");
+		new Label(mainPanel).setText("Ingrese nombre de indicador: ");
 		Selector<Indicador> selectorIndicadores = new Selector<Indicador>(mainPanel);
 		selectorIndicadores.setWidth(80);
 		selectorIndicadores.bindValueToProperty("indicadorActual");
 		selectorIndicadores.bindItemsToProperty("indicadores");
 	
 		// Linea 4
-		new Label(mainPanel).setText("Seleccione Comportamiento");
+		new Label(mainPanel).setText("Seleccione Comportamiento: ");
 		List<criterioDeAceptacionDeCondicion> selectorPeriodo = new List<criterioDeAceptacionDeCondicion>(mainPanel);
 			selectorPeriodo.setWidth(80);
 			selectorPeriodo.bindValueToProperty("comportamiento");
 			selectorPeriodo.bindItemsToProperty("comportamientos");
 			
 		// Linea 5
-		new Label(mainPanel).setText("Seleccione operatoria").bindVisibleToProperty("visibleCalculo");
-		Selector<String> selector3 = new Selector<String>(mainPanel);
+		new Label(mainPanel).setText("Seleccione operatoria: ").bindVisibleToProperty("visibleCalculo");
+		List<String> selector3 = new List<String>(mainPanel);
 		selector3.setWidth(80);
 		selector3.bindValueToProperty("calculo");
 		selector3.bindItemsToProperty("calculos");
@@ -74,7 +74,7 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 	
 		
 		// Linea 6
-		new Label(mainPanel).setText("Ingrese cantidad de años").bindVisibleToProperty("visibleCantidadDeAños");
+		new Label(mainPanel).setText("Ingrese cantidad de años: ").bindVisibleToProperty("visibleCantidadDeAños");
 		TextBox texboxCantAnios = new TextBox(mainPanel);
 		texboxCantAnios.setWidth(80);
 		texboxCantAnios.bindValueToProperty("cantidadDeAños");
@@ -83,7 +83,7 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 
 		
 		// linea 7
-		new Label(mainPanel).setText("Ingrese el valor minimo").bindVisibleToProperty("visibleValorMinimo");
+		new Label(mainPanel).setText("Valor minimo de aceptacion\npara el indicador: ").bindVisibleToProperty("visibleValorMinimo");
 		  TextBox textboxMinimo = new TextBox(mainPanel);
 		  textboxMinimo.setWidth(80);
 		  textboxMinimo.bindValueToProperty("valorMinimo");
@@ -91,7 +91,7 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 		
 		// linea 8
 		new Label(mainPanel).setText(" ");
-		new Button(mainPanel).onClick(()->this.creacionDeCondiciones()).setCaption("Crear Condicion");
+		new Button(mainPanel).onClick(()->this.creacionDeCondiciones()).setCaption("Crear Condicion!");
 	}
 	
 	public void creacionDeCondiciones(){
@@ -100,15 +100,14 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 			this.getModelObject().crearCondiciones();
 			messageBox = new MessageBox(this, Type.Information);
 			messageBox.setMessage("Se creo la condicion");
-	
+			messageBox.open();
+			this.close();
 		}
 		catch (Exception ex){
 			messageBox = new MessageBox(this, Type.Error);
-			messageBox.setMessage(ex.getMessage());
+			messageBox.setMessage("No se han completado todos los datos para la condicion deseada!");
+			messageBox.open();
 		}
-		
-		messageBox.open();
-		this.close();
 	}
 	
 	public void leerDescripcion(){
