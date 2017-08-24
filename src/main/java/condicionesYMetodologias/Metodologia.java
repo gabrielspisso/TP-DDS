@@ -31,6 +31,9 @@ public class Metodologia {
 		return nombre;
 	}
 	public String getDescripcion(){
+		if(descripcion==null)
+			descripcion="No hay descripcion";
+		
 		return descripcion;
 	}
 	public int evaluarMetodologia(Empresa empresa,Empresa empresa2){
@@ -47,14 +50,7 @@ public class Metodologia {
 	public int sacarPorcentajeMetodologia(Empresa empresa, Empresa empresa2) {
 		Stream<Condicion> streamDeCondiciones =Condiciones.stream().filter(condicion -> condicion.cumpleCondicion(empresa,empresa2));
 		List<Condicion> condicionesFiltradas = streamDeCondiciones.collect(Collectors.toList());
-		
-		if(Condiciones.isEmpty())
-			System.out.println("ACA\n");
-		else
-			System.out.println("ACA 2");
-			
-		
-		
+				
 		return condicionesFiltradas.size()*100/Condiciones.size();
 	}
 

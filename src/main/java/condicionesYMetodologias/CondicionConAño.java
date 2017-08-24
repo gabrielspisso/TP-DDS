@@ -9,7 +9,7 @@ import repositorios.RepositorioDeIndicadores;
 public class CondicionConAño extends Condicion{
 	double valorMinimo;
 	int cantidadDeAños;
-	public CondicionConAño(double valorMinimo,int cantidadDeAños,Indicador indicador,criterioDeAceptacionDeCondicion criterio){
+	public CondicionConAño(Indicador indicador, criterioDeAceptacionDeCondicion criterio, double valorMinimo,int cantidadDeAños){
 		super(indicador,criterio);
 		this.valorMinimo = valorMinimo;
 		this.cantidadDeAños = cantidadDeAños;

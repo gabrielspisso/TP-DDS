@@ -37,19 +37,19 @@ public class testEntrega3Modelo {
 		//Parche provisiorio hasta saber como hacer que se ejecuten antes de todo los test.
 		
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		condicionConCalculo test = new condicionConCalculo(new Promedio(),9,indicador,new Mayor()); //Deberian ser estaticos
+		condicionConCalculo test = new condicionConCalculo(indicador,new Mayor(),new Promedio(),9); //Deberian ser estaticos
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
 	}
 	@Test
 	public void pruebaDeCondicionConCalculoFacebookTieneUnCCpromedioMenorA9(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		condicionConCalculo test = new condicionConCalculo(new Promedio(),9,indicador,new Menor()); //Deberian ser estaticos
+		condicionConCalculo test = new condicionConCalculo(indicador,new Menor(),new Promedio(),9); //Deberian ser estaticos
 		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
 	}
 	@Test
 	public void pruebaDeCondicionConCalculoFacebookTieneUnCCpromedioMenorA30(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		condicionConCalculo test = new condicionConCalculo(new Promedio(),30,indicador,new Menor()); //Deberian ser estaticos
+		condicionConCalculo test = new condicionConCalculo(indicador,new Menor(),new Promedio(),30); //Deberian ser estaticos
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
 	}
 	@Test
@@ -70,8 +70,8 @@ public class testEntrega3Modelo {
 	@Test
 	public void testFacebookTieneCincuentaPorcientoDeccConCondicionConAñoYCondicionConCalculo(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConAño test = new CondicionConAño(300,1,indicador,new Mayor());
-		condicionConCalculo test2 = new condicionConCalculo(new Promedio(),9,indicador,new Mayor()); //Deberian ser estaticos
+		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),300,1);
+		condicionConCalculo test2 = new condicionConCalculo(indicador,new Mayor(),new Promedio(),9); //Deberian ser estaticos
 		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test,test2));
 		assertEquals(50,metodologia.sacarPorcentajeMetodologia(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
 	}
@@ -88,7 +88,7 @@ public class testEntrega3Modelo {
 	public void pruebaOrdenarMetodologias(){
 		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
 		
-		CondicionConAño test = new CondicionConAño(7,1,indicador,new Mayor());
+		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),7,1);
 		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test));
 		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(1),RepositorioDeEmpresas.mostrarEmpresas().get(2),RepositorioDeEmpresas.mostrarEmpresas().get(0));
 		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(RepositorioDeEmpresas.mostrarEmpresas() ));

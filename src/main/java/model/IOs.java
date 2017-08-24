@@ -32,6 +32,8 @@ public class IOs {
 			throw new RuntimeException("Error al cargar el indicador");
 		}
 	}
+	
+	
 	private static void vaciarArchivo(String path){
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
@@ -94,4 +96,48 @@ public class IOs {
 	
 		return listaDeEmpresas;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	private static void escribirEnArchivoCondicion(Condicion condicion,String path){
+
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(path,true));
+			writer.write(condicion.getNombre() + "=" +condicion.mostrarFormula() + ";");
+			writer.newLine();
+			writer.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		catch (RuntimeException e) {
+			throw new RuntimeException("Error al cargar la condicion");
+		}
+	}
+	
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

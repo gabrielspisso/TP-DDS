@@ -104,19 +104,14 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		
 		Panel parte2 =new Panel(mainPanel);
 		
-		parte2.setLayout(new ColumnLayout(1));	
+		parte2.setLayout(new ColumnLayout(1));
 
-
-		new Label(parte2).setText("   ");
-		
+		new Label(parte2).setText("   ");	
 
 		new Label(parte2).setText("Resultado!");
-		new Label(parte2).setText("   ");
+		new Label(parte2).setText("   ");	
 		
-		new Label(parte2).setText("Aca va la tabla de resultados");
-		
-		
-		List<Empresa> lista_Resultados = new List<Empresa>(parte1);
+		List<Empresa> lista_Resultados = new List<Empresa>(parte2);
 		lista_Resultados.bindItemsToProperty("empresasOrdenadas");		
 	}
 	

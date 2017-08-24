@@ -9,6 +9,4 @@ indicador=1;
 I1=1;
 I2=I1+1;
 L3=L4;
-L4=L3+1;
-hola=2;
-roli=44*-2;
+cien=100;

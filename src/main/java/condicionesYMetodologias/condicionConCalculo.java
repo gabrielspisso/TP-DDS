@@ -19,7 +19,7 @@ public class condicionConCalculo extends Condicion {
 
 	int valorMinimo;
 	Calculo calculo;
-	public condicionConCalculo(Calculo calculo, int valorMinimo, Indicador indicador,criterioDeAceptacionDeCondicion criterio){
+	public condicionConCalculo(Indicador indicador, criterioDeAceptacionDeCondicion criterio, Calculo calculo, int valorMinimo){
 		super(indicador,criterio);
 		this.valorMinimo = valorMinimo;
 		this.calculo = calculo;	

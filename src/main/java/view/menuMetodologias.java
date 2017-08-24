@@ -50,14 +50,14 @@ public class menuMetodologias extends Window<menuMetodologiasViewModel> {
 
 		Button bot_evaluarEmpresas= new Button(mainPanel);
 		bot_evaluarEmpresas.setCaption("Evaluar una empresa");
-		bot_evaluarEmpresas.setWidth(125);
+		bot_evaluarEmpresas.setWidth(150);
 		bot_evaluarEmpresas.setHeight(50);
 		bot_evaluarEmpresas.onClick(() -> new evaluarEmpresas(this, new evaluarEmpresasViewModel()).open());
 	
 
 		Button bot_configurarMetodologia= new Button(mainPanel);
 		bot_configurarMetodologia.setCaption("Crear nueva Metodologia");
-		bot_configurarMetodologia.setWidth(125);
+		bot_configurarMetodologia.setWidth(150);
 		bot_configurarMetodologia.setHeight(50);
 		bot_configurarMetodologia.onClick(() ->crearNuevaMetodologia());	
 		

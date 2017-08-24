@@ -18,6 +18,7 @@ import condicionesYMetodologias.Condicion;
 import condicionesYMetodologias.CondicionConAño;
 import condicionesYMetodologias.CondicionConComportamiento;
 import condicionesYMetodologias.CondicionEntreDosEmpresas;
+import condicionesYMetodologias.ValoresParaEvaluar;
 import condicionesYMetodologias.condicionConCalculo;
 import model.Indicador;
 import repositorios.RepositorioDeCondiciones;
@@ -26,17 +27,18 @@ import repositorios.RepositorioDeIndicadores;
 @Observable
 public class crearCondicionViewModel {
 	String nombreDeIndicador;
-	String opcion = "Tipo 5";
-	int cantidadDeAños;
-	Calculo calculo;
-	int valorMinimo;
 	criterioDeAceptacionDeCondicion comportamiento;
+
+	ValoresParaEvaluar valores  = new ValoresParaEvaluar();
 	
 	Indicador indicadorActual;
-	
+	//String opcion = "Default";
+	int cantidadDeAños;
+	int valorMinimo;
+	Calculo calculo;
 	
 	public Indicador getIndicadorActual() {
-		return indicadorActual;
+		return valores.getIndicadorActual();
 	}
 	public void setIndicadorActual(Indicador indicadorActual) {
 		this.indicadorActual = indicadorActual;
@@ -59,7 +61,7 @@ public class crearCondicionViewModel {
 		this.nombreDeIndicador = nombreDeIndicador;
 	}
 	public String getOpcion() {
-		return opcion;
+		return valores.getOpcion();
 	}
 	
 	
@@ -69,7 +71,8 @@ public class crearCondicionViewModel {
 	
 	
 	public void setOpcion(String opcion) {
-		this.opcion = opcion;
+//		this.opcion = opcion;
+		valores.setOpcion(opcion);
 		ObservableUtils.firePropertyChanged(this, "visibleCantidadDeAños");
 		ObservableUtils.firePropertyChanged(this, "visibleCalculo");
 		ObservableUtils.firePropertyChanged(this, "aclaracionTipo");
@@ -78,13 +81,13 @@ public class crearCondicionViewModel {
 	
 	public String getAclaracionTipo(){
 		
-		if(opcion.equals("Tipo 1"))
+		if(valores.getOpcion().equals("Tipo 1"))
 			return "Que un indicador sea mayor o menor a cierto valor,\n en el último año o durante los últimos N años";
-		if(opcion.equals("Tipo 2"))
+		if(valores.getOpcion().equals("Tipo 2"))
 			return "Que un indicador sea mayor o menor que el de otra empresa";
-		if(opcion.equals("Tipo 3"))
+		if(valores.getOpcion().equals("Tipo 3"))
 			return "Que un promedio, mediana o sumatoria de un cierto indicador sea mayor o menor a cierto valor";
-		if(opcion.equals("Tipo 4"))
+		if(valores.getOpcion().equals("Tipo 4"))
 			return "Que un indicador sea sea siempre o casi siempre creciente o decreciente durante un período";
 		
 		return "Descripcion";
@@ -122,15 +125,15 @@ public class crearCondicionViewModel {
 		return Arrays.asList("Tipo 1", "Tipo 2", "Tipo 3", "Tipo 4");
 	}
 	public boolean isVisibleCantidadDeAños(){
-		return opcion.equals("Tipo 1")||opcion.equals("Tipo 4");
+		return valores.getOpcion().equals("Tipo 1")||valores.getOpcion().equals("Tipo 4");
 	}
 	public boolean isVisibleCalculo(){
-		return opcion.equals("Tipo 3");
+		return valores.getOpcion().equals("Tipo 3");
 		
 	}
 	
 	public boolean isVisibleValorMinimo(){
-		  return opcion.equals("Tipo 1")|| opcion.equals("Tipo 3");
+		  return valores.getOpcion().equals("Tipo 1")|| valores.getOpcion().equals("Tipo 3");
 		  
 		 }
 	
@@ -142,13 +145,13 @@ public class crearCondicionViewModel {
 		Condicion condicion = null;
 	
 		//Le falta terrible abstraccion para usar polimorfismo, pero no lo pienso hacer ahora
-			if(opcion.equals( "Tipo 1"))
-				condicion = new CondicionConAño(valorMinimo, cantidadDeAños, indicadorActual, comportamiento);
-			if(opcion.equals("Tipo 2"))
+			if(valores.getOpcion().equals( "Tipo 1"))
+				condicion = new CondicionConAño(indicadorActual, comportamiento, valorMinimo, cantidadDeAños);
+			if(valores.getOpcion().equals("Tipo 2"))
 				condicion = new CondicionEntreDosEmpresas(indicadorActual,comportamiento);
-			if(opcion.equals("Tipo 3"))
-					condicion = new condicionConCalculo(calculo,valorMinimo, indicadorActual, comportamiento);
-			if(opcion.equals("Tipo 4"))
+			if(valores.getOpcion().equals("Tipo 3"))
+					condicion = new condicionConCalculo(indicadorActual, comportamiento, calculo, valorMinimo);
+			if(valores.getOpcion().equals("Tipo 4"))
 				condicion = new CondicionConComportamiento(indicadorActual, comportamiento, cantidadDeAños);
 					
 		if(condicion != null)

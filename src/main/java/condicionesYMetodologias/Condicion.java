@@ -6,8 +6,11 @@ import model.Indicador;
 
 public class Condicion {
 	protected Indicador indicador;
-
 	protected criterioDeAceptacionDeCondicion criterio;
+//	protected String nombre;
+//	protected String tipo;
+//	protected String dataInterna;	
+	
 	public Condicion(Indicador indicador,criterioDeAceptacionDeCondicion criterio){
 		this.indicador = indicador;
 		this.criterio = criterio;
