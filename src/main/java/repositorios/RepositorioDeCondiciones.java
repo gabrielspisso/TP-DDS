@@ -14,7 +14,8 @@ public class RepositorioDeCondiciones {
 		listaDeCondiciones.addAll(listaDeCondiciones2);
 	}
 	public static List<Condicion> mostrarListaDeCondiciones(){
-		List<Condicion> x = listaDeCondiciones;
-		return x;
+		List<Condicion> listaDeCondiciones2 = new ArrayList<Condicion>();
+		listaDeCondiciones2.addAll(listaDeCondiciones);
+		return listaDeCondiciones2;
 	}
 }
