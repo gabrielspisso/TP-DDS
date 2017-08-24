@@ -19,6 +19,7 @@ public class crearNuevaMetodologiaViewModel {
 		private List<Condicion> condicionesRestantes = RepositorioDeCondiciones.mostrarListaDeCondiciones();
 		private List<Condicion> condicionesSeleccionadas = new ArrayList<Condicion>();
 		private Condicion condicionActualAAgregar;
+		private String descripcion;
 		public void setCondicionesRestantes(List<Condicion> condicionesRestantes) {
 			this.condicionesRestantes = condicionesRestantes;
 		}
@@ -67,7 +68,7 @@ public class crearNuevaMetodologiaViewModel {
 			if(condicionesSeleccionadas.isEmpty() ){
 				throw new NoItemSelectedException();
 			}
-			Metodologia metodologia = new Metodologia(nombreMetodologia, condicionesSeleccionadas);
+			Metodologia metodologia = new Metodologia(nombreMetodologia, descripcion,condicionesSeleccionadas);
 			RepositorioDeMetodologias.agregarMetodologia(metodologia);
 			condicionesRestantes.addAll(condicionesSeleccionadas);
 			condicionesSeleccionadas.clear();
@@ -88,8 +89,8 @@ public class crearNuevaMetodologiaViewModel {
 			if(condicionActualAAgregar != null){
 				condicionesRestantes.removeIf(condicion1 -> condicion1.equals(condicionActualAAgregar));
 				condicionesSeleccionadas.add(condicionActualAAgregar);
-				ObservableUtils.firePropertyChanged(this, "condicionesRestantes");
-				ObservableUtils.firePropertyChanged(this, "condicionesSeleccionadas");				
+				ObservableUtils.firePropertyChanged(this,"condicionesRestantes");
+				ObservableUtils.firePropertyChanged(this,"condicionesSeleccionadas");				
 			}
 			else{
 				throw new NoItemSelectedException();
@@ -98,6 +99,12 @@ public class crearNuevaMetodologiaViewModel {
 		public void cambiaronLasCondiciones() {
 			ObservableUtils.firePropertyChanged(this, "condicionesRestantes");
 			
+		}
+		public String getDescripcion() {
+			return descripcion;
+		}
+		public void setDescripcion(String descripcion) {
+			this.descripcion = descripcion;
 		}
 
 }

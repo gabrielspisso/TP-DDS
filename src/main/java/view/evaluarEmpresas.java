@@ -83,12 +83,12 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		
 		Selector<Metodologia> selector_Metodologia = new Selector<Metodologia>(parte1);
 		selector_Metodologia.setWidth(165);
-		//selector_Metodologia.bindValueToProperty("empresaAQuitar");
-		//selector_Metodologia.bindItemsToProperty("empresasSeleccionadas");
+		selector_Metodologia.bindValueToProperty("metodologia");
+		selector_Metodologia.bindItemsToProperty("metodologias");
 
 		//*** Linea 6
 		new Label(parte1).setText(" ");
-		new Button(parte1).setCaption("Ver detalle Metodologia");//.onClick(() -> this.mostrarValorCuentaSeleccionada());
+		new Button(parte1).setCaption("Ver detalle Metodologia").onClick(() -> this.mostrarDescripcion());
 		new Button(parte1).setCaption("Aplicar evaluacion"); //.onClick(() -> this.mostrarValorDeIndicadorSeleccionado());
 
 		//*** Linea 7
@@ -121,20 +121,34 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		
 	}
 	
-	public void agregarEmpresa(){
+	private void mostrarDescripcion() {
+		// TODO Auto-generated method stub
 		MessageBox messageBox;
 		try{
-			this.getModelObject().seleccionarEmpresa();
+			
 			messageBox = new MessageBox(this, Type.Information);
-			messageBox.setMessage("Se creo la condicion");
+			messageBox.setMessage(this.getModelObject().getMetodologia().getDescripcion());
+		}
+		catch (NullPointerException ex){
+			messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage("No selecciono Metodologia");
+		}
+		messageBox.open();
+		
+	}
+
+
+	public void agregarEmpresa(){
+		try{
+			this.getModelObject().seleccionarEmpresa();
 		}
 		catch (NoItemSelectedException ex){
+			MessageBox messageBox;
 			messageBox = new MessageBox(this, Type.Error);
 			messageBox.setMessage("No selecciono Empresa");
+			messageBox.open();
 		}
-		catch (Exception ex){
-			System.out.println("hola");
-		}
+		
 		
 	}
 	

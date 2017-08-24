@@ -72,7 +72,7 @@ public class testEntrega3Modelo {
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		CondicionConAño test = new CondicionConAño(300,1,indicador,new Mayor());
 		condicionConCalculo test2 = new condicionConCalculo(new Promedio(),9,indicador,new Mayor()); //Deberian ser estaticos
-		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test,test2));
+		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test,test2));
 		assertEquals(50,metodologia.sacarPorcentajeMetodologia(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
 	}
 	
@@ -89,7 +89,7 @@ public class testEntrega3Modelo {
 		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
 		
 		CondicionConAño test = new CondicionConAño(7,1,indicador,new Mayor());
-		Metodologia metodologia = new Metodologia("Esto es una prueba",Arrays.asList(test));
+		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test));
 		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(1),RepositorioDeEmpresas.mostrarEmpresas().get(2),RepositorioDeEmpresas.mostrarEmpresas().get(0));
 		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(RepositorioDeEmpresas.mostrarEmpresas() ));
 	}

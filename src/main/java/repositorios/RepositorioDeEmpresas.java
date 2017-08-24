@@ -13,6 +13,8 @@ public class RepositorioDeEmpresas {
 		listaDeEmpresas.addAll(listaDeEmpresas2);
 	}
 	public static List<Empresa> mostrarEmpresas(){
-		return listaDeEmpresas;
+		List<Empresa> listaDeEmpresas2 = new ArrayList<Empresa>();
+		listaDeEmpresas2.addAll(listaDeEmpresas);
+		return listaDeEmpresas2;
 	}
 }

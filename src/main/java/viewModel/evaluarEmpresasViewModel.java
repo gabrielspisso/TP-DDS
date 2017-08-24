@@ -8,8 +8,10 @@ import org.uqbar.commons.utils.Observable;
 
 import Excepciones.NoItemSelectedException;
 import condicionesYMetodologias.Condicion;
+import condicionesYMetodologias.Metodologia;
 import model.Empresa;
 import repositorios.RepositorioDeEmpresas;
+import repositorios.RepositorioDeMetodologias;
 @Observable
 public class evaluarEmpresasViewModel {
 	
@@ -18,10 +20,11 @@ public class evaluarEmpresasViewModel {
 	private List<Empresa> empresasSeleccionadas = new ArrayList<Empresa>();
 	private List<Empresa> empresasRestantes = RepositorioDeEmpresas.mostrarEmpresas();
 	
+	private Metodologia metodologia;
 	
 	public void quitarEmpresa(){
 		if(empresaAQuitar != null){
-			empresasSeleccionadas.removeIf(condicion1 -> condicion1.equals(empresaAQuitar));
+			empresasSeleccionadas.removeIf(condicion1 -> empresaAQuitar.equals(condicion1));
 			empresasRestantes.add(empresaAQuitar);
 			ObservableUtils.firePropertyChanged(this, "empresasRestantes");
 			ObservableUtils.firePropertyChanged(this, "empresasSeleccionadas");
@@ -65,11 +68,25 @@ public class evaluarEmpresasViewModel {
 	public void seleccionarEmpresa(){
 		if(empresaAAgregar != null){
 			empresasRestantes.removeIf(condicion1 -> condicion1.equals(empresaAAgregar));
+			empresasSeleccionadas.removeIf(condicion1 -> condicion1.equals(empresaAAgregar));
+
 			empresasSeleccionadas.add(empresaAAgregar);
+			ObservableUtils.firePropertyChanged(this, "empresasRestantes");
+			ObservableUtils.firePropertyChanged(this, "empresasSeleccionadas");
 		}
 		else{
 			throw new NoItemSelectedException();
 		}
+	}
+	
+	public Metodologia getMetodologia() {
+		return metodologia;
+	}
+	public void setMetodologia(Metodologia metodologia) {
+		this.metodologia = metodologia;
+	}
+	public List<Metodologia> getMetodologias(){
+		return RepositorioDeMetodologias.getListaDeMetodologias();
 	}
 	
 }

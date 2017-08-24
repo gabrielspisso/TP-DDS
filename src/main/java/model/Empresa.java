@@ -25,8 +25,13 @@ public class Empresa {
 	}
 	@Override
 	public boolean equals(Object Objeto){
-		Empresa empresa = (Empresa) Objeto;
-		return empresa.nombre.equals(this.toString());
+		try{
+			Empresa empresa = (Empresa) Objeto;			
+			return empresa.nombre.equals(this.toString());
+		}
+		catch(Exception ex){
+			return false;
+		}
 		//return empresa.nombre == this.nombre;
 		
 	}

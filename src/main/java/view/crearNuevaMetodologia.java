@@ -39,6 +39,8 @@ public class crearNuevaMetodologia extends Window<crearNuevaMetodologiaViewModel
 		new Label(parte1).setText("Nombre de la metodologia:");
 		new TextBox(parte1).setWidth(100).bindValueToProperty("nombreMetodologia");
 		
+		new Label(parte1).setText("Descripcion de la metodologia:");
+		new TextBox(parte1).bindValueToProperty("descripcion");
 		Panel panel23 =new Panel(parte1);
 		panel23.setLayout(new ColumnLayout(2));
 		

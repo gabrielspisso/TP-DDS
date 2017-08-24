@@ -17,9 +17,11 @@ import repositorios.RepositorioDeEmpresas;
 public class Metodologia {
 	String nombre;
 	List<Condicion> Condiciones;
-	public Metodologia(	String nombre,List<Condicion> Condiciones){
+	String descripcion;
+	public Metodologia(	String nombre,String Metodologia,List<Condicion> Condiciones){
 		this.nombre = nombre;
 		this.Condiciones = Condiciones;
+		this.descripcion = Metodologia;
 	}
 	
 	public String getNombre(){
@@ -27,6 +29,9 @@ public class Metodologia {
 	}
 	public String toString(){
 		return nombre;
+	}
+	public String getDescripcion(){
+		return descripcion;
 	}
 	public int evaluarMetodologia(Empresa empresa,Empresa empresa2){
 				
