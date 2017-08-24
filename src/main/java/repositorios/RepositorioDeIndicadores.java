@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Indicador;
 
+
 public class RepositorioDeIndicadores {
 	private static List<Indicador> listaDeIndicadores = new ArrayList<>();
 
