@@ -27,9 +27,7 @@ public class crearNuevaMetodologiaViewModel {
 			this.condicionesSeleccionadas = condicionesSeleccionadas;
 		}
 		private Condicion condicionActualAQuitar;
-	
-		
-		
+			
 		public List<Condicion> getCondiciones(){
 			return RepositorioDeCondiciones.mostrarListaDeCondiciones();
 		}
@@ -72,9 +70,7 @@ public class crearNuevaMetodologiaViewModel {
 		//	List<Condicion> listitaCondiciones = new ArrayList<Condicion>();
 			
 			Metodologia metodologia = new Metodologia(nombreMetodologia, descripcion, condicionesSeleccionadas);
-			
-			System.out.println("sasdfasdf "+ getCondicionesSeleccionadas().size());
-			
+						
 			RepositorioDeMetodologias.agregarMetodologia(metodologia);
 			condicionesRestantes.addAll(condicionesSeleccionadas);
 			condicionesSeleccionadas = null;

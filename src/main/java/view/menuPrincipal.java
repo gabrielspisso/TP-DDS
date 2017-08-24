@@ -44,7 +44,8 @@ setTitle("¿Dónde invierto?");
 		new Label(mainPanel).setText("Menú Principal").setFontSize(15).setForeground(Color.RED);
 		new Label(mainPanel).setText("Seleccionar la opción deseada").setFontSize(13).setForeground(Color.BLACK);
 		
-		new Label(mainPanel).setText(" ").setFontSize(5);
+		new Label(mainPanel).setText("Carga Correcta de las Empresas!").setFontSize(9).setForeground(Color.GREEN).bindVisibleToProperty("bloq");
+		new Label(mainPanel).setText(" ").setFontSize(2);
 		
 		new Label(mainPanel).setText(" ").setFontSize(2);
 		
@@ -56,9 +57,18 @@ setTitle("¿Dónde invierto?");
 		
 		
 		new Label(mainPanel).setText(" ").setFontSize(2);
-
+		
 		new Label(mainPanel).setText("Crear un nuevo indicador");
 		new Button(mainPanel).setCaption("Escribir formula").onClick(() -> new crearIndicadores(this,new crearIndicadoresViewModel()).open());
+		
+		new Label(mainPanel).setText(" ").setFontSize(2);
+		
+		
+		new Label(mainPanel).setText("Menu de Metodologias");
+		Button bot_MenuMetodologias= new Button(mainPanel);
+		bot_MenuMetodologias.setCaption("Metodologias").bindEnabledToProperty("bloq");
+		bot_MenuMetodologias.onClick(() -> new menuMetodologias(this,new menuMetodologiasViewModel()).open());
+		
 		
 		new Label(mainPanel).setText(" ").setFontSize(2);
 		
@@ -80,14 +90,10 @@ setTitle("¿Dónde invierto?");
 		new Button(mainPanel)
 		.setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
 		
+	
 		
-		new Button(mainPanel)
-		.setCaption("Metodologias").onClick(() -> new menuMetodologias(this,new menuMetodologiasViewModel()).open());
-		/*
-		new Button(mainPanel)
-		.setCaption("2").onClick(() -> new viewPrueba(this,new evaluarEmpresasViewModel()).open());
-	*/
-			IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
+
+		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 	
 	}
 	
@@ -97,9 +103,9 @@ setTitle("¿Dónde invierto?");
 		
 		try{
 			this.getModelObject().cargarEmpresas();
-			messageBox = new MessageBox(this, Type.Information);
-			messageBox.setMessage("Se han cargado exitosamente los datos!");
-			messageBox.open();
+//			messageBox = new MessageBox(this, Type.Information);
+//			messageBox.setMessage("Se han cargado exitosamente los datos!");
+//			messageBox.open();
 		}
 		
 		catch (RuntimeException ex){

@@ -69,21 +69,6 @@ public class crearNuevaMetodologia extends Window<crearNuevaMetodologiaViewModel
 		new Button(sub_parte1).onClick(() -> this.crearMetodologia()).setCaption("Finalizar Metodologia!").setBackground(Color.RED);
 
 		
-		new Label(mainPanel).setText(" ----------------------------------------------------------  ");
-/*		
-		Panel parte2 =new Panel(mainPanel, this);
-		parte2.setLayout(new ColumnLayout(4));
-	
-		new Label(parte2).setText("Nueva Condicion!");
-		new Label(parte2).setText(" ");
-		new Label(parte2).setText(" ");
-		new Label(parte2).setText(" ");
-		
-		new Label(parte2).setText(" ");
-		new Label(parte2).setText(" ");
-		new Label(parte2).setText(" ");
-		new Button(parte2).setCaption("Agregar condicion");
-		*/
 	}
 
 	private void crearMetodologia() {

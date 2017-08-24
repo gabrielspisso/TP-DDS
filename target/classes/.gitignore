@@ -1,9 +1,6 @@
-/Calculos/
-/Excepciones/
-/Packete/
-/condicionesYMetodologias/
-/model/
-/parser/
-/repositorios/
 /view/
 /viewModel/
+/Excepciones/
+/repositorios/
+/condicionesYMetodologias/
+/model/
