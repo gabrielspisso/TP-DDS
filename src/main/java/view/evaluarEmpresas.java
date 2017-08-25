@@ -62,10 +62,15 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		listado_Empresas.bindItemsToProperty("empresasRestantes");
 		
 		Panel sub_parte1 =new Panel(parte1);
-		sub_parte1.setLayout(new VerticalLayout());
+		sub_parte1.setLayout(new ColumnLayout(3));	
 		sub_parte1.setWidth(50);
+		new Label(sub_parte1).setText("   ");
 		new Button(sub_parte1).setCaption("Añadir -->").onClick(() -> this.agregarEmpresa());
-		new Button(sub_parte1).setCaption("<-- Quitar").onClick(() -> this.quitarEmpresa());
+		new Label(sub_parte1).setText("   ");
+		
+		new Label(sub_parte1).setText("   ");
+		new Button(sub_parte1).setCaption("<-- Quitar ").onClick(() -> this.quitarEmpresa());
+		new Label(sub_parte1).setText("   ");
 
 		List<Empresa> listado_EmpresasAEvaluar = new List<Empresa>(parte1);
 		listado_EmpresasAEvaluar.setWidth(140);
@@ -97,7 +102,7 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		
 
 		new Label(parte1).setText("   ");
-		new Button(parte1).setCaption("Aplicar evaluacion").onClick(() -> getModelObject().evaluarMetodologia()).setWidth(195);
+		new Button(parte1).setCaption("Aplicar evaluacion").onClick(() ->aplicarMetodologia()).setWidth(195);
 		new Label(parte1).setText("   ");
 		
 		
@@ -109,25 +114,26 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 
 		List<Empresa> lista_Resultados = new List<Empresa>(mainPanel);
 		lista_Resultados.bindItemsToProperty("empresasOrdenadas");		
-		//*** Linea 7
-//		new Label(parte1).setText("   ");
-//		new Label(parte1).setText("   ");
-		
-		/// ---- Fin Primer Panel ---- ///
-		
-		
-		
-		/// ---- Segundo Panel ---- ///
-		
-
 		
 	}
 	
+	private void aplicarMetodologia()
+	{
+		try{
+		 this.getModelObject().evaluarMetodologia();
+		}
+		catch(NoItemSelectedException oo)
+		{
+			MessageBox messageBox;
+			messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage("No selecciono Metodologia");
+			messageBox.open();
+		}
+	}
 	private void mostrarDescripcion() {
 		// TODO Auto-generated method stub
 		MessageBox messageBox;
 		try{
-			
 			messageBox = new MessageBox(this, Type.Information);
 			messageBox.setMessage(this.getModelObject().getMetodologia().getDescripcion());
 		}

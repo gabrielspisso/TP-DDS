@@ -12,6 +12,7 @@ import condicionesYMetodologias.Metodologia;
 import model.Empresa;
 import repositorios.RepositorioDeEmpresas;
 import repositorios.RepositorioDeMetodologias;
+import scala.util.control.Exception;
 @Observable
 public class evaluarEmpresasViewModel {
 	
@@ -80,6 +81,9 @@ public class evaluarEmpresasViewModel {
 	}
 	
 	public Metodologia getMetodologia() {
+		if(metodologia==null)
+			throw new NoItemSelectedException();
+		
 		return metodologia;
 	}
 	public void setMetodologia(Metodologia metodologia) {
@@ -93,7 +97,7 @@ public class evaluarEmpresasViewModel {
 	
 	public void evaluarMetodologia()
 	{
-		empresasOrdenadas = metodologia.listarEmpresas(empresasSeleccionadas);
+		empresasOrdenadas = getMetodologia().listarEmpresas(empresasSeleccionadas);
 		ObservableUtils.firePropertyChanged(this,"empresasOrdenadas");
 
 	}
