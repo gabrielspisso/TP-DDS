@@ -112,5 +112,24 @@ public class mostrarValoresDeEmpresasViewModel {
 	public boolean getSeleccionoEmpresaYPeriodo(){
 		return balanceActual != null;
 	}
+	
+	public String getResultadoIndicador()
+	{
+		return "La expresion del indicador es:\n"+ getIndicadorActual().mostrarFormulaCompleta()+"\nEl valor del indicador " + getIndicadorActual().getNombre()+" es " + obtenerValorDeIndicador();
+	}
+	
+	public void observerIndicador()
+	{
+		ObservableUtils.firePropertyChanged(this, "resultadoIndicador");
+	}
 
+	public String getResultadoCuentas()
+	{
+		return "El valor de " + this.getCuentaActual().getNombre() + " es " + this.getCuentaActual().getValor();
+	}
+	
+	public void observerCuentas()
+	{
+		ObservableUtils.firePropertyChanged(this, "resultadoCuentas");
+	}
 }

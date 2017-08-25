@@ -123,7 +123,6 @@ public class crearCondicionViewModel {
 		return Arrays.asList(new Opcion_1(),new Opcion_2(),new Opcion_3(),new Opcion_4());
 	}
 	public boolean isVisibleCantidadDeAños(){
-		System.out.println(valores.getOpcion().toString());
 		return valores.getOpcion().isVisibleCantidadDeAños() &&valores.getOpcion()!=null;
 	}
 	public boolean isVisibleCalculo(){

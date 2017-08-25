@@ -63,40 +63,64 @@ public class mostrarValoresDeEmpresas extends Window<mostrarValoresDeEmpresasVie
 		listaIndicador.bindEnabledToProperty("seleccionoEmpresaYPeriodo");
 		Label l23 =new Label(mainPanel).setText(" ");
 		
+
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
+		
 		new Button(mainPanel).setCaption("Obtener valor de la cuenta").onClick(() -> this.mostrarValorCuentaSeleccionada());
+		
 		new Button(mainPanel).setCaption("Obtener valor de indicador").onClick(() -> this.mostrarValorDeIndicadorSeleccionado());
+
+		new Label(mainPanel).setText("------------------------------------------");
+		new Label(mainPanel).setText("------------------------------------------");
+		new Label(mainPanel).setText("------------------------------------------");
+		
+
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
 		
 		
+		new Label(mainPanel).setText("Resultado: ");
+		new Label(mainPanel).setText("#").bindValueToProperty("resultadoIndicador");
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText("#").bindValueToProperty("resultadoCuentas");
+		new Label(mainPanel).setText(" ");
+		
+		
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
+		new Label(mainPanel).setText(" ");
 		}
 		
 	
 	private void mostrarValorDeIndicadorSeleccionado() {
 		// TODO Auto-generated method stub
-		
+	
 		MessageBox messageBox;
 		
 		try {
-			messageBox = new MessageBox(this, Type.Information);
-			messageBox.setMessage(datosDelIndicador()+
-							" es " + 
-							this.getModelObject().obtenerValorDeIndicador());
-			
+			datosDelIndicador();
+			this.getModelObject().observerIndicador();
 		}
 		catch (RuntimeException ex){
 			messageBox = new MessageBox(this, Type.Error);
 			messageBox.setMessage(ex.getMessage());
-
+			messageBox.open();
 		}
-		messageBox.open();
-
 	}
 	
-	private String datosDelIndicador(){
+	private void datosDelIndicador(){
 		try{
-			return "La expresion del indicador es:\n"+ 
-					this.getModelObject().getIndicadorActual().mostrarFormulaCompleta()
-					+"\nEl valor del indicador " + 
-					this.getModelObject().getIndicadorActual().getNombre();
+			this.getModelObject().getResultadoIndicador();
 		}
 		catch(Exception ex){
 			throw new RuntimeException("No ingreso todos los campos necesarios para mostrar el valor de un indicador.");
@@ -104,20 +128,19 @@ public class mostrarValoresDeEmpresas extends Window<mostrarValoresDeEmpresasVie
 
 	}
 	
+	
 		private void mostrarValorCuentaSeleccionada(){
 			MessageBox messageBox;
 			
 			try {
-				messageBox = new MessageBox(this, Type.Information);
-				messageBox.setMessage("El valor de " + this.getModelObject().getCuentaActual().getNombre() + " es " + this.getModelObject().getCuentaActual().getValor());
+				this.getModelObject().observerCuentas();
 			}
 			
 			catch (RuntimeException ex){
 				messageBox = new MessageBox(this, Type.Error);
 				messageBox.setMessage("No has seleccionado los campos necesarios (Empresa, Balance y Cuenta)");
-			}
-			
-			messageBox.open();
+				messageBox.open();
+			}			
 		}
 		
 }
