@@ -35,12 +35,15 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 		
 		setTitle("Crear una nueva Condicion");
 
-		mainPanel.setLayout(new ColumnLayout(2));
+		mainPanel.setLayout(new ColumnLayout(3));
 	
 		new Label(mainPanel).setText("Nombre de la condicion: ");
+		new Label(mainPanel).setText(" ");
 		new TextBox(mainPanel).bindValueToProperty("nombre");
+		
 		// Linea 1
 		new Label(mainPanel).setText("Seleccione opcion deseada: ");
+		new Label(mainPanel).setText(" ");
 		List<String> selector = new List<String>(mainPanel);
 				selector.bindValueToProperty("opcion");
 				selector.bindItemsToProperty("opciones");
@@ -48,10 +51,12 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 		
 		// Linea 2 
 		new Label(mainPanel).setText(" ");
-		new Button(mainPanel).onClick(()->this.leerDescripcion()).setCaption("Leer Descripcion");
+		new Label(mainPanel).setText(" ");
+		new Button(mainPanel).onClick(()->this.leerDescripcion()).setCaption("Leer Descripcion").setWidth(105);
 
 		// Linea 3
 		new Label(mainPanel).setText("Ingrese nombre de indicador: ");
+		new Label(mainPanel).setText(" ");
 		Selector<Indicador> selectorIndicadores = new Selector<Indicador>(mainPanel);
 		selectorIndicadores.setWidth(80);
 		selectorIndicadores.bindValueToProperty("indicadorActual");
@@ -59,37 +64,47 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 	
 		// Linea 4
 		new Label(mainPanel).setText("Seleccione Comportamiento: ");
+		new Label(mainPanel).setText(" ");
 		List<criterioDeAceptacionDeCondicion> selectorPeriodo = new List<criterioDeAceptacionDeCondicion>(mainPanel);
 			selectorPeriodo.setWidth(80);
 			selectorPeriodo.bindValueToProperty("comportamiento");
 			selectorPeriodo.bindItemsToProperty("comportamientos");
 			
 		// Linea 5
-		new Label(mainPanel).setText("Seleccione operatoria: ").bindVisibleToProperty("visibleCalculo");
+		new Label(mainPanel).setText("Seleccione operatoria: ").bindEnabledToProperty("visibleCalculo");
+		new Label(mainPanel).setText(" ");
 		List<String> selector3 = new List<String>(mainPanel);
 		selector3.setWidth(80);
 		selector3.bindValueToProperty("calculo");
 		selector3.bindItemsToProperty("calculos");
-		selector3.bindVisibleToProperty("visibleCalculo");
+		selector3.bindEnabledToProperty("visibleCalculo");
 	
 		
 		// Linea 6
-		new Label(mainPanel).setText("Ingrese cantidad de años: ").bindVisibleToProperty("visibleCantidadDeAños");
+		new Label(mainPanel).setText("Ingrese cantidad de años: ").bindEnabledToProperty("visibleCantidadDeAños");
+		new Label(mainPanel).setText(" ");
 		TextBox texboxCantAnios = new TextBox(mainPanel);
 		texboxCantAnios.setWidth(80);
 		texboxCantAnios.bindValueToProperty("cantidadDeAños");
-		texboxCantAnios.bindVisibleToProperty("visibleCantidadDeAños");
+		texboxCantAnios.bindEnabledToProperty("visibleCantidadDeAños");
 		
 
 		
 		// linea 7
-		new Label(mainPanel).setText("Valor minimo de aceptacion\npara el indicador: ").bindVisibleToProperty("visibleValorMinimo");
+		new Label(mainPanel).setText("Valor minimo de aceptacion\npara el indicador: ").bindEnabledToProperty("visibleValorMinimo");
+		new Label(mainPanel).setText(" ");
 		  TextBox textboxMinimo = new TextBox(mainPanel);
 		  textboxMinimo.setWidth(80);
 		  textboxMinimo.bindValueToProperty("valorMinimo");
-		  textboxMinimo.bindVisibleToProperty("visibleValorMinimo");
+		  textboxMinimo.bindEnabledToProperty("visibleValorMinimo");
 		
+			new Label(mainPanel).setText(" ");
+			new Label(mainPanel).setText(" ");
+			new Label(mainPanel).setText(" ");
+		  
+		  
 		// linea 8
+		new Label(mainPanel).setText(" ");
 		new Label(mainPanel).setText(" ");
 		new Button(mainPanel).onClick(()->this.creacionDeCondiciones()).setCaption("Crear Condicion!");
 	}
@@ -113,14 +128,9 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 	public void leerDescripcion(){
 		MessageBox messageBox;
 		
-		try{
-			messageBox = new MessageBox(this, Type.Information);
-			messageBox.setMessage("Descripcion:\n\n"+ getModelObject().getAclaracionTipo() );
-		}
-		catch (Exception ex){
-			messageBox = new MessageBox(this, Type.Error);
-			messageBox.setMessage(ex.getMessage());
-		}	
+		messageBox = new MessageBox(this, Type.Information);
+		messageBox.setMessage("Descripcion:\n\n"+ getModelObject().getAclaracionTipo() );
+
 		messageBox.open();
 	}
 

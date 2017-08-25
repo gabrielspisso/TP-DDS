@@ -87,6 +87,8 @@ public class crearCondicionViewModel {
 		return valores.getNombre();
 	}
 	public String getAclaracionTipo(){
+		if(valores.getOpcion()==null)
+			return "No se ha elegido una opcion de tipo";
 		
 		return valores.getOpcion().getDescripcion();
 	}
@@ -136,7 +138,7 @@ public class crearCondicionViewModel {
 	
 	public void crearCondiciones(){
 		
-		if(valores.getComportamiento()==null || valores.getNombre() == null || valores.getIndicadorActual() == null)
+		if(valores.getComportamiento()==null || valores.getNombre() == null || valores.getIndicadorActual() == null || valores.getOpcion() == null)
 			throw new NoItemSelectedException();
 		
 		//Le falta terrible abstraccion para usar polimorfismo, pero no lo pienso hacer ahora

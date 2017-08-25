@@ -78,23 +78,40 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		new Label(parte1).setText("   ");
 		
 		//*** Linea 5
-		new Label(parte1).setText(" ");
 		new Label(parte1).setText("Seleccione la metodologia a evaluar:");
 		
 		Selector<Metodologia> selector_Metodologia = new Selector<Metodologia>(parte1);
 		selector_Metodologia.setWidth(165);
 		selector_Metodologia.bindValueToProperty("metodologia");
 		selector_Metodologia.bindItemsToProperty("metodologias");
-
-		//*** Linea 6
-		new Label(parte1).setText(" ");
+	
+		
 		new Button(parte1).setCaption("Ver detalle Metodologia").onClick(() -> this.mostrarDescripcion());
-		new Button(parte1).setCaption("Aplicar evaluacion").onClick(() -> getModelObject().evaluarMetodologia());
+	
+		
+		//*** Linea 6
 
+		new Label(parte1).setText("   ");
+		new Label(parte1).setText("   ");
+		new Label(parte1).setText("   ");
+		
+
+		new Label(parte1).setText("   ");
+		new Button(parte1).setCaption("Aplicar evaluacion").onClick(() -> getModelObject().evaluarMetodologia()).setWidth(195);
+		new Label(parte1).setText("   ");
+		
+		
+		new Label(parte1).setText("   ");
+		new Label(parte1).setText("   ");
+		new Label(parte1).setText("   ");
+		
+		new Label(parte1).setText("Recomendacion Ordenado Ascendentemente: ");
+
+		List<Empresa> lista_Resultados = new List<Empresa>(mainPanel);
+		lista_Resultados.bindItemsToProperty("empresasOrdenadas");		
 		//*** Linea 7
-		new Label(parte1).setText("   ");
-		new Label(parte1).setText("   ");
-		new Label(parte1).setText("   ");
+//		new Label(parte1).setText("   ");
+//		new Label(parte1).setText("   ");
 		
 		/// ---- Fin Primer Panel ---- ///
 		
@@ -102,17 +119,8 @@ public class evaluarEmpresas extends Window<evaluarEmpresasViewModel> {
 		
 		/// ---- Segundo Panel ---- ///
 		
-		Panel parte2 =new Panel(mainPanel);
-		
-		parte2.setLayout(new ColumnLayout(1));
 
-		new Label(parte2).setText("   ");	
-
-		new Label(parte2).setText("Resultado!");
-		new Label(parte2).setText("   ");	
 		
-		List<Empresa> lista_Resultados = new List<Empresa>(parte2);
-		lista_Resultados.bindItemsToProperty("empresasOrdenadas");		
 	}
 	
 	private void mostrarDescripcion() {

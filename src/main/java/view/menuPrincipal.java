@@ -65,9 +65,20 @@ setTitle("¿Dónde invierto?");
 		
 		
 		new Label(mainPanel).setText("Menu de Metodologias");
-		Button bot_MenuMetodologias= new Button(mainPanel);
-		bot_MenuMetodologias.setCaption("Metodologias").bindEnabledToProperty("bloq");
-		bot_MenuMetodologias.onClick(() -> new menuMetodologias(this,new menuMetodologiasViewModel()).open());
+		
+		Panel parte1 =new Panel(mainPanel);
+		parte1.setLayout(new ColumnLayout(2));	
+		Button bot_evaluarEmpresas= new Button(parte1);
+		bot_evaluarEmpresas.setCaption("Evaluar una empresa");
+		bot_evaluarEmpresas.setWidth(125);
+		bot_evaluarEmpresas.bindEnabledToProperty("bloq");
+		bot_evaluarEmpresas.onClick(() -> new evaluarEmpresas(this, new evaluarEmpresasViewModel()).open());
+	
+		Button bot_configurarMetodologia= new Button(parte1);
+		bot_configurarMetodologia.setCaption("Crear Metodologia");
+		bot_configurarMetodologia.setWidth(125);
+		//bot_configurarMetodologia.bindEnabledToProperty("bloq");
+		bot_configurarMetodologia.onClick(() ->crearNuevaMetodologia());	
 		
 		
 		new Label(mainPanel).setText(" ").setFontSize(2);
@@ -97,15 +108,15 @@ setTitle("¿Dónde invierto?");
 	
 	}
 	
-
+	private void crearNuevaMetodologia(){
+		 new crearNuevaMetodologia(this, new crearNuevaMetodologiaViewModel()).open();
+	}
+	
 	private void cargarArchivo(){
 		MessageBox messageBox;
 		
 		try{
 			this.getModelObject().cargarEmpresas();
-//			messageBox = new MessageBox(this, Type.Information);
-//			messageBox.setMessage("Se han cargado exitosamente los datos!");
-//			messageBox.open();
 		}
 		
 		catch (RuntimeException ex){
