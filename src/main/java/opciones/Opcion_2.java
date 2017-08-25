@@ -4,6 +4,7 @@ import Calculos.Calculo;
 import Calculos.criterioDeAceptacionDeCondicion;
 import condicionesYMetodologias.Condicion;
 import condicionesYMetodologias.CondicionEntreDosEmpresas;
+import condicionesYMetodologias.ValoresParaEvaluar;
 import model.Indicador;
 
 public class Opcion_2 implements Opcion{
@@ -15,10 +16,9 @@ public class Opcion_2 implements Opcion{
 		return "Que un indicador sea mayor o menor que el de otra empresa";
 	}
 
-	public Condicion generarCondicion(Indicador indicadorActual, criterioDeAceptacionDeCondicion comportamiento,
-			double valorMinimo, int cantidadDeAños, Calculo calculo) {
+	public Condicion generarCondicion(ValoresParaEvaluar valores) {
 		// TODO Auto-generated method stub
-		return new CondicionEntreDosEmpresas(indicadorActual,comportamiento);
+		return new CondicionEntreDosEmpresas(valores);
 	}
 	@Override
 	public boolean isVisibleCantidadDeAños() {

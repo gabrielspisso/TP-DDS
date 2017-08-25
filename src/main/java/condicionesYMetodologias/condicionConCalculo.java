@@ -10,6 +10,7 @@ import com.ibm.icu.util.IndianCalendar;
 
 import Calculos.Calculo;
 import Calculos.criterioDeAceptacionDeCondicion;
+import Excepciones.IdentificadorInexistente;
 import model.Balance;
 import model.Empresa;
 import model.Indicador;
@@ -20,19 +21,33 @@ public class condicionConCalculo extends Condicion {
 	double valorMinimo;
 	Calculo calculo;
 	public condicionConCalculo(Indicador indicador, criterioDeAceptacionDeCondicion criterio, Calculo calculo, double valorMinimo){
-		super(indicador,criterio);
+		super(indicador,criterio,"");
 		this.valorMinimo = valorMinimo;
 		this.calculo = calculo;	
+	}
+	public condicionConCalculo(ValoresParaEvaluar valores) {
+		// TODO Auto-generated constructor stub
+		super(valores);
+		this.valorMinimo = valores.getValorMinimo();
+		this.calculo = valores.getCalculo();	
 	}
 	@Override
 	public boolean cumpleCondicion(Empresa empresa,Empresa empresa1){
 		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
-		double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));
-		return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);
+		try{
+			double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));
+			return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);			
+		}
+		catch(IdentificadorInexistente ex){
+			return false;
+		}
+		
 	}
+	/*
 	public String toString(){
 		return "el " + calculo.toString()+ "del indicador"+ indicador.toString() +"es "+ criterio.toString() + " a "+ valorMinimo;
 		
 		//Intente que no repita lo de indicador to string y que se ocupe la clase padre, pero a java no le importo y me tomaba la del padre.
 	}
+	*/
 }

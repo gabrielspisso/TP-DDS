@@ -11,8 +11,12 @@ import model.Indicador;
 public class CondicionEntreDosEmpresas extends Condicion {
 	
 	public CondicionEntreDosEmpresas(Indicador indicador, criterioDeAceptacionDeCondicion criterio) {
-		super(indicador, criterio);
+		super(indicador, criterio,"");
 		// TODO Auto-generated constructor stub
+	}
+
+	public CondicionEntreDosEmpresas(ValoresParaEvaluar valores) {
+		super(valores);
 	}
 
 	@Override
@@ -26,9 +30,11 @@ public class CondicionEntreDosEmpresas extends Condicion {
 			return false;
 		}
 	}
+	/*
 	public String toString(){
 		return "Compara si el indicador \"" +indicador.toString() +"\"de una empresa  es "+criterio.toString()+"a otra empresa";
 		
 		//Intente que no repita lo de indicador to string y que se ocupe la clase padre, pero a java no le importo y me tomaba la del padre.
 	}
+	*/
 }

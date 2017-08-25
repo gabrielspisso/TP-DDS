@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.uqbar.commons.utils.Observable;
 
+import Excepciones.IdentificadorInexistente;
 import model.Arbol.Operaciones.NODO;
 import repositorios.RepositorioDeIndicadores;
 @Observable
@@ -16,7 +17,6 @@ public class Indicador {
 	public String toString(){
 		return nombre;
 	}
-	
 
 	public Indicador(String nombre, NODO arbol) {
 		this.nombre = nombre;

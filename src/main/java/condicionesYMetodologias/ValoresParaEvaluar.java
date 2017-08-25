@@ -1,6 +1,7 @@
 package condicionesYMetodologias;
 
 import Calculos.Calculo;
+import Calculos.criterioDeAceptacionDeCondicion;
 import model.Indicador;
 import opciones.Opcion;
 
@@ -11,7 +12,21 @@ public class ValoresParaEvaluar {
 	Calculo calculo;
 	int cantidadDeAños;
 	int valorMinimo;
+	String nombre;
+	criterioDeAceptacionDeCondicion comportamiento;
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	
+	public criterioDeAceptacionDeCondicion getComportamiento() {
+		return comportamiento;
+	}
+	public void setComportamiento(criterioDeAceptacionDeCondicion comportamiento) {
+		this.comportamiento = comportamiento;
+	}
 	public Indicador getIndicadorActual() {
 		return indicadorActual;
 	}
@@ -22,6 +37,7 @@ public class ValoresParaEvaluar {
 		return opcion;
 	}
 	public void setOpcion(Opcion opcion) {
+
 		this.opcion = opcion;
 	}
 	public Calculo getCalculo() {

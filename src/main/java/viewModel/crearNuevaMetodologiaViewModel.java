@@ -73,7 +73,7 @@ public class crearNuevaMetodologiaViewModel {
 						
 			RepositorioDeMetodologias.agregarMetodologia(metodologia);
 			condicionesRestantes.addAll(condicionesSeleccionadas);
-			condicionesSeleccionadas = null;
+			condicionesSeleccionadas =  new ArrayList<Condicion>(); ;
 			
 		}
 		public void quitarCondicion(){
@@ -99,8 +99,13 @@ public class crearNuevaMetodologiaViewModel {
 			}
 		}
 		public void cambiaronLasCondiciones() {
-			ObservableUtils.firePropertyChanged(this, "condicionesRestantes");
-			
+			List<Condicion> listaDeCondicionesDelRepo = RepositorioDeCondiciones.mostrarListaDeCondiciones();
+			//No programo a prueba de boludeces
+			if(listaDeCondicionesDelRepo.size()>0){
+				Condicion ultimaCondicionAgregada = listaDeCondicionesDelRepo.get(listaDeCondicionesDelRepo.size()-1);
+				condicionesRestantes.add(ultimaCondicionAgregada);
+				ObservableUtils.firePropertyChanged(this,"condicionesRestantes");				
+			}
 		}
 		public String getDescripcion() {
 			return descripcion;

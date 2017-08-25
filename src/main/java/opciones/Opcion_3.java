@@ -3,6 +3,7 @@ package opciones;
 import Calculos.Calculo;
 import Calculos.criterioDeAceptacionDeCondicion;
 import condicionesYMetodologias.Condicion;
+import condicionesYMetodologias.ValoresParaEvaluar;
 import condicionesYMetodologias.condicionConCalculo;
 import model.Indicador;
 
@@ -14,9 +15,8 @@ public class Opcion_3 implements Opcion {
 	public String getDescripcion(){
 		return "Que un promedio, mediana o sumatoria de un cierto indicador sea mayor o menor a cierto valor";
 	}
-	public Condicion generarCondicion(Indicador indicadorActual, criterioDeAceptacionDeCondicion comportamiento,
-			double valorMinimo, int cantidadDeAños, Calculo calculo) {
-		return  new condicionConCalculo(indicadorActual, comportamiento, calculo, valorMinimo);
+	public Condicion generarCondicion(ValoresParaEvaluar valores) {
+		return  new condicionConCalculo(valores);
 	}
 	@Override
 	public boolean isVisibleCantidadDeAños() {

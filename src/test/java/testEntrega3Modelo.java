@@ -59,6 +59,13 @@ public class testEntrega3Modelo {
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2);
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
 	}
+	@Test
+	public void pruebaDeCondicionConComportamientoFacebookConCCEsCreciente2(){
+		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
+		Indicador indicador = IndicadorBuilder.Build("cc=sadsagaga+10;");
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2);
+		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
+	}
 	
 	@Test
 	public void pruebaDeCondicionConComportamientoFacebookConCCEsDecreciente(){

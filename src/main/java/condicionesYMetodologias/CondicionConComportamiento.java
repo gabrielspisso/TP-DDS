@@ -9,6 +9,7 @@ import javax.security.auth.x500.X500Principal;
 
 import Calculos.Calculo;
 import Calculos.criterioDeAceptacionDeCondicion;
+import Excepciones.IdentificadorInexistente;
 import model.Balance;
 import model.Cuenta;
 import model.Empresa;
@@ -19,15 +20,25 @@ public class CondicionConComportamiento extends Condicion {
 
 	int cantidadDeAños= 0;
 	public CondicionConComportamiento(Indicador indicador,criterioDeAceptacionDeCondicion criterio,int cantidadDeAños){
-		super(indicador,criterio);
+		super(indicador,criterio,"");
 		this.cantidadDeAños = cantidadDeAños;
 	}
 	
+	public CondicionConComportamiento(ValoresParaEvaluar valores) {
+		super(valores);
+		this.cantidadDeAños = valores.getCantidadDeAños();
+	}
+
 	@Override
 	
 	public boolean cumpleCondicion(Empresa empresa,Empresa empresa1){
 		List<Balance> balances = empresa.getBalances().subList(0, (cantidadDeAños>empresa.getBalances().size()?cantidadDeAños:empresa.getBalances().size()));
-		return balances.stream().allMatch(x-> revisarComportamiento(balances,x));
+		try{
+			return balances.stream().allMatch(x-> revisarComportamiento(balances,x));			
+		}
+		catch(IdentificadorInexistente id){
+			return false;
+		}
 	}
 	/*
 	public boolean cumpleCondicion(Empresa empresa, Empresa empresa1){
@@ -49,9 +60,10 @@ public class CondicionConComportamiento extends Condicion {
 		double res2 = indicador.calcularValor(balances.get(posicion+1).getCuentas());
 		return criterio.cumpleCriterioDeAceptacionDeCondicion(res1, res2);
 	}
-	@Override
+	/*@Override
 	public String toString(){
 		return indicador.toString()+ "es " + criterio.toString() +" durante "+ cantidadDeAños;
 		
 	}
+	*/
 }

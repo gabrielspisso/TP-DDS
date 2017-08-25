@@ -32,21 +32,16 @@ import repositorios.RepositorioDeIndicadores;
 @Observable
 public class crearCondicionViewModel {
 	String nombreDeIndicador;
-	criterioDeAceptacionDeCondicion comportamiento;
+
 
 	ValoresParaEvaluar valores  = new ValoresParaEvaluar();
-	
-	Indicador indicadorActual;
-	//String opcion = "Default";
-	int cantidadDeAños;
-	int valorMinimo;
-	Calculo calculo;
+
 	
 	public Indicador getIndicadorActual() {
 		return valores.getIndicadorActual();
 	}
 	public void setIndicadorActual(Indicador indicadorActual) {
-		this.indicadorActual = indicadorActual;
+		this.valores.setIndicadorActual( indicadorActual);
 	}
 
 	public List<Indicador> getIndicadores(){
@@ -54,10 +49,10 @@ public class crearCondicionViewModel {
 	}
 		
 	public criterioDeAceptacionDeCondicion getComportamiento() {
-		return comportamiento;
+		return valores.getComportamiento();
 	}
 	public void setComportamiento(criterioDeAceptacionDeCondicion comportamiento) {
-		this.comportamiento = comportamiento;
+		valores.setComportamiento(comportamiento);
 	}
 	public String getNombreDeIndicador() {
 		return nombreDeIndicador;
@@ -84,6 +79,13 @@ public class crearCondicionViewModel {
 		ObservableUtils.firePropertyChanged(this, "visibleValorMinimo");
 	}
 	
+	
+	public void setNombre(String nombre){
+		valores.setNombre(nombre);
+	}
+	public String getNombre(){
+		return valores.getNombre();
+	}
 	public String getAclaracionTipo(){
 		
 		return valores.getOpcion().getDescripcion();
@@ -91,7 +93,7 @@ public class crearCondicionViewModel {
 	
 	
 	public int getCantidadDeAños() {
-		return cantidadDeAños;
+		return valores.getCantidadDeAños();
 	}
 
 	public List<criterioDeAceptacionDeCondicion> getComportamientos(){
@@ -99,29 +101,30 @@ public class crearCondicionViewModel {
 	}
 	
 	public void setCantidadDeAños(int cantidadDeAños) {
-		this.cantidadDeAños = cantidadDeAños;
+		this.valores.setCantidadDeAños( cantidadDeAños);
 	}
 	
 	public Calculo getCalculo() {
-		return calculo;
+		return this.valores.getCalculo();
 	}
 	
 	public void setCalculo(Calculo calculo) {
-		this.calculo = calculo;
+		this.valores.setCalculo(calculo);
 	}
 	
 	public int getValorMinimo() {
-		return valorMinimo;
+		return valores.getValorMinimo();
 	}
 	
 	public void setValorMinimo(int valorMinimo) {
-		this.valorMinimo = valorMinimo;
+		valores.setValorMinimo(valorMinimo);
 	}
 	public List<Opcion> getOpciones(){
 		return Arrays.asList(new Opcion_1(),new Opcion_2(),new Opcion_3(),new Opcion_4());
 	}
 	public boolean isVisibleCantidadDeAños(){
-		return valores.getOpcion().isVisibleCantidadDeAños();
+		System.out.println(valores.getOpcion().toString());
+		return valores.getOpcion().isVisibleCantidadDeAños() &&valores.getOpcion()!=null;
 	}
 	public boolean isVisibleCalculo(){
 		return valores.getOpcion().isVisibleCalculo();
@@ -134,16 +137,18 @@ public class crearCondicionViewModel {
 	
 	public void crearCondiciones(){
 		
-		if(comportamiento==null)
+		if(valores.getComportamiento()==null || valores.getNombre() == null || valores.getIndicadorActual() == null)
 			throw new NoItemSelectedException();
 		
 		//Le falta terrible abstraccion para usar polimorfismo, pero no lo pienso hacer ahora
 		
 					
 		if(valores.getOpcion() != null){
-			Condicion condicion = valores.getOpcion().generarCondicion(indicadorActual, comportamiento, valorMinimo, cantidadDeAños, calculo);			
+			Condicion condicion = valores.getOpcion().generarCondicion(valores);			
 			RepositorioDeCondiciones.agregarCondicion(Arrays.asList(condicion));
 		}
-
+		else{
+			System.out.println("error");
+		}
 	}
 }

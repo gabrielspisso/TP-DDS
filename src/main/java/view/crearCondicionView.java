@@ -37,7 +37,8 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 
 		mainPanel.setLayout(new ColumnLayout(2));
 	
-		
+		new Label(mainPanel).setText("Nombre de la condicion: ");
+		new TextBox(mainPanel).bindValueToProperty("nombre");
 		// Linea 1
 		new Label(mainPanel).setText("Seleccione opcion deseada: ");
 		List<String> selector = new List<String>(mainPanel);
