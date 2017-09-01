@@ -2,13 +2,26 @@ package model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
 import org.uqbar.commons.utils.Observable;
 
-
+@Entity
 @Observable
 public class Empresa {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
 	private String nombre;
+	
+	@Transient
 	private List<Balance> balances;
+	
 	public List<Balance> getBalances() {
 		return balances;
 	}

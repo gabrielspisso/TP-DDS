@@ -1,7 +1,11 @@
-/view/
-/viewModel/
+/Calculos/
 /Excepciones/
-/repositorios/
+/Packete/
 /condicionesYMetodologias/
 /model/
 /opciones/
+/parser/
+/repositorios/
+/view/
+/viewModel/
+/META-INF/
