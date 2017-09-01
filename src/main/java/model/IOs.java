@@ -11,8 +11,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import Excepciones.RecursiveException;
+import condicionesYMetodologias.Metodologia;
 import model.Builders.IndicadorBuilder;
 import repositorios.RepositorioDeIndicadores;
+import repositorios.RepositorioDeMetodologias;
 
 
 public class IOs {
@@ -95,6 +97,31 @@ public class IOs {
 		List<Empresa> listaDeEmpresas = new Gson().fromJson(json, listType); 
 	
 		return listaDeEmpresas;
+	}
+	
+	
+	private static void escribirMetodologia(Metodologia metodologia, String path) {
+		String metod = convertirMetodologiaEnJson(metodologia);
+		try {
+			BufferedWriter wr = new BufferedWriter(new FileWriter(path, true));
+			wr.write(metod);
+			wr.newLine();
+			wr.close();
+		}
+		catch (IOException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static void guardarMetodologias(Metodologia metodologia, String path) {
+		vaciarArchivo(path);
+		RepositorioDeMetodologias.getListaDeMetodologias().forEach(m -> escribirMetodologia(m, path));
+	}
+	
+	private static String convertirMetodologiaEnJson(Metodologia metodologia) {
+		Gson gson = new Gson();
+		String json = gson.toJson(metodologia);
+		return json;
 	}
 	
 	

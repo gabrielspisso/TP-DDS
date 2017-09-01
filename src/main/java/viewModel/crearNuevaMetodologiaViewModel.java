@@ -9,6 +9,7 @@ import org.uqbar.commons.utils.Observable;
 import Excepciones.NoItemSelectedException;
 import condicionesYMetodologias.Condicion;
 import condicionesYMetodologias.Metodologia;
+import model.IOs;
 import repositorios.RepositorioDeCondiciones;
 import repositorios.RepositorioDeMetodologias;
 
@@ -20,6 +21,8 @@ public class crearNuevaMetodologiaViewModel {
 		private List<Condicion> condicionesSeleccionadas = new ArrayList<Condicion>();
 		private Condicion condicionActualAAgregar;
 		private String descripcion;
+		private boolean guardarMetodologia;
+		
 		public void setCondicionesRestantes(List<Condicion> condicionesRestantes) {
 			this.condicionesRestantes = condicionesRestantes;
 		}
@@ -73,7 +76,10 @@ public class crearNuevaMetodologiaViewModel {
 						
 			RepositorioDeMetodologias.agregarMetodologia(metodologia);
 			condicionesRestantes.addAll(condicionesSeleccionadas);
-			condicionesSeleccionadas =  new ArrayList<Condicion>(); ;
+			condicionesSeleccionadas =  new ArrayList<Condicion>();
+			
+			if(guardarMetodologia)
+				IOs.guardarMetodologias(metodologia, "archivoMetodologias.txt");
 			
 		}
 		public void quitarCondicion(){
@@ -113,5 +119,15 @@ public class crearNuevaMetodologiaViewModel {
 		public void setDescripcion(String descripcion) {
 			this.descripcion = descripcion;
 		}
+		
+		public boolean isGuardarMetodologia() {
+			return guardarMetodologia;
+		}
+		
+		public void setGuardarMetodologia(boolean guardarMetodologia) {
+			this.guardarMetodologia = guardarMetodologia;
+		}
+		
+		
 
 }

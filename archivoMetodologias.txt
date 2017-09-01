@@ -1,0 +1,1 @@
+{"nombre":"as","Condiciones":[{"nombre":"si","indicador":{"nombre":"indicador1","arbol":{"operador":"+","izquierda":{"valor":"FREE CASH FLOW"},"derecha":{"valor":"4"}}},"criterio":{}}],"descripcion":"aa"}

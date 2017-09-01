@@ -5,6 +5,7 @@ import java.awt.Color;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
+import org.uqbar.arena.widgets.CheckBox;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
@@ -41,6 +42,11 @@ public class crearNuevaMetodologia extends Window<crearNuevaMetodologiaViewModel
 		
 		new Label(parte1).setText("Descripcion de la metodologia:");
 		new TextBox(parte1).bindValueToProperty("descripcion");
+		
+		new Label(parte1).setText("Desea guardar la metodologia?");
+		CheckBox check = new CheckBox(parte1);
+		check.bindValueToProperty("guardarMetodologia");
+		
 		Panel panel23 =new Panel(parte1);
 		panel23.setLayout(new ColumnLayout(2));
 		
