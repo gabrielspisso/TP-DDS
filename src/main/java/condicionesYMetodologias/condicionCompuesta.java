@@ -8,19 +8,22 @@ import model.Balance;
 import model.Empresa;
 import model.Indicador;
 
-public class condicionCompuesta extends Condicion{
-
+public class condicionCompuesta implements Condicion{
+	String nombre;
 	List<Condicion> listaDeCondiciones;
-	public condicionCompuesta(Indicador indicador, criterioDeAceptacionDeCondicion criterio,List<Condicion> listaDeCondiciones){
-		super(indicador,criterio,"");
+	public condicionCompuesta(String nombre,List<Condicion> listaDeCondiciones){
+		this.nombre = nombre;
 		this.listaDeCondiciones = listaDeCondiciones;
 	}
 	public condicionCompuesta(ValoresParaEvaluar valores) {
-		super(valores);
+		nombre = valores.getNombre();
 		this.listaDeCondiciones = valores.getListaDeCondiciones();
 	}
 	
 	public boolean cumpleCondicion(Empresa empresa, Empresa empresa1){
 		return listaDeCondiciones.stream().allMatch(condicion -> condicion.cumpleCondicion(empresa, empresa1));
+	}
+	public String toString(){
+		return nombre;
 	}
 }

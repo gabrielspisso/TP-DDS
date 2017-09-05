@@ -8,7 +8,7 @@ import model.Balance;
 import model.Empresa;
 import model.Indicador;
 
-public class CondicionEntreDosEmpresas extends Condicion {
+public class CondicionEntreDosEmpresas extends CondicionUnitaria {
 	
 	public CondicionEntreDosEmpresas(Indicador indicador, criterioDeAceptacionDeCondicion criterio) {
 		super(indicador, criterio,"");
@@ -20,15 +20,10 @@ public class CondicionEntreDosEmpresas extends Condicion {
 	}
 
 	@Override
-	public boolean cumpleCondicion(Empresa empresa, Empresa empresa2){
+	public boolean seCumpleLaCondicionUnitaria(Empresa empresa, Empresa empresa2){
 		
-		try{
-			return criterio.cumpleCriterioDeAceptacionDeCondicion(indicador.calcularValor(empresa2.getBalances().get(0).getCuentas()),indicador.calcularValor(empresa.getBalances().get(0).getCuentas()));		
-		}
-		catch(IdentificadorInexistente oo)
-		{
-			return false;
-		}
+
+			return criterio.cumpleCriterioDeAceptacionDeCondicion(indicador.calcularValor(empresa2.getBalances().get(0).getCuentas()),indicador.calcularValor(empresa.getBalances().get(0).getCuentas()));			
 	}
 	/*
 	public String toString(){

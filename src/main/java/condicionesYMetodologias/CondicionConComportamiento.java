@@ -16,7 +16,7 @@ import model.Empresa;
 import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
-public class CondicionConComportamiento extends Condicion {
+public class CondicionConComportamiento extends CondicionUnitaria {
 
 	int cantidadDeAños= 0;
 	public CondicionConComportamiento(Indicador indicador,criterioDeAceptacionDeCondicion criterio,int cantidadDeAños){
@@ -31,14 +31,11 @@ public class CondicionConComportamiento extends Condicion {
 
 	@Override
 	
-	public boolean cumpleCondicion(Empresa empresa,Empresa empresa1){
-		List<Balance> balances = empresa.getBalances().subList(0, (cantidadDeAños>empresa.getBalances().size()?cantidadDeAños:empresa.getBalances().size()));
-		try{
-			return balances.stream().allMatch(x-> revisarComportamiento(balances,x));			
-		}
-		catch(IdentificadorInexistente id){
-			return false;
-		}
+	public boolean seCumpleLaCondicionUnitaria(Empresa empresa,Empresa empresa1){
+		if(cantidadDeAños>empresa.getBalances().size()) return false;
+		List<Balance> balances = empresa.getBalances().subList(0, cantidadDeAños);
+		return balances.stream().allMatch(x-> revisarComportamiento(balances,x));			
+		
 	}
 	/*
 	public boolean cumpleCondicion(Empresa empresa, Empresa empresa1){

@@ -16,7 +16,7 @@ import model.Empresa;
 import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
-public class condicionConCalculo extends Condicion {
+public class condicionConCalculo extends CondicionUnitaria {
 
 	double valorMinimo;
 	Calculo calculo;
@@ -32,15 +32,11 @@ public class condicionConCalculo extends Condicion {
 		this.calculo = valores.getCalculo();	
 	}
 	@Override
-	public boolean cumpleCondicion(Empresa empresa,Empresa empresa1){
+	public boolean seCumpleLaCondicionUnitaria(Empresa empresa,Empresa empresa1){
 		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
-		try{
+	
 			double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));
 			return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);			
-		}
-		catch(IdentificadorInexistente ex){
-			return false;
-		}
 		
 	}
 	/*

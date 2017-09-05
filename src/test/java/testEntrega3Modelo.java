@@ -14,6 +14,7 @@ import condicionesYMetodologias.CondicionConAño;
 import condicionesYMetodologias.CondicionConComportamiento;
 import condicionesYMetodologias.CondicionEntreDosEmpresas;
 import condicionesYMetodologias.Metodologia;
+import condicionesYMetodologias.condicionCompuesta;
 import condicionesYMetodologias.condicionConCalculo;
 import model.CargadorDeEmpresas;
 import model.Cuenta;
@@ -99,6 +100,16 @@ public class testEntrega3Modelo {
 		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test));
 		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(1),RepositorioDeEmpresas.mostrarEmpresas().get(2),RepositorioDeEmpresas.mostrarEmpresas().get(0));
 		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(RepositorioDeEmpresas.mostrarEmpresas() ));
+	}
+	
+	@Test
+	public void pruebaCondicionCompuesta(){
+		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
+		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2);
+		CondicionConComportamiento test2 = new CondicionConComportamiento(indicador,new Mayor(),33);
+		condicionCompuesta condicion = new condicionCompuesta("esto es una prueba",Arrays.asList(test,test2));
+		assertFalse(condicion.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));	
 	}
 	
 	
