@@ -26,6 +26,7 @@ import opciones.Opcion_1;
 import opciones.Opcion_2;
 import opciones.Opcion_3;
 import opciones.Opcion_4;
+import opciones.Opcion_Compuesta;
 import repositorios.RepositorioDeCondiciones;
 import repositorios.RepositorioDeIndicadores;
 
@@ -35,8 +36,28 @@ public class crearCondicionViewModel {
 
 
 	ValoresParaEvaluar valores  = new ValoresParaEvaluar();
-
 	
+	private List<Condicion> listaDeCondicionesRestantes = RepositorioDeCondiciones.mostrarListaDeCondiciones();
+	private Condicion condicionActualAAgregar;
+	private Condicion condicionActualAQuitar;
+	public Condicion getCondicionActualAAgregar() {
+		return condicionActualAAgregar;
+	}
+	public void setCondicionActualAAgregar(Condicion condicionActualAAgregar) {
+		this.condicionActualAAgregar = condicionActualAAgregar;
+	}
+	public Condicion getCondicionActualAQuitar() {
+		return condicionActualAQuitar;
+	}
+	public void setCondicionActualAQuitar(Condicion condicionActualAQuitar) {
+		this.condicionActualAQuitar = condicionActualAQuitar;
+	}
+	public List<Condicion> getListaDeCondicionesRestantes() {
+		return listaDeCondicionesRestantes;
+	}
+	public void setListaDeCondicionesRestantes(List<Condicion> listaDeCondicionesRestantes) {
+		this.listaDeCondicionesRestantes = listaDeCondicionesRestantes;
+	}
 	public Indicador getIndicadorActual() {
 		return valores.getIndicadorActual();
 	}
@@ -50,6 +71,13 @@ public class crearCondicionViewModel {
 		
 	public criterioDeAceptacionDeCondicion getComportamiento() {
 		return valores.getComportamiento();
+	}
+
+	public void setListaDeCondicionesSeleccionadas(List<Condicion> listaDeCondiciones) {
+		valores.setListaDeCondiciones(listaDeCondiciones);
+	}
+	public List<Condicion> getListaDeCondicionesSeleccionadas() {
+		return valores.getListaDeCondiciones();
 	}
 	public void setComportamiento(criterioDeAceptacionDeCondicion comportamiento) {
 		valores.setComportamiento(comportamiento);
@@ -77,6 +105,7 @@ public class crearCondicionViewModel {
 		ObservableUtils.firePropertyChanged(this, "visibleCalculo");
 		ObservableUtils.firePropertyChanged(this, "aclaracionTipo");
 		ObservableUtils.firePropertyChanged(this, "visibleValorMinimo");
+		ObservableUtils.firePropertyChanged(this, "visibleListaCondiciones");
 	}
 	
 	
@@ -122,7 +151,7 @@ public class crearCondicionViewModel {
 		valores.setValorMinimo(valorMinimo);
 	}
 	public List<Opcion> getOpciones(){
-		return Arrays.asList(new Opcion_1(),new Opcion_2(),new Opcion_3(),new Opcion_4());
+		return Arrays.asList(new Opcion_1(),new Opcion_2(),new Opcion_3(),new Opcion_4(), new Opcion_Compuesta());
 	}
 	public boolean isVisibleCantidadDeAños(){
 		return valores.getOpcion().isVisibleCantidadDeAños() &&valores.getOpcion()!=null;
@@ -135,6 +164,33 @@ public class crearCondicionViewModel {
 	public boolean isVisibleValorMinimo(){
 		  return valores.getOpcion().isVisibleValorMinimo();
 	 }
+	public boolean isVisibleListaCondiciones(){
+		  return valores.getOpcion().isVisibleListaCondiciones();
+	 }
+	
+	public void quitarCondicion(){
+		if(condicionActualAQuitar != null){
+			valores.getListaDeCondiciones().removeIf(condicion1 -> condicion1.equals(condicionActualAQuitar));
+			listaDeCondicionesRestantes.add(condicionActualAQuitar);
+			ObservableUtils.firePropertyChanged(this,"listaDeCondicionesRestantes");
+			ObservableUtils.firePropertyChanged(this,"listaDeCondicionesSeleccionadas");	
+		}
+		else{
+			throw new NoItemSelectedException();
+		}
+	}
+	
+	public void agregarCondicion(){
+		if(condicionActualAAgregar != null){
+			listaDeCondicionesRestantes.removeIf(condicion1 -> condicion1.equals(condicionActualAAgregar));
+			valores.getListaDeCondiciones().add(condicionActualAAgregar);
+			ObservableUtils.firePropertyChanged(this,"listaDeCondicionesRestantes");
+			ObservableUtils.firePropertyChanged(this,"listaDeCondicionesSeleccionadas");				
+		}
+		else{
+			throw new NoItemSelectedException();
+		}
+	}
 	
 	public void crearCondiciones(){
 		

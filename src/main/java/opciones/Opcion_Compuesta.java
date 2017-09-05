@@ -1,22 +1,22 @@
 package opciones;
 
-import Calculos.Calculo;
-import Calculos.criterioDeAceptacionDeCondicion;
 import condicionesYMetodologias.Condicion;
+import condicionesYMetodologias.CondicionConComportamiento;
 import condicionesYMetodologias.ValoresParaEvaluar;
-import condicionesYMetodologias.condicionConCalculo;
-import model.Indicador;
+import condicionesYMetodologias.condicionCompuesta;
 
-public class Opcion_3 implements Opcion {
+public class Opcion_Compuesta implements Opcion{
 	public String toString(){
-		return "Tipo 3";
+		return "Tipo Composicion";
 		
 	}
 	public String getDescripcion(){
-		return "Que un promedio, mediana o sumatoria de un cierto indicador sea mayor o menor a cierto valor";
+		return "Opcion para componer las opciones";
 	}
+
 	public Condicion generarCondicion(ValoresParaEvaluar valores) {
-		return  new condicionConCalculo(valores);
+		// TODO Auto-generated method stub
+		return  new condicionCompuesta(valores);
 	}
 	@Override
 	public boolean isVisibleCantidadDeAños() {
@@ -26,17 +26,16 @@ public class Opcion_3 implements Opcion {
 	@Override
 	public boolean isVisibleCalculo() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 	@Override
 	public boolean isVisibleValorMinimo() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 	@Override
 	public boolean isVisibleListaCondiciones() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
-
 }

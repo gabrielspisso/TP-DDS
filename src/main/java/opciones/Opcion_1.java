@@ -35,4 +35,9 @@ public class Opcion_1 implements Opcion{
 		// TODO Auto-generated method stub
 		return true;
 	}
+	@Override
+	public boolean isVisibleListaCondiciones() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

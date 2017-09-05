@@ -1,5 +1,8 @@
 package condicionesYMetodologias;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Calculos.Calculo;
 import Calculos.criterioDeAceptacionDeCondicion;
 import model.Indicador;
@@ -14,6 +17,13 @@ public class ValoresParaEvaluar {
 	int valorMinimo;
 	String nombre;
 	criterioDeAceptacionDeCondicion comportamiento;
+	List<Condicion> listaDeCondiciones = new ArrayList<Condicion>();
+	public List<Condicion> getListaDeCondiciones() {
+		return listaDeCondiciones;
+	}
+	public void setListaDeCondiciones(List<Condicion> listaDeCondiciones) {
+		this.listaDeCondiciones = listaDeCondiciones;
+	}
 	public String getNombre() {
 		return nombre;
 	}

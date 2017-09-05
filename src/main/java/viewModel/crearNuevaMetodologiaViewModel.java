@@ -20,6 +20,7 @@ public class crearNuevaMetodologiaViewModel {
 		private List<Condicion> condicionesRestantes = RepositorioDeCondiciones.mostrarListaDeCondiciones();
 		private List<Condicion> condicionesSeleccionadas = new ArrayList<Condicion>();
 		private Condicion condicionActualAAgregar;
+		private Condicion condicionActualAQuitar;
 		private String descripcion;
 		private boolean guardarMetodologia;
 		
@@ -29,7 +30,6 @@ public class crearNuevaMetodologiaViewModel {
 		public void setCondicionesSeleccionadas(List<Condicion> condicionesSeleccionadas) {
 			this.condicionesSeleccionadas = condicionesSeleccionadas;
 		}
-		private Condicion condicionActualAQuitar;
 			
 		public List<Condicion> getCondiciones(){
 			return RepositorioDeCondiciones.mostrarListaDeCondiciones();

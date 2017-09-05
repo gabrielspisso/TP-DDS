@@ -17,4 +17,5 @@ public interface Opcion {
 	public boolean isVisibleCalculo();
 	
 	public boolean isVisibleValorMinimo();
+	public boolean isVisibleListaCondiciones();
 }
