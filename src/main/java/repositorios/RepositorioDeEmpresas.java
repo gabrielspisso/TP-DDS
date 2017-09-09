@@ -19,7 +19,19 @@ public class RepositorioDeEmpresas {
 	}
 	
 	/*
-	 
+	 public static void agregarEmpresas(listaDeEmpresas2){
+		 Empresa empresa = entityManager() //
+        .createQuery("from Consultora c where c.nombre = nombre", Consultora.class) //RECONTRA DUDOSO
+        .getResultList().get(0);
+        if(empresa == null)
+        	 entityManager().persist(consultora);
+       	sysout("esta parte no esta hecha, habria que modificar la empresa, o dejarla como esta");
+        	
+	}
+	 entityManager() //
+        .createQuery("from Consultora c where c.nombre like :nombre", Consultora.class) //
+        .setParameter("nombre", "%" + nombre + "%") //
+        .getResultList();
 	 public static List<Empresa> mostrarEmpresas(){
 		return entityManager()
       .createQuery("from Empresa", Empresa.class) //

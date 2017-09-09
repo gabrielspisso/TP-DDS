@@ -15,7 +15,7 @@ public class Balance {
 */
 	private String periodo;
 	private int anio;
-	//@OneToMany
+	//@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private List<Cuenta> cuentas;
 	public String getPeriodo() {
 		return periodo;

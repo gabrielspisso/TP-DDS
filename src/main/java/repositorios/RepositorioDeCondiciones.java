@@ -15,7 +15,8 @@ public class RepositorioDeCondiciones {
 	}
 	
 	/*
-	 
+	 * 
+	
 	  public static List<Condicion> mostrarListaDeCondiciones(){
 		
 		return entityManager()

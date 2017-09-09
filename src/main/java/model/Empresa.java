@@ -19,7 +19,7 @@ public class Empresa {
 	
 	private String nombre;
 	
-	//@OneToMany
+	//@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private List<Balance> balances;
 	
 	public List<Balance> getBalances() {
