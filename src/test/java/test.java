@@ -109,7 +109,7 @@ public class test {
 		Hoja hoja1 = new Numero("5");
 		Hoja hoja2 = new Numero("-23");
 		NODO op = new Suma(hoja1, hoja2);
-		Indicador indicador = new Indicador("ind1", op);
+		Indicador indicador = new Indicador("ind1", op, "");
 		assertEquals(-18.0, indicador.calcularValor(null), DELTA);
 	}
 	
