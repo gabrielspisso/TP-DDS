@@ -19,7 +19,7 @@ public class Empresa {
 	
 	private String nombre;
 	
-	@Transient
+	//@OneToMany
 	private List<Balance> balances;
 	
 	public List<Balance> getBalances() {

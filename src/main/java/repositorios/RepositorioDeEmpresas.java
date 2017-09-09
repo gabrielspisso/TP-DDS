@@ -17,4 +17,14 @@ public class RepositorioDeEmpresas {
 		listaDeEmpresas2.addAll(listaDeEmpresas);
 		return listaDeEmpresas2;
 	}
+	
+	/*
+	 
+	 public static List<Empresa> mostrarEmpresas(){
+		return entityManager()
+      .createQuery("from Empresa", Empresa.class) //
+      .getResultList();;
+	}
+	*/
+	
 }

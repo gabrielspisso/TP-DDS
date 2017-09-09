@@ -2,11 +2,20 @@ package model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 
+//@Entity
 public class Balance {
+	/*@Id
+	@GeneratedValue
+	private Long id;
+*/
 	private String periodo;
 	private int anio;
+	//@OneToMany
 	private List<Cuenta> cuentas;
 	public String getPeriodo() {
 		return periodo;

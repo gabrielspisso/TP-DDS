@@ -13,6 +13,20 @@ public class RepositorioDeCondiciones {
 		listaDeCondiciones.removeIf(x-> listaDeCondiciones2.contains(x));
 		listaDeCondiciones.addAll(listaDeCondiciones2);
 	}
+	
+	/*
+	 
+	  public static List<Condicion> mostrarListaDeCondiciones(){
+		
+		return entityManager()
+        .createQuery("from Condicion", Condicion.class) //
+        .getResultList();;
+	}
+	  
+	  
+	  
+	  
+	 */
 	public static List<Condicion> mostrarListaDeCondiciones(){
 		List<Condicion> listaDeCondiciones2 = new ArrayList<Condicion>();
 		listaDeCondiciones2.addAll(listaDeCondiciones);

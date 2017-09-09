@@ -1,10 +1,18 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import org.uqbar.commons.utils.Observable;
 
 @Observable
+//@Entity
 public class Cuenta {
-	private String nombre;
+/*	@Id
+	@GeneratedValue
+	private Long id;
+*/	private String nombre;
 	private int valor;
 	public String getNombre() {
 		return nombre;
@@ -16,7 +24,6 @@ public class Cuenta {
 		return valor;
 	}
 	public Cuenta(String nombre, int valor) {
-		super();
 		this.nombre = nombre;
 		this.valor = valor;
 	}

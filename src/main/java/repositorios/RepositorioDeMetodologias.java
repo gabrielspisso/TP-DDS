@@ -18,5 +18,15 @@ public class RepositorioDeMetodologias {
 		listaDeMetodologias.removeIf(metodologia2-> metodologia2.getNombre().equals(metodologia.getNombre()));
 		listaDeMetodologias.add(metodologia);
 	}
+	/*
+	 * 
+	 * 
+	 * 
+	 * public static void agregarMetodologia(Metodologia metodologia) {
+	 * return entityManager()
+      .createQuery("from Metodologia", Metodologia.class) //
+      .getResultList();
+      }
+	 */
 	
 }
