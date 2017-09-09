@@ -7,12 +7,12 @@ import javax.persistence.Id;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
-//@Entity
+@Entity
 public class Cuenta {
-/*	@Id
+	@Id
 	@GeneratedValue
 	private Long id;
-*/	private String nombre;
+	private String nombre;
 	private int valor;
 	public String getNombre() {
 		return nombre;

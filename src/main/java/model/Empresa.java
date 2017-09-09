@@ -19,7 +19,8 @@ public class Empresa {
 	
 	private String nombre;
 	
-	//@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@Transient
+//	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private List<Balance> balances;
 	
 	public List<Balance> getBalances() {
