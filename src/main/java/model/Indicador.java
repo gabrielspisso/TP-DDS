@@ -1,26 +1,37 @@
 package model;
 import java.util.Arrays;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Entity;
 import org.uqbar.commons.utils.Observable;
 
 import Excepciones.IdentificadorInexistente;
 import model.Arbol.Operaciones.NODO;
 import repositorios.RepositorioDeIndicadores;
+
 @Entity
 @Observable
+@Table(name = "Indicador")
 public class Indicador {
+	
+	@SuppressWarnings("unused")
+	private Indicador() {}
+	
 	@Id
 	@GeneratedValue
 	private Long id;
-	//@Unique
+	
+	@Column(unique = true)
 	private String nombre;
+	
 	@Transient
 	private NODO arbol;
 	private String formula;

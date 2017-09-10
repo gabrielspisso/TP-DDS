@@ -3,12 +3,18 @@ package model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.uqbar.commons.utils.Observable;
 
 @Observable
 @Entity
+@Table(name = "Cuenta")
 public class Cuenta {
+	
+	@SuppressWarnings("unused")
+	private Cuenta() {}
+	
 	@Id
 	@GeneratedValue
 	private Long id;
