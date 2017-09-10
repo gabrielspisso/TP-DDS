@@ -1,1 +1,1 @@
-{"nombre":"as","Condiciones":[{"nombre":"si","indicador":{"nombre":"indicador1","arbol":{"operador":"+","izquierda":{"valor":"FREE CASH FLOW"},"derecha":{"valor":"4"}}},"criterio":{}}],"descripcion":"aa"}
+[{"nombre":"Esto es una prueba","Condiciones":[{"valorMinimo":7.0,"cantidadDeAños":1,"nombre":"","indicador":{"nombre":"indicador1","arbol":{"operador":"+","izquierda":{"valor":"FREE CASH FLOW"},"derecha":{"valor":"4"}}},"criterio":{}}]}]

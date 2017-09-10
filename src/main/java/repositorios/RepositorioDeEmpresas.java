@@ -22,19 +22,21 @@ public class RepositorioDeEmpresas {
 	}
 	
 	/*
-	 public static void agregarEmpresas(List<Empresa> listaDeEmpresas2){
+	 public static void agregarEmpresas(Empresa empresaAAgregar){
+		 nombre = empresaAAgregar.toString();
 		 Empresa empresa = entityManager //
         .createQuery("from Consultora c where c.nombre = nombre", Consultora.class) //RECONTRA DUDOSO
         .getResultList().get(0);
         
         EntityTransaction tx = entityManager.getTransaction();
-        tx.begin
+        tx.begin;
         
         if(empresa == null)
-        	 entityManager().persist(consultora);
-        	 
-        tx.commit
-       	sysout("esta parte no esta hecha, habria que modificar la empresa, o dejarla como esta");
+        	 entityManager().persist(empresa);	 
+       	else{
+       		sysout("esta parte no esta hecha, habria que modificar la empresa, o dejarla como esta");
+       	}
+        tx.commit;
         	
 	}
 	 entityManager() //

@@ -8,7 +8,7 @@ import model.Balance;
 import model.Empresa;
 import model.Indicador;
 
-public class condicionCompuesta implements Condicion{
+public class condicionCompuesta extends Condicion{
 	String nombre;
 	List<Condicion> listaDeCondiciones;
 	public condicionCompuesta(String nombre,List<Condicion> listaDeCondiciones){

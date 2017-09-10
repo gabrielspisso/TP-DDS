@@ -2,6 +2,8 @@ package condicionesYMetodologias;
 
 import model.Empresa;
 
-public interface Condicion {
-	public boolean cumpleCondicion(Empresa empresa, Empresa empresa1);
+public class Condicion {
+	public boolean cumpleCondicion(Empresa empresa, Empresa empresa1){
+		return false;
+	}
 }

@@ -117,14 +117,19 @@ public class IOs {
 		vaciarArchivo(path);
 		RepositorioDeMetodologias.getListaDeMetodologias().forEach(m -> escribirMetodologia(m, path));
 	}
-	
+	//El escribir no va a andar con el leer, porque escribis de a metodologias, si escribis todas juntas anda.
 	private static String convertirMetodologiaEnJson(Metodologia metodologia) {
 		Gson gson = new Gson();
 		String json = gson.toJson(metodologia);
 		return json;
 	}
 	
-	
+	public static List<Metodologia> leerArchivoDeMetodologias(String ruta){
+		String json = IOs.readFileAsString(ruta);
+		Type listType = new TypeToken<List<Metodologia>>(){}.getType();
+		List<Metodologia> ListaDeMetodologias = new Gson().fromJson(json, listType); 
+		return ListaDeMetodologias;
+	}
 	
 	
 	

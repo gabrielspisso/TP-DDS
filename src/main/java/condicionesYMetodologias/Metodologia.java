@@ -27,6 +27,9 @@ public class Metodologia {
 	public String getNombre(){
 		return nombre;
 	}
+	public List<Condicion> getCondiciones(){
+		return Condiciones;
+	}
 	public String toString(){
 		return nombre;
 	}

@@ -5,7 +5,7 @@ import Excepciones.IdentificadorInexistente;
 import model.Empresa;
 import model.Indicador;
 
-public abstract class CondicionUnitaria implements Condicion{
+public abstract class CondicionUnitaria extends Condicion{
 	protected String nombre;
 	protected Indicador indicador;
 	protected criterioDeAceptacionDeCondicion criterio;
