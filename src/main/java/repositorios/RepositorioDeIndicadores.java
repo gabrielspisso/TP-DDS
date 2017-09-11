@@ -3,6 +3,12 @@ package repositorios;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import model.Empresa;
 import model.Indicador;
 
 
@@ -12,7 +18,33 @@ public class RepositorioDeIndicadores {
 	public static List<Indicador> getListaDeIndicadores() {
 		return listaDeIndicadores;
 	}
+	/*public static List<Indicador> getListaDeIndicadores() {
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		return em.createQuery("from Empresa", Empresa.class).getResultList();
+	}*/
 
+	/*
+	 public static void agregarIndicador(Indicador indicador) {
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+
+		List<Indicador> listaDeIndicadores = em.createQuery("from Indicador e where e.nombre like :nombre", Indicador.class)
+				.setParameter("nombre", "%" + indicador.getNombre() + "%").getResultList();
+
+		EntityTransaction tx = em.getTransaction();
+
+		tx.begin();
+
+		if (listaDeIndicadores.isEmpty())
+
+			em.persist(indicador);
+		else {
+			System.out.println("esta parte no esta hecha, habria que modificar la empresa, o dejarla como esta");
+		}
+
+		tx.commit();		
+	}
+	*/
+	 
 	public static void agregarIndicador(Indicador indicador) {
 		listaDeIndicadores.removeIf(ind-> ind.getNombre().equals(indicador.getNombre()));
 		listaDeIndicadores.add(indicador);

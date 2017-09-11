@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
 
+import Converter.ArbolConverter;
 import Excepciones.IdentificadorInexistente;
 import model.Arbol.Operaciones.NODO;
 import repositorios.RepositorioDeIndicadores;
@@ -31,10 +33,9 @@ public class Indicador {
 	
 	@Column(unique = true)
 	private String nombre;
-	
-	@Transient
+	@Convert(converter = ArbolConverter.class)
 	private NODO arbol;
-	private String formula;
+	
 	
 	@Override
 	public String toString(){
@@ -44,9 +45,10 @@ public class Indicador {
 	public Indicador(String nombre, NODO arbol, String formula) {
 		this.nombre = nombre;
 		this.arbol = arbol;
-		this.formula = formula;
 	}
-
+	public NODO getArbol(){
+		return arbol;
+	}
 
 	private boolean esRecursivo(){
 		return arbol.contieneEsteToken(nombre);
