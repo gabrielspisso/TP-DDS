@@ -2,6 +2,17 @@ package Calculos;
 
 import java.util.List;
 
-public interface Calculo {
-	public double realizarCalculo(List<Double> listaDeResultados);
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+//@Entity
+public abstract class Calculo {
+	
+	/*@Id
+	@GeneratedValue
+	private Long id;
+	*/
+	protected Calculo() {}
+	public abstract double realizarCalculo(List<Double> listaDeResultados);
 }

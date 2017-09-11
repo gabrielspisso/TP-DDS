@@ -2,9 +2,16 @@ package Calculos;
 
 import java.util.List;
 
-public  class Mediana implements Calculo {
+import javax.persistence.Entity;
+
+//@Entity
+public  class Mediana extends Calculo {
 	
 	
+	public Mediana() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public double realizarCalculo(List<Double> listaDeResultados){
 		int cantidadDeElementos = listaDeResultados.size();
 		double mediana = listaDeResultados.get(cantidadDeElementos/2);

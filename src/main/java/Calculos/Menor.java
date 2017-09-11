@@ -1,6 +1,9 @@
 package Calculos;
 
-public class Menor implements criterioDeAceptacionDeCondicion{
+import javax.persistence.Entity;
+
+//@Entity
+public class Menor extends criterioDeAceptacionDeCondicion{
 	public boolean cumpleCriterioDeAceptacionDeCondicion(double valorMinimo, double valorActual) {
 		return valorMinimo >= valorActual;
 	}

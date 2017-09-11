@@ -1,6 +1,23 @@
 package Calculos;
 
-public interface criterioDeAceptacionDeCondicion {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+//@Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class criterioDeAceptacionDeCondicion {
 	
-	public  boolean cumpleCriterioDeAceptacionDeCondicion(double valorMinimo, double valorActual);
+	/*@Id
+	@GeneratedValue
+	private Long id;
+	*/
+	public criterioDeAceptacionDeCondicion() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public abstract boolean cumpleCriterioDeAceptacionDeCondicion(double valorMinimo, double valorActual);
 }

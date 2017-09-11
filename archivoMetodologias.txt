@@ -1,1 +1,1 @@
-[{"nombre":"Esto es una prueba","Condiciones":[{"valorMinimo":7.0,"cantidadDeAños":1,"nombre":"","indicador":{"nombre":"indicador1","arbol":{"operador":"+","izquierda":{"valor":"FREE CASH FLOW"},"derecha":{"valor":"4"}}},"criterio":{}}]}]
+{"nombre":"hola","Condiciones":[{"valorMinimo":1.0,"calculo":{"total":0.0},"nombre":"yo","indicador":{"nombre":"indicador1","arbol":{"operador":"+","izquierda":{"valor":"FREE CASH FLOW"},"derecha":{"valor":"4"}},"formula":"indicador1\u003dFREE CASH FLOW+4;"},"criterio":{}}],"descripcion":"no quiero"}

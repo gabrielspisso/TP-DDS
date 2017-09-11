@@ -11,7 +11,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import model.Empresa;
 
 public class RepositorioDeEmpresas {
-	private static List<Empresa> listaDeEmpresas = new ArrayList<Empresa>();
+	//private static List<Empresa> listaDeEmpresas = new ArrayList<Empresa>();
 
 	/*
 	 * public static void agregarEmpresas(List<Empresa> listaDeEmpresas2){
@@ -20,23 +20,23 @@ public class RepositorioDeEmpresas {
 	 * listaDeEmpresas.addAll(listaDeEmpresas2); }
 	 */
 
-	public static List<Empresa> mostrarEmpresas() {
-		List<Empresa> listaDeEmpresas2 = new ArrayList<Empresa>();
-		listaDeEmpresas2.addAll(listaDeEmpresas);
-		return listaDeEmpresas2;
-	}
+	/*
+	 * public static List<Empresa> mostrarEmpresas() { List<Empresa>
+	 * listaDeEmpresas2 = new ArrayList<Empresa>();
+	 * listaDeEmpresas2.addAll(listaDeEmpresas); return listaDeEmpresas2; }
+	 */
 
 	public static void agregarEmpresas(Empresa empresaAAgregar) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 
-		Empresa empresa = em.createQuery("from Empresa e where e.nombre = " + empresaAAgregar.toString(), Empresa.class)
-				.getResultList().get(0);
+		List<Empresa> listaDeEmpresas = em.createQuery("from Empresa e where e.nombre like :nombre", Empresa.class)
+				.setParameter("nombre", "%" + empresaAAgregar.toString() + "%").getResultList();
 
 		EntityTransaction tx = em.getTransaction();
 
 		tx.begin();
 
-		if (empresa == null)
+		if (listaDeEmpresas.isEmpty())
 
 			em.persist(empresaAAgregar);
 		else {
@@ -49,9 +49,9 @@ public class RepositorioDeEmpresas {
 	// entityManager().createQuery("from Consultora c where c.nombre like :nombre",
 	// Consultora.class).setParameter("nombre", "%" + nombre + "%").getResultList();
 
-	/*
-	 * public static List<Empresa> mostrarEmpresas(){ return
-	 * entityManager.createQuery("from Empresa", Empresa.class).getResultList();; }
-	 */
+	public static List<Empresa> mostrarEmpresas() {
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		return em.createQuery("from Empresa", Empresa.class).getResultList();
+	}
 
 }

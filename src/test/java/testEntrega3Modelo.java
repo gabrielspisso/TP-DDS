@@ -29,7 +29,8 @@ public class testEntrega3Modelo {
 	
 	@Before
 	public void cargarEmpresas(){
-		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
+		List<Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt");
+		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 	}	
 	@Test
@@ -55,14 +56,14 @@ public class testEntrega3Modelo {
 	}
 	@Test
 	public void pruebaDeCondicionConComportamientoFacebookConCCEsCreciente(){
-		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
+		//RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2);
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
 	}
 	@Test
 	public void pruebaDeCondicionConComportamientoFacebookConCCEsCreciente2(){
-		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
+		//RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=sadsagaga+10;");
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2);
 		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
@@ -70,7 +71,7 @@ public class testEntrega3Modelo {
 	
 	@Test
 	public void pruebaDeCondicionConComportamientoFacebookConCCEsDecreciente(){
-		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
+		//RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Menor(),2);
 		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
@@ -104,7 +105,7 @@ public class testEntrega3Modelo {
 	
 	@Test
 	public void pruebaCondicionCompuesta(){
-		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
+		//RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2);
 		CondicionConComportamiento test2 = new CondicionConComportamiento(indicador,new Mayor(),33);

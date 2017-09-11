@@ -2,7 +2,16 @@ package Calculos;
 
 import java.util.List;
 
-public class Sumatoria implements Calculo{
+import javax.persistence.Entity;
+
+//@Entity
+public class Sumatoria extends Calculo{
+	
+	
+	public Sumatoria() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	private double total;
 	public double realizarCalculo(List<Double> listaDeResultados){
 		total = 0;

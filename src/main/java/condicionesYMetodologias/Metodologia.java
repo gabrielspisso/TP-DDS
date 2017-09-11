@@ -9,15 +9,35 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.management.RuntimeErrorException;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import model.Empresa;
 import repositorios.RepositorioDeEmpresas;
 
 
+//@Entity
+//@Table(name = "Metodologias")
 public class Metodologia {
+	
+	/*@Id
+	@GeneratedValue
+	private Long id;
+	*/
 	String nombre;
+	
+	//@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	//@Transient
 	List<Condicion> Condiciones;
+	
 	String descripcion;
+	
 	public Metodologia(	String nombre,String Metodologia,List<Condicion> Condiciones){
 		this.nombre = nombre;
 		this.Condiciones = Condiciones;

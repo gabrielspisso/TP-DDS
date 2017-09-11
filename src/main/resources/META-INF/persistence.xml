@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
     http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" 
-    version="1.0"> 
+    version="2.0"> 
   
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
@@ -12,8 +12,25 @@
     	<class>model.Balance</class>
     	<class>model.Cuenta</class>
     	<class>model.Indicador</class>
-    	<class>repositorios.RepositorioDeEmpresas</class>
     	
+    	<class>repositorios.RepositorioDeEmpresas</class>
+    	<!--
+    	<class>Calculos.Calculo</class>
+    	<class>Calculos.Mayor</class>
+    	<class>Calculos.Mediana</class>
+    	<class>Calculos.Menor</class>
+    	<class>Calculos.Promedio</class>
+    	<class>Calculos.Sumatoria</class>
+    	
+    	<class>condicionesYMetodologias.Condicion</class>
+    	<class>condicionesYMetodologias.condicionCompuesta</class>
+    	<class>condicionesYMetodologias.CondicionConAño</class>
+    	<class>condicionesYMetodologias.condicionConCalculo</class>
+    	<class>condicionesYMetodologias.CondicionConComportamiento</class>
+    	<class>condicionesYMetodologias.CondicionEntreDosEmpresas</class>
+    	<class>condicionesYMetodologias.CondicionUnitaria</class>
+    	<class>Calculos.criterioDeAceptacionDeCondicion</class>
+    	-->
     	 
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        

@@ -2,12 +2,15 @@ package condicionesYMetodologias;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+
 import Calculos.criterioDeAceptacionDeCondicion;
 import Excepciones.IdentificadorInexistente;
 import model.Balance;
 import model.Empresa;
 import model.Indicador;
 
+//@Entity
 public class CondicionEntreDosEmpresas extends CondicionUnitaria {
 	
 	public CondicionEntreDosEmpresas(Indicador indicador, criterioDeAceptacionDeCondicion criterio) {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.Entity;
 import javax.security.auth.x500.X500Principal;
 
 import Calculos.Calculo;
@@ -16,6 +17,7 @@ import model.Empresa;
 import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
+//@Entity
 public class CondicionConComportamiento extends CondicionUnitaria {
 
 	int cantidadDeAños= 0;

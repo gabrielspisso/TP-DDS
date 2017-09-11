@@ -1,13 +1,26 @@
 package condicionesYMetodologias;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+
 import Calculos.criterioDeAceptacionDeCondicion;
 import Excepciones.IdentificadorInexistente;
 import model.Empresa;
 import model.Indicador;
 
-public abstract class CondicionUnitaria extends Condicion{
+//@Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class CondicionUnitaria extends Condicion {
+	
 	protected String nombre;
 	protected Indicador indicador;
+	
+	//@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	protected criterioDeAceptacionDeCondicion criterio;
 
 	

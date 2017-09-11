@@ -1,12 +1,16 @@
 package condicionesYMetodologias;
 import java.util.List;
 
+import javax.persistence.Entity;
+
 import Calculos.criterioDeAceptacionDeCondicion;
 import Excepciones.IdentificadorInexistente;
 import model.Balance;
 import model.Empresa;
 import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
+
+//@Entity
 public class CondicionConAño extends CondicionUnitaria{
 	double valorMinimo;
 	int cantidadDeAños;

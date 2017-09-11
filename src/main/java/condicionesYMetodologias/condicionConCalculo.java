@@ -6,6 +6,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.Entity;
+
 import com.ibm.icu.util.IndianCalendar;
 
 import Calculos.Calculo;
@@ -16,6 +18,7 @@ import model.Empresa;
 import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
+//@Entity
 public class condicionConCalculo extends CondicionUnitaria {
 
 	double valorMinimo;
