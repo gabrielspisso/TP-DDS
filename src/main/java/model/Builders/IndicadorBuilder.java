@@ -24,4 +24,11 @@ public class IndicadorBuilder {
 		}
     	return indicador;
 	}
+	
+	public static NODO buildTreeFromExpresion(String expresion) {
+		List<NodoNoClasificado> lista = SCANNER.obtenerTokens("unNombre =" + expresion + ";");
+		List<NodoNoClasificado> listaDeTokens =lista.subList(2, lista.size()-1);
+		NODO arbol = OperacionPrimariaBuilder.Build(listaDeTokens);
+		return arbol;
+	}
 }

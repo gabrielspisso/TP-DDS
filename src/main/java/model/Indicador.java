@@ -31,7 +31,6 @@ public class Indicador {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(unique = true)
 	private String nombre;
 	
 	@Convert(converter = ArbolConverter.class)

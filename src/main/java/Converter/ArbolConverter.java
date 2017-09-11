@@ -21,11 +21,11 @@ public class ArbolConverter implements AttributeConverter<NODO, String> {
 		 @Override
 		 public NODO convertToEntityAttribute(String Nodo) {
 			 
-			 if(Nodo == null)
-				 return null;
+			 //if(Nodo == null)
+			//	 return null;
 			 
-			 Indicador indicador = IndicadorBuilder.Build("nombre=" + Nodo + ";");
-			 return indicador.getArbol();
+			 NODO arbol = IndicadorBuilder.buildTreeFromExpresion(Nodo);
+			 return arbol;
 		 
 		 }
 		 
