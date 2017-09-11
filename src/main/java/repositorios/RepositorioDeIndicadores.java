@@ -13,7 +13,7 @@ import model.Indicador;
 
 
 public class RepositorioDeIndicadores {
-	private static List<Indicador> listaDeIndicadores = new ArrayList<>();
+	//private static List<Indicador> listaDeIndicadores = new ArrayList<>();
 
 	/*public static List<Indicador> getListaDeIndicadores() {
 		return listaDeIndicadores;
@@ -28,7 +28,7 @@ public class RepositorioDeIndicadores {
 	public static void agregarIndicador(Indicador indicador) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 
-		List<Indicador> listaDeIndicadores = em.createQuery("from Indicador e where e.nombre = :nombre", Indicador.class)
+		List<Indicador> listaDeIndicadores = em.createQuery("from Indicador e where e.nombre like :nombre", Indicador.class)
 				.setParameter("nombre", "%" + indicador.getNombre() + "%").getResultList();
 
 		EntityTransaction tx = em.getTransaction();
