@@ -31,9 +31,10 @@ public class Identificador extends Hoja{
 				.anyMatch(cuent -> cuent.getNombre().equals(valor));
 	}
 	private boolean estaEnIndicadores(List<Indicador> listaDeIndicadores){
-		return listaDeIndicadores.stream()
-				.anyMatch(indic -> indic.getNombre().equals(valor));
+			
+		return listaDeIndicadores.stream().anyMatch(indic -> indic.getNombre().equals(valor));
 	}
+	
 	private double buscarValorDeIdentificador(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
 		if(estaEnCuentas(listaDeCuentas)){
 			return buscarEnCuentas(listaDeCuentas);

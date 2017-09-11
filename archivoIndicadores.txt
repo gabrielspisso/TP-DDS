@@ -1,11 +1,9 @@
 indicador1=FREE CASH FLOW+4;
 cc=FDS+10;
-a=30;
 b=2+2;
 ro=6;
 barby=42;
 super=barby;
-indicador=1;
 I1=1;
 I2=I1+1;
 L3=L4;

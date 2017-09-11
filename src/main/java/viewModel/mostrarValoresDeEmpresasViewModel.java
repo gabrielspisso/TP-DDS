@@ -84,7 +84,7 @@ public class mostrarValoresDeEmpresasViewModel {
 	
 	
 	public List<Empresa> getEmpresas(){
-		return RepositorioDeEmpresas.mostrarEmpresas();
+		return RepositorioDeEmpresas.traerEmpresasDeLaDB();
 	}
 
 	public Indicador getIndicadorActual() {

@@ -18,6 +18,7 @@ public class IndicadorBuilder {
     	
     	NODO arbol = OperacionPrimariaBuilder.Build(listaDeTokens);
     	Indicador indicador = new Indicador(nombre, arbol, expresion);
+    	
 		if(indicador.contieneEsteToken(nombre)){
 			throw new RecursiveException("No se pudo crear ya que es recursivo");
 		}

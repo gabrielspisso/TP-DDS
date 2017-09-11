@@ -15,11 +15,4 @@ public class CargadorDeEmpresas {
 
 			return IOs.leerArchivo(ruta);
 	}
-	
-	public static void traerEmpresasDeLaDB() {
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		List <Empresa> le = em.createQuery("from Empresa", Empresa.class).getResultList();
-		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
-	}
-
 }

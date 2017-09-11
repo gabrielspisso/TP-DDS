@@ -19,6 +19,7 @@ import Excepciones.RecursiveException;
 import model.CargadorDeEmpresas;
 import model.IOs;
 import repositorios.RepositorioDeEmpresas;
+import repositorios.RepositorioDeIndicadores;
 import viewModel.menuPrincipalViewModel;
 import viewModel.crearIndicadoresViewModel;
 import viewModel.crearNuevaMetodologiaViewModel;
@@ -72,7 +73,7 @@ setTitle("¿Dónde invierto?");
 		Button bot_evaluarEmpresas= new Button(parte1);
 		bot_evaluarEmpresas.setCaption("Evaluar una empresa");
 		bot_evaluarEmpresas.setWidth(125);
-		//bot_evaluarEmpresas.bindEnabledToProperty("bloq");
+		//bot_evaluarEmpresas.bindEnabledToProperty("bloq"); // revisar como se puede hacer lo del bloq
 		bot_evaluarEmpresas.onClick(() -> new evaluarEmpresas(this, new evaluarEmpresasViewModel()).open());
 	
 		Button bot_configurarMetodologia= new Button(parte1);
@@ -105,13 +106,13 @@ setTitle("¿Dónde invierto?");
 
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		
-		try {
-			CargadorDeEmpresas.traerEmpresasDeLaDB();
+		//try {
+		RepositorioDeEmpresas.traerEmpresasDeLaDB();
+					
+		//}
+		//catch (Exception e) {
 			
-		}
-		catch (Exception e) {
-			
-		}
+		//}
 	}
 	
 	private void crearNuevaMetodologia(){

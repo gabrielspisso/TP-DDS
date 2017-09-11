@@ -33,6 +33,7 @@ public class Indicador {
 	
 	@Column(unique = true)
 	private String nombre;
+	
 	@Convert(converter = ArbolConverter.class)
 	private NODO arbol;
 	

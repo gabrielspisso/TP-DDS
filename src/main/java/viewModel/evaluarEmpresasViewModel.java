@@ -19,7 +19,7 @@ public class evaluarEmpresasViewModel {
 	private Empresa empresaAAgregar ;
 	private Empresa empresaAQuitar ;
 	private List<Empresa> empresasSeleccionadas = new ArrayList<Empresa>();
-	private List<Empresa> empresasRestantes = RepositorioDeEmpresas.mostrarEmpresas();
+	private List<Empresa> empresasRestantes = RepositorioDeEmpresas.traerEmpresasDeLaDB();
 	private List<Empresa> empresasOrdenadas  = new ArrayList<Empresa>();
 	private Metodologia metodologia;
 	

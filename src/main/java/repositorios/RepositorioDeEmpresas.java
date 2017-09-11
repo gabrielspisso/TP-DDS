@@ -49,7 +49,7 @@ public class RepositorioDeEmpresas {
 	// entityManager().createQuery("from Consultora c where c.nombre like :nombre",
 	// Consultora.class).setParameter("nombre", "%" + nombre + "%").getResultList();
 
-	public static List<Empresa> mostrarEmpresas() {
+	public static List<Empresa> traerEmpresasDeLaDB() {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		return em.createQuery("from Empresa", Empresa.class).getResultList();
 	}

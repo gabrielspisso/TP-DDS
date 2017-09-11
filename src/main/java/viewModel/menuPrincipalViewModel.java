@@ -31,6 +31,6 @@ public class menuPrincipalViewModel {
 	}
 	
 	public void cargarEmpresasDesdeLaDB() {
-		CargadorDeEmpresas.traerEmpresasDeLaDB();
+		RepositorioDeEmpresas.traerEmpresasDeLaDB();
 	}
 }
