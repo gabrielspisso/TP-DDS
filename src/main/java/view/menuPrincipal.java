@@ -17,6 +17,7 @@ import org.uqbar.arena.windows.MessageBox.Type;
 
 import Excepciones.RecursiveException;
 import model.IOs;
+import repositorios.RepositorioDeEmpresas;
 import viewModel.menuPrincipalViewModel;
 import viewModel.crearIndicadoresViewModel;
 import viewModel.crearNuevaMetodologiaViewModel;
@@ -100,8 +101,6 @@ setTitle("¿Dónde invierto?");
 		new Button(mainPanel)
 		.setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
 		
-	
-		
 
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 	
@@ -116,6 +115,7 @@ setTitle("¿Dónde invierto?");
 		
 		try{
 			this.getModelObject().cargarEmpresas();
+			
 		}
 		
 		catch (RuntimeException ex){
@@ -126,15 +126,6 @@ setTitle("¿Dónde invierto?");
 	}
 	
 	public static void main(String[] args) {
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		new menuPrincipal().startApplication();
 	}

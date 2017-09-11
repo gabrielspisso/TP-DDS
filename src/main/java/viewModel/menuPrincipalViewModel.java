@@ -1,8 +1,11 @@
 package viewModel;
 
+import java.util.List;
+
 import org.uqbar.commons.utils.Observable;
 
 import model.CargadorDeEmpresas;
+import model.Empresa;
 import repositorios.RepositorioDeEmpresas;
 @Observable
 public class menuPrincipalViewModel {
@@ -22,7 +25,8 @@ public class menuPrincipalViewModel {
 		return rutaArchivo;
 	}
 	public void cargarEmpresas(){
-		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas(rutaArchivo));
-		bloq=true;
+		List<Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresas(rutaArchivo);
+		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
+		bloq = true;
 	}
 }
