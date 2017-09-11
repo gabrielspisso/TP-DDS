@@ -16,6 +16,7 @@ import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.MessageBox.Type;
 
 import Excepciones.RecursiveException;
+import model.CargadorDeEmpresas;
 import model.IOs;
 import repositorios.RepositorioDeEmpresas;
 import viewModel.menuPrincipalViewModel;
@@ -52,7 +53,7 @@ setTitle("¿Dónde invierto?");
 		new Label(mainPanel).setText("Mostrar el valor de una cuenta predefinida");
 		Button bot_MostrarCuentas= new Button(mainPanel);
 		
-		bot_MostrarCuentas.setCaption("Mostrar valores de la Empresa").bindEnabledToProperty("bloq");
+		bot_MostrarCuentas.setCaption("Mostrar valores de la Empresa");//.bindEnabledToProperty("bloq");
 		bot_MostrarCuentas.onClick(() -> new mostrarValoresDeEmpresas(this,new mostrarValoresDeEmpresasViewModel()).open());
 		
 		
@@ -71,7 +72,7 @@ setTitle("¿Dónde invierto?");
 		Button bot_evaluarEmpresas= new Button(parte1);
 		bot_evaluarEmpresas.setCaption("Evaluar una empresa");
 		bot_evaluarEmpresas.setWidth(125);
-		bot_evaluarEmpresas.bindEnabledToProperty("bloq");
+		//bot_evaluarEmpresas.bindEnabledToProperty("bloq");
 		bot_evaluarEmpresas.onClick(() -> new evaluarEmpresas(this, new evaluarEmpresasViewModel()).open());
 	
 		Button bot_configurarMetodologia= new Button(parte1);
@@ -103,7 +104,14 @@ setTitle("¿Dónde invierto?");
 		
 
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
-	
+		
+		try {
+			CargadorDeEmpresas.traerEmpresasDeLaDB();
+			
+		}
+		catch (Exception e) {
+			
+		}
 	}
 	
 	private void crearNuevaMetodologia(){

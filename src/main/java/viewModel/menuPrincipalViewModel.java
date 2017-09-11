@@ -29,4 +29,8 @@ public class menuPrincipalViewModel {
 		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
 		bloq = true;
 	}
+	
+	public void cargarEmpresasDesdeLaDB() {
+		CargadorDeEmpresas.traerEmpresasDeLaDB();
+	}
 }
