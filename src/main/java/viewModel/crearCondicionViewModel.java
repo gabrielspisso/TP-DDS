@@ -66,7 +66,7 @@ public class crearCondicionViewModel {
 	}
 
 	public List<Indicador> getIndicadores(){
-		return RepositorioDeIndicadores.getListaDeIndicadores();
+		return RepositorioDeIndicadores.traerIndicadoresDeLaDB();
 	}
 		
 	public criterioDeAceptacionDeCondicion getComportamiento() {

@@ -67,10 +67,10 @@ public class Identificador extends Hoja{
 	}
 	public boolean noEsRecursivo(String token){
 		Indicador indicador;
-		if(!estaEnIndicadores(RepositorioDeIndicadores.getListaDeIndicadores())){
+		if(!estaEnIndicadores(RepositorioDeIndicadores.traerIndicadoresDeLaDB())){
 			return false;
 		}
-		indicador = RepositorioDeIndicadores.getListaDeIndicadores().stream()
+		indicador = RepositorioDeIndicadores.traerIndicadoresDeLaDB().stream()
 					.filter(indic -> indic.getNombre().equals(valor))
 					.findFirst().get();
 			return indicador.contieneEsteToken(token);

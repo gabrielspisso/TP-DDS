@@ -98,7 +98,7 @@ public class mostrarValoresDeEmpresasViewModel {
 
 
 	public List<Indicador> getIndicadores() {
-		return RepositorioDeIndicadores.getListaDeIndicadores();
+		return RepositorioDeIndicadores.traerIndicadoresDeLaDB();
 	}
 
 

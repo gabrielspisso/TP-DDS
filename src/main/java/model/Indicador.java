@@ -59,7 +59,7 @@ public class Indicador {
 			
 		}
 
-		return arbol.calcularValor(listaDeCuentas, RepositorioDeIndicadores.getListaDeIndicadores());
+		return arbol.calcularValor(listaDeCuentas, RepositorioDeIndicadores.traerIndicadoresDeLaDB());
 	}
 	public String mostrarFormula() {
 		return arbol.mostrarFormula();

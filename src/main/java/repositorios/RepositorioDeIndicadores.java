@@ -19,7 +19,7 @@ public class RepositorioDeIndicadores {
 		return listaDeIndicadores;
 	}*/
 	
-	public static List<Indicador> getListaDeIndicadores() {
+	public static List<Indicador> traerIndicadoresDeLaDB() {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		return em.createQuery("from Indicador", Indicador.class).getResultList();
 	}
@@ -28,7 +28,7 @@ public class RepositorioDeIndicadores {
 	public static void agregarIndicador(Indicador indicador) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 
-		List<Indicador> listaDeIndicadores = em.createQuery("from Indicador e where e.nombre like :nombre", Indicador.class)
+		List<Indicador> listaDeIndicadores = em.createQuery("from Indicador e where e.nombre = :nombre", Indicador.class)
 				.setParameter("nombre", "%" + indicador.getNombre() + "%").getResultList();
 
 		EntityTransaction tx = em.getTransaction();

@@ -48,7 +48,7 @@ public class IOs {
 	}
 	public static void cargarIndicador(Indicador indicador, String path) {
 		vaciarArchivo(path);
-		RepositorioDeIndicadores.getListaDeIndicadores().forEach(x->escribirEnArchivo(x,path));
+		RepositorioDeIndicadores.traerIndicadoresDeLaDB().forEach(x->escribirEnArchivo(x,path));
 	}
 
 	
