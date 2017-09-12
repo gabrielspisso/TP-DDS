@@ -13,6 +13,25 @@
     	<class>model.Cuenta</class>
     	<class>model.Indicador</class>
     	
+    	<class>model.condicionesYMetodologias.Condicion</class>
+    	<class>model.condicionesYMetodologias.condicionCompuesta</class>
+    	<class>model.condicionesYMetodologias.CondicionConAño</class>
+    	<class>model.condicionesYMetodologias.condicionConCalculo</class>
+    	<class>model.condicionesYMetodologias.CondicionConComportamiento</class>
+    	<class>model.condicionesYMetodologias.CondicionEntreDosEmpresas</class>
+    	
+    	
+    	<class>model.Calculo.Calculo</class>
+		<class>model.Calculo.criterioDeAceptacionDeCondicion</class>
+		<class>model.Calculo.Mayor</class>
+		<class>model.Calculo.Menor</class>
+		<class>model.Calculo.Mediana</class>
+		<class>model.Calculo.Promedio</class>
+
+    	<class>model.Calculo.Sumatoria</class>
+    	
+    	
+    	
     	<class>repositorios.RepositorioDeEmpresas</class>
     	<!--
     	<class>Calculos.Calculo</class>

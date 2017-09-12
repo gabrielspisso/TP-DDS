@@ -6,18 +6,33 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import Excepciones.IdentificadorInexistente;
 import model.Empresa;
 
 //@Entity
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Condicion {
+public abstract class Condicion {
 	
 	/*@Id
 	@GeneratedValue
 	private Long id;
 	*/
-	
-	public boolean cumpleCondicion(Empresa empresa, Empresa empresa1){
-		return false;
+	protected String nombre;
+	private Condicion(){
+		
 	}
+	protected Condicion(String nombre){
+		this.nombre = nombre;
+	}
+	
+	public boolean cumpleCondicion(Empresa empresa,Empresa empresa2){
+		try{
+			return this.seCumpleLaCondicion(empresa, empresa2);
+		}
+		catch(IdentificadorInexistente oo)
+		{
+			return false;
+		}
+	}
+	public abstract boolean seCumpleLaCondicion(Empresa empresa, Empresa empresa2);
 }

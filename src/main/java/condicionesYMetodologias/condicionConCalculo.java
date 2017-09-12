@@ -19,23 +19,34 @@ import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
 //@Entity
-public class condicionConCalculo extends CondicionUnitaria {
+public class condicionConCalculo extends Condicion {
 
 	double valorMinimo;
+	//@ManyToOne
 	Calculo calculo;
-	public condicionConCalculo(Indicador indicador, criterioDeAceptacionDeCondicion criterio, Calculo calculo, double valorMinimo){
-		super(indicador,criterio,"");
+	//@ManyToOne
+	private Indicador indicador;
+	//@ManyToOne
+	private criterioDeAceptacionDeCondicion criterio;
+	
+	public condicionConCalculo(Indicador indicador, criterioDeAceptacionDeCondicion criterio, Calculo calculo, double valorMinimo,String nombre){
+		super(nombre);
+		this.indicador = indicador;
+		this.criterio = criterio; 
 		this.valorMinimo = valorMinimo;
 		this.calculo = calculo;	
 	}
 	public condicionConCalculo(ValoresParaEvaluar valores) {
 		// TODO Auto-generated constructor stub
-		super(valores);
+		super(valores.getNombre());
+		this.indicador = valores.getIndicadorActual();
+		this.criterio = valores.getComportamiento(); 
+	
 		this.valorMinimo = valores.getValorMinimo();
 		this.calculo = valores.getCalculo();	
 	}
 	@Override
-	public boolean seCumpleLaCondicionUnitaria(Empresa empresa,Empresa empresa1){
+	public boolean seCumpleLaCondicion(Empresa empresa,Empresa empresa1){
 		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
 	
 			double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));

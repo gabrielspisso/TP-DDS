@@ -15,9 +15,9 @@ import model.Indicador;
 
 //@Entity
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class CondicionUnitaria extends Condicion {
+/*public abstract class CondicionUnitaria extends Condicion {
 	
-	protected String nombre;
+	
 	protected Indicador indicador;
 	
 	//@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -49,4 +49,4 @@ public abstract class CondicionUnitaria extends Condicion {
 	}
 	
 	
-}
+}*/

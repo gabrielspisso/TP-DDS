@@ -10,13 +10,13 @@ import opciones.Opcion;
 
 public class ValoresParaEvaluar {
 
-	Indicador indicadorActual;
-	Opcion opcion = null;
-	Calculo calculo;
-	int cantidadDeAños;
-	int valorMinimo;
-	String nombre;
-	criterioDeAceptacionDeCondicion comportamiento;
+	private Indicador indicadorActual;
+	private Opcion opcion = null;
+	private Calculo calculo;
+	private int cantidadDeAños;
+	private int valorMinimo;
+	private String nombre;
+	private criterioDeAceptacionDeCondicion comportamiento;
 	List<Condicion> listaDeCondiciones = new ArrayList<Condicion>();
 	public List<Condicion> getListaDeCondiciones() {
 		return listaDeCondiciones;

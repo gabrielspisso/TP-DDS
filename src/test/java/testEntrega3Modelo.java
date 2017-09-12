@@ -39,50 +39,50 @@ public class testEntrega3Modelo {
 		//Parche provisiorio hasta saber como hacer que se ejecuten antes de todo los test.
 		
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		condicionConCalculo test = new condicionConCalculo(indicador,new Mayor(),new Promedio(),9); //Deberian ser estaticos
-		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
+		condicionConCalculo test = new condicionConCalculo(indicador,new Mayor(),new Promedio(),9,""); //Deberian ser estaticos
+		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0),null));
 	}
 	@Test
 	public void pruebaDeCondicionConCalculoFacebookTieneUnCCpromedioMenorA9(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		condicionConCalculo test = new condicionConCalculo(indicador,new Menor(),new Promedio(),9); //Deberian ser estaticos
-		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
+		condicionConCalculo test = new condicionConCalculo(indicador,new Menor(),new Promedio(),9,""); //Deberian ser estaticos
+		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0),null));
 	}
 	@Test
 	public void pruebaDeCondicionConCalculoFacebookTieneUnCCpromedioMenorA30(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		condicionConCalculo test = new condicionConCalculo(indicador,new Menor(),new Promedio(),30); //Deberian ser estaticos
-		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
+		condicionConCalculo test = new condicionConCalculo(indicador,new Menor(),new Promedio(),30,""); //Deberian ser estaticos
+		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0),null));
 	}
 	@Test
 	public void pruebaDeCondicionConComportamientoFacebookConCCEsCreciente(){
 		//RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2);
-		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2,"");
+		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0),null));
 	}
 	@Test
 	public void pruebaDeCondicionConComportamientoFacebookConCCEsCreciente2(){
 		//RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=sadsagaga+10;");
-		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2);
-		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2,"");
+		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0),null));
 	}
 	
 	@Test
 	public void pruebaDeCondicionConComportamientoFacebookConCCEsDecreciente(){
 		//RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Menor(),2);
-		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Menor(),2,"");
+		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0),null));
 	}
 	@Test
 	public void testFacebookTieneCincuentaPorcientoDeccConCondicionConAñoYCondicionConCalculo(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),300,1);
-		condicionConCalculo test2 = new condicionConCalculo(indicador,new Mayor(),new Promedio(),9); //Deberian ser estaticos
+		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),300,1,"");
+		condicionConCalculo test2 = new condicionConCalculo(indicador,new Mayor(),new Promedio(),9,""); //Deberian ser estaticos
 		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test,test2));
-		assertEquals(50,metodologia.sacarPorcentajeMetodologia(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));
+		assertEquals(50,metodologia.sacarPorcentajeMetodologia(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0),null));
 	}
 	
 
@@ -90,27 +90,27 @@ public class testEntrega3Modelo {
 	public void pruebaCondicionDosEmpresas(){
 		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
 		
-		CondicionEntreDosEmpresas test = new CondicionEntreDosEmpresas(indicador,new Mayor());
-		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0), RepositorioDeEmpresas.mostrarEmpresas().get(1)));
+		CondicionEntreDosEmpresas test = new CondicionEntreDosEmpresas(indicador,new Mayor(),"");
+		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0), RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1)));
 	}
 	@Test
 	public void pruebaOrdenarMetodologias(){
 		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
 		
-		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),7,1);
+		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),7,1,"");
 		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test));
-		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.mostrarEmpresas().get(1),RepositorioDeEmpresas.mostrarEmpresas().get(2),RepositorioDeEmpresas.mostrarEmpresas().get(0));
-		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(RepositorioDeEmpresas.mostrarEmpresas() ));
+		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1),RepositorioDeEmpresas.traerEmpresasDeLaDB().get(2),RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0));
+		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(RepositorioDeEmpresas.traerEmpresasDeLaDB() ));
 	}
 	
 	@Test
 	public void pruebaCondicionCompuesta(){
 		//RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2);
-		CondicionConComportamiento test2 = new CondicionConComportamiento(indicador,new Mayor(),33);
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,new Mayor(),2,"");
+		CondicionConComportamiento test2 = new CondicionConComportamiento(indicador,new Mayor(),33,"");
 		condicionCompuesta condicion = new condicionCompuesta("esto es una prueba",Arrays.asList(test,test2));
-		assertFalse(condicion.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0),null));	
+		assertFalse(condicion.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0),null));	
 	}
 	
 	

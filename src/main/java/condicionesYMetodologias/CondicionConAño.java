@@ -11,22 +11,30 @@ import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
 //@Entity
-public class CondicionConAño extends CondicionUnitaria{
-	double valorMinimo;
-	int cantidadDeAños;
-	public CondicionConAño(Indicador indicador, criterioDeAceptacionDeCondicion criterio, double valorMinimo,int cantidadDeAños){
-		super(indicador,criterio,"");
+public class CondicionConAño extends Condicion{
+	private double valorMinimo;
+	private int cantidadDeAños;
+	//@ManyToOne
+	private Indicador indicador;
+	//@ManyToOne
+	private criterioDeAceptacionDeCondicion criterio;
+	public CondicionConAño(Indicador indicador, criterioDeAceptacionDeCondicion criterio, double valorMinimo,int cantidadDeAños,String nombre){
+		super(nombre);
+		this.indicador = indicador;
+		this.criterio = criterio; 
 		this.valorMinimo = valorMinimo;
 		this.cantidadDeAños = cantidadDeAños;
 		
 	}
 	public CondicionConAño(ValoresParaEvaluar valores) {
-		super(valores);
+		super(valores.getNombre());
+		this.indicador = valores.getIndicadorActual();
+		this.criterio = valores.getComportamiento(); 
 		this.valorMinimo = valores.getValorMinimo();
 		this.cantidadDeAños = valores.getCantidadDeAños();
 	}
 	
-	public boolean seCumpleLaCondicionUnitaria(Empresa empresa, Empresa empresa1){
+	public boolean seCumpleLaCondicion(Empresa empresa, Empresa empresa1){
 		if(empresa.getBalances().size() < cantidadDeAños){
 			return false;
 		}
