@@ -104,11 +104,11 @@ setTitle("¿Dónde invierto?");
 		.setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
 		
 
-		//IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
+		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		
 		//try {
 		RepositorioDeEmpresas.traerEmpresasDeLaDB();
-		RepositorioDeIndicadores.traerIndicadoresDeLaDB();
+		//RepositorioDeIndicadores.traerIndicadoresDeLaDB();
 					
 		//}
 		//catch (Exception e) {
@@ -125,7 +125,6 @@ setTitle("¿Dónde invierto?");
 		
 		try{
 			this.getModelObject().cargarEmpresas();
-			IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		}
 		
 		catch (RuntimeException ex){

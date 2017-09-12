@@ -29,7 +29,7 @@ public class RepositorioDeIndicadores {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 
 		List<Indicador> listaDeIndicadores = em.createQuery("from Indicador e where e.nombre = :nombre", Indicador.class)
-				.setParameter("nombre", "%" + indicador.getNombre() + "%").getResultList();
+				.setParameter("nombre", indicador.getNombre()).getResultList();
 
 		EntityTransaction tx = em.getTransaction();
 

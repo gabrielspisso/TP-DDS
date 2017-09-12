@@ -41,6 +41,10 @@ public class RepositorioDeEmpresas {
 			em.persist(empresaAAgregar);
 		else {
 			System.out.println("esta parte no esta hecha, habria que modificar la empresa, o dejarla como esta");
+			//Empresa empresa1 = listaDeEmpresas.get(0);
+			//em.remove(empresa1);
+			//empresa1.setBalances(empresaAAgregar.getBalances());
+			//em.persist(empresaAAgregar);
 		}
 
 		tx.commit();
