@@ -9,18 +9,20 @@ import javax.persistence.InheritanceType;
 import Excepciones.IdentificadorInexistente;
 import model.Empresa;
 
-//@Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Condicion {
 	
-	/*@Id
+	@Id
 	@GeneratedValue
 	private Long id;
-	*/
+	
 	protected String nombre;
-	private Condicion(){
+	
+	protected Condicion(){
 		
 	}
+	
 	protected Condicion(String nombre){
 		this.nombre = nombre;
 	}
@@ -35,4 +37,9 @@ public abstract class Condicion {
 		}
 	}
 	public abstract boolean seCumpleLaCondicion(Empresa empresa, Empresa empresa2);
+	
+	@Override
+	public String toString(){
+		return nombre;
+	}
 }

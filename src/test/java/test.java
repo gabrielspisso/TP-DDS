@@ -124,7 +124,8 @@ public class test {
 		
 		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",1),new Cuenta("FREE CASH FLOW",2));
 		Indicador indicador = IndicadorBuilder.Build("j = 1*2 + FREE CASH FLOW + 6 + b;");
-		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
+		List <Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt");
+		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
 		
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		
@@ -136,8 +137,8 @@ public class test {
 		
 		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",1),new Cuenta("FREE CASH FLOW",2));
 		Indicador indicador = IndicadorBuilder.Build("j = 1*2 + FREE CASH FLOW + 6 + b;");
-		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
-		
+		List <Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt");
+		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 
 		assertTrue(indicador.mostrarFormulaCompleta().equals("j = 1*2+FREE CASH FLOW+6+b"));
@@ -148,8 +149,8 @@ public class test {
 		
 		List<Cuenta> listaDeCuentas = Arrays.asList(new Cuenta("FDS",1),new Cuenta("FREE CASH FLOW",2));
 		Indicador indicador = IndicadorBuilder.Build("j = 1*2 + FREE CASH FLOW + 6 + b;");
-		RepositorioDeEmpresas.agregarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt"));
-		
+		List <Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt");
+		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		
 		assertEquals(14.0, indicador.calcularValor(listaDeCuentas), DELTA);
@@ -157,14 +158,14 @@ public class test {
 	@Test
 	public void pruebaFacebookTieneCCMayorA3(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),3,1);
-		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0), null));
+		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),3,1,"");
+		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0), null));
 	}
 	@Test
 	public void pruebaFacebookNoTieneCCMayorA30(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),30, 1);
-		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.mostrarEmpresas().get(0), null));
+		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),30, 1, "");
+		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0), null));
 	}
 	
 	

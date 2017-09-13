@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.security.auth.x500.X500Principal;
 
 import Calculos.Calculo;
@@ -17,13 +20,13 @@ import model.Empresa;
 import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
-//@Entity
+@Entity
 public class CondicionConComportamiento extends Condicion {
 
 	int cantidadDeAños= 0;
-	//@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private Indicador indicador;
-	//@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private criterioDeAceptacionDeCondicion criterio;
 
 	public CondicionConComportamiento(Indicador indicador,criterioDeAceptacionDeCondicion criterio,int cantidadDeAños,String nombre){

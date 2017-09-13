@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 
-//@Entity
+@Entity
 public class Promedio extends Calculo {
 	
 	public Promedio() {

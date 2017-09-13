@@ -2,7 +2,9 @@ package condicionesYMetodologias;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
 import Calculos.criterioDeAceptacionDeCondicion;
@@ -11,9 +13,9 @@ import model.Balance;
 import model.Empresa;
 import model.Indicador;
 
-//@Entity
+@Entity
 public class condicionCompuesta extends Condicion{
-	//@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	List<Condicion> listaDeCondiciones;
 	public condicionCompuesta(String nombre,List<Condicion> listaDeCondiciones){
 		super(nombre);

@@ -6,13 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-//@Entity
+@Entity
 public abstract class Calculo {
 	
-	/*@Id
+	@Id
 	@GeneratedValue
 	private Long id;
-	*/
+	
 	protected Calculo() {}
 	public abstract double realizarCalculo(List<Double> listaDeResultados);
 }

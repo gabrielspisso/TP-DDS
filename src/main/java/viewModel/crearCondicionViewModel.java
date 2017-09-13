@@ -193,7 +193,6 @@ public class crearCondicionViewModel {
 	}
 	
 	public void crearCondiciones(){
-		
 		if(valores.getComportamiento()==null || valores.getNombre() == null || valores.getIndicadorActual() == null || valores.getOpcion() == null)
 			throw new NoItemSelectedException();
 		
@@ -202,7 +201,7 @@ public class crearCondicionViewModel {
 					
 		if(valores.getOpcion() != null){
 			Condicion condicion = valores.getOpcion().generarCondicion(valores);			
-			RepositorioDeCondiciones.agregarCondicion(Arrays.asList(condicion));
+			RepositorioDeCondiciones.agregarCondicion(condicion);
 		}
 		else{
 			System.out.println("error");

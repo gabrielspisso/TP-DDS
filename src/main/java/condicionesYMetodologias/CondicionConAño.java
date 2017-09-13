@@ -1,7 +1,10 @@
 package condicionesYMetodologias;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 import Calculos.criterioDeAceptacionDeCondicion;
 import Excepciones.IdentificadorInexistente;
@@ -10,14 +13,17 @@ import model.Empresa;
 import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
-//@Entity
+@Entity
 public class CondicionConAño extends Condicion{
 	private double valorMinimo;
 	private int cantidadDeAños;
-	//@ManyToOne
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private Indicador indicador;
-	//@ManyToOne
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private criterioDeAceptacionDeCondicion criterio;
+	
 	public CondicionConAño(Indicador indicador, criterioDeAceptacionDeCondicion criterio, double valorMinimo,int cantidadDeAños,String nombre){
 		super(nombre);
 		this.indicador = indicador;

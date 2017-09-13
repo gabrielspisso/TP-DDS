@@ -6,7 +6,10 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 import com.ibm.icu.util.IndianCalendar;
 
@@ -18,15 +21,15 @@ import model.Empresa;
 import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
-//@Entity
+@Entity
 public class condicionConCalculo extends Condicion {
 
 	double valorMinimo;
-	//@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	Calculo calculo;
-	//@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private Indicador indicador;
-	//@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private criterioDeAceptacionDeCondicion criterio;
 	
 	public condicionConCalculo(Indicador indicador, criterioDeAceptacionDeCondicion criterio, Calculo calculo, double valorMinimo,String nombre){

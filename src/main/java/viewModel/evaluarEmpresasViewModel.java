@@ -90,7 +90,7 @@ public class evaluarEmpresasViewModel {
 		this.metodologia = metodologia;
 	}
 	public List<Metodologia> getMetodologias(){
-		return RepositorioDeMetodologias.getListaDeMetodologias();
+		return RepositorioDeMetodologias.traerMetodologiasDeLaDB();
 	}
 	
 	

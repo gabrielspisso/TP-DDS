@@ -22,18 +22,18 @@ import model.Empresa;
 import repositorios.RepositorioDeEmpresas;
 
 
-//@Entity
-//@Table(name = "Metodologias")
+@Entity
+@Table(name = "Metodologia")
 public class Metodologia {
 	
-	/*@Id
+	@Id
 	@GeneratedValue
 	private Long id;
-	*/
+	
 	String nombre;
 	
-	//@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	//@Transient
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	List<Condicion> Condiciones;
 	
 	String descripcion;

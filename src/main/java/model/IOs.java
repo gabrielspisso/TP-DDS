@@ -115,7 +115,7 @@ public class IOs {
 	
 	public static void guardarMetodologias(Metodologia metodologia, String path) {
 		vaciarArchivo(path);
-		RepositorioDeMetodologias.getListaDeMetodologias().forEach(m -> escribirMetodologia(m, path));
+		RepositorioDeMetodologias.traerMetodologiasDeLaDB().forEach(m -> escribirMetodologia(m, path));
 	}
 	//El escribir no va a andar con el leer, porque escribis de a metodologias, si escribis todas juntas anda.
 	private static String convertirMetodologiaEnJson(Metodologia metodologia) {
