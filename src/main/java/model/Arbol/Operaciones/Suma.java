@@ -15,4 +15,9 @@ public class Suma extends Operacion{
 		return izquierda.calcularValor(listaDeCuentas, listaDeIndicadores) +
 				derecha.calcularValor(listaDeCuentas, listaDeIndicadores);
 	}
+	@Override
+	public int prioridad() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
 }

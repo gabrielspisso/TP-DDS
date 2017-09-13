@@ -365,7 +365,7 @@ static void TokenLexicalActions(Token matchedToken, List<NodoNoClasificado> list
       case 2 :
         image.append(jjstrLiteralImages[2]);
         lengthOfMatch = jjstrLiteralImages[2].length();
-     token = new NodoNoClasificado("Asignacion", image.toString());
+     token = new NodoNoClasificado("Identificador", image.toString());
          break;
       case 3 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
@@ -382,7 +382,7 @@ static void TokenLexicalActions(Token matchedToken, List<NodoNoClasificado> list
       case 6 :
         image.append(jjstrLiteralImages[6]);
         lengthOfMatch = jjstrLiteralImages[6].length();
-        token = new NodoNoClasificado("FinDeLinea", image.toString());
+        token = new NodoNoClasificado("Identificador", image.toString());
          break;
       default :
          break;

@@ -12,11 +12,13 @@ public class IndicadorBuilder {
 
 	
 	public static Indicador Build(String expresion) {
-    	List<NodoNoClasificado> lista = SCANNER.obtenerTokens(expresion);
-    	String nombre = lista.get(0).getValor();
-    	List<NodoNoClasificado> listaDeTokens =lista.subList(2, lista.size()-1);
+    	List<NODO> lista = SCANNER.obtenerNodos(expresion);
+    	String nombre = lista.get(0).valor();
+    	List<NODO> listaDeTokens =lista.subList(2, lista.size()-1);
     	
-    	NODO arbol = OperacionPrimariaBuilder.Build(listaDeTokens);
+    	NodoBuilder nb = new NodoBuilder(listaDeTokens);
+    	
+    	NODO arbol = nb.Build();
     	Indicador indicador = new Indicador(nombre, arbol, expresion);
     	
 		if(indicador.contieneEsteToken(nombre)){
@@ -25,10 +27,10 @@ public class IndicadorBuilder {
     	return indicador;
 	}
 	
+	
 	public static NODO buildTreeFromExpresion(String expresion) {
-		List<NodoNoClasificado> lista = SCANNER.obtenerTokens("unNombre =" + expresion + ";");
-		List<NodoNoClasificado> listaDeTokens =lista.subList(2, lista.size()-1);
-		NODO arbol = OperacionPrimariaBuilder.Build(listaDeTokens);
+		List<NODO> lista = SCANNER.obtenerApartirDeExpresion(expresion);
+		NODO arbol = new NodoBuilder(lista).Build();
 		return arbol;
 	}
 }

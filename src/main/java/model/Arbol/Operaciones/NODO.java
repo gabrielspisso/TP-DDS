@@ -10,4 +10,6 @@ public interface NODO {
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores);
 	public String mostrarFormula();
 	public boolean estaCargado();
+	public boolean esOperacion();
+	public String valor();
 }

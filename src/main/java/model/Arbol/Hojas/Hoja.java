@@ -12,7 +12,14 @@ public abstract class Hoja implements NODO{
 	public Hoja(String valor) {
 		this.valor = valor;
 	}
-	
+
+	public String valor() {
+		return valor;
+	};
+	@Override
+	public boolean esOperacion() {
+		return false;
+	}
 	@Override
 	public boolean estaCargado() {
 		return true;
