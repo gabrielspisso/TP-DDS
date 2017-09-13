@@ -3,9 +3,20 @@ package Calculos;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 public  class Mediana extends Calculo {
+	
+	@Transient
+	private static Mediana instancia = null; 
+	public static Mediana getSingletonMediana(){
+		if(instancia == null){
+			instancia = new Mediana();
+		}
+		return instancia;
+	
+	}
 	
 	
 	public Mediana() {

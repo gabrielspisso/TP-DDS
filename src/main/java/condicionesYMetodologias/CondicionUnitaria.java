@@ -13,17 +13,19 @@ import Excepciones.IdentificadorInexistente;
 import model.Empresa;
 import model.Indicador;
 
-//@Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-/*public abstract class CondicionUnitaria extends Condicion {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class CondicionUnitaria extends Condicion {
 	
 	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	protected Indicador indicador;
-	
-	//@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	protected criterioDeAceptacionDeCondicion criterio;
 
-	
+	protected CondicionUnitaria(){
+
+	}
 	public CondicionUnitaria(Indicador indicador,criterioDeAceptacionDeCondicion criterio, String nombre){
 		this.indicador = indicador;
 		this.nombre = nombre;
@@ -34,7 +36,7 @@ import model.Indicador;
 		this.criterio = valores.getComportamiento();
 		this.nombre = valores.getNombre();
 	}
-	public boolean cumpleCondicion(Empresa empresa,Empresa empresa2){
+	public boolean seCumpleLaCondicion(Empresa empresa,Empresa empresa2){
 		try{
 			return this.seCumpleLaCondicionUnitaria(empresa, empresa2);
 		}
@@ -49,4 +51,4 @@ import model.Indicador;
 	}
 	
 	
-}*/
+}

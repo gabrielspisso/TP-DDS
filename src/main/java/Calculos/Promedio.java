@@ -4,9 +4,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 public class Promedio extends Calculo {
+	
+	
+	@Transient
+	private static Promedio instancia = null; 
+	public static Promedio getSingletonPromedio(){
+		if(instancia == null){
+			instancia = new Promedio();
+		}
+		return instancia;
+	}
 	
 	public Promedio() {
 		super();

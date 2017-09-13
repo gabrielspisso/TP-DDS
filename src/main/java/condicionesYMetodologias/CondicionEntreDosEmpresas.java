@@ -14,35 +14,24 @@ import model.Empresa;
 import model.Indicador;
 
 @Entity
-public class CondicionEntreDosEmpresas extends Condicion {
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	private Indicador indicador;
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	private criterioDeAceptacionDeCondicion criterio;
-	
-	
+public class CondicionEntreDosEmpresas extends CondicionUnitaria {
+
 	
 	private CondicionEntreDosEmpresas() {
-		
+		super();
 	}
 
 	public CondicionEntreDosEmpresas(Indicador indicador, criterioDeAceptacionDeCondicion criterio,String nombre) {
-		super(nombre);
-		this.indicador = indicador;
-		this.criterio = criterio; 
-		
+		super(indicador,criterio,nombre);
 		// TODO Auto-generated constructor stub
 	}
 
 	public CondicionEntreDosEmpresas(ValoresParaEvaluar valores) {
-		super(valores.getNombre());
-		this.indicador = valores.getIndicadorActual();
-		this.criterio = valores.getComportamiento(); 
+		super(valores);
 		
 	}
 
-	@Override
-	public boolean seCumpleLaCondicion(Empresa empresa, Empresa empresa2){
+	public boolean seCumpleLaCondicionUnitaria(Empresa empresa, Empresa empresa2){
 		
 
 			return criterio.cumpleCriterioDeAceptacionDeCondicion(indicador.calcularValor(empresa2.getBalances().get(0).getCuentas()),indicador.calcularValor(empresa.getBalances().get(0).getCuentas()));			
@@ -54,6 +43,7 @@ public class CondicionEntreDosEmpresas extends Condicion {
 		//Intente que no repita lo de indicador to string y que se ocupe la clase padre, pero a java no le importo y me tomaba la del padre.
 	}
 	*/
+
 
 	
 }

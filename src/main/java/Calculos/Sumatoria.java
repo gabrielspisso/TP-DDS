@@ -3,10 +3,19 @@ package Calculos;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 public class Sumatoria extends Calculo{
 	
+	@Transient
+	private static Sumatoria instancia = null; 
+	public static Sumatoria getSingletonSumatoria(){
+		if(instancia == null){
+			instancia = new Sumatoria();
+		}
+		return instancia;
+	}
 	
 	public Sumatoria() {
 		super();

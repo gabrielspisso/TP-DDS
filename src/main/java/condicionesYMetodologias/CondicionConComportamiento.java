@@ -21,34 +21,29 @@ import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
 @Entity
-public class CondicionConComportamiento extends Condicion {
+public class CondicionConComportamiento extends CondicionUnitaria {
 
 	int cantidadDeAños= 0;
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	private Indicador indicador;
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	private criterioDeAceptacionDeCondicion criterio;
-
+	
 	public CondicionConComportamiento(Indicador indicador,criterioDeAceptacionDeCondicion criterio,int cantidadDeAños,String nombre){
-		super(nombre);
-		this.indicador = indicador;
-		this.criterio = criterio; 
+		super(indicador,criterio,nombre);
 		this.cantidadDeAños = cantidadDeAños;
 	}
 	
 	public CondicionConComportamiento(ValoresParaEvaluar valores) {
-		super(valores.getNombre());
-		this.indicador = valores.getIndicadorActual();
-		this.criterio = valores.getComportamiento(); 
+		super(valores);
 		 
 		this.cantidadDeAños = valores.getCantidadDeAños();
 	}
 
 	@Override
 	
-	public boolean seCumpleLaCondicion(Empresa empresa,Empresa empresa1){
-		if(cantidadDeAños>empresa.getBalances().size()) return false;
+	public boolean seCumpleLaCondicionUnitaria(Empresa empresa,Empresa empresa1){
+		if(cantidadDeAños>empresa.getBalances().size()) 
+			return false;
+		
 		List<Balance> balances = empresa.getBalances().subList(0, cantidadDeAños);
+		
 		return balances.stream().allMatch(x-> revisarComportamiento(balances,x));			
 		
 	}

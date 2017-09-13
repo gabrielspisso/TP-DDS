@@ -14,33 +14,24 @@ import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
 @Entity
-public class CondicionConAño extends Condicion{
+public class CondicionConAño extends CondicionUnitaria{
 	private double valorMinimo;
 	private int cantidadDeAños;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	private Indicador indicador;
-	
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	private criterioDeAceptacionDeCondicion criterio;
-	
 	public CondicionConAño(Indicador indicador, criterioDeAceptacionDeCondicion criterio, double valorMinimo,int cantidadDeAños,String nombre){
-		super(nombre);
-		this.indicador = indicador;
-		this.criterio = criterio; 
+		super(indicador,criterio,nombre);
+
 		this.valorMinimo = valorMinimo;
 		this.cantidadDeAños = cantidadDeAños;
 		
 	}
 	public CondicionConAño(ValoresParaEvaluar valores) {
-		super(valores.getNombre());
-		this.indicador = valores.getIndicadorActual();
-		this.criterio = valores.getComportamiento(); 
+		super(valores);
 		this.valorMinimo = valores.getValorMinimo();
 		this.cantidadDeAños = valores.getCantidadDeAños();
 	}
 	
-	public boolean seCumpleLaCondicion(Empresa empresa, Empresa empresa1){
+	public boolean seCumpleLaCondicionUnitaria(Empresa empresa, Empresa empresa1){
 		if(empresa.getBalances().size() < cantidadDeAños){
 			return false;
 		}
