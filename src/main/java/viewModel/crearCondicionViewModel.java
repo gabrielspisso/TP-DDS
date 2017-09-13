@@ -94,7 +94,7 @@ public class crearCondicionViewModel {
 	
 	
 	public List<Calculo> getCalculos(){
-		return Arrays.asList(new Sumatoria().getSingletonSumatoria(),new Mediana().getSingletonMediana(),new Promedio().getSingletonPromedio());
+		return Arrays.asList(Sumatoria.getSingletonSumatoria(),Mediana.getSingletonMediana(),Promedio.getSingletonPromedio());
 	}
 	
 	
@@ -128,7 +128,7 @@ public class crearCondicionViewModel {
 	}
 
 	public List<criterioDeAceptacionDeCondicion> getComportamientos(){
-		return Arrays.asList(new Mayor().getSingletonMayor(),new Menor().getSingletonMenor());
+		return Arrays.asList(Mayor.getSingletonMayor(),Menor.getSingletonMenor());
 	}
 	
 	public void setCantidadDeAños(int cantidadDeAños) {
