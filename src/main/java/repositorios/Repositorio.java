@@ -43,4 +43,13 @@ public  class Repositorio {
 		tx.commit();
 		
 	}
+	
+	
+	public static <T> boolean existe(String nombre,Class<T> clase, String tabla) {
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		return !em.createQuery("from Consultora c where c.nombre like :nombre", clase) //
+		        .setParameter("nombre", "%" + nombre + "%") //
+		        .getResultList().isEmpty();
+	}
+	
 }
