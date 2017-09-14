@@ -46,57 +46,161 @@ public class importarExportarArchivos extends Window<importarExportarArchivosVie
 		
 setTitle("Exportar/Importar");
 		
-		mainPanel.setLayout(new VerticalLayout());
-		
-		new Label(mainPanel).setText("Mostrar el valor de una cuenta predefinida");
-
+		mainPanel.setLayout(new ColumnLayout(2));
 		
 		new Label(mainPanel).setText(" ").setFontSize(2);
-		
-		new Label(mainPanel).setText("Exportar");
 		new Label(mainPanel).setText(" ").setFontSize(2);
 		
+		//////// Arranca aca la importacion exportacion de empresas
 		
-		new Label(mainPanel).setText("Importar");
 		
-	
+		new Label(mainPanel).setText("Empresas:").setFontSize(10);
 		new Label(mainPanel).setText(" ").setFontSize(2);
 		
-		new Label(mainPanel).setText("Cargar un archivo de empresas");
-	
-		Panel panel2 = new Panel(mainPanel);
-		panel2.setLayout(new ColumnLayout(2));
-		
-		FileSelector fileSelector = new FileSelector(panel2);
-		fileSelector.extensions("*.txt");
-		fileSelector.setCaption("Seleccionar archivo");
-		fileSelector.setWidth(125);
-//		fileSelector.bindValueToProperty("rutaArchivo");
-		//fileSelector.onClick(() -> this.cargarArchivo());
-		
-		
-	//	new TextBox(panel2).setWidth(125).bindValueToProperty("rutaArchivo");
-		
-		
-	//	new Button(mainPanel)
-	//	.setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
+		//exportar empresas
+				//  Ingrese nombre:  textbook
+				//  _espacio_       Exportar
 		
 
+		new Label(mainPanel).setText("Nombre del archivo:");
+		TextBox nombreEmpresa = new TextBox(mainPanel);
+		nombreEmpresa.setWidth(125).bindValueToProperty("nombre_ArchivoEmpresa");
+		
+		new Label(mainPanel).setText(" ").setFontSize(2);
+		Button exp_Empresas = new Button(mainPanel);
+		exp_Empresas.setCaption("Exportar Empresas");
+		exp_Empresas.setWidth(125);
+		//exp_Empresas.onClick(() -> aca iria un metodo que te permite exportar).open());
+		
+
+		new Label(mainPanel).setText(" ").setFontSize(1);
+		new Label(mainPanel).setText(" ").setFontSize(1);
+	
+		// Importar
+			// Buscar archivo - txbox
+			// _espacio_  - importar
+		
+		FileSelector selectorEmpresas = new FileSelector(mainPanel);
+		selectorEmpresas.extensions("*.txt");
+		selectorEmpresas.setCaption("Buscar archivo");
+		selectorEmpresas.setWidth(125);
+		selectorEmpresas.bindValueToProperty("rutaArchivo");
+		selectorEmpresas.onClick(() -> this.cargarArchivo());
+		new TextBox(mainPanel).setWidth(125).bindValueToProperty("rutaArchivo");
+
+		new Label(mainPanel).setText(" ");
+		new Button(mainPanel).setCaption("Importar archivo").onClick(() -> this.cargarArchivo());
 	//	IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
-		
-		//try {
 	//	RepositorioDeEmpresas.traerEmpresasDeLaDB();
-		//RepositorioDeIndicadores.traerIndicadoresDeLaDB();
-					
-		//}
-		//catch (Exception e) {
+
+	// ------ Fin de las empresas --------- //
+
+
+	// ------ Comienzo de las metodologias --------- //
+		
+		
+	new Label(mainPanel).setText(" ").setFontSize(5);
+	new Label(mainPanel).setText(" ").setFontSize(5);
+		
+	new Label(mainPanel).setText("Metodologias:").setFontSize(10);
+	new Label(mainPanel).setText(" ").setFontSize(2);
+		
+	//exportar metodologias
+			//  Ingrese nombre:  textbook
+			//  _espacio_       Exportar
+		
+
+	new Label(mainPanel).setText("Nombre del archivo:");
+	TextBox nombreMetodologia = new TextBox(mainPanel);
+	nombreMetodologia.setWidth(125).bindValueToProperty("nombre_ArchivoMetodologia");
+		
+		new Label(mainPanel).setText(" ").setFontSize(2);
+		Button exp_Metodologia = new Button(mainPanel);
+		exp_Metodologia.setCaption("Exportar Metodologias");
+		exp_Metodologia.setWidth(125);
+		//exp_Metodologia.onClick(() -> aca iria un metodo que te permite exportar).open());
+		
+
+		new Label(mainPanel).setText(" ").setFontSize(1);
+		new Label(mainPanel).setText(" ").setFontSize(1);
+	
+		// Importar
+			// Buscar archivo - txbox
+			// _espacio_  - importar
+		
+		FileSelector selectorMetodologias = new FileSelector(mainPanel);
+		selectorMetodologias.extensions("*.txt");
+		selectorMetodologias.setCaption("Buscar archivo");
+		selectorMetodologias.setWidth(125);
+		selectorMetodologias.bindValueToProperty("rutaArchivoMetodologias");
+		selectorMetodologias.onClick(() -> this.cargarArchivo());
+		new TextBox(mainPanel).setWidth(125).bindValueToProperty("rutaArchivoMetodologias");
+
+		new Label(mainPanel).setText(" ");
+		new Button(mainPanel).setCaption("Importar archivo").onClick(() -> this.cargarArchivo());
+
+		new Label(mainPanel).setText(" ").setFontSize(1);
+		new Label(mainPanel).setText(" ").setFontSize(1);
+		
+		// --------- FIN importar/exportar metodologias ----------- //
+		
+		
+		
+
+		// ------ Comienzo de los indicadores --------- //
+		
+		
+		new Label(mainPanel).setText(" ").setFontSize(5);
+		new Label(mainPanel).setText(" ").setFontSize(5);
 			
-		//}
-	}
+		new Label(mainPanel).setText("Indicadores:").setFontSize(10);
+		new Label(mainPanel).setText(" ").setFontSize(2);
+			
+		//exportar metodologias
+				//  Ingrese nombre:  textbook
+				//  _espacio_       Exportar
+			
+
+		new Label(mainPanel).setText("Nombre del archivo:");
+		TextBox nombreIndicador = new TextBox(mainPanel);
+		nombreIndicador.setWidth(125).bindValueToProperty("nombre_ArchivoIndicadores");
+			
+			new Label(mainPanel).setText(" ").setFontSize(2);
+			Button exp_Indicador = new Button(mainPanel);
+			exp_Indicador.setCaption("Exportar Indicadores");
+			exp_Indicador.setWidth(125);
+			//exp_Indicador.onClick(() -> aca iria un metodo que te permite exportar).open());
+			
+
+			new Label(mainPanel).setText(" ").setFontSize(1);
+			new Label(mainPanel).setText(" ").setFontSize(1);
+		
+			// Importar
+				// Buscar archivo - txbox
+				// _espacio_  - importar
+			
+			FileSelector selectorIndicador = new FileSelector(mainPanel);
+			selectorIndicador.extensions("*.txt");
+			selectorIndicador.setCaption("Buscar archivo");
+			selectorIndicador.setWidth(125);
+			selectorIndicador.bindValueToProperty("rutaArchivoIndicadores");
+			selectorIndicador.onClick(() -> this.cargarArchivo());
+			new TextBox(mainPanel).setWidth(125).bindValueToProperty("rutaArchivoIndicadores");
+
+			new Label(mainPanel).setText(" ");
+			new Button(mainPanel).setCaption("Importar archivo").onClick(() -> this.cargarArchivo());
+
+			new Label(mainPanel).setText(" ").setFontSize(1);
+			new Label(mainPanel).setText(" ").setFontSize(1);
+			
+			// --------- FIN importar/exportar metodologias ----------- //
+			
+			
+			
 }
 	
 	
-	/*private void cargarArchivo(){
+	private void cargarArchivo(){
 		MessageBox messageBox;
 		
 		try{
@@ -110,5 +214,4 @@ setTitle("Exportar/Importar");
 		}
 	}
 	
-
-*/
+}

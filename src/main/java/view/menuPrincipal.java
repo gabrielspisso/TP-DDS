@@ -112,24 +112,14 @@ setTitle("¿Dónde invierto?");
 		fileSelector.bindValueToProperty("rutaArchivo");
 		fileSelector.onClick(() -> this.cargarArchivo());
 		
-		
 		new TextBox(panel2).setWidth(125).bindValueToProperty("rutaArchivo");
 		
 		
-		new Button(mainPanel)
-		.setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
-		
+		new Button(mainPanel).setCaption("Procesar archivo").onClick(() -> this.cargarArchivo());
 
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		
-		//try {
 		RepositorioDeEmpresas.traerEmpresasDeLaDB();
-		//RepositorioDeIndicadores.traerIndicadoresDeLaDB();
-					
-		//}
-		//catch (Exception e) {
-			
-		//}
 	}
 	
 	private void crearNuevaMetodologia(){

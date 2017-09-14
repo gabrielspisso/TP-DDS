@@ -13,8 +13,7 @@ import condicionesYMetodologias.Metodologia;
 public  class Repositorio {
 
 
-	public static <T> List<T>  getFromDB(Class<T> clase,String tabla) {
-		
+	public static <T> List<T>  getFromDB(Class<T> clase,String tabla) {		
 			EntityManager em = PerThreadEntityManagers.getEntityManager();
 			return em.createQuery("from "+tabla, clase).getResultList();		
 	}
@@ -30,26 +29,19 @@ public  class Repositorio {
 		tx.begin();
 
 		if (listaDeCondiciones.isEmpty())
-
 			em.persist(ObjetoAPersistir);
 		else {
-			//System.out.println("esta parte no esta hecha, habria que modificar la empresa, o dejarla como esta");
-			// Empresa empresa1 = listaDeEmpresas.get(0);
-			// em.remove(empresa1);
-			// empresa1.setBalances(empresaAAgregar.getBalances());
-			// em.persist(empresaAAgregar);
+			// Aca fijarse de que si ya esta en la BD la empresa o lo que sea que estes cargando, te tira un errorS
 		}
 
 		tx.commit();
 		
 	}
-	
-	
+		
 	public static <T> boolean existe(String nombre,Class<T> clase, String tabla) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		return !em.createQuery("from Consultora c where c.nombre like :nombre", clase) //
 		        .setParameter("nombre", "%" + nombre + "%") //
 		        .getResultList().isEmpty();
 	}
-	
 }
