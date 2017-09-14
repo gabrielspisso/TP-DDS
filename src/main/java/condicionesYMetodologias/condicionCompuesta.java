@@ -26,7 +26,7 @@ public class condicionCompuesta extends Condicion{
 		this.listaDeCondiciones = valores.getListaDeCondiciones();
 	}
 	@Override
-	public boolean seCumpleLaCondicion(Empresa empresa, Empresa empresa1){
+	public boolean cumpleCondicion(Empresa empresa, Empresa empresa1){
 		return listaDeCondiciones.stream().allMatch(condicion -> condicion.cumpleCondicion(empresa, empresa1));
 	}
 	public String toString(){

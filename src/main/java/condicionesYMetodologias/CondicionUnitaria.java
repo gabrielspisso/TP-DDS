@@ -36,7 +36,7 @@ public abstract class CondicionUnitaria extends Condicion {
 		this.criterio = valores.getComportamiento();
 		this.nombre = valores.getNombre();
 	}
-	public boolean seCumpleLaCondicion(Empresa empresa,Empresa empresa2){
+	public boolean cumpleCondicion(Empresa empresa,Empresa empresa2){
 		try{
 			return this.seCumpleLaCondicionUnitaria(empresa, empresa2);
 		}

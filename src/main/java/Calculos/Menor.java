@@ -6,7 +6,11 @@ import javax.persistence.Transient;
 @Entity
 public class Menor extends criterioDeAceptacionDeCondicion{
 	
-	@Transient
+	private Menor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	//@Transient
 	private static Menor instancia = null; 
 	public static Menor getSingletonMenor(){
 		if(instancia == null){

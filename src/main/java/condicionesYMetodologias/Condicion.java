@@ -27,16 +27,8 @@ public abstract class Condicion {
 		this.nombre = nombre;
 	}
 	
-	public boolean cumpleCondicion(Empresa empresa,Empresa empresa2){
-		try{
-			return this.seCumpleLaCondicion(empresa, empresa2);
-		}
-		catch(IdentificadorInexistente oo)
-		{
-			return false;
-		}
-	}
-	public abstract boolean seCumpleLaCondicion(Empresa empresa, Empresa empresa2);
+	public abstract boolean cumpleCondicion(Empresa empresa,Empresa empresa2);
+	
 	
 	@Override
 	public String toString(){

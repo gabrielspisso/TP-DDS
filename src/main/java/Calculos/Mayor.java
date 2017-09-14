@@ -7,7 +7,11 @@ import javax.persistence.Transient;
 public class Mayor extends criterioDeAceptacionDeCondicion{
 
 
-	@Transient
+	private Mayor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	///@Transient
 	private static Mayor instancia = null; 
 	public static Mayor getSingletonMayor(){
 		if(instancia == null){

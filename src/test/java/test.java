@@ -158,13 +158,13 @@ public class test {
 	@Test
 	public void pruebaFacebookTieneCCMayorA3(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),3,1,"");
+		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),3,1,"");
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0), null));
 	}
 	@Test
 	public void pruebaFacebookNoTieneCCMayorA30(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConAño test = new CondicionConAño(indicador,new Mayor(),30, 1, "");
+		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),30, 1, "");
 		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0), null));
 	}
 	

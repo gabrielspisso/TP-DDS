@@ -8,7 +8,7 @@ import javax.persistence.Transient;
 @Entity
 public class Sumatoria extends Calculo{
 	
-	@Transient
+	//@Transient
 	private static Sumatoria instancia = null; 
 	public static Sumatoria getSingletonSumatoria(){
 		if(instancia == null){
@@ -17,7 +17,7 @@ public class Sumatoria extends Calculo{
 		return instancia;
 	}
 	
-	public Sumatoria() {
+	private Sumatoria() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

@@ -81,9 +81,6 @@ public class evaluarEmpresasViewModel {
 	}
 	
 	public Metodologia getMetodologia() {
-		if(metodologia==null)
-			throw new NoItemSelectedException();
-		
 		return metodologia;
 	}
 	public void setMetodologia(Metodologia metodologia) {
@@ -97,7 +94,9 @@ public class evaluarEmpresasViewModel {
 	
 	public void evaluarMetodologia()
 	{
-		empresasOrdenadas = getMetodologia().listarEmpresas(empresasSeleccionadas);
+		if(metodologia==null)
+				throw new NoItemSelectedException();
+		empresasOrdenadas = metodologia.listarEmpresas(empresasSeleccionadas);
 		ObservableUtils.firePropertyChanged(this,"empresasOrdenadas");
 
 	}

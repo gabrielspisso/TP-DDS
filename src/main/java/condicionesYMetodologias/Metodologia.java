@@ -38,6 +38,10 @@ public class Metodologia {
 	
 	String descripcion;
 	
+	protected Metodologia() {
+		super();
+	}
+
 	public Metodologia(	String nombre,String Metodologia,List<Condicion> Condiciones){
 		this.nombre = nombre;
 		this.Condiciones = Condiciones;

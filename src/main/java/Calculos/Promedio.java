@@ -10,7 +10,7 @@ import javax.persistence.Transient;
 public class Promedio extends Calculo {
 	
 	
-	@Transient
+	//@Transient
 	private static Promedio instancia = null; 
 	public static Promedio getSingletonPromedio(){
 		if(instancia == null){
@@ -19,12 +19,12 @@ public class Promedio extends Calculo {
 		return instancia;
 	}
 	
-	public Promedio() {
+	private Promedio() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public double realizarCalculo(List<Double> listaDeResultados){
-		return new Sumatoria().realizarCalculo(listaDeResultados) / listaDeResultados.size();
+		return Sumatoria.getSingletonSumatoria().realizarCalculo(listaDeResultados) / listaDeResultados.size();
 	}
 	@Override
 	public String toString(){
