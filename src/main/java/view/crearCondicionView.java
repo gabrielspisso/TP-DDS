@@ -133,18 +133,18 @@ public class crearCondicionView extends Window<crearCondicionViewModel> {
 	
 	public void creacionDeCondiciones(){
 		MessageBox messageBox;
-		//try{
+		try{
 			this.getModelObject().crearCondiciones();
 			messageBox = new MessageBox(this, Type.Information);
 			messageBox.setMessage("Se creo la condicion");
 			messageBox.open();
 			this.close();
-		//}
-		/*catch (Exception ex){
+		}
+		catch (NoItemSelectedException ex){
 			messageBox = new MessageBox(this, Type.Error);
 			messageBox.setMessage("No se han completado todos los datos para la condicion deseada!");
 			messageBox.open();
-		}*/
+		}
 	}
 	
 	public void leerDescripcion(){

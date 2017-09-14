@@ -57,4 +57,8 @@ public class condicionConCalculo extends CondicionUnitaria {
 		//Intente que no repita lo de indicador to string y que se ocupe la clase padre, pero a java no le importo y me tomaba la del padre.
 	}
 	*/
+	private condicionConCalculo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 }

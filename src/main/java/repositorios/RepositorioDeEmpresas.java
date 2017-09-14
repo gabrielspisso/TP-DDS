@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import condicionesYMetodologias.Condicion;
 import model.Empresa;
 
 public class RepositorioDeEmpresas {
@@ -27,35 +28,14 @@ public class RepositorioDeEmpresas {
 	 */
 
 	public static void agregarEmpresas(Empresa empresaAAgregar) {
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-
-		List<Empresa> listaDeEmpresas = em.createQuery("from Empresa e where e.nombre like :nombre", Empresa.class)
-				.setParameter("nombre", "%" + empresaAAgregar.toString() + "%").getResultList();
-
-		EntityTransaction tx = em.getTransaction();
-
-		tx.begin();
-
-		if (listaDeEmpresas.isEmpty())
-
-			em.persist(empresaAAgregar);
-		else {
-			System.out.println("esta parte no esta hecha, habria que modificar la empresa, o dejarla como esta");
-			//Empresa empresa1 = listaDeEmpresas.get(0);
-			//em.remove(empresa1);
-			//empresa1.setBalances(empresaAAgregar.getBalances());
-			//em.persist(empresaAAgregar);
-		}
-
-		tx.commit();
+		Repositorio.addInstanceToDB(Empresa.class, empresaAAgregar.toString(), empresaAAgregar, "Empresa");
 	}
 
 	// entityManager().createQuery("from Consultora c where c.nombre like :nombre",
 	// Consultora.class).setParameter("nombre", "%" + nombre + "%").getResultList();
 
 	public static List<Empresa> traerEmpresasDeLaDB() {
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		return em.createQuery("from Empresa", Empresa.class).getResultList();
+		return Repositorio.getFromDB(Empresa.class, "Empresa");
 	}
 
 }

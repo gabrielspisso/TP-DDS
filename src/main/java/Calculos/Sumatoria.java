@@ -21,6 +21,7 @@ public class Sumatoria extends Calculo{
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	@Transient
 	private double total;
 	public double realizarCalculo(List<Double> listaDeResultados){
 		total = 0;

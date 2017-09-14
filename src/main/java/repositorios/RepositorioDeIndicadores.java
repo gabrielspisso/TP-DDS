@@ -20,30 +20,12 @@ public class RepositorioDeIndicadores {
 	}*/
 	
 	public static List<Indicador> traerIndicadoresDeLaDB() {
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		return em.createQuery("from Indicador", Indicador.class).getResultList();
+		return Repositorio.getFromDB(Indicador.class, "Indicador");
 	}
 
 	
 	public static void agregarIndicador(Indicador indicador) {
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-
-		List<Indicador> listaDeIndicadores = em.createQuery("from Indicador e where e.nombre = :nombre", Indicador.class)
-				.setParameter("nombre", indicador.getNombre()).getResultList();
-
-		EntityTransaction tx = em.getTransaction();
-
-		tx.begin();
-
-		if (listaDeIndicadores.isEmpty())
-
-			em.persist(indicador);
-		else {
-			System.out.println("esta parte no esta hecha, habria que modificar la empresa, o dejarla como esta");
-			System.out.println(listaDeIndicadores.size());
-		}
-
-		tx.commit();		
+		Repositorio.addInstanceToDB(Indicador.class, indicador.getNombre(), indicador, "Indicador");
 	}
 	
 	 

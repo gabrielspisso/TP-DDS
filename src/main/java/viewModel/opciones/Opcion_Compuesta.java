@@ -1,5 +1,6 @@
-package opciones;
+package viewModel.opciones;
 
+import Excepciones.NoItemSelectedException;
 import condicionesYMetodologias.Condicion;
 import condicionesYMetodologias.CondicionConComportamiento;
 import condicionesYMetodologias.ValoresParaEvaluar;
@@ -37,5 +38,12 @@ public class Opcion_Compuesta implements Opcion{
 	public boolean isVisibleListaCondiciones() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+	@Override
+	public void contenidoAdicional(ValoresParaEvaluar valores) {
+		// TODO Auto-generated method stub
+		if(valores.getListaDeCondiciones().isEmpty())
+			throw new NoItemSelectedException();
+		
 	}
 }

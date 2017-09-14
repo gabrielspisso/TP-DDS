@@ -1,4 +1,4 @@
-package opciones;
+package viewModel.opciones;
 
 import Calculos.Calculo;
 import Calculos.criterioDeAceptacionDeCondicion;
@@ -18,4 +18,6 @@ public interface Opcion {
 	
 	public boolean isVisibleValorMinimo();
 	public boolean isVisibleListaCondiciones();
+	
+	public void contenidoAdicional(ValoresParaEvaluar valores);
 }

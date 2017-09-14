@@ -5,12 +5,13 @@ import java.util.List;
 
 import Calculos.Calculo;
 import Calculos.criterioDeAceptacionDeCondicion;
+import Excepciones.NoItemSelectedException;
 import model.Indicador;
-import opciones.Opcion;
+import viewModel.opciones.Opcion;
 
 public class ValoresParaEvaluar {
 
-	private Indicador indicadorActual;
+	private Indicador indicadorActual = null;
 	private Opcion opcion = null;
 	private Calculo calculo;
 	private int cantidadDeAños;
@@ -69,6 +70,11 @@ public class ValoresParaEvaluar {
 		this.valorMinimo = valorMinimo;
 	}
 
-	
+	public void contenidoBasico() {
+		if( this.getComportamiento()==null || this.getNombre() == null ||
+				this.getNombre().equals("") || this.getIndicadorActual() == null || this.getOpcion() == null)
+			throw new NoItemSelectedException();
+		opcion.contenidoAdicional(this);
+	}
 	
 }

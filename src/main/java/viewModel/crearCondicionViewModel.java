@@ -21,14 +21,14 @@ import condicionesYMetodologias.CondicionEntreDosEmpresas;
 import condicionesYMetodologias.ValoresParaEvaluar;
 import condicionesYMetodologias.condicionConCalculo;
 import model.Indicador;
-import opciones.Opcion;
-import opciones.Opcion_1;
-import opciones.Opcion_2;
-import opciones.Opcion_3;
-import opciones.Opcion_4;
-import opciones.Opcion_Compuesta;
 import repositorios.RepositorioDeCondiciones;
 import repositorios.RepositorioDeIndicadores;
+import viewModel.opciones.Opcion;
+import viewModel.opciones.Opcion_1;
+import viewModel.opciones.Opcion_2;
+import viewModel.opciones.Opcion_3;
+import viewModel.opciones.Opcion_4;
+import viewModel.opciones.Opcion_Compuesta;
 
 @Observable
 public class crearCondicionViewModel {
@@ -193,18 +193,13 @@ public class crearCondicionViewModel {
 	}
 	
 	public void crearCondiciones(){
-		if(valores.getComportamiento()==null || valores.getNombre() == null || valores.getIndicadorActual() == null || valores.getOpcion() == null)
-			throw new NoItemSelectedException();
 		
-		//Le falta terrible abstraccion para usar polimorfismo, pero no lo pienso hacer ahora
+		valores.contenidoBasico();
 		
-					
-		if(valores.getOpcion() != null){
-			Condicion condicion = valores.getOpcion().generarCondicion(valores);			
-			RepositorioDeCondiciones.agregarCondicion(condicion);
-		}
-		else{
-			System.out.println("error");
-		}
+		Condicion condicion = valores.getOpcion().generarCondicion(valores);			
+		RepositorioDeCondiciones.agregarCondicion(condicion);
 	}
+	
+	
+	
 }

@@ -13,7 +13,7 @@ import model.Empresa;
 
 public class RepositorioDeCondiciones {
 
-	public static void agregarCondicion(Condicion condicionAAgregar) {
+	/*public static void agregarCondicion(Condicion condicionAAgregar) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 
 		List<Condicion> listaDeCondiciones = em
@@ -36,11 +36,14 @@ public class RepositorioDeCondiciones {
 		}
 
 		tx.commit();
-	}
+	}*/
 
+	public static void agregarCondicion(Condicion condicionAAgregar) {
+		Repositorio.addInstanceToDB(Condicion.class, condicionAAgregar.toString(), condicionAAgregar, "Condicion");
+	}
+	
 	public static List<Condicion> mostrarListaDeCondiciones() {
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		return em.createQuery("from Condicion", Condicion.class).getResultList();
+		return Repositorio.getFromDB(Condicion.class, "Condicion");
 	}
 
 }

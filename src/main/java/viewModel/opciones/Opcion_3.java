@@ -1,7 +1,8 @@
-package opciones;
+package viewModel.opciones;
 
 import Calculos.Calculo;
 import Calculos.criterioDeAceptacionDeCondicion;
+import Excepciones.NoItemSelectedException;
 import condicionesYMetodologias.Condicion;
 import condicionesYMetodologias.ValoresParaEvaluar;
 import condicionesYMetodologias.condicionConCalculo;
@@ -37,6 +38,13 @@ public class Opcion_3 implements Opcion {
 	public boolean isVisibleListaCondiciones() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	@Override
+	public void contenidoAdicional(ValoresParaEvaluar valores) {
+		// TODO Auto-generated method stub
+		if(valores.getCalculo()==null)
+			throw new NoItemSelectedException();
+		
 	}
 
 }
