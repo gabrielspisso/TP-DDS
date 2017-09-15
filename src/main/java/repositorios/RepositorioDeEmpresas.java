@@ -28,7 +28,7 @@ public class RepositorioDeEmpresas {
 	 */
 
 	public static void agregarEmpresas(Empresa empresaAAgregar) {
-		Repositorio.addInstanceToDB(Empresa.class, empresaAAgregar.toString(), empresaAAgregar, "Empresa");
+		Repositorio.addInstanceToDB(Empresa.class, empresaAAgregar, "Empresa");
 	}
 
 	// entityManager().createQuery("from Consultora c where c.nombre like :nombre",

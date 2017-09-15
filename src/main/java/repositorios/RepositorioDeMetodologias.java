@@ -25,7 +25,7 @@ public class RepositorioDeMetodologias {
 	}*/
 	
 	public static void agregarMetodologia(Metodologia metodologiaAAgregar) {
-		Repositorio.addInstanceToDB(Metodologia.class, metodologiaAAgregar.getNombre(), metodologiaAAgregar, "Metodologia");
+		Repositorio.addInstanceToDB(Metodologia.class,  metodologiaAAgregar, "Metodologia");
 		 }
 	
 		 public static List<Metodologia> traerMetodologiasDeLaDB() {

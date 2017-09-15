@@ -25,7 +25,7 @@ public class RepositorioDeIndicadores {
 
 	
 	public static void agregarIndicador(Indicador indicador) {
-		Repositorio.addInstanceToDB(Indicador.class, indicador.getNombre(), indicador, "Indicador");
+		Repositorio.addInstanceToDB(Indicador.class,  indicador, "Indicador");
 	}
 	
 	 

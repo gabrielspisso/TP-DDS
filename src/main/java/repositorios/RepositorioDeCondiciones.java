@@ -39,7 +39,7 @@ public class RepositorioDeCondiciones {
 	}*/
 
 	public static void agregarCondicion(Condicion condicionAAgregar) {
-		Repositorio.addInstanceToDB(Condicion.class, condicionAAgregar.toString(), condicionAAgregar, "Condicion");
+		Repositorio.addInstanceToDB(Condicion.class, condicionAAgregar, "Condicion");
 	}
 	
 	public static List<Condicion> mostrarListaDeCondiciones() {

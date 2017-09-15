@@ -17,12 +17,12 @@ public  class Repositorio {
 			EntityManager em = PerThreadEntityManagers.getEntityManager();
 			return em.createQuery("from "+tabla, clase).getResultList();		
 	}
-	public static <T> void  addInstanceToDB(Class<T> class1,String nombre,T ObjetoAPersistir,String tabla) {
+	public static <T> void  addInstanceToDB(Class<T> class1,T ObjetoAPersistir,String tabla) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 
 		List<T> listaDeCondiciones = em
 				.createQuery("from "+tabla+" e where e.nombre = :nombre", class1)
-				.setParameter("nombre", nombre).getResultList();
+				.setParameter("nombre", ObjetoAPersistir.toString()).getResultList();
 
 		EntityTransaction tx = em.getTransaction();
 
