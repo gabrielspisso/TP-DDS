@@ -59,7 +59,11 @@ public  class Repositorio {
 	public static <T> void borrar(String nombre,Class<T> clase) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		T resultado = buscar(nombre, clase);
-		if(resultado != null)
+		if(resultado != null) {
+			em.getTransaction().begin();
 			em.remove(resultado);
+			em.getTransaction().commit();
+		}
+		em.close();
 	}
 }
