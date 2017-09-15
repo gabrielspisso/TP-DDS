@@ -86,7 +86,7 @@ setTitle("¿Dónde invierto?");
 		
 		
 		
-		new Label(mainPanel).setText("Importar/Exportar archivos");
+	/*	new Label(mainPanel).setText("Importar/Exportar archivos");
 		
 		Button bot_impExpArchivos = new Button(mainPanel);
 		bot_impExpArchivos.setCaption("Importar Archivos o exportar");
@@ -98,8 +98,8 @@ setTitle("¿Dónde invierto?");
 		new Label(mainPanel).setText(" ").setFontSize(2);
 		new Label(mainPanel).setText(" ").setFontSize(2);
 		new Label(mainPanel).setText(" ").setFontSize(2);
-		
 		new Label(mainPanel).setText("Desde aca abajo vuela todo y va a otra ventana \\|/").setFontSize(8);
+	 */
 		
 		new Label(mainPanel).setText("Cargar un archivo de empresas");
 		Panel panel2 = new Panel(mainPanel);

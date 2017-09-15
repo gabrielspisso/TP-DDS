@@ -85,11 +85,11 @@ setTitle("Exportar/Importar");
 		selectorEmpresas.setCaption("Buscar archivo");
 		selectorEmpresas.setWidth(125);
 		selectorEmpresas.bindValueToProperty("rutaArchivo");
-		selectorEmpresas.onClick(() -> this.cargarArchivo());
+		selectorEmpresas.onClick(() -> this.cargarArchivoE());
 		new TextBox(mainPanel).setWidth(125).bindValueToProperty("rutaArchivo");
 
 		new Label(mainPanel).setText(" ");
-		new Button(mainPanel).setCaption("Importar archivo").onClick(() -> this.cargarArchivo());
+		new Button(mainPanel).setCaption("Importar archivo").onClick(() -> this.cargarArchivoE());
 	//	IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 	//	RepositorioDeEmpresas.traerEmpresasDeLaDB();
 
@@ -133,11 +133,11 @@ setTitle("Exportar/Importar");
 		selectorMetodologias.setCaption("Buscar archivo");
 		selectorMetodologias.setWidth(125);
 		selectorMetodologias.bindValueToProperty("rutaArchivoMetodologias");
-		selectorMetodologias.onClick(() -> this.cargarArchivo());
+		selectorMetodologias.onClick(() -> this.cargarArchivoM());
 		new TextBox(mainPanel).setWidth(125).bindValueToProperty("rutaArchivoMetodologias");
 
 		new Label(mainPanel).setText(" ");
-		new Button(mainPanel).setCaption("Importar archivo").onClick(() -> this.cargarArchivo());
+		new Button(mainPanel).setCaption("Importar archivo").onClick(() -> this.cargarArchivoM());
 
 		new Label(mainPanel).setText(" ").setFontSize(1);
 		new Label(mainPanel).setText(" ").setFontSize(1);
@@ -184,11 +184,11 @@ setTitle("Exportar/Importar");
 			selectorIndicador.setCaption("Buscar archivo");
 			selectorIndicador.setWidth(125);
 			selectorIndicador.bindValueToProperty("rutaArchivoIndicadores");
-			selectorIndicador.onClick(() -> this.cargarArchivo());
+			selectorIndicador.onClick(() -> this.cargarArchivoI());
 			new TextBox(mainPanel).setWidth(125).bindValueToProperty("rutaArchivoIndicadores");
 
 			new Label(mainPanel).setText(" ");
-			new Button(mainPanel).setCaption("Importar archivo").onClick(() -> this.cargarArchivo());
+			new Button(mainPanel).setCaption("Importar archivo").onClick(() -> this.cargarArchivoI());
 
 			new Label(mainPanel).setText(" ").setFontSize(1);
 			new Label(mainPanel).setText(" ").setFontSize(1);
@@ -200,7 +200,7 @@ setTitle("Exportar/Importar");
 }
 	
 	
-	private void cargarArchivo(){
+	private void cargarArchivoE(){
 		MessageBox messageBox;
 		
 		try{
@@ -214,4 +214,30 @@ setTitle("Exportar/Importar");
 		}
 	}
 	
+	private void cargarArchivoM(){
+		MessageBox messageBox;
+		
+		try{
+			this.getModelObject().cargarMetodologias();
+		}
+		
+		catch (RuntimeException ex){
+			messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage("La ruta del archivo es incorrecta!");
+			messageBox.open();
+		}
+	}
+	private void cargarArchivoI(){
+		MessageBox messageBox;
+		
+		try{
+			this.getModelObject().cargarIndicadores();
+		}
+		
+		catch (RuntimeException ex){
+			messageBox = new MessageBox(this, Type.Error);
+			messageBox.setMessage("La ruta del archivo es incorrecta!");
+			messageBox.open();
+		}
+	}
 }

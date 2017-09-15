@@ -82,6 +82,15 @@ public class importarExportarArchivosViewModel {
 		List<Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresas(rutaArchivo);
 		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
 	}
+	public void cargarMetodologias(){
+		List<Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresas(rutaArchivo);
+		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
+	}
+	
+	public void cargarIndicadores(){
+		List<Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresas(rutaArchivo);
+		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
+	}
 	
 	public void cargarEmpresasDesdeLaDB() {
 		RepositorioDeEmpresas.traerEmpresasDeLaDB();
