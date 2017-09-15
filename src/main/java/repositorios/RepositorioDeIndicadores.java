@@ -20,12 +20,12 @@ public class RepositorioDeIndicadores {
 	}*/
 	
 	public static List<Indicador> traerIndicadoresDeLaDB() {
-		return Repositorio.getFromDB(Indicador.class, "Indicador");
+		return Repositorio.getFromDB(Indicador.class);
 	}
 
 	
 	public static void agregarIndicador(Indicador indicador) {
-		Repositorio.addInstanceToDB(Indicador.class,  indicador, "Indicador");
+		Repositorio.addInstanceToDB(Indicador.class,  indicador);
 	}
 	
 	 
@@ -33,6 +33,8 @@ public class RepositorioDeIndicadores {
 		listaDeIndicadores.removeIf(ind-> ind.getNombre().equals(indicador.getNombre()));
 		listaDeIndicadores.add(indicador);
 	}*/
-	
+	public static boolean existe(String nombre) {
+		return Repositorio.existe(nombre, Indicador.class);
+	}
 	
 }

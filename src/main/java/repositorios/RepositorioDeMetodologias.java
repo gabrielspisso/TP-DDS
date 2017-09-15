@@ -9,6 +9,7 @@ import javax.persistence.EntityTransaction;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import condicionesYMetodologias.Metodologia;
+import model.Empresa;
 import model.Indicador;
 
 public class RepositorioDeMetodologias {
@@ -25,11 +26,14 @@ public class RepositorioDeMetodologias {
 	}*/
 	
 	public static void agregarMetodologia(Metodologia metodologiaAAgregar) {
-		Repositorio.addInstanceToDB(Metodologia.class,  metodologiaAAgregar, "Metodologia");
+		Repositorio.addInstanceToDB(Metodologia.class,  metodologiaAAgregar);
 		 }
 	
 		 public static List<Metodologia> traerMetodologiasDeLaDB() {
-			 return Repositorio.getFromDB(Metodologia.class, "Metodologia");
+			 return Repositorio.getFromDB(Metodologia.class);
 		 }
 	
+		 public static boolean existe(String nombre) {
+				return Repositorio.existe(nombre, Metodologia.class);
+		}
 }

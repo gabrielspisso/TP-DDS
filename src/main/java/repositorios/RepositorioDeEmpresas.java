@@ -28,14 +28,18 @@ public class RepositorioDeEmpresas {
 	 */
 
 	public static void agregarEmpresas(Empresa empresaAAgregar) {
-		Repositorio.addInstanceToDB(Empresa.class, empresaAAgregar, "Empresa");
+		Repositorio.addInstanceToDB(Empresa.class, empresaAAgregar);
 	}
 
 	// entityManager().createQuery("from Consultora c where c.nombre like :nombre",
 	// Consultora.class).setParameter("nombre", "%" + nombre + "%").getResultList();
 
 	public static List<Empresa> traerEmpresasDeLaDB() {
-		return Repositorio.getFromDB(Empresa.class, "Empresa");
+		return Repositorio.getFromDB(Empresa.class);
 	}
 
+	public static boolean existe(String nombre) {
+		return Repositorio.existe(nombre, Empresa.class);
+	}
+	
 }

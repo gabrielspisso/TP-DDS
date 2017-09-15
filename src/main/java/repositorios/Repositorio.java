@@ -13,15 +13,16 @@ import condicionesYMetodologias.Metodologia;
 public  class Repositorio {
 
 
-	public static <T> List<T>  getFromDB(Class<T> clase,String tabla) {		
+	public static <T> List<T>  getFromDB(Class<T> clase) {		
+		//Por suerte la tabla se llama igual que la clase, por eso en el from puedo poner clase.getName(), asi solo paso un parametro
 			EntityManager em = PerThreadEntityManagers.getEntityManager();
-			return em.createQuery("from "+tabla, clase).getResultList();		
+			return em.createQuery("from " + clase.getName(), clase).getResultList();		
 	}
-	public static <T> void  addInstanceToDB(Class<T> class1,T ObjetoAPersistir,String tabla) {
+	public static <T> void  addInstanceToDB(Class<T> clase,T ObjetoAPersistir) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 
 		List<T> listaDeCondiciones = em
-				.createQuery("from "+tabla+" e where e.nombre = :nombre", class1)
+				.createQuery("from "+ clase.getName() +" e where e.nombre = :nombre", clase)
 				.setParameter("nombre", ObjetoAPersistir.toString()).getResultList();
 
 		EntityTransaction tx = em.getTransaction();
@@ -38,10 +39,16 @@ public  class Repositorio {
 		
 	}
 		
-	public static <T> boolean existe(String nombre,Class<T> clase, String tabla) {
+	public static <T> boolean existe(String nombre,Class<T> clase) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		return !em.createQuery("from Consultora c where c.nombre like :nombre", clase) //
-		        .setParameter("nombre", "%" + nombre + "%") //
+		return !em.createQuery("from " + clase.getName() + " c where c.nombre = :nombre", clase) //
+		        .setParameter("nombre", nombre) //
 		        .getResultList().isEmpty();
+	}
+	public static <T> void borrar(String nombre,Class<T> clase, String tabla) {
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		em.createQuery("delete + tabla + c where c.nombre = :nombre", clase) //
+		        .setParameter("nombre", nombre)
+		        .executeUpdate();
 	}
 }

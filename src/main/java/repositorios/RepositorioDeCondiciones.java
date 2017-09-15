@@ -39,11 +39,14 @@ public class RepositorioDeCondiciones {
 	}*/
 
 	public static void agregarCondicion(Condicion condicionAAgregar) {
-		Repositorio.addInstanceToDB(Condicion.class, condicionAAgregar, "Condicion");
+		Repositorio.addInstanceToDB(Condicion.class, condicionAAgregar);
 	}
 	
 	public static List<Condicion> mostrarListaDeCondiciones() {
-		return Repositorio.getFromDB(Condicion.class, "Condicion");
+		return Repositorio.getFromDB(Condicion.class);
+	}
+	public static boolean existe(String nombre) {
+		return Repositorio.existe(nombre, Condicion.class);
 	}
 
 }
