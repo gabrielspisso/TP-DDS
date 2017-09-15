@@ -36,5 +36,7 @@ public class RepositorioDeIndicadores {
 	public static boolean existe(String nombre) {
 		return Repositorio.existe(nombre, Indicador.class);
 	}
-	
+	public static void borrar(String nombre) {
+		Repositorio.borrar(nombre, Indicador.class);
+	}
 }

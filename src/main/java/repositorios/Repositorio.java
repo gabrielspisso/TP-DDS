@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
@@ -45,10 +47,19 @@ public  class Repositorio {
 		        .setParameter("nombre", nombre) //
 		        .getResultList().isEmpty();
 	}
-	public static <T> void borrar(String nombre,Class<T> clase, String tabla) {
+	
+	public static <T> T buscar(String nombre, Class <T> clase){
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		em.createQuery("delete + tabla + c where c.nombre = :nombre", clase) //
-		        .setParameter("nombre", nombre)
-		        .executeUpdate();
+		List <T> resultado = em.createQuery("from " + clase.getName() + " c where c.nombre = :nombre", clase) //
+		        .setParameter("nombre", nombre) //
+		        .getResultList();
+		return (resultado.isEmpty()) ? null : resultado.get(0);
+	}
+	
+	public static <T> void borrar(String nombre,Class<T> clase) {
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		T resultado = buscar(nombre, clase);
+		if(resultado != null)
+			em.remove(resultado);
 	}
 }

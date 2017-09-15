@@ -10,6 +10,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import condicionesYMetodologias.Condicion;
 import model.Empresa;
+import model.Indicador;
 
 public class RepositorioDeCondiciones {
 
@@ -47,6 +48,9 @@ public class RepositorioDeCondiciones {
 	}
 	public static boolean existe(String nombre) {
 		return Repositorio.existe(nombre, Condicion.class);
+	}
+	public static void borrar(String nombre) {
+		Repositorio.borrar(nombre, Condicion.class);
 	}
 
 }

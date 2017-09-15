@@ -10,6 +10,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import condicionesYMetodologias.Condicion;
 import model.Empresa;
+import model.Indicador;
 
 public class RepositorioDeEmpresas {
 	//private static List<Empresa> listaDeEmpresas = new ArrayList<Empresa>();
@@ -40,6 +41,9 @@ public class RepositorioDeEmpresas {
 
 	public static boolean existe(String nombre) {
 		return Repositorio.existe(nombre, Empresa.class);
+	}
+	public static void borrar(String nombre) {
+		Repositorio.borrar(nombre, Empresa.class);
 	}
 	
 }

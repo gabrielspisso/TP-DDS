@@ -36,4 +36,7 @@ public class RepositorioDeMetodologias {
 		 public static boolean existe(String nombre) {
 				return Repositorio.existe(nombre, Metodologia.class);
 		}
+		 public static void borrar(String nombre) {
+				Repositorio.borrar(nombre, Metodologia.class);
+			}
 }
