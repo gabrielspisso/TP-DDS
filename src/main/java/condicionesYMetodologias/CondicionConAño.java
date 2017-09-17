@@ -15,6 +15,11 @@ import repositorios.RepositorioDeIndicadores;
 
 @Entity
 public class CondicionConAño extends CondicionUnitaria{
+	private CondicionConAño() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	private double valorMinimo;
 	private int cantidadDeAños;
 	
