@@ -6,7 +6,7 @@ import model.Cuenta;
 import model.Indicador;
 import model.Arbol.Operaciones.NODO;
 
-public class Numero extends Hoja{
+public class Numero extends Operando{
 
 	
 	public Numero(String valorDeHoja) {

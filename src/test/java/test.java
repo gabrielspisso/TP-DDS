@@ -19,7 +19,7 @@ import model.Cuenta;
 import model.Empresa;
 import model.IOs;
 import model.Indicador;
-import model.Arbol.Hojas.Hoja;
+import model.Arbol.Hojas.Operando;
 import model.Arbol.Hojas.Numero;
 import model.Arbol.Operaciones.Division;
 import model.Arbol.Operaciones.Multiplicacion;
@@ -34,67 +34,67 @@ public class test {
 	private static final double DELTA = 1e-15;
 	@Test
 	public void CreoUnaHojaDeValor2YCalculoSuValor() {
-		Hoja hoja = new Numero("2");
+		Operando hoja = new Numero("2");
 		assertEquals(2.0, hoja.calcularValor(null, null), DELTA);
 	}
 
 	@Test
 	public void CreoUnaMultiplicacionConDosHojasDeValor2YCalculoElResultadoQueEs4(){
-		Hoja hoja1 = new Numero("2");
-		Hoja hoja2 = new Numero("2");
+		Operando hoja1 = new Numero("2");
+		Operando hoja2 = new Numero("2");
 		NODO op = new Multiplicacion(hoja1, hoja2);
 		assertEquals(4.0, op.calcularValor(null, null), DELTA);
 	}
 	@Test
 	public void CreoUnaMultiplicacionConUnaHojaDeValor2YOtraDeValor4YCalculoElResultadoQueEs8(){
-		Hoja hoja1 = new Numero("2");
-		Hoja hoja2 = new Numero("4");
+		Operando hoja1 = new Numero("2");
+		Operando hoja2 = new Numero("4");
 		NODO op = new Multiplicacion(hoja1, hoja2);
 		assertEquals(8.0, op.calcularValor(null, null), DELTA);
 	}
 	@Test
 	public void CreoUnaDivisionConUnaHojaDeValor2YOtraDeValor4YCalculoElResultadoQueEsUnMedio(){
-		Hoja hoja1 = new Numero("2");
-		Hoja hoja2 = new Numero("4");
+		Operando hoja1 = new Numero("2");
+		Operando hoja2 = new Numero("4");
 		NODO op = new Division(hoja1, hoja2);
 		assertEquals(0.5, op.calcularValor(null, null), DELTA);
 	}
 	@Test
 	public void CreoUnaDivisionConUnaHojaDeValor4YOtraDeValor2YCalculoElResultadoQueEs2(){
-		Hoja hoja1 = new Numero("4");
-		Hoja hoja2 = new Numero("2");
+		Operando hoja1 = new Numero("4");
+		Operando hoja2 = new Numero("2");
 		NODO op = new Division(hoja1, hoja2);
 		assertEquals(2, op.calcularValor(null, null), DELTA);
 	}
 	@Test
 	public void CreoUnaDivisionConUnaHojaDeValor0YOtraDeValor24YCalculoElResultadoQueEs0() {
-		Hoja hoja1 = new Numero("0");
-		Hoja hoja2 = new Numero("24");
+		Operando hoja1 = new Numero("0");
+		Operando hoja2 = new Numero("24");
 		NODO op = new Division(hoja1, hoja2);
 		assertEquals(0, op.calcularValor(null, null), DELTA);
 	}
 	
 	@Test
 	public void CreoUnaDivisionConUnaHojaDeValor24YOtraDeValor0YElResultadoEsInfinity() {
-		Hoja hoja1 = new Numero("24");
-		Hoja hoja2 = new Numero("0");
+		Operando hoja1 = new Numero("24");
+		Operando hoja2 = new Numero("0");
 		NODO op = new Division(hoja1, hoja2);
 		assertTrue(Double.isInfinite(op.calcularValor(null, null)));
 	}
 	
 	@Test
 	public void CreoUnaSumaConUn7YUn9YCalculoSuSumaQueEs16(){
-		Hoja hoja1 = new Numero("7");
-		Hoja hoja2 = new Numero("9");
+		Operando hoja1 = new Numero("7");
+		Operando hoja2 = new Numero("9");
 		NODO op = new Suma(hoja1, hoja2);
 		assertEquals(16.0, op.calcularValor(null, null), DELTA);
 	}
 	
 	@Test
 	public void CreoUnaSumaCompuestaPorUnaMultiplicacionDe2Y8YTambienPorUnaDivisionEntre5Y2YCalculoSuValorQueEs18Coma5(){
-		Hoja hoja2 = new Numero("2");
-		Hoja hoja5 = new Numero("5");
-		Hoja hoja8 = new Numero("8");
+		Operando hoja2 = new Numero("2");
+		Operando hoja5 = new Numero("5");
+		Operando hoja8 = new Numero("8");
 		
 		NODO mul = new Multiplicacion(hoja2, hoja8);
 		NODO div = new Division(hoja5, hoja2);
@@ -106,8 +106,8 @@ public class test {
 	@Test
 	public void CreoUnIndicadorConUnaSumaQueTieneUn5YUnMenos23YCalculoSuValorQueEsMenos18(){
 		
-		Hoja hoja1 = new Numero("5");
-		Hoja hoja2 = new Numero("-23");
+		Operando hoja1 = new Numero("5");
+		Operando hoja2 = new Numero("-23");
 		NODO op = new Suma(hoja1, hoja2);
 		Indicador indicador = new Indicador("ind1", op, "");
 		assertEquals(-18.0, indicador.calcularValor(null), DELTA);

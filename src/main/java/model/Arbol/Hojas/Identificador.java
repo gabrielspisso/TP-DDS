@@ -9,7 +9,7 @@ import model.Indicador;
 import model.Arbol.Operaciones.NODO;
 import repositorios.RepositorioDeIndicadores;
 
-public class Identificador extends Hoja{
+public class Identificador extends Operando{
 	private String nombreDelIndicadorFinal;
 	public Identificador(String valor) {
 		super(valor);
