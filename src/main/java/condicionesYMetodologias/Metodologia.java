@@ -34,7 +34,10 @@ public class Metodologia {
 	
 	//@Transient
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	List<Condicion> Condiciones;
+	List<Condicion> CondicionesParaFiltrar;
+	
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	List<Condicion> CondicionesDeOrdenamiento;
 	
 	String descripcion;
 	
@@ -44,15 +47,13 @@ public class Metodologia {
 
 	public Metodologia(	String nombre,String Metodologia,List<Condicion> Condiciones){
 		this.nombre = nombre;
-		this.Condiciones = Condiciones;
+		this.CondicionesDeOrdenamiento = Condiciones.stream().filter(c->!c.esCondicionDeFiltrado()).collect(Collectors.toList());;;
+		this.CondicionesParaFiltrar = Condiciones.stream().filter(c->c.esCondicionDeFiltrado()).collect(Collectors.toList());;;
 		this.descripcion = Metodologia;
 	}
 	
 	public String getNombre(){
 		return nombre;
-	}
-	public List<Condicion> getCondiciones(){
-		return Condiciones;
 	}
 	public String toString(){
 		return nombre;
@@ -65,20 +66,33 @@ public class Metodologia {
 	}
 	public int evaluarMetodologia(Empresa empresa,Empresa empresa2){
 				
-		if(sacarPorcentajeMetodologia(empresa,empresa2)>sacarPorcentajeMetodologia(empresa2,empresa))
+		if(sacarPorcentajeMetodologia(empresa)>sacarPorcentajeMetodologia(empresa2))
 			return -1;
-		else if(sacarPorcentajeMetodologia(empresa,empresa2) <sacarPorcentajeMetodologia(empresa2,empresa) )
+		else if(sacarPorcentajeMetodologia(empresa) <sacarPorcentajeMetodologia(empresa2) )
 			return 1;
 		
-		return 0;
+		return ordenarEmpresasSegunMetodologia(empresa,empresa2);
 
 	}
+	private int ordenarEmpresasSegunMetodologia(Empresa empresa, Empresa empresa2) {
+		// TODO Auto-generated method stub
+		int i;
+		CondicionEntreDosEmpresas condicion;
+		for(i=0;i<CondicionesDeOrdenamiento.size();i++){
+			condicion = (CondicionEntreDosEmpresas) CondicionesDeOrdenamiento.get(i);
+			int comparacion = condicion.compararEmpresas(empresa,empresa2);
+			if(comparacion!=0)
+				return comparacion;
+		}
+		return 0;
+	}
+
 	//No deberia ser public, pero por los test
-	public int sacarPorcentajeMetodologia(Empresa empresa, Empresa empresa2) {
-		Stream<Condicion> streamDeCondiciones =Condiciones.stream().filter(condicion -> condicion.cumpleCondicion(empresa,empresa2));
+	public int sacarPorcentajeMetodologia(Empresa empresa) {
+		Stream<Condicion> streamDeCondiciones =CondicionesParaFiltrar.stream().filter(condicion -> ((CondicionDeFiltrado) condicion).cumpleCondicion(empresa));
 		List<Condicion> condicionesFiltradas = streamDeCondiciones.collect(Collectors.toList());
 				
-		return condicionesFiltradas.size()*100/Condiciones.size();
+		return condicionesFiltradas.size()*100/CondicionesParaFiltrar.size();
 	}
 
 	public List<Empresa> listarEmpresas(List<Empresa> listaDeEmpresas){

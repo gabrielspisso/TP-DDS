@@ -21,7 +21,7 @@ import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
 @Entity
-public class CondicionConComportamiento extends CondicionUnitaria {
+public class CondicionConComportamiento extends CondicionDeFiltrado {
 
 	int cantidadDeAños= 0;
 	
@@ -38,7 +38,7 @@ public class CondicionConComportamiento extends CondicionUnitaria {
 
 	@Override
 	
-	public boolean seCumpleLaCondicionUnitaria(Empresa empresa,Empresa empresa1){
+	public boolean seCumpleCondicionFiltrar(Empresa empresa){
 		if(cantidadDeAños>empresa.getBalances().size()) 
 			return false;
 		

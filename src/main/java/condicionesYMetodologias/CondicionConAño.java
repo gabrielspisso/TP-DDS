@@ -14,7 +14,7 @@ import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
 @Entity
-public class CondicionConAño extends CondicionUnitaria{
+public class CondicionConAño extends CondicionDeFiltrado{
 	private CondicionConAño() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -36,7 +36,7 @@ public class CondicionConAño extends CondicionUnitaria{
 		this.cantidadDeAños = valores.getCantidadDeAños();
 	}
 	
-	public boolean seCumpleLaCondicionUnitaria(Empresa empresa, Empresa empresa1){
+	public boolean seCumpleCondicionFiltrar(Empresa empresa){
 		if(empresa.getBalances().size() < cantidadDeAños){
 			return false;
 		}

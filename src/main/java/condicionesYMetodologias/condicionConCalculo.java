@@ -22,7 +22,7 @@ import model.Indicador;
 import repositorios.RepositorioDeIndicadores;
 
 @Entity
-public class condicionConCalculo extends CondicionUnitaria {
+public class condicionConCalculo extends CondicionDeFiltrado {
 
 	double valorMinimo;
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -43,7 +43,7 @@ public class condicionConCalculo extends CondicionUnitaria {
 		this.calculo = valores.getCalculo();	
 	}
 	@Override
-	public boolean seCumpleLaCondicionUnitaria(Empresa empresa,Empresa empresa1){
+	public boolean seCumpleCondicionFiltrar(Empresa empresa){
 		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
 	
 			double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));

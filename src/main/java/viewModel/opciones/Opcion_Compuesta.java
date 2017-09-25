@@ -4,7 +4,6 @@ import Excepciones.NoItemSelectedException;
 import condicionesYMetodologias.Condicion;
 import condicionesYMetodologias.CondicionConComportamiento;
 import condicionesYMetodologias.ValoresParaEvaluar;
-import condicionesYMetodologias.condicionCompuesta;
 
 public class Opcion_Compuesta implements Opcion{
 	public String toString(){
@@ -16,8 +15,9 @@ public class Opcion_Compuesta implements Opcion{
 	}
 
 	public Condicion generarCondicion(ValoresParaEvaluar valores) {
+		return null;
 		// TODO Auto-generated method stub
-		return  new condicionCompuesta(valores);
+		
 	}
 	@Override
 	public boolean isVisibleCantidadDeAños() {
