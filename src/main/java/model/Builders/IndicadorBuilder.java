@@ -2,11 +2,11 @@ package model.Builders;
 
 import java.util.List;
 
-import Excepciones.RecursiveException;
 import model.Indicador;
 import model.Arbol.Operaciones.NODO;
-import parser.SCANNER;
-import parser.NodoNoClasificado;
+import model.Excepciones.RecursiveException;
+import model.parser.NodoNoClasificado;
+import model.parser.SCANNER;
 
 public class IndicadorBuilder {
 

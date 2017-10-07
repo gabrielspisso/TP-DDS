@@ -14,10 +14,10 @@ import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
 
-import Converter.ArbolConverter;
-import Excepciones.IdentificadorInexistente;
 import model.Arbol.Operaciones.NODO;
-import repositorios.RepositorioDeIndicadores;
+import model.Converter.ArbolConverter;
+import model.Excepciones.IdentificadorInexistente;
+import model.repositorios.RepositorioDeIndicadores;
 
 @Entity
 @Observable

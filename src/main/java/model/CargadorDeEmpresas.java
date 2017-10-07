@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeEmpresas;
 
 
 public class CargadorDeEmpresas {

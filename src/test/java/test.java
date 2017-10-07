@@ -5,15 +5,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import Calculos.Mayor;
-import Calculos.Menor;
-import Calculos.Promedio;
-import Calculos.Sumatoria;
-import condicionesYMetodologias.Condicion;
-import condicionesYMetodologias.CondicionConComportamiento;
-import condicionesYMetodologias.Metodologia;
-import condicionesYMetodologias.CondicionConAño;
-import condicionesYMetodologias.condicionConCalculo;
 import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
@@ -26,8 +17,17 @@ import model.Arbol.Operaciones.Multiplicacion;
 import model.Arbol.Operaciones.NODO;
 import model.Arbol.Operaciones.Suma;
 import model.Builders.IndicadorBuilder;
-import repositorios.RepositorioDeEmpresas;
-import repositorios.RepositorioDeIndicadores;
+import model.Calculos.Mayor;
+import model.Calculos.Menor;
+import model.Calculos.Promedio;
+import model.Calculos.Sumatoria;
+import model.condicionesYMetodologias.Condicion;
+import model.condicionesYMetodologias.CondicionConAño;
+import model.condicionesYMetodologias.CondicionConComportamiento;
+import model.condicionesYMetodologias.Metodologia;
+import model.condicionesYMetodologias.condicionConCalculo;
+import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeIndicadores;
 
 public class test {
 

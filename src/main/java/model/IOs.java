@@ -10,11 +10,11 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import Excepciones.RecursiveException;
-import condicionesYMetodologias.Metodologia;
 import model.Builders.IndicadorBuilder;
-import repositorios.RepositorioDeIndicadores;
-import repositorios.RepositorioDeMetodologias;
+import model.Excepciones.RecursiveException;
+import model.condicionesYMetodologias.Metodologia;
+import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeMetodologias;
 
 
 public class IOs {

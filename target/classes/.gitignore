@@ -1,11 +1,6 @@
-/Calculos/
-/Converter/
-/Excepciones/
-/META-INF/
-/Packete/
-/condicionesYMetodologias/
+/main/
+/controllers/
+/server/
+/spark/
+/templates/
 /model/
-/parser/
-/repositorios/
-/view/
-/viewModel/

@@ -6,20 +6,18 @@ import javax.transaction.Transactional;
 
 import org.junit.FixMethodOrder;
 import org.junit.runners.*;
-
-import Calculos.Mayor;
-import condicionesYMetodologias.CondicionConAño;
-import condicionesYMetodologias.Metodologia;
-
 import org.junit.Test;
 
 import model.Empresa;
 import model.Indicador;
 import model.Builders.IndicadorBuilder;
-import repositorios.Repositorio;
-import repositorios.RepositorioDeEmpresas;
-import repositorios.RepositorioDeIndicadores;
-import repositorios.RepositorioDeMetodologias;
+import model.Calculos.Mayor;
+import model.condicionesYMetodologias.CondicionConAño;
+import model.condicionesYMetodologias.Metodologia;
+import model.repositorios.Repositorio;
+import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeMetodologias;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testPersistencia {
 

@@ -7,21 +7,21 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import Calculos.Mayor;
-import Calculos.Menor;
-import Calculos.Promedio;
-import condicionesYMetodologias.CondicionConAño;
-import condicionesYMetodologias.CondicionConComportamiento;
-import condicionesYMetodologias.CondicionEntreDosEmpresas;
-import condicionesYMetodologias.Metodologia;
-import condicionesYMetodologias.condicionConCalculo;
 import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
 import model.IOs;
 import model.Indicador;
 import model.Builders.IndicadorBuilder;
-import repositorios.RepositorioDeEmpresas;
+import model.Calculos.Mayor;
+import model.Calculos.Menor;
+import model.Calculos.Promedio;
+import model.condicionesYMetodologias.CondicionConAño;
+import model.condicionesYMetodologias.CondicionConComportamiento;
+import model.condicionesYMetodologias.CondicionEntreDosEmpresas;
+import model.condicionesYMetodologias.Metodologia;
+import model.condicionesYMetodologias.condicionConCalculo;
+import model.repositorios.RepositorioDeEmpresas;
 
 public class testEntrega3Modelo {
 
