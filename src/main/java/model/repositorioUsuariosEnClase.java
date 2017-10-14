@@ -8,9 +8,12 @@ public class repositorioUsuariosEnClase {
 
 	List<Usuario> repo = new ArrayList<>();
 	
-	public static List<Usuario> lista(){
+	public List<Usuario> lista(){
 		return Arrays.asList(new Usuario("roli","roli@serverderoli.com","1234","Soy un ayudante cruel "),
-				new Usuario("jessica", "jessica@serverdefranco.com", "1234", "baia baia"));
+				new Usuario("Facu", "facugraso@serverdefranco.com", "4666", "A DO MANOO"),
+				new Usuario("favio", "harryelpollo@serverdefranco.com", "3333", "Como puta en cabaret"),
+				new Usuario("dante", "dantemaiori@serverdefranco.com", "5666", "Me Gusta el Terraria"),
+				new Usuario("jessica", "jessica@serverdefranco.com", "4444", "baia baia"));
 	}
 	
 }
