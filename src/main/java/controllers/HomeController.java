@@ -20,15 +20,12 @@ import spark.Response;
 public class HomeController{
 	
 	
-	public  ModelAndView home(Request req, Response res){
+	public  ModelAndView home(Request req, Response res){	
 		
-		Map<String, List<Empresa>> model = new HashMap<>();
-		//Usuario user = repositorioUsuariosEnClase.lista().stream().filter(u ->u.getMail().equals(req.cookie("mail"))).findFirst().get();
-		repositorioUsuariosEnClase repo = new repositorioUsuariosEnClase(); 
-		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
-	//	model.put("frase", user.getFrase());
-		
-		return new ModelAndView(model, "main.hbs");
+		/*
+		 * Aca creo va toda la logica para ver si el flaco esta logueado o no
+		 *  */
+		return new ModelAndView(null, "main.hbs");
 	}
 	
 	
@@ -42,6 +39,14 @@ public class HomeController{
 	//	model.put("frase", user.getFrase());
 		
 		return new ModelAndView(model, "empresas.hbs");
+	}
+	
+	public  ModelAndView indicadores(Request req, Response res){	
+		
+		/*
+		 * Aca creo va toda la logica para ver si el flaco esta logueado o no
+		 *  */
+		return new ModelAndView(null, "indicadores.hbs");
 	}
 	
 	

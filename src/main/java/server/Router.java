@@ -27,6 +27,8 @@ public class Router {
 			
 		Spark.get("/empresas", homeController::empresas, engine);
 		
+		Spark.get("/indicadores", homeController::indicadores, engine);
+		
 		Spark.get("/login", homeController::showLogin, engine);
 		Spark.post("/login", homeController::login);
 		

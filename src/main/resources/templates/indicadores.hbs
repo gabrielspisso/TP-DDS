@@ -5,29 +5,43 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="main.css" type="text/css"> 
-</head>
+  <link rel="stylesheet" href="main.css" type="text/css"> </head>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
+
+<script>
+function mostrarYOcultar(valor) {
+   $("#"+valor).toggle("slow"); 
+}
+
+function mostrarValorDeCuenta(id,valor){
+$("#textoDeEmpresa"+id).empty();
+  $("#textoDeEmpresa"+id).append("El valor de la cuenta es: <h1>" + valor + "</h1>"); 
+}
+
+</script>
 <body>
+
+
   <nav class="navbar navbar-expand-md bg-secondary navbar-dark">
     <div class="container">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="navbar-brand text-white" href="empresas" id="btn_empresa">Empresas</a>
+            <a class="navbar-brand " href="#">Empresas</a>
           </li>
           <li class="nav-item">
-            <a class="navbar-brand text-white" href="indicadores">Indicadores</a>
+            <a class="navbar-brand text-warning" href="#">Indicadores</a>
           </li>
           <li class="nav-item">
-            <a class="navbar-brand text-white" href="#">Metodologias</a>
+            <a class="navbar-brand" href="#">Metodologias</a>
           </li>
           <li class="nav-item">
-            <a class="navbar-brand text-white" href="#">Condiciones</a>
+            <a class="navbar-brand" href="#">Condiciones</a>
           </li>
           <li class="nav-item">
-            <a class="navbar-brand text-white" href="#">Contact us</a>
+            <a class="navbar-brand" href="#">Contact us</a>
           </li>
         </ul>
         <form class="form-inline m-0">
@@ -37,21 +51,21 @@
       </div>
     </div>
   </nav>
-  
-  
-  <!--- COMENTARIO ---> 
-  
-  
-  <div>
-  <h1> WAWAWAWAWA LOGICA DE DOMINO </h1>
-  
-  <IMG SRC="/images/logo.png" class="img-fluid" alt="Responsive image">
-  
-  </div>
-  
-  
-  
-  
+ 
+
+              
+ <div class="jumbotron">
+	  <h2>Crear Indicadores</h2> 
+	  <p>para crear indicadores wawawaw texto, tengo que irme para hacer cosas por el dia de la madre, asi que esto es un texto tirado asi al aire</p> 
+	</div>
+             
+           
+           
+           
+           
+           
+   <!-- FOOTER -->    
+           
   <div class="bg-dark text-white">
     <div class="container">
       <div class="row">
