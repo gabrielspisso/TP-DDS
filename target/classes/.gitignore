@@ -1,2 +1,7 @@
 /public/
 /templates/
+/controllers/
+/server/
+/META-INF/
+/model/
+/spark/

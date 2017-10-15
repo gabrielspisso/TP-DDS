@@ -28,7 +28,7 @@ public class HomeController{
 		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
 	//	model.put("frase", user.getFrase());
 		
-		return new ModelAndView(model, "home.hbs");
+		return new ModelAndView(model, "main.hbs");
 	}
 	
 	
@@ -38,7 +38,7 @@ public class HomeController{
 	
 	public Void login(Request req, Response res){
 		res.cookie("mail", req.queryParams("mail"));
-		res.redirect("/home");
+		res.redirect("/main");
 		return null;
 	}
 	
