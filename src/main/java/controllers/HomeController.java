@@ -9,8 +9,10 @@ import javax.sound.midi.Receiver;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import model.Empresa;
 import model.Usuario;
 import model.repositorioUsuariosEnClase;
+import model.repositorios.RepositorioDeEmpresas;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -20,10 +22,10 @@ public class HomeController{
 	
 	public  ModelAndView home(Request req, Response res){
 		
-		Map<String, List<Usuario>> model = new HashMap<>();
+		Map<String, List<Empresa>> model = new HashMap<>();
 		//Usuario user = repositorioUsuariosEnClase.lista().stream().filter(u ->u.getMail().equals(req.cookie("mail"))).findFirst().get();
 		repositorioUsuariosEnClase repo = new repositorioUsuariosEnClase(); 
-		model.put("users", repo.lista());
+		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
 	//	model.put("frase", user.getFrase());
 		
 		return new ModelAndView(model, "home.hbs");

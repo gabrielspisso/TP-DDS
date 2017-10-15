@@ -27,6 +27,11 @@ public class Empresa {
 	@GeneratedValue
 	private Long id;
 	
+	public Long getId() {
+		return id;
+	}
+
+
 	private String nombre;
 	
 	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -42,10 +47,17 @@ public class Empresa {
 	public void setBalances(List<Balance> balances) {
 		this.balances = balances;
 	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+	
 	@Override
 	public String toString() {
 		return nombre;
 	}
+	
+	
 	@Override
 	public boolean equals(Object Objeto){
 		try{

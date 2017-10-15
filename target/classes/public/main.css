@@ -5,10 +5,9 @@
 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
 */
 
-
-
-
-
+.noMostrar {
+  display: none;
+} 
 
 .alert {
   padding: 0.75rem 1.25rem;
@@ -2536,8 +2535,11 @@ button.list-group-item-dark {
   line-height: inherit;
   white-space: nowrap; }
   .navbar-brand:focus, .navbar-brand:hover {
-    text-decoration: none; }
+    text-decoration: none; 
+    
+  color: #ffc107 !important; 
 
+  }
 .navbar-nav {
   display: flex;
   flex-direction: column;
@@ -5584,10 +5586,3 @@ body > * {
     top: 0px;
     pointer-events: none;
     background: linear-gradient(to bottom right, #007bff 20%, transparent 80%); }
-
-
-.bajar
-{
-position: absolute;
-  bottom: 0;
-}

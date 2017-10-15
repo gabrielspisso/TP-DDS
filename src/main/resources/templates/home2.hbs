@@ -5,43 +5,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="main.css" type="text/css"> </head>
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <link rel="stylesheet" href="main.css" type="text/css"> 
+</head>
 
-
-<script>
-function mostrarYOcultar(valor) {
-   $("#"+valor).toggle("slow"); 
-}
-
-function mostrarValorDeCuenta(id,valor){
-$("#textoDeEmpresa"+id).empty();
-  $("#textoDeEmpresa"+id).append("El valor de la cuenta es: <h1>" + valor + "</h1>"); 
-}
-
-</script>
 <body>
-
-
   <nav class="navbar navbar-expand-md bg-secondary navbar-dark">
     <div class="container">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="navbar-brand text-warning" href="#">Empresas</a>
+            <a class="navbar-brand text-white" href="#" id="btn_empresa">Empresas</a>
           </li>
           <li class="nav-item">
-            <a class="navbar-brand" href="#">Indicadores</a>
+            <a class="navbar-brand text-white" href="#">Indicadores</a>
           </li>
           <li class="nav-item">
-            <a class="navbar-brand" href="#">Metodologias</a>
+            <a class="navbar-brand text-white" href="#">Metodologias</a>
           </li>
           <li class="nav-item">
-            <a class="navbar-brand" href="#">Condiciones</a>
+            <a class="navbar-brand text-white" href="#">Condiciones</a>
           </li>
           <li class="nav-item">
-            <a class="navbar-brand" href="#">Contact us</a>
+            <a class="navbar-brand text-white" href="#">Contact us</a>
           </li>
         </ul>
         <form class="form-inline m-0">
@@ -51,86 +37,42 @@ $("#textoDeEmpresa"+id).empty();
       </div>
     </div>
   </nav>
-  <div class="py-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-
-
-          <table class="table">
-          
-          
-            <thead>
-              <tr>
-                <th>Empresa</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-
-
-          {{#each empresas }}
-              <tr>
-                <td>{{nombre}}</td>
-                <td align="center">
-                  <a href="#" class="btn btn-outline-primary" onclick="mostrarYOcultar({{id}})">Ver balances</a>
-                </td>
-              </tr>
-              <tr id="{{id}}" class="noMostrar">
-                <td>
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Periodo</th>
-                        <th>Año</th>
-                        <th>Cuenta</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {{#each balances}}
-                    
-                      <tr>
-                        <td>{{periodo}}</td>
-                        <td>{{anio}}</td>
-                        <td>
-                        
-                        
-                          <div class="btn-group">
-                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Seleccione cuenta</button>
-
-                        {{#each cuentas}}
-
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#" onclick="mostrarValorDeCuenta({{../../id}},{{valor}})">{{nombre}}</a>
-                            </div>
-                          </div>
-                        
-                        {{/each}}
-                        
-                        </td>
-                        
-                      </tr>
-                      
-					{{/each}}
-					
-                    </tbody>
-                  </table>
-                </td>
-                <td id="textoDeEmpresa{{id}}">El valor es de:
-                  <h1> Aun no selecciono nada </h1>
-                </td>
-              </tr>
-{{/each}}
-              
-              
-              
-           
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+  
+  
+  <!--- COMENTARIO ---> 
+  
+  
+  <div>
+  <h1> WAWAWAWAWA LOGICA DE DOMINO </h1>
+  
+  
+  <table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>#</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Username</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each users }}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{nombre}}</td>
+      <td>{{mail}}</td>
+      <td>{{frase}}</td>
+    </tr> {{/each}}
+  </tbody>
+</table>
+  
+  
+  
   </div>
+  
+  
+  
+  
   <div class="bg-dark text-white">
     <div class="container">
       <div class="row">
