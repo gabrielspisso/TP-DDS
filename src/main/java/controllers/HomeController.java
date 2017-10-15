@@ -32,6 +32,19 @@ public class HomeController{
 	}
 	
 	
+	
+	public  ModelAndView empresas(Request req, Response res){
+		
+		Map<String, List<Empresa>> model = new HashMap<>();
+	//	Usuario user = repositorioUsuariosEnClase.lista().stream().filter(u ->u.getMail().equals(req.cookie("mail"))).findFirst().get();
+		repositorioUsuariosEnClase repo = new repositorioUsuariosEnClase(); 
+		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
+	//	model.put("frase", user.getFrase());
+		
+		return new ModelAndView(model, "empresas.hbs");
+	}
+	
+	
 	public  ModelAndView showLogin(Request req, Response res){
 		return new ModelAndView(null, "login.hbs");
 	}
