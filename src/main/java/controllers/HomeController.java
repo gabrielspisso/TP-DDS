@@ -25,7 +25,7 @@ public class HomeController{
 		/*
 		 * Aca creo va toda la logica para ver si el flaco esta logueado o no
 		 *  */
-		return new ModelAndView(null, "main.hbs");
+		return new ModelAndView(null, "principal/main.hbs");
 	}
 	
 	
@@ -38,7 +38,7 @@ public class HomeController{
 		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
 	//	model.put("frase", user.getFrase());
 		
-		return new ModelAndView(model, "empresas.hbs");
+		return new ModelAndView(model, "empresas/verEmpresas.hbs");
 	}
 	
 	public  ModelAndView indicadores(Request req, Response res){	
@@ -46,7 +46,21 @@ public class HomeController{
 		/*
 		 * Aca creo va toda la logica para ver si el flaco esta logueado o no
 		 *  */
-		return new ModelAndView(null, "indicadores.hbs");
+		return new ModelAndView(null, "indicadores/crearIndicadores.hbs");
+	}
+	
+	public  ModelAndView listarMetodologias(Request req, Response res){		
+		/*
+		 * Aca creo va toda la logica para ver si el flaco esta logueado o no
+		 *  */
+		return new ModelAndView(null, "metodologias/listarMetodologias.hbs");
+	}
+	
+	public  ModelAndView mostrarResultadoMetodologia(Request req, Response res){		
+		/*
+		 * Aca creo va toda la logica para ver si el flaco esta logueado o no
+		 *  */
+		return new ModelAndView(null, "metodologias/mostrarResultadoMetodologia.hbs");
 	}
 	
 	
