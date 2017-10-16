@@ -1,17 +1,28 @@
 package controllers;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.sound.midi.Receiver;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import model.Calculos.Mayor;
+import model.Calculos.Menor;
+import model.condicionesYMetodologias.CondicionConAño;
+import model.condicionesYMetodologias.Metodologia;
+import model.condicionesYMetodologias.Resultado;
 import model.Empresa;
+import model.Indicador;
 import model.Usuario;
 import model.repositorioUsuariosEnClase;
+import model.Builders.IndicadorBuilder;
+import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeEmpresas;
 import model.repositorios.RepositorioDeMetodologias;
 import spark.ModelAndView;
@@ -37,7 +48,6 @@ public class HomeController{
 	//	Usuario user = repositorioUsuariosEnClase.lista().stream().filter(u ->u.getMail().equals(req.cookie("mail"))).findFirst().get();
 		repositorioUsuariosEnClase repo = new repositorioUsuariosEnClase(); 
 		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
-	//	model.put("frase", user.getFrase());
 		
 		return new ModelAndView(model, "empresas/verEmpresas.hbs");
 	}
@@ -50,19 +60,47 @@ public class HomeController{
 		return new ModelAndView(null, "indicadores/crearIndicadores.hbs");
 	}
 	
-	public  ModelAndView listarMetodologias(Request req, Response res){		
+	List<Resultado> resultado;
+	
+	public  ModelAndView showMetodologias(Request req, Response res){		
 		Map<String, Object> model = new HashMap<>();
 		//	Usuario user = repositorioUsuariosEnClase.lista().stream().filter(u ->u.getMail().equals(req.cookie("mail"))).findFirst().get(); 
 		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
-		model.put("metodologias", RepositorioDeMetodologias.traerMetodologiasDeLaDB());
+		
+		
+		//model.put("metodologias", Arrays.asList(metodologia,metodologia2));//--Habria que sacarlas del repo
+		
+		
 		return new ModelAndView(model, "metodologias/listarMetodologias.hbs");
 	}
 	
-	public  ModelAndView mostrarResultadoMetodologia(Request req, Response res){		
-		/*
-		 * Aca creo va toda la logica para ver si el flaco esta logueado o no
-		 *  */
-		return new ModelAndView(null, "metodologias/mostrarResultadoMetodologia.hbs");
+	
+	public  Void postMetodologias(Request req, Response res){		
+		//Trae todas las empresas seleccionadas
+		List<Empresa> empresasAEvaluar = RepositorioDeEmpresas.traerEmpresasDeLaDB()
+				.stream()
+				.filter(empresa -> req.queryParams("check" + empresa.getNombre() ) != null )
+				.collect(Collectors.toList());
+		
+		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),7,1,"");
+		CondicionConAño test2 = new CondicionConAño(indicador,Menor.getSingletonMenor(),-1,1,"");
+		Metodologia metodologiaAimplementar = new Metodologia("Metodologia 1",null,Arrays.asList(test));
+		
+		resultado = metodologiaAimplementar.generarResultado(empresasAEvaluar);
+		
+		//---Esto todavia no porque esta harcodeado
+		//metodologiaAImplementar = Repositorio.buscar(req.queryParams("metodologia"), Metodologia.class);
+		
+		res.redirect("metodologias/resultado");
+		
+		return null;
+	}
+	
+	public ModelAndView mostrarResultadoMetodologia(Request req, Response res) {
+		Map<String, Object> model = new HashMap<>();
+		model.put("empresas", resultado);
+		return new ModelAndView(model, "metodologias/mostrarResultadoMetodologia.hbs");
 	}
 	
 	

@@ -1,3 +1,6 @@
-/templates/
 /controllers/
+/model/
+/server/
+/spark/
+/templates/
 /public/

@@ -1,5 +1,6 @@
 package model.condicionesYMetodologias;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -107,5 +108,16 @@ public class Metodologia {
 		    }
 		});
 	}
+	
+	public List<Resultado> generarResultado(List<Empresa> listaDeEmpresas){
+		List<Resultado> resultado = new ArrayList<>();
+		listaDeEmpresas = this.listarEmpresas(listaDeEmpresas);
+		listaDeEmpresas.forEach(emp -> 
+			resultado.add( 
+					new Resultado(emp.getNombre(), this.sacarPorcentajeMetodologia(emp))
+				));
+		return resultado;
+	}
+	
 	
 }

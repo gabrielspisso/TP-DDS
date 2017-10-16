@@ -39,4 +39,6 @@ public class RepositorioDeMetodologias {
 		 public static void borrar(String nombre) {
 				Repositorio.borrar(nombre, Metodologia.class);
 			}
+		 
+		 
 }
