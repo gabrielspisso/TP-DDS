@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,7 +26,10 @@ public class Balance {
 	private String periodo;
 	private int anio;
 	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(name = "balance_id")
 	private List<Cuenta> cuentas;
+	
+	
 	public String getPeriodo() {
 		return periodo;
 	}

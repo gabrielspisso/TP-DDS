@@ -20,6 +20,9 @@ public  class Repositorio {
 			EntityManager em = PerThreadEntityManagers.getEntityManager();
 			return em.createQuery("from " + clase.getName(), clase).getResultList();		
 	}
+	
+	
+	
 	public static <T> void  addInstanceToDB(Class<T> clase,T ObjetoAPersistir) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 
