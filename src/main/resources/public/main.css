@@ -5,6 +5,25 @@
 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
 */
 
+.fonditoNoTanNegro{
+	background-color: #185F7D;
+}
+
+.acomodarLogo{
+	width: 15%;
+    padding-top: 1rem;
+    margin-left: 3rem;
+}
+
+.fijoArriba{
+position:fixed;
+}
+
+.footerAbajo {
+bottom:0;
+width:100%;
+}
+
 .noMostrar {
   display: none;
 } 
