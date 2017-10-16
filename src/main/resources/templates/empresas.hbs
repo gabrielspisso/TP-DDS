@@ -98,14 +98,14 @@ $("#textoDeEmpresa"+id).empty();
                           <div class="btn-group">
                             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Seleccione cuenta</button>
 
-                        {{#each cuentas}}
 
                             <div class="dropdown-menu">
+                        {{#each cuentas}}
                               <a class="dropdown-item" href="#" onclick="mostrarValorDeCuenta({{../../id}},{{valor}})">{{nombre}}</a>
+                        {{/each}}
                             </div>
                           </div>
                         
-                        {{/each}}
                         
                         </td>
                         
