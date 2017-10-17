@@ -57,4 +57,6 @@ public abstract class Condicion {
 			return false;
 		}
 	}
+
+	public abstract boolean cumpleCondicion(Empresa empresa);
 }

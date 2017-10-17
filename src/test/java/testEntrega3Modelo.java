@@ -21,6 +21,7 @@ import model.condicionesYMetodologias.CondicionConComportamiento;
 import model.condicionesYMetodologias.CondicionEntreDosEmpresas;
 import model.condicionesYMetodologias.Metodologia;
 import model.condicionesYMetodologias.condicionConCalculo;
+import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeEmpresas;
 
 public class testEntrega3Modelo {
@@ -28,7 +29,7 @@ public class testEntrega3Modelo {
 	
 	@Before
 	public void cargarEmpresas(){
-		List<Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresas("archivoEmpresas.txt");
+		List<Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada();
 		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 	}	
@@ -102,6 +103,17 @@ public class testEntrega3Modelo {
 		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(RepositorioDeEmpresas.traerEmpresasDeLaDB() ));
 	}
 	
-
+	@Test
+	public void testDemierda(){
+		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
+		CondicionConAño test2 = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
+		Metodologia metodologiaAimplementar = new Metodologia("Metodologia 1",null,Arrays.asList(test, test2));
+		
+		Empresa emp = Repositorio.buscar("Twitter", Empresa.class);
+		System.out.println(metodologiaAimplementar.generarResultado(Arrays.asList(emp)).get(0).getValor());
+		
+		assertEquals(50, metodologiaAimplementar.sacarPorcentajeMetodologia(emp));
+	}
 	
 }

@@ -90,7 +90,7 @@ public class Metodologia {
 
 	//No deberia ser public, pero por los test
 	public int sacarPorcentajeMetodologia(Empresa empresa) {
-		Stream<Condicion> streamDeCondiciones =CondicionesParaFiltrar.stream().filter(condicion -> ((CondicionDeFiltrado) condicion).cumpleCondicion(empresa));
+		Stream<Condicion> streamDeCondiciones =CondicionesParaFiltrar.stream().filter(condicion -> (condicion).cumpleCondicion(empresa));
 		List<Condicion> condicionesFiltradas = streamDeCondiciones.collect(Collectors.toList());
 				
 		return condicionesFiltradas.size()*100/CondicionesParaFiltrar.size();

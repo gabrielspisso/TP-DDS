@@ -53,6 +53,12 @@ public class CondicionEntreDosEmpresas extends Condicion {
 		return false;
 	}
 
+	@Override
+	public boolean cumpleCondicion(Empresa empresa) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 	
 }

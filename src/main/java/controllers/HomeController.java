@@ -83,9 +83,9 @@ public class HomeController{
 				.collect(Collectors.toList());
 		
 		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
-		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),7,1,"");
-		CondicionConAño test2 = new CondicionConAño(indicador,Menor.getSingletonMenor(),-1,1,"");
-		Metodologia metodologiaAimplementar = new Metodologia("Metodologia 1",null,Arrays.asList(test));
+		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
+		CondicionConAño test2 = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
+		Metodologia metodologiaAimplementar = new Metodologia("Metodologia 1",null,Arrays.asList(test,test2));
 		
 		resultado = metodologiaAimplementar.generarResultado(empresasAEvaluar);
 		

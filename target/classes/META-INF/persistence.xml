@@ -31,23 +31,22 @@
 
     	<class>model.Calculo.Sumatoria</class>-->
     	
-    	<class>repositorios.RepositorioDeEmpresas</class>
     	
-    	<class>Calculos.Calculo</class>
-    	<class>Calculos.Mayor</class>
-    	<class>Calculos.Mediana</class>
-    	<class>Calculos.Menor</class>
-    	<class>Calculos.Promedio</class>
-    	<class>Calculos.Sumatoria</class>
+    	<class>model.Calculos.Calculo</class>
+    	<class>model.Calculos.Mayor</class>
+    	<class>model.Calculos.Mediana</class>
+    	<class>model.Calculos.Menor</class>
+    	<class>model.Calculos.Promedio</class>
+    	<class>model.Calculos.Sumatoria</class>
     	
-    	<class>condicionesYMetodologias.Condicion</class>
-    	<class>condicionesYMetodologias.condicionCompuesta</class>
-    	<class>condicionesYMetodologias.CondicionConAño</class>
-    	<class>condicionesYMetodologias.condicionConCalculo</class>
-    	<class>condicionesYMetodologias.CondicionConComportamiento</class>
-    	<class>condicionesYMetodologias.CondicionEntreDosEmpresas</class>
-    	<!--<class>condicionesYMetodologias.CondicionUnitaria</class>-->
-    	<class>Calculos.criterioDeAceptacionDeCondicion</class>
+    	<class>model.condicionesYMetodologias.Condicion</class>
+    	<class>model.condicionesYMetodologias.CondicionDeFiltrado</class>
+    	<class>model.condicionesYMetodologias.CondicionConAño</class>
+    	<class>model.condicionesYMetodologias.condicionConCalculo</class>
+    	<class>model.condicionesYMetodologias.CondicionConComportamiento</class>
+    	<class>model.condicionesYMetodologias.CondicionEntreDosEmpresas</class>
+    	<class>model.Calculos.criterioDeAceptacionDeCondicion</class>
+    	
     	 
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        

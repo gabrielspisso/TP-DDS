@@ -9,7 +9,7 @@ public class Resultado {
 	public Resultado(String nombreEmpresa, int valor) {
 		super();
 		this.nombreEmpresa = nombreEmpresa;
-		this.valor = valor/100;
+		this.valor = ((double)valor)/100;
 	}
 	
 	
