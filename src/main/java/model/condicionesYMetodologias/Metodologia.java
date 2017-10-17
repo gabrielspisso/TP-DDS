@@ -31,25 +31,25 @@ public class Metodologia {
 	@GeneratedValue
 	private Long id;
 	
+	public Long getId() {
+		return id;
+	}
+
 	String nombre;
 	
-	//@Transient
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	List<Condicion> CondicionesParaFiltrar;
-	
-	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	List<Condicion> CondicionesDeOrdenamiento;
+	List<Condicion> condiciones;
 	
 	String descripcion;
 	
 	protected Metodologia() {
-		super();
 	}
 
 	public Metodologia(	String nombre,String Metodologia,List<Condicion> Condiciones){
 		this.nombre = nombre;
-		this.CondicionesDeOrdenamiento = Condiciones.stream().filter(c->!c.esCondicionDeFiltrado()).collect(Collectors.toList());;;
-		this.CondicionesParaFiltrar = Condiciones.stream().filter(c->c.esCondicionDeFiltrado()).collect(Collectors.toList());;;
+		//this.CondicionesDeOrdenamiento = Condiciones.stream().filter(c->!c.esCondicionDeFiltrado()).collect(Collectors.toList());
+		//this.CondicionesParaFiltrar = Condiciones.stream().filter(c->c.esCondicionDeFiltrado()).collect(Collectors.toList());
+		this.condiciones = Condiciones;
 		this.descripcion = Metodologia;
 	}
 	
@@ -77,6 +77,7 @@ public class Metodologia {
 	}
 	private int ordenarEmpresasSegunMetodologia(Empresa empresa, Empresa empresa2) {
 		// TODO Auto-generated method stub
+		List <Condicion> CondicionesDeOrdenamiento = condiciones.stream().filter(c->!c.esCondicionDeFiltrado()).collect(Collectors.toList());
 		int i;
 		CondicionEntreDosEmpresas condicion;
 		for(i=0;i<CondicionesDeOrdenamiento.size();i++){
@@ -90,6 +91,8 @@ public class Metodologia {
 
 	//No deberia ser public, pero por los test
 	public int sacarPorcentajeMetodologia(Empresa empresa) {
+		
+		List<Condicion> CondicionesParaFiltrar = condiciones.stream().filter(c->c.esCondicionDeFiltrado()).collect(Collectors.toList());
 		Stream<Condicion> streamDeCondiciones =CondicionesParaFiltrar.stream().filter(condicion -> (condicion).cumpleCondicion(empresa));
 		List<Condicion> condicionesFiltradas = streamDeCondiciones.collect(Collectors.toList());
 				

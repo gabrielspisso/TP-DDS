@@ -1,4 +1,5 @@
 import static org.junit.Assert.*;
+import model.CargadorDeEmpresas;
 
 import java.util.Arrays;
 
@@ -12,15 +13,26 @@ import model.Empresa;
 import model.Indicador;
 import model.Builders.IndicadorBuilder;
 import model.Calculos.Mayor;
+import model.Calculos.Menor;
 import model.condicionesYMetodologias.CondicionConAño;
+import model.condicionesYMetodologias.CondicionEntreDosEmpresas;
 import model.condicionesYMetodologias.Metodologia;
 import model.repositorios.Repositorio;
+import model.repositorios.RepositorioDeCondiciones;
 import model.repositorios.RepositorioDeEmpresas;
 import model.repositorios.RepositorioDeIndicadores;
 import model.repositorios.RepositorioDeMetodologias;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testPersistencia {
 
+	@Test
+	public void test0_cargarEmpresas() {
+		long p = (long) 1;
+		Metodologia metodologiaAimplementar = Repositorio.buscarPorId(p, Metodologia.class);
+		Empresa emp2 = Repositorio.buscarPorId((long)2, Empresa.class);
+		CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().forEach(emp-> RepositorioDeEmpresas.agregarEmpresas(emp));
+	}
+	
 	@Test
 	public void test1_existeFacebook() {
 		assertTrue(RepositorioDeEmpresas.existe("Facebook"));
@@ -55,16 +67,24 @@ public class testPersistencia {
 	@Test
 	public void test7_creoUnaMetodologiaYPrueboQueExiste() {
 		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
-		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),7,1,"");
+		CondicionConAño test = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
+		CondicionEntreDosEmpresas test2 = new CondicionEntreDosEmpresas(Repositorio.buscar("indicador1", Indicador.class), Mayor.getSingletonMayor(), "hola");
+		CondicionConAño test3 = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
+		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test, test2, test3, test));
 		
-		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test));
+		RepositorioDeCondiciones.agregarCondicion(test);
+		
 		RepositorioDeMetodologias.agregarMetodologia(metodologia);
+		
+		
+		
 		assertTrue(RepositorioDeMetodologias.existe("Esto es una prueba"));
 	}
+	/*
 	@Test
 	public void test8_borroLaEmpresaDelTestAnteriorYComprueboQueYaNoExiste() {
 		RepositorioDeMetodologias.borrar("Esto es una prueba");
 		assertFalse(RepositorioDeMetodologias.existe("Esto es una prueba"));
-	}
+	}*/
 	
 }

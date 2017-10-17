@@ -39,6 +39,7 @@
     	<class>model.Calculos.Promedio</class>
     	<class>model.Calculos.Sumatoria</class>
     	
+    	<class>model.condicionesYMetodologias.Metodologia</class>
     	<class>model.condicionesYMetodologias.Condicion</class>
     	<class>model.condicionesYMetodologias.CondicionDeFiltrado</class>
     	<class>model.condicionesYMetodologias.CondicionConAño</class>

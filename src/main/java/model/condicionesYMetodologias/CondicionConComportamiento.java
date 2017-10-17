@@ -32,6 +32,12 @@ public class CondicionConComportamiento extends CondicionDeFiltrado {
 	
 	
 
+	private CondicionConComportamiento() {
+		super();
+	}
+
+
+
 	@Override
 	
 	public boolean seCumpleCondicionFiltrar(Empresa empresa){

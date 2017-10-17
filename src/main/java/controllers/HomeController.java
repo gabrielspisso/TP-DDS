@@ -67,8 +67,7 @@ public class HomeController{
 		//	Usuario user = repositorioUsuariosEnClase.lista().stream().filter(u ->u.getMail().equals(req.cookie("mail"))).findFirst().get(); 
 		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
 		
-		
-		//model.put("metodologias", Arrays.asList(metodologia,metodologia2));//--Habria que sacarlas del repo
+		model.put("metodologias", RepositorioDeMetodologias.traerMetodologiasDeLaDB());//--Habria que sacarlas del repo
 		
 		
 		return new ModelAndView(model, "metodologias/listarMetodologias.hbs");
@@ -82,23 +81,18 @@ public class HomeController{
 				.filter(empresa -> req.queryParams("check" + empresa.getNombre() ) != null )
 				.collect(Collectors.toList());
 		
-		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
-		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
-		CondicionConAño test2 = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
-		Metodologia metodologiaAimplementar = new Metodologia("Metodologia 1",null,Arrays.asList(test,test2));
 		
+		Metodologia metodologiaAimplementar = Repositorio.buscarPorId(
+				Long.valueOf(req.queryParams("metodologia")).longValue(), Metodologia.class);
 		resultado = metodologiaAimplementar.generarResultado(empresasAEvaluar);
-		
-		//---Esto todavia no porque esta harcodeado
-		//metodologiaAImplementar = Repositorio.buscar(req.queryParams("metodologia"), Metodologia.class);
-		
+
 		res.redirect("metodologias/resultado");
 		
 		return null;
 	}
 	
 	public ModelAndView mostrarResultadoMetodologia(Request req, Response res) {
-		Map<String, Object> model = new HashMap<>();
+		Map<String, Object> model = new HashMap<>();		
 		model.put("empresas", resultado);
 		return new ModelAndView(model, "metodologias/mostrarResultadoMetodologia.hbs");
 	}

@@ -24,8 +24,8 @@ import model.repositorios.RepositorioDeIndicadores;
 @Table(name = "Indicador")
 public class Indicador {
 	
-	@SuppressWarnings("unused")
-	private Indicador() {}
+	//@SuppressWarnings("unused")
+	protected Indicador() {}//Esto esta publico porque hibernate tiene problemitas
 	
 	@Id
 	@GeneratedValue
