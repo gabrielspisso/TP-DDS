@@ -3,14 +3,20 @@ package model.Arbol.Hojas;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.persistence.Entity;
+
 import model.Cuenta;
 import model.Indicador;
-import model.Arbol.Operaciones.NODO;
+import model.Usuario;
+import model.Arbol.Operaciones.Raiz;
 import model.Excepciones.IdentificadorInexistente;
 import model.repositorios.RepositorioDeIndicadores;
-
+@Entity
 public class Identificador extends Operando{
-	private String nombreDelIndicadorFinal;
+	protected Identificador() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Identificador(String valor) {
 		super(valor);
 		
@@ -19,12 +25,7 @@ public class Identificador extends Operando{
 
 	@Override
 	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-		//try{
 			return buscarValorDeIdentificador(listaDeCuentas, listaDeIndicadores);
-		//}
-		/*catch(Exception ex){
-			throw new RuntimeException(ex.getMessage());
-		}*/
 	}
 	private boolean estaEnCuentas(List<Cuenta> listaDeCuentas){
 		return  listaDeCuentas.stream()
@@ -65,20 +66,20 @@ public class Identificador extends Operando{
 			
 		return indicador.calcularValor(listaDeCuentas);
 	}
-	public boolean noEsRecursivo(String token){
+	public boolean noEsRecursivo(String token, Long id){
 		Indicador indicador;
-		if(!estaEnIndicadores(RepositorioDeIndicadores.traerIndicadoresDeLaDB())){
+		if(!estaEnIndicadores(RepositorioDeIndicadores.traerIndicadoresDeLaDB(id))){
 			return false;
 		}
-		indicador = RepositorioDeIndicadores.traerIndicadoresDeLaDB().stream()
+		indicador = RepositorioDeIndicadores.traerIndicadoresDeLaDB(id).stream()
 					.filter(indic -> indic.getNombre().equals(valor))
 					.findFirst().get();
 			return indicador.contieneEsteToken(token);
 		
 	}
 	@Override
-	public boolean contieneEsteToken(String string) {
-		return valor.equals(string) || noEsRecursivo(string);
+	public boolean contieneEsteToken(String string, Long id) {
+		return valor.equals(string) || noEsRecursivo(string, id);
 	}
 
 

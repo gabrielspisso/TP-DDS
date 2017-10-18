@@ -38,6 +38,12 @@
     	<class>model.Calculos.Menor</class>
     	<class>model.Calculos.Promedio</class>
     	<class>model.Calculos.Sumatoria</class>
+    	<class>model.Usuario</class>
+    	
+    	
+    	
+    	
+    	
     	
     	<class>model.condicionesYMetodologias.Metodologia</class>
     	<class>model.condicionesYMetodologias.Condicion</class>

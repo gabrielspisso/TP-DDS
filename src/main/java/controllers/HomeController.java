@@ -20,7 +20,6 @@ import model.condicionesYMetodologias.Resultado;
 import model.Empresa;
 import model.Indicador;
 import model.Usuario;
-import model.repositorioUsuariosEnClase;
 import model.Builders.IndicadorBuilder;
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeEmpresas;
@@ -34,19 +33,21 @@ public class HomeController{
 	
 	public  ModelAndView home(Request req, Response res){	
 		
-		/*
-		 * Aca creo va toda la logica para ver si el flaco esta logueado o no
-		 *  */
-		return new ModelAndView(null, "principal/main.hbs");
+		Map<String, Object> model = mapa(req);
+		return new ModelAndView(model, "principal/main.hbs");
 	}
 	
-	
+	private Map<String, Object> mapa(Request req){
+		Map<String, Object> model = new HashMap<>();
+		Usuario user =Repositorio.buscarPorId(Long.valueOf(req.cookie("id")).longValue(),Usuario.class);
+		model.put("nombreUsuario", user.getNombre());
+		return model;
+	}
 	
 	public  ModelAndView empresas(Request req, Response res){
 		
-		Map<String, Object> model = new HashMap<>();
-	//	Usuario user = repositorioUsuariosEnClase.lista().stream().filter(u ->u.getMail().equals(req.cookie("mail"))).findFirst().get();
-		repositorioUsuariosEnClase repo = new repositorioUsuariosEnClase(); 
+		Map<String, Object> model = mapa(req);
+		
 		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
 		
 		return new ModelAndView(model, "empresas/verEmpresas.hbs");
@@ -54,17 +55,16 @@ public class HomeController{
 	
 	public  ModelAndView indicadores(Request req, Response res){	
 		
-		/*
-		 * Aca creo va toda la logica para ver si el flaco esta logueado o no
-		 *  */
-		return new ModelAndView(null, "indicadores/crearIndicadores.hbs");
+		Map<String, Object> model = mapa(req);
+		
+		return new ModelAndView(model, "indicadores/crearIndicadores.hbs");
 	}
 	
 	List<Resultado> resultado;
 	
 	public  ModelAndView showMetodologias(Request req, Response res){		
-		Map<String, Object> model = new HashMap<>();
-		//	Usuario user = repositorioUsuariosEnClase.lista().stream().filter(u ->u.getMail().equals(req.cookie("mail"))).findFirst().get(); 
+		Map<String, Object> model = mapa(req);
+		
 		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
 		
 		model.put("metodologias", RepositorioDeMetodologias.traerMetodologiasDeLaDB());//--Habria que sacarlas del repo
@@ -82,18 +82,20 @@ public class HomeController{
 				.collect(Collectors.toList());
 		
 		
-		Metodologia metodologiaAimplementar = Repositorio.buscarPorId(
+		Metodologia metodologia = Repositorio.buscarPorId(
 				Long.valueOf(req.queryParams("metodologia")).longValue(), Metodologia.class);
-		resultado = metodologiaAimplementar.generarResultado(empresasAEvaluar);
-
-		res.redirect("metodologias/resultado");
+		resultado = metodologia.generarResultado(empresasAEvaluar);
 		
+		res.cookie("nombreMetodologia", metodologia.getNombre());
+		
+		res.redirect("metodologias/resultado");
 		return null;
 	}
 	
 	public ModelAndView mostrarResultadoMetodologia(Request req, Response res) {
-		Map<String, Object> model = new HashMap<>();		
+		Map<String, Object> model = mapa(req);		
 		model.put("empresas", resultado);
+		model.put("nombreMetodologia", req.cookie("nombreMetodologia"));
 		return new ModelAndView(model, "metodologias/mostrarResultadoMetodologia.hbs");
 	}
 	
@@ -101,10 +103,20 @@ public class HomeController{
 	public  ModelAndView showLogin(Request req, Response res){
 		return new ModelAndView(null, "login.hbs");
 	}
+	public  Void logout(Request req, Response res){
+		res.removeCookie("id");
+		res.redirect("/login");
+		return null;
+	}
 	
 	public Void login(Request req, Response res){
-		res.cookie("mail", req.queryParams("mail"));
-		res.redirect("/main");
+		Usuario user = Repositorio.buscar(req.queryParams("nombre"), Usuario.class);
+		if(user.getPassword().equals(req.queryParams("password"))) {
+			res.cookie("id", user.getId().toString());	
+			res.redirect("/main");
+		}
+		else
+			res.redirect("/login");
 		return null;
 	}
 	

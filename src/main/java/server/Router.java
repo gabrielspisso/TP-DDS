@@ -2,6 +2,8 @@ package server;
 
 import controllers.HomeController;
 import controllers.ProyectosController;
+import model.Usuario;
+import model.repositorios.Repositorio;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.BooleanHelper;
@@ -21,6 +23,19 @@ public class Router {
 		HomeController homeController = new HomeController();
 		
 		
+		Spark.before((req,res)-> {
+			String id = req.cookie("id");
+			if (id == null) {
+				if(!req.pathInfo().equals("/login"))
+					res.redirect("/login");
+			}
+			else {
+				Usuario usuario = Repositorio.buscarPorId(Long.valueOf(id).longValue(),Usuario.class);
+				if(usuario == null && !req.pathInfo().equals("/login") ) {
+					res.redirect("/login");
+				}
+			}
+		});
 		
 		Spark.get("/", homeController::home, engine);
 		Spark.get("/main", homeController::home, engine);
@@ -38,6 +53,9 @@ public class Router {
 		
 		Spark.get("/login", homeController::showLogin, engine);
 		Spark.post("/login", homeController::login);
+		
+		Spark.get("/logout", homeController::logout);
+
 		
 	//	Spark.get("/proyectos", proyectosController::listar, engine);
 	//	Spark.get("/proyectos/new", proyectosController::nuevo, engine);

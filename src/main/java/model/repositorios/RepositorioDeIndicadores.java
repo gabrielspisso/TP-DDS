@@ -19,20 +19,19 @@ public class RepositorioDeIndicadores {
 		return listaDeIndicadores;
 	}*/
 	
-	public static List<Indicador> traerIndicadoresDeLaDB() {
-		return Repositorio.getFromDB(Indicador.class);
-	}
 
+	public static List<Indicador>  traerIndicadoresDeLaDB(Long id) {		
+			EntityManager em = PerThreadEntityManagers.getEntityManager();
+			return em.createQuery("from Indicador i where i.usuario.id = :id", Indicador.class)
+					.setParameter("id", id)
+					.getResultList();		
+	}
 	
 	public static void agregarIndicador(Indicador indicador) {
 		Repositorio.addInstanceToDB(Indicador.class,  indicador);
 	}
 	
-	 
-	/*public static void agregarIndicador(Indicador indicador) {
-		listaDeIndicadores.removeIf(ind-> ind.getNombre().equals(indicador.getNombre()));
-		listaDeIndicadores.add(indicador);
-	}*/
+
 	public static boolean existe(String nombre) {
 		return Repositorio.existe(nombre, Indicador.class);
 	}

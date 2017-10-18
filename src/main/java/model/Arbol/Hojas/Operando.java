@@ -2,12 +2,23 @@ package model.Arbol.Hojas;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
 import model.Cuenta;
 import model.Indicador;
-import model.Arbol.Operaciones.NODO;
+import model.Arbol.Operaciones.Raiz;
 
-public abstract class Operando implements NODO{
-	protected String valor;
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Operando extends Raiz{
+	protected Operando() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public Operando(String valor) {
 		this.valor = valor;
@@ -25,7 +36,7 @@ public abstract class Operando implements NODO{
 		return true;
 	}
 	@Override
-	public boolean contieneEsteToken(String token) {
+	public boolean contieneEsteToken(String token, Long id) {
 		return false;
 	}
 	

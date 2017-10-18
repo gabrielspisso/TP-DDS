@@ -7,24 +7,24 @@ import java.util.Queue;
 import model.Arbol.Operaciones.*;
 
 public class NodoBuilder {
-	Queue<NODO> colaDeOperandos;
-	Queue<NODO> colaDeOperadores;
+	Queue<Raiz> colaDeOperandos;
+	Queue<Raiz> colaDeOperadores;
 	
-	NODO nodoActual = null;
+	Raiz nodoActual = null;
 	
 	
-	public NodoBuilder(List<NODO> lista) {
+	public NodoBuilder(List<Raiz> lista) {
 		colaDeOperandos = new LinkedList<>();
 		colaDeOperadores = new LinkedList<>();
 		lista.forEach(nodo->clasificar(nodo));
 	}
 	
-	public NodoBuilder(Queue<NODO> colaDeOperandos, Queue<NODO> colaDeOperaciones) {
+	public NodoBuilder(Queue<Raiz> colaDeOperandos, Queue<Raiz> colaDeOperaciones) {
 		this.colaDeOperandos = colaDeOperandos;
 		this.colaDeOperadores = colaDeOperaciones;
 	}
 
-	public NODO Build() {
+	public Raiz Build() {
 		if(colaDeOperandos.size() == 1)
 			return colaDeOperandos.poll();
 		while(!colaDeOperadores.isEmpty()) {
@@ -43,8 +43,8 @@ public class NodoBuilder {
 		return nodoActual;
 	}
 	
-	private NODO bifurcarArbol(Operacion operacion) {
-		NODO nodoIzquierdo = (nodoActual == null) ? colaDeOperandos.poll() : nodoActual;
+	private Raiz bifurcarArbol(Operacion operacion) {
+		Raiz nodoIzquierdo = (nodoActual == null) ? colaDeOperandos.poll() : nodoActual;
 		operacion.setIzquierda(nodoIzquierdo);
 		operacion.setDerecha(new NodoBuilder(colaDeOperandos, colaDeOperadores).Build());
 		return operacion;
@@ -59,7 +59,7 @@ public class NodoBuilder {
 	}
 	
 	
-	private void clasificar(NODO nodo) {
+	private void clasificar(Raiz nodo) {
 		if(nodo.esOperacion())
 			colaDeOperadores.add(nodo);
 		else

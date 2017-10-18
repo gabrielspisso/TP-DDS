@@ -1,18 +1,30 @@
 package model;
 
-public class Usuario {
-	private String nombre;
-	private String mail;
-	private String password;
-	
-	private String frase;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-	Usuario(String nombre, String mail, String password, String frase) {
+import org.uqbar.commons.utils.Observable;
+
+@Entity
+@Table(name = "Usuario")
+public class Usuario {
+	
+	private String password;
+	private String nombre;
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	protected Usuario() {
+		
+	}
+	public Usuario(String nombre, String password) {
 		super();
 		this.nombre = nombre;
-		this.mail = mail;
+
 		this.password = password;
-		this.frase = frase;
 	}
 
 	public String getNombre() {
@@ -23,14 +35,11 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	public String getMail() {
-		return mail;
-	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
 
+	public Long getId() {
+		return id;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -39,13 +48,6 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public String getFrase() {
-		return frase;
-	}
 
-	public void setFrase(String frase) {
-		this.frase = frase;
-	}
-	
 	
 }

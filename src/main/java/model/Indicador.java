@@ -4,20 +4,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
 
-import model.Arbol.Operaciones.NODO;
-import model.Converter.ArbolConverter;
+import model.Arbol.Operaciones.Raiz;
 import model.Excepciones.IdentificadorInexistente;
+import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeUsuario;
 
 @Entity
 @Observable
@@ -33,8 +38,11 @@ public class Indicador {
 	
 	private String nombre;
 	
-	@Convert(converter = ArbolConverter.class)
-	private NODO arbol;
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	private Usuario usuario;
+	
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	private Raiz arbol;
 	
 	
 	@Override
@@ -42,16 +50,24 @@ public class Indicador {
 		return nombre;
 	}
 
-	public Indicador(String nombre, NODO arbol, String formula) {
+	public Indicador(String nombre, Raiz arbol, String formula) {
 		this.nombre = nombre;
 		this.arbol = arbol;
+		this.usuario = Repositorio.buscarPorId((long)1, Usuario.class);
 	}
-	public NODO getArbol(){
+	
+	public Indicador(String nombre, Raiz arbol, String formula, Usuario usuario) {
+		this.nombre = nombre;
+		this.arbol = arbol;
+		this.usuario = usuario;
+	}
+	
+	public Raiz getArbol(){
 		return arbol;
 	}
 
 	private boolean esRecursivo(){
-		return arbol.contieneEsteToken(nombre);
+		return arbol.contieneEsteToken(nombre, usuario.getId());
 	}
 	public double calcularValor(List<Cuenta> listaDeCuentas) {
 		if(esRecursivo()){
@@ -59,7 +75,7 @@ public class Indicador {
 			
 		}
 
-		return arbol.calcularValor(listaDeCuentas, RepositorioDeIndicadores.traerIndicadoresDeLaDB());
+		return arbol.calcularValor(listaDeCuentas, RepositorioDeIndicadores.traerIndicadoresDeLaDB(usuario.getId()));
 	}
 	public String mostrarFormula() {
 		return arbol.mostrarFormula();
@@ -75,7 +91,7 @@ public class Indicador {
 
 
 	public boolean contieneEsteToken(String token) {
-		return arbol.contieneEsteToken(token);
+		return arbol.contieneEsteToken(token, usuario.getId());
 	}
 	
 	

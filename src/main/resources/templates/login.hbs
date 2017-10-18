@@ -24,6 +24,8 @@ This is a very simple parallax effect achieved by simple CSS 3 multiple backgrou
 </script>
 
 
+<div class="py-5">
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -37,35 +39,21 @@ This is a very simple parallax effect achieved by simple CSS 3 multiple backgrou
             </div>
             <div class="wrap">
                 <p class="form-title">
-                    Sign In</p>
+                    Bienvenido! </p>
 
-                <form class="login" action="/login" method="POST" align="center">
-                <input type="email" name="mail" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+                <form class="login h-50 w-50 py-5" action="/login" method="POST" align="center">
+                <input type="text" class="py-2" name="nombre" id="inputEmail1" aria-describedby="emailHelp" placeholder="Usuario" />
              
-                <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
-                <input type="submit" value="Sign In" class="btn btn-success btn-sm" />
-                <div class="remember-forgot">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" />
-                                    Remember Me
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 forgot-pass-content">
-                            <a href="javascript:void(0)" class="forgot-pass">Forgot Password</a>
-                        </div>
-                    </div>
-                </div>
+                <input type="password" class="form-control py-2" name="password" id="exampleInputPassword1" placeholder="Password">
+                <input type="submit" value="Ingresar" class="btn btn-success btn-sm" />
+                
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-
+</div>
 
 
 </body>

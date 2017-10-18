@@ -2,12 +2,18 @@ package model.Arbol.Operaciones;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+
 import model.Cuenta;
 import model.Indicador;
-
+@Entity
 public class Resta extends Operacion{
 
-	public Resta(NODO izquierda, NODO derecha) {
+	protected Resta() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Resta(Raiz izquierda, Raiz derecha) {
 		super("-", izquierda, derecha);
 	}
 	@Override

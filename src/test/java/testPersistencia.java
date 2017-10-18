@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import model.Empresa;
 import model.Indicador;
+import model.Usuario;
 import model.Builders.IndicadorBuilder;
 import model.Calculos.Mayor;
 import model.Calculos.Menor;
@@ -22,6 +23,7 @@ import model.repositorios.RepositorioDeCondiciones;
 import model.repositorios.RepositorioDeEmpresas;
 import model.repositorios.RepositorioDeIndicadores;
 import model.repositorios.RepositorioDeMetodologias;
+import model.repositorios.RepositorioDeUsuario;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testPersistencia {
 
@@ -30,8 +32,17 @@ public class testPersistencia {
 		long p = (long) 1;
 		Metodologia metodologiaAimplementar = Repositorio.buscarPorId(p, Metodologia.class);
 		Empresa emp2 = Repositorio.buscarPorId((long)2, Empresa.class);
+		
+		Usuario usuario = new Usuario("GabrielSpisso","123");
+		RepositorioDeUsuario.agregarUsuario(usuario);
+		Usuario usuario2 = new Usuario("GabrielMaiori","123");
+		RepositorioDeUsuario.agregarUsuario(usuario2);
+		
+		Usuario usuario3 = new Usuario("SantiagoParedes","123");
+		RepositorioDeUsuario.agregarUsuario(usuario3);
+		
 		CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().forEach(emp-> RepositorioDeEmpresas.agregarEmpresas(emp));
-	}
+	}	
 	
 	@Test
 	public void test1_existeFacebook() {
@@ -67,10 +78,12 @@ public class testPersistencia {
 	@Test
 	public void test7_creoUnaMetodologiaYPrueboQueExiste() {
 		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		
+		
 		CondicionConAño test = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
 		CondicionEntreDosEmpresas test2 = new CondicionEntreDosEmpresas(Repositorio.buscar("indicador1", Indicador.class), Mayor.getSingletonMayor(), "hola");
 		CondicionConAño test3 = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
-		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test, test2, test3, test));
+		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test, test2, test3, test), Repositorio.buscarPorId((long)1, Usuario.class));
 		
 		RepositorioDeCondiciones.agregarCondicion(test);
 		

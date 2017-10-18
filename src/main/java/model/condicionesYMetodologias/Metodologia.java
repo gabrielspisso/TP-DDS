@@ -16,10 +16,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import model.Empresa;
+import model.Usuario;
 import model.repositorios.RepositorioDeEmpresas;
 
 
@@ -35,6 +37,9 @@ public class Metodologia {
 		return id;
 	}
 
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	Usuario usuario;
+	
 	String nombre;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -45,12 +50,11 @@ public class Metodologia {
 	protected Metodologia() {
 	}
 
-	public Metodologia(	String nombre,String Metodologia,List<Condicion> Condiciones){
+	public Metodologia(	String nombre,String Metodologia,List<Condicion> Condiciones, Usuario usuario){
 		this.nombre = nombre;
-		//this.CondicionesDeOrdenamiento = Condiciones.stream().filter(c->!c.esCondicionDeFiltrado()).collect(Collectors.toList());
-		//this.CondicionesParaFiltrar = Condiciones.stream().filter(c->c.esCondicionDeFiltrado()).collect(Collectors.toList());
 		this.condiciones = Condiciones;
 		this.descripcion = Metodologia;
+		this.usuario = usuario;
 	}
 	
 	public String getNombre(){

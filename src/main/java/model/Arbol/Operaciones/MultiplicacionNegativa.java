@@ -2,12 +2,19 @@ package model.Arbol.Operaciones;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+
 import model.Cuenta;
 import model.Indicador;
-
+@Entity
 public class MultiplicacionNegativa extends Operacion {
 
-	public MultiplicacionNegativa(NODO izquierda, NODO derecha) {
+	protected MultiplicacionNegativa() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public MultiplicacionNegativa(Raiz izquierda, Raiz derecha) {
 		super("*-", izquierda, derecha);
 	}
 

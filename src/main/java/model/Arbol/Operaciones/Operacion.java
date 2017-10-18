@@ -2,24 +2,34 @@ package model.Arbol.Operaciones;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
+
 import model.Cuenta;
 import model.Indicador;
-
-public abstract class Operacion implements NODO{
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Operacion extends Raiz{
 	
-	String operador;
-	protected NODO izquierda;
-	protected NODO derecha;
 	
-	public Operacion(String operador, NODO izquierda, NODO derecha) {
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	protected Raiz izquierda;
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	protected Raiz derecha;
+	
+	public Operacion(String operador, Raiz izquierda, Raiz derecha) {
 		super();
-		this.operador = operador;
+		this.valor = operador;
 		this.izquierda = izquierda;
 		this.derecha = derecha;
 	}
 
 	public String valor() {
-		return operador;
+		return valor;
 	};
 	
 	@Override
@@ -27,15 +37,15 @@ public abstract class Operacion implements NODO{
 		return izquierda != null && derecha != null;
 	}
 	
-	public void setIzquierda(NODO izquierda) {
+	public void setIzquierda(Raiz izquierda) {
 		this.izquierda = izquierda;
 	}
 
-	public void cargar(NODO izquierda, NODO derecha) {
+	public void cargar(Raiz izquierda, Raiz derecha) {
 		this.izquierda = izquierda;
 		this.derecha = derecha;
 	}
-	public void setDerecha(NODO derecha) {
+	public void setDerecha(Raiz derecha) {
 		this.derecha = derecha;
 	}
 
@@ -44,8 +54,8 @@ public abstract class Operacion implements NODO{
 		return true;
 	}
 	@Override
-	public boolean contieneEsteToken(String token) {
-		return izquierda.contieneEsteToken(token) || derecha.contieneEsteToken(token);
+	public boolean contieneEsteToken(String token, Long id) {
+		return izquierda.contieneEsteToken(token, id) || derecha.contieneEsteToken(token, id);
 	}
 
 	public abstract double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores);
@@ -54,6 +64,11 @@ public abstract class Operacion implements NODO{
 	
 	@Override
 	public String mostrarFormula() {
-		return izquierda.mostrarFormula() + operador + derecha.mostrarFormula();
+		return izquierda.mostrarFormula() + valor + derecha.mostrarFormula();
+	}
+
+	protected Operacion() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 }

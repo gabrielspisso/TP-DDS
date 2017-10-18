@@ -1,7 +1,5 @@
-/controllers/
 /model/
 /server/
 /spark/
+/controllers/
 /templates/
-/public/
-/META-INF/
