@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
 
+import clasesResultantes.ResultadoIndicador;
 import model.Arbol.Operaciones.Raiz;
 import model.Excepciones.IdentificadorInexistente;
 import model.repositorios.Repositorio;
@@ -29,6 +31,10 @@ import model.repositorios.RepositorioDeUsuario;
 @Table(name = "Indicador")
 public class Indicador {
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
 	//@SuppressWarnings("unused")
 	protected Indicador() {}//Esto esta publico porque hibernate tiene problemitas
 	
@@ -36,6 +42,10 @@ public class Indicador {
 	@GeneratedValue
 	private Long id;
 	
+	public Long getId() {
+		return id;
+	}
+
 	private String nombre;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -94,6 +104,21 @@ public class Indicador {
 		return arbol.contieneEsteToken(token, usuario.getId());
 	}
 	
+	public List<ResultadoIndicador> evaluarEmpresa(Empresa empresa){
+		List<ResultadoIndicador> resultado = new ArrayList<>();
+		empresa.getBalances().forEach(bal -> resultado.add(evaluarBalance(bal)));
+		return resultado;
+	}
 	
+	public ResultadoIndicador evaluarBalance(Balance bal) {
+		double valor;
+		try {
+			valor = this.calcularValor(bal.getCuentas());
+			return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), Double.toString(valor));
+		}
+		catch(Exception ex) {
+			return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), "No se puede calcular");
+		}
+	}
 
 }

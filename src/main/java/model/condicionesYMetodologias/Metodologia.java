@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import clasesResultantes.ResultadoMetodologia;
 import model.Empresa;
 import model.Usuario;
 import model.repositorios.RepositorioDeEmpresas;
@@ -116,12 +117,12 @@ public class Metodologia {
 		});
 	}
 	
-	public List<Resultado> generarResultado(List<Empresa> listaDeEmpresas){
-		List<Resultado> resultado = new ArrayList<>();
+	public List<ResultadoMetodologia> generarResultado(List<Empresa> listaDeEmpresas){
+		List<ResultadoMetodologia> resultado = new ArrayList<>();
 		listaDeEmpresas = this.listarEmpresas(listaDeEmpresas);
 		listaDeEmpresas.forEach(emp -> 
 			resultado.add( 
-					new Resultado(emp.getNombre(), this.sacarPorcentajeMetodologia(emp))
+					new ResultadoMetodologia(emp.getNombre(), this.sacarPorcentajeMetodologia(emp))
 				));
 		return resultado;
 	}

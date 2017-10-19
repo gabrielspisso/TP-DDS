@@ -38,4 +38,11 @@ public class RepositorioDeIndicadores {
 	public static void borrar(String nombre) {
 		Repositorio.borrar(nombre, Indicador.class);
 	}
+	
+	public static boolean lePertenece(String id_indicador, Long id_usuario) {
+		Indicador ind = Repositorio.buscarPorId(Long.valueOf(id_indicador).longValue(), Indicador.class);
+		if(ind == null) return false;
+		return ind.getUsuario().getId() == id_usuario;
+	}
+	
 }

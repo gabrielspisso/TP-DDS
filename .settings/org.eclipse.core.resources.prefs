@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/resources/templates/empresas/verEmpresas.hbs=UTF-8
+encoding//src/main/resources/templates/indicadores/crearIndicador.hbs=UTF-8
+encoding//src/main/resources/templates/indicadores/indicadores.hbs=UTF-8
+encoding//src/main/resources/templates/indicadores/indicadoresConCalculos.hbs=UTF-8
 encoding//src/main/resources/templates/layout.hbs=UTF-8

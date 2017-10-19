@@ -51,25 +51,30 @@ public class Router {
 			
 		Spark.get("/empresas", empresaController::empresas, engine);
 		
-		Spark.get("/indicadores", indicadoresControllers::indicadores, engine);
+		
 		
 		Spark.get("/metodologias", metodologiasController::showMetodologias, engine);
 		
-		//Spark.post("/metodologias", homeController::evaluarEmpresas);
 		
 		Spark.post("/metodologias", metodologiasController::postMetodologias);
 		Spark.get("/metodologias/resultado", metodologiasController::mostrarResultadoMetodologia, engine);
 		
 		Spark.get("/login", homeController::showLogin, engine);
 		Spark.post("/login", homeController::login);
-		
 		Spark.get("/logout", homeController::logout);
 
 		
-	//	Spark.get("/proyectos", proyectosController::listar, engine);
-	//	Spark.get("/proyectos/new", proyectosController::nuevo, engine);
-	//	Spark.get("/proyectos/:id", proyectosController::mostrar, engine);
-	//	Spark.post("/proyectos", proyectosController::crear);
+		///Estos 2 son casi iguales
+		Spark.get("/indicadores", indicadoresControllers::indicadores, engine);//Pantalla sin resultados
+		Spark.get("/indicadores/:idIndicador/:idEmpresa", indicadoresControllers::mostrarResultados, engine); 
+
+		//Estos 2 son casi iguales
+		Spark.post("/indicadores", indicadoresControllers::postIndicadores);//Pantalla sin resultados
+		Spark.post("/indicadores/:idIndicador/:idEmpresa", indicadoresControllers::recibirDatos);
+		
+		Spark.get("/indicadores/nuevo", indicadoresControllers::formularioIndicador, engine);
+		Spark.post("/indicadores/nuevo", indicadoresControllers::recibirFormula);
+		
 	}
 
 }

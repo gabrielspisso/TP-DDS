@@ -12,11 +12,11 @@ import javax.sound.midi.Receiver;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import clasesResultantes.ResultadoMetodologia;
 import model.Calculos.Mayor;
 import model.Calculos.Menor;
 import model.condicionesYMetodologias.CondicionConAño;
 import model.condicionesYMetodologias.Metodologia;
-import model.condicionesYMetodologias.Resultado;
 import model.Empresa;
 import model.Indicador;
 import model.Usuario;

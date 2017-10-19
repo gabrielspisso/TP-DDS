@@ -64,6 +64,9 @@ public  class Repositorio {
 		return (resultado.isEmpty()) ? null : resultado.get(0);
 	}
 	
+	public static <T> T buscarPorId(String id, Class <T> clase){
+		return buscarPorId(Long.valueOf(id).longValue(), clase);
+	}
 	
 	public static <T> void borrar(String nombre,Class<T> clase) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();

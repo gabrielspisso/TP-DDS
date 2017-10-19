@@ -1,0 +1,45 @@
+{{#partial "contenido"}}
+  
+
+  
+        
+        
+        <div class="py-5">
+          <h4 class=""> Creacion de indicadores </h4>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group"> <label for="usr">Ingrese formula:</label>
+              <form action="/indicadores/nuevo" method="post">
+                <input type="text" name="formula" class="form-control" placeholder="Ejemplo: indicador1 = FDS * 4"> </div>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-primary btn-lg btn-block my-4">Crear nuevo indicador </a>
+              </form>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-md-12">
+              <div id="c_alert" class="alert pi-draggable {{tipoDeMensaje}} {{abierto}}" role="alert">
+                <button type="button" class="close" aria-label="Close" data-toggle="collapse" data-dismiss="alert"> <span aria-hidden="true">×</span> </button>
+                <h4 class="alert-heading">{{titulo}}</h4>
+                {{contenido}}
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+
+  
+{{/partial}}
+
+{{>layout.hbs}}

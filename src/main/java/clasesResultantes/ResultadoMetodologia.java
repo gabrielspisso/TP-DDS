@@ -1,12 +1,12 @@
-package model.condicionesYMetodologias;
+package clasesResultantes;
 
-public class Resultado {
+public class ResultadoMetodologia {
 
 	private String nombreEmpresa;
 	double valor;
 
 	
-	public Resultado(String nombreEmpresa, int valor) {
+	public ResultadoMetodologia(String nombreEmpresa, int valor) {
 		super();
 		this.nombreEmpresa = nombreEmpresa;
 		this.valor = ((double)valor)/100;
