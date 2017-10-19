@@ -1,0 +1,60 @@
+<html>
+
+<head><title>Login</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+	<link rel="stylesheet" href="login.css" >
+</head>
+ 
+ 
+<body>
+<!--  <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
+This is a very simple parallax effect achieved by simple CSS 3 multiple backgrounds, made by http://twitter.com/msurguy -->
+
+
+<script>
+ $(document).ready(function () {
+    $('.forgot-pass').click(function(event) {
+      $(".pr-wrap").toggleClass("show-pass-reset");
+    }); 
+    
+    $('.pass-reset-submit').click(function(event) {
+      $(".pr-wrap").removeClass("show-pass-reset");
+    }); 
+});
+</script>
+
+
+<div class="py-5">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pr-wrap">
+                <div class="pass-reset">
+                    <label>
+                        Enter the email you signed up with</label>
+                    <input type="email" placeholder="Email" />
+                    <input type="submit" value="Submit" class="pass-reset-submit btn btn-success btn-sm" />
+                </div>
+            </div>
+            <div class="wrap">
+                <p class="form-title">
+                    Bienvenido! </p>
+
+                <form class="login h-50 w-50 py-5" action="/login" method="POST" align="center">
+                <input type="text" class="py-2" name="nombre" id="inputEmail1" aria-describedby="emailHelp" placeholder="Usuario" />
+             
+                <input type="password" class="form-control py-2" name="password" id="exampleInputPassword1" placeholder="Password">
+                <input type="submit" value="Ingresar" class="btn btn-success btn-sm" />
+                
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+</body>
+</html>

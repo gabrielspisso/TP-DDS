@@ -1,7 +1,9 @@
 package server;
 
+import controllers.EmpresasController;
 import controllers.HomeController;
-import controllers.ProyectosController;
+import controllers.IndicadoresControllers;
+import controllers.MetodologiasController;
 import model.Usuario;
 import model.repositorios.Repositorio;
 import spark.Spark;
@@ -21,6 +23,13 @@ public class Router {
 		Spark.staticFiles.location("/public");
 		
 		HomeController homeController = new HomeController();
+		EmpresasController empresaController = new EmpresasController();
+		
+		IndicadoresControllers indicadoresControllers = new IndicadoresControllers();
+		
+		MetodologiasController metodologiasController = new MetodologiasController();
+		
+		
 		
 		
 		Spark.before((req,res)-> {
@@ -40,16 +49,16 @@ public class Router {
 		Spark.get("/", homeController::home, engine);
 		Spark.get("/main", homeController::home, engine);
 			
-		Spark.get("/empresas", homeController::empresas, engine);
+		Spark.get("/empresas", empresaController::empresas, engine);
 		
-		Spark.get("/indicadores", homeController::indicadores, engine);
+		Spark.get("/indicadores", indicadoresControllers::indicadores, engine);
 		
-		Spark.get("/metodologias", homeController::showMetodologias, engine);
+		Spark.get("/metodologias", metodologiasController::showMetodologias, engine);
 		
 		//Spark.post("/metodologias", homeController::evaluarEmpresas);
 		
-		Spark.post("/metodologias", homeController::postMetodologias);
-		Spark.get("/metodologias/resultado", homeController::mostrarResultadoMetodologia, engine);
+		Spark.post("/metodologias", metodologiasController::postMetodologias);
+		Spark.get("/metodologias/resultado", metodologiasController::mostrarResultadoMetodologia, engine);
 		
 		Spark.get("/login", homeController::showLogin, engine);
 		Spark.post("/login", homeController::login);

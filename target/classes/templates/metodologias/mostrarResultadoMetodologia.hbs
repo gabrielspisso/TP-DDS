@@ -1,0 +1,91 @@
+{{#partial "contenido"}}
+  
+
+
+<script src="../js/progressbar.min.js"></script>
+
+<script>
+
+function crearProgressCircle(campo,nombreEmpresa, porcentaje){
+
+  var colorFinal = (porcentaje > 0.66) ? '#00ff00' : (porcentaje > 0.33) ? '#ff9900' : '#ff0000';
+
+  var bar = new ProgressBar.Circle(campo, {
+  color: '#aaa',
+  // This has to be the same size as the maximum width to
+  // prevent clipping
+  strokeWidth: 4,
+  trailWidth: 1,
+  easing: 'easeInOut',
+  duration: 1400,
+  text: {
+    autoStyleContainer: false
+  },
+  from: { color: colorFinal, width: 4 },
+  to: { color: colorFinal, width: 4 },
+  // Set default step function for all animate calls
+  step: function(state, circle) {
+    circle.path.setAttribute('stroke', state.color);
+    circle.path.setAttribute('stroke-width', state.width);
+
+    var value = Math.round(circle.value() * 100);
+    if (value === 0) {
+      circle.setText('');
+    } else {
+      circle.setText(value);
+    }
+    circle.setText(nombreEmpresa + " " + value + "%");
+
+  }
+});
+bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+bar.text.style.fontSize = '2rem';
+bar.animate(porcentaje);
+}
+
+
+</script>
+
+
+
+<div class="col-md-12 py-5">
+<h2>Segun la metodologia {{nombreMetodologia}}, la conveniencia de inversion es la siguiente:</h2>
+
+
+
+
+
+          <script type="text/javascript">
+          $( document ).ready(function() {
+          {{#each empresas}}
+           crearProgressCircle({{nombreEmpresa}},"{{nombreEmpresa}}",{{valor}});
+           
+           {{/each}}  
+
+          });
+            
+          </script>
+
+
+          <div class="py-5">
+            <div class="container">
+              <div class="row">
+
+			{{#each empresas}}
+                <div class="col-md-4">
+                  <div id="{{nombreEmpresa}}" class="progresscircle"></div>
+                </div>
+			{{/each}} 
+
+              </div>
+            </div>
+          </div>
+          
+</div>
+
+
+           
+{{/partial}}
+
+
+{{>layout.hbs}}

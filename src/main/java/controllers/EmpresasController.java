@@ -28,40 +28,13 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class HomeController extends Controller{
-	
-	
-	public  ModelAndView home(Request req, Response res){	
+public class EmpresasController extends Controller{
+	public  ModelAndView empresas(Request req, Response res){
 		
 		Map<String, Object> model = mapa(req);
-		return new ModelAndView(model, "principal/main.hbs");
+		
+		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
+		
+		return new ModelAndView(model, "empresas/verEmpresas.hbs");
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	public  ModelAndView showLogin(Request req, Response res){
-		return new ModelAndView(null, "login.hbs");
-	}
-	public  Void logout(Request req, Response res){
-		res.removeCookie("id");
-		res.redirect("/login");
-		return null;
-	}
-	
-	public Void login(Request req, Response res){
-		Usuario user = Repositorio.buscar(req.queryParams("nombre"), Usuario.class);
-		if(user.getPassword().equals(req.queryParams("password"))) {
-			res.cookie("id", user.getId().toString());	
-			res.redirect("/main");
-		}
-		else
-			res.redirect("/login");
-		return null;
-	}
-	
 }

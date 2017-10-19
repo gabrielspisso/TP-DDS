@@ -1,0 +1,84 @@
+{{#partial "contenido"}}
+  
+
+<script>
+function mostrarYOcultar(valor) {
+   $("#"+valor).toggle("slow"); 
+}
+function mostrarValorDeCuenta(id,valor){
+$("#textoDeEmpresa"+id).empty();
+  $("#textoDeEmpresa"+id).append("El valor de la cuenta es: <h1>" + valor + "</h1>"); 
+}
+</script>
+   <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Empresa</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+
+          {{#each empresas }}
+              <tr>
+                <td>{{nombre}}</td>
+                <td align="center">
+                  <a href="#" class="btn btn-outline-primary" onclick="mostrarYOcultar({{id}})">Ver balances</a>
+                </td>
+              </tr>
+              <tr id="{{id}}" class="noMostrar">
+                <td>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Periodo</th>
+                        <th>Año</th>
+                        <th>Cuenta</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {{#each balances}}
+                    
+                      <tr>
+                        <td>{{periodo}}</td>
+                        <td>{{anio}}</td>
+                        <td>
+                        
+                        
+                          <div class="btn-group">
+                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Seleccione cuenta</button>
+
+
+                            <div class="dropdown-menu">
+                        {{#each cuentas}}
+                              <a class="dropdown-item" href="#" onclick="mostrarValorDeCuenta({{../../id}},{{valor}})">{{nombre}}</a>
+                        {{/each}}
+                            </div>
+                          </div>
+                        </td>                        
+                      </tr>
+                      
+					{{/each}}
+                    </tbody>
+                  </table>
+                </td>
+                <td id="textoDeEmpresa{{id}}">El valor es de:
+                  <h1> Aun no selecciono nada </h1>
+                </td>
+              </tr>
+			{{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+{{/partial}}
+
+{{>layout.hbs}}
