@@ -132,7 +132,31 @@ public class IOs {
 	}
 	
 	
-	
+		public static List<Indicador> listaDeIndicadoresMockeada(){
+		
+		Indicador indicador1 = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+
+		Indicador indicador2 = IndicadorBuilder.Build("cc=FDS+10;");
+
+		Indicador indicador3 = IndicadorBuilder.Build("b=2+2;");
+
+		Indicador indicador4 = IndicadorBuilder.Build("ro=6;");
+
+		Indicador indicador5 = IndicadorBuilder.Build("barby=42;");
+
+		Indicador indicador6 = IndicadorBuilder.Build("super=barby;");
+
+		Indicador indicador7 = IndicadorBuilder.Build("I1=1;");
+
+		Indicador indicador8 = IndicadorBuilder.Build("I2=I1+1;");
+
+		Indicador indicador9 = IndicadorBuilder.Build("L3=L4;");
+
+		Indicador indicador10 = IndicadorBuilder.Build("HOLA=798+indicador1;");
+
+		return Arrays.asList(indicador1,indicador2,indicador3,indicador4,indicador5,indicador6,indicador7,indicador8,indicador9,indicador10);
+
+	}
 	
 	
 	
