@@ -41,6 +41,10 @@ public class Metodologia {
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	Usuario usuario;
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
 	String nombre;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

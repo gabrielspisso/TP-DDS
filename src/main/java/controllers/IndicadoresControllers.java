@@ -16,6 +16,8 @@ import model.repositorios.RepositorioDeIndicadores;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Spark;
+import spark.http.matching.Halt;
 
 public class IndicadoresControllers extends Controller{
 	public  ModelAndView indicadores(Request req, Response res){	
@@ -33,17 +35,15 @@ public class IndicadoresControllers extends Controller{
 	}
 	
 	//Es para que no usen los indicadores de alguien mas
-	public void seguridad(String id_indicador, long id_usuario, Response res) throws IOException {
+	public void seguridad(String id_indicador, long id_usuario, Response res) {
 		if(!RepositorioDeIndicadores.lePertenece(id_indicador, id_usuario)) {
-			res.raw().sendError(404, "La pagina que busca no existe");
+			res.redirect("/404notFound");
 		}
 	}
 	
 	//Ya se, este metodo es re largo
-	public ModelAndView mostrarResultados(Request req, Response res) throws IOException {
+	public ModelAndView mostrarResultados(Request req, Response res) {
 		seguridad(req.params(":idIndicador"), id_usuario(req), res);
-		//Long id_indicador = Long.valueOf(req.params(":idIndicador")).longValue();
-		//Long id_empresa = Long.valueOf(req.params(":idEmpresa")).longValue();
 		Indicador indicador = Repositorio.buscarPorId(req.params(":idIndicador"), Indicador.class);
 		Empresa empresa = Repositorio.buscarPorId(req.params(":idEmpresa"), Empresa.class);
 		
@@ -77,28 +77,35 @@ public class IndicadoresControllers extends Controller{
 		}
 		return new ModelAndView(model, "indicadores/crearIndicador.hbs");
 	}
+	
+	
 	public  Void recibirFormula(Request req, Response res){
 		res.cookie("nuevo", "");
 		String formula = req.queryParams("formula") + ";";
 		Usuario usuario = Repositorio.buscarPorId(req.cookie("id"), Usuario.class);
 		Indicador indicador; 
+		String titulo = null, tipoDeMensaje = null, contenido = null;
 		try {
 			indicador = IndicadorBuilder.Build(formula, usuario);
 			RepositorioDeIndicadores.agregarIndicador(indicador);
-			res.cookie("titulo", "El indicador se ha creado con exito!");
-			res.cookie("tipoDeMensaje", "alert-success");
-			res.cookie("contenido", "El indicador ya se encuentra disponible para su uso. Seleccionelo desde la pestaña indicadores");
+			titulo = "El indicador se ha creado con exito!";
+			tipoDeMensaje ="alert-success";
+			contenido ="El indicador ya se encuentra disponible para su uso. Seleccionelo desde la pestaña indicadores";
 		}
 		catch(RecursiveException ex) {
-			res.cookie("titulo", "No se pudo crear el indicador");
-			res.cookie("tipoDeMensaje", "alert-danger");
-			res.cookie("contenido", "La definicion que usted ha ingresado es recursiva. Por favor intentelo de nuevo.");
+			titulo ="No se pudo crear el indicador";
+			tipoDeMensaje = "alert-warning";
+			contenido ="La definicion que usted ha ingresado es recursiva. Por favor intentelo de nuevo.";
 		}
 		catch(ParserException ex) {
-			res.cookie("titulo", "No se pudo crear el indicador");
-			res.cookie("tipoDeMensaje", "alert-danger");
-			res.cookie("contenido", "La formula que ha ingresado no es lexicamente correcta. Por favor intentelo de nuevo.");
+			titulo ="No se pudo crear el indicador";
+			tipoDeMensaje = "alert-danger";
+			contenido ="La formula que ha ingresado no es lexicamente correcta. Por favor intentelo de nuevo.";
 		}
+		res.cookie("titulo", titulo);
+		res.cookie("tipoDeMensaje", tipoDeMensaje);
+		res.cookie("contenido",contenido);
+		
 		res.redirect("/indicadores/nuevo");
 		return null;
 	}

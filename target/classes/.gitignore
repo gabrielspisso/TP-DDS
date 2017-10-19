@@ -1,7 +1,5 @@
-/model/
-/public/
 /controllers/
 /server/
-/spark/
 /templates/
-/clasesResultantes/
+/public/
+/model/

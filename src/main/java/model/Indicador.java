@@ -22,6 +22,7 @@ import org.uqbar.commons.utils.Observable;
 import clasesResultantes.ResultadoIndicador;
 import model.Arbol.Operaciones.Raiz;
 import model.Excepciones.IdentificadorInexistente;
+import model.Excepciones.RecursiveException;
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeIndicadores;
 import model.repositorios.RepositorioDeUsuario;
@@ -116,8 +117,11 @@ public class Indicador {
 			valor = this.calcularValor(bal.getCuentas());
 			return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), Double.toString(valor));
 		}
-		catch(Exception ex) {
-			return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), "No se puede calcular");
+		catch(RecursiveException ex) {
+			return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), "No se puede calcular porque es recursivo");
+		}
+		catch(IdentificadorInexistente ex) {
+			return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), "No se pudo encontrar el valor: " + ex.getMessage());
 		}
 	}
 

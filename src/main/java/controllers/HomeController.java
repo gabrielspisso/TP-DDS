@@ -38,18 +38,13 @@ public class HomeController extends Controller{
 	}
 
 	
-	
-	
-	
-	
-	
-	
 	public  ModelAndView showLogin(Request req, Response res){
 		return new ModelAndView(null, "login.hbs");
 	}
+	
 	public  Void logout(Request req, Response res){
 		res.removeCookie("id");
-		res.redirect("/login");
+		res.redirect("/login");		
 		return null;
 	}
 	
@@ -57,6 +52,7 @@ public class HomeController extends Controller{
 		Usuario user = Repositorio.buscar(req.queryParams("nombre"), Usuario.class);
 		if(user.getPassword().equals(req.queryParams("password"))) {
 			res.cookie("id", user.getId().toString());	
+			req.session(true);
 			res.redirect("/main");
 		}
 		else

@@ -43,9 +43,7 @@ public class Identificador extends Operando{
 		else if(estaEnIndicadores(listaDeIndicadores)){
 			return buscarEnIndicadores(listaDeIndicadores, listaDeCuentas);
 		}
-		throw new IdentificadorInexistente("El valor "
-				+"\"" +  valor
-				+"\" no se encontro en el listado de cuentas ni de indicadores");
+		throw new IdentificadorInexistente(valor);
 	}
 	
 	private double buscarEnCuentas( List<Cuenta> listaDeCuentas){

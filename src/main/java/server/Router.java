@@ -5,7 +5,12 @@ import controllers.HomeController;
 import controllers.IndicadoresControllers;
 import controllers.MetodologiasController;
 import model.Usuario;
+import model.Excepciones.ParserException;
 import model.repositorios.Repositorio;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
+import spark.Route;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.BooleanHelper;
@@ -39,7 +44,7 @@ public class Router {
 					res.redirect("/login");
 			}
 			else {
-				Usuario usuario = Repositorio.buscarPorId(Long.valueOf(id).longValue(),Usuario.class);
+				Usuario usuario = Repositorio.buscarPorId( id, Usuario.class);
 				if(usuario == null && !req.pathInfo().equals("/login") ) {
 					res.redirect("/login");
 				}
@@ -53,11 +58,12 @@ public class Router {
 		
 		
 		
+		
 		Spark.get("/metodologias", metodologiasController::showMetodologias, engine);
 		
 		
 		Spark.post("/metodologias", metodologiasController::postMetodologias);
-		Spark.get("/metodologias/resultado", metodologiasController::mostrarResultadoMetodologia, engine);
+		Spark.get("/metodologias/:idMetodologia/resultado", metodologiasController::mostrarResultadoMetodologia, engine);
 		
 		Spark.get("/login", homeController::showLogin, engine);
 		Spark.post("/login", homeController::login);
@@ -75,6 +81,14 @@ public class Router {
 		Spark.get("/indicadores/nuevo", indicadoresControllers::formularioIndicador, engine);
 		Spark.post("/indicadores/nuevo", indicadoresControllers::recibirFormula);
 		
+		//Spark.get("*", Router::paginaDeError,engine);
+		Spark.get("/404notFound", Router::paginaDeError,engine);
+		
+	}
+	
+	private static ModelAndView paginaDeError(Request req, Response res) {
+		
+		return new ModelAndView(null, "errorPage.hbs");
 	}
 
 }

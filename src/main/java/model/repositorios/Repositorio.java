@@ -56,6 +56,8 @@ public  class Repositorio {
 		return (resultado.isEmpty()) ? null : resultado.get(0);
 	}
 	
+	
+	
 	public static <T> T buscarPorId(Long id, Class <T> clase){
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		List <T> resultado = em.createQuery("from " + clase.getName() + " c where c.id = :id", clase) //
