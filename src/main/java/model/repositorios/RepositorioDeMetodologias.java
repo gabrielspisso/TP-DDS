@@ -32,7 +32,15 @@ public class RepositorioDeMetodologias {
 					.getResultList();		
 		}
 		public static void agregarMetodologia(Metodologia metodologiaAAgregar) {
-			Repositorio.addInstanceToDB(Metodologia.class,  metodologiaAAgregar);
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		em.persist(metodologiaAAgregar);
+		
+
+		tx.commit();
+		
 		 }
 	
 		 public static List<Metodologia> traerMetodologiasDeLaDB() {
