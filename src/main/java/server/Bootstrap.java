@@ -1,6 +1,7 @@
 package server;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -8,10 +9,21 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import model.CargadorDeEmpresas;
 import model.Empresa;
+import model.IOs;
+import model.Indicador;
 import model.Usuario;
+import model.Builders.IndicadorBuilder;
+import model.Calculos.Mayor;
+import model.Calculos.Menor;
+import model.Calculos.Promedio;
+import model.condicionesYMetodologias.CondicionConAño;
+import model.condicionesYMetodologias.CondicionEntreDosEmpresas;
 import model.condicionesYMetodologias.Metodologia;
+import model.condicionesYMetodologias.condicionConCalculo;
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeMetodologias;
 import model.repositorios.RepositorioDeUsuario;
 
 
@@ -33,8 +45,8 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		
 		
 		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
-		CondicionConAÃ±o test = new CondicionConAÃ±o(indicador,Mayor.getSingletonMayor(),8,1,"");
-		CondicionConAÃ±o test2 = new CondicionConAÃ±o(indicador,Menor.getSingletonMenor(),8,1,"");
+		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
+		CondicionConAño test2 = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
 		Metodologia metodologiaAimplementarDeSpisso = new Metodologia("Metodologia DDS",null,Arrays.asList(test, test2),usuario );
 		
 		RepositorioDeMetodologias.agregarMetodologia(metodologiaAimplementarDeSpisso);

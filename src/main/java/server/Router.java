@@ -40,12 +40,12 @@ public class Router {
 		Spark.before((req,res)-> {
 			String id = req.cookie("id");
 			if (id == null) {
-				if(!req.pathInfo().equals("/login"))
+				if(Router.esPaginaPrivada(req))
 					res.redirect("/login");
 			}
 			else {
 				Usuario usuario = Repositorio.buscarPorId( id, Usuario.class);
-				if(usuario == null && !req.pathInfo().equals("/login") ) {
+				if(usuario == null && Router.esPaginaPrivada(req)) {
 					res.redirect("/login");
 				}
 			}
@@ -89,6 +89,9 @@ public class Router {
 	private static ModelAndView paginaDeError(Request req, Response res) {
 		
 		return new ModelAndView(null, "errorPage.hbs");
+	}
+	private static boolean esPaginaPrivada(Request req) {
+		return !req.pathInfo().equals("/login");
 	}
 
 }

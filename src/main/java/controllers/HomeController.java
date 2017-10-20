@@ -39,6 +39,7 @@ public class HomeController extends Controller{
 
 	
 	public  ModelAndView showLogin(Request req, Response res){
+		
 		return new ModelAndView(null, "login.hbs");
 	}
 	
@@ -49,15 +50,41 @@ public class HomeController extends Controller{
 	}
 	
 	public Void login(Request req, Response res){
+		
+		
 		Usuario user = Repositorio.buscar(req.queryParams("nombre"), Usuario.class);
-		if(user.getPassword().equals(req.queryParams("password"))) {
+		
+		if (user == null) {
+			res.redirect("/login");
+		}
+		else if(user.getPassword().equals(req.queryParams("password"))) {
 			res.cookie("id", user.getId().toString());	
 			req.session(true);
 			res.redirect("/main");
 		}
-		else
-			res.redirect("/login");
+		else {
+
+			res.redirect("/login");			
+		}
 		return null;
+	}
+	
+	private  boolean esPaginaPrivada(Request req) {
+		return !req.pathInfo().equals("/login");
+	}
+	
+	private void chequearId(Request req, Response res) {
+		String id = req.cookie("id");
+		if (id == null) {
+			if(this.esPaginaPrivada(req))
+				res.redirect("/login");
+		}
+		else {
+			Usuario usuario = Repositorio.buscarPorId( id, Usuario.class);
+			if(usuario == null && this.esPaginaPrivada(req)) {
+				res.redirect("/login");
+			}
+		}
 	}
 	
 }
