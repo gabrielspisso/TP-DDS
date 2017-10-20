@@ -38,9 +38,41 @@
           <li class="nav-item">
             <a class="navbar-brand text-white" href="/empresas" id="btn_empresa">Empresas</a>
           </li>
-          <li class="nav-item">
-            <a class="navbar-brand text-white" href="/indicadores" id="btn_indicadores">Indicadores</a>
-          </li>
+          
+<style>
+.linkEnMenu li{
+text-decoration:none;
+margin-left:0.5em;
+border-bottom:1px;
+}
+.linkEnMenu li :hover{
+text-decoration:none;
+background-color:#000;
+
+}
+.divisor{
+background-color:#e5e5e5;
+overflow:hidden;
+height:1px;
+margin:9px 0;
+}
+</style>
+
+<li class="nav-item"><div role="presentation" class="dropdown">
+    <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle navbar-brand text-white ">
+      Indicadores <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <a href="/indicadores/nuevo" class="linkEnMenu"><li>Crear indicador</li></a>
+      <div  class="divisor"></div>
+      <a href="/indicadores" class="linkEnMenu"><li>Evaluar empresas</li></a>
+    </ul>
+  <div></div></div></li>
+
+
+
+
+
           <li class="nav-item">
             <a class="navbar-brand text-white" href="/metodologias" id="btn_metodologias">Metodologias</a>
           </li>
