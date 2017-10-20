@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -28,10 +29,8 @@ import model.repositorios.RepositorioDeIndicadores;
 import model.repositorios.RepositorioDeUsuario;
 
 @Entity
-@Observable
-@Table(name = "Indicador")
+@Table(name = "Indicador",uniqueConstraints= @UniqueConstraint(columnNames={"nombre", "usuario_id"}))
 public class Indicador {
-	
 	public Usuario getUsuario() {
 		return usuario;
 	}

@@ -24,10 +24,10 @@ import clasesResultantes.ResultadoMetodologia;
 import model.Empresa;
 import model.Usuario;
 import model.repositorios.RepositorioDeEmpresas;
-
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "Metodologia")
+@Table(name = "Metodologia",uniqueConstraints= @UniqueConstraint(columnNames={"nombre", "usuario_id"}))
 public class Metodologia {
 	
 	@Id

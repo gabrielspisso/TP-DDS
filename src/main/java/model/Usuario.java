@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.uqbar.commons.utils.Observable;
 
 @Entity
-@Table(name = "Usuario")
+@Table(name = "Usuario",uniqueConstraints= @UniqueConstraint(columnNames={"nombre"}))
 public class Usuario {
 	
 	private String password;

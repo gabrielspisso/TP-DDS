@@ -12,12 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.uqbar.commons.utils.Observable;
 
 @Entity
 @Observable
-@Table(name = "Empresa")
+@Table(name = "Empresa",uniqueConstraints= @UniqueConstraint(columnNames={"nombre"}))
 public class Empresa {
 	
 	@SuppressWarnings("unused")

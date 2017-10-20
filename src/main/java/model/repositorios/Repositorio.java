@@ -21,25 +21,25 @@ public  class Repositorio {
 			return em.createQuery("from " + clase.getName(), clase).getResultList();		
 	}
 	public static <T> void  addInstanceToDB(Class<T> clase,T ObjetoAPersistir) {
+
+
+
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
-
-		List<T> listaDeCondiciones = em
-				.createQuery("from "+ clase.getName() +" e where e.nombre = :nombre", clase)
-				.setParameter("nombre", ObjetoAPersistir.toString()).getResultList();
-
 		EntityTransaction tx = em.getTransaction();
-
-		tx.begin();
-
-		if (listaDeCondiciones.isEmpty())
-			em.persist(ObjetoAPersistir);
-		else {
-			// Aca fijarse de que si ya esta en la BD la empresa o lo que sea que estes cargando, te tira un errorS
+					
+			tx.begin();
+			try {
+				em.persist(ObjetoAPersistir);			
+				tx.commit();
+			}
+			catch (Exception ex) {
+				tx.rollback();
+			}
+			
 		}
 
-		tx.commit();
-		
-	}
+
+
 		
 	public static <T> boolean existe(String nombre,Class<T> clase) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
