@@ -45,71 +45,67 @@
             <a class="navbar-brand text-white" href="/metodologias" id="btn_metodologias">Metodologias</a>
           </li>
           <li class="nav-item">
-            <a class="navbar-brand text-white" href="/main" id="btn_Condiciones">Condiciones</a>
+            <a class="navbar-brand text-white" href="/404notFound" id="btn_Condiciones">Condiciones</a>
           </li>
         </ul>
-        <form class="form-inline m-0">
-         <h4>{{nombreUsuario}}</h4>
-          <a id="c_button" class="btn pi-draggable btn-dark" href="/logout" draggable="true">Cerrar sesión </a>
-        </form>
+        <div class="form-inline m-2">
+         <h4 class="text-light shadow-usr" style="margin-right: 0.5em">{{nombreUsuario}}</h4>
+          <button id="c_button" class="btn-transt" onclick="window.location.href='/logout'"">Cerrar sesión</button>
+        </div>
       </div>
     </div>
   </nav>
   
   
-  <!--- COMENTARIO ---> 
+  <!-- COMENTARIO --> 
   
   
-  <div class="container">
-	{{#block "contenido"}}
-	{{/block}}
-</div>
+ <div class="container">
+  {{#block "contenido"}}
+  {{/block}}
+  </div>
   
   
   
-  <div class="bg-dark text-white footerAbajo">
+  <div class="bg-dark-nuevo text-white footerAbajo">
     <div class="container">
       <div class="row">
-        <div class="p-4 col-md-3">
-          <h2 class="mb-4 text-secondary">Pingendo</h2>
-          <p class="text-white">A company for whatever you may need, from website prototyping to publishing</p>
+        <div class="p-4 col-md-4">
+          <h2 class="mb-4 text-secondary-brillante">Roli's Economics</h2>
+          <p class="text-white">El sitio web líder que facilita la comparación y evaluación de empresas!</p>
         </div>
-        <div class="p-4 col-md-3">
-          <h2 class="mb-4 text-secondary">Mapsite</h2>
+        <div class="p-4 col-md-4">
+          <h2 class="mb-4 text-secondary-brillante">Mapa del sitio</h2>
           <ul class="list-unstyled">
-            <a href="#" class="text-white">Home</a>
+            <a href="/main" class="text-white">Home</a>
             <br>
-            <a href="#" class="text-white">About us</a>
+            <a href="/empresas" class="text-white">Empresas</a>
             <br>
-            <a href="#" class="text-white">Our services</a>
+            <a href="/indicadores" class="text-white">Indicadores</a>
             <br>
-            <a href="#" class="text-white">Stories</a>
+            <a href="/metodologias" class="text-white">Metodologías</a>
+            <br>
+            <a href="#" class="text-white">Condiciones</a>
+            <br>
+            <a href="#" class="text-white">Bases y acondicionados</a>
           </ul>
         </div>
-        <div class="p-4 col-md-3">
-          <h2 class="mb-4">Contact</h2>
+        <div class="p-4 col-md-4">
+          <h2 class="mb-4">Contactenos</h2>
           <p>
-            <a href="tel:+246 - 542 550 5462" class="text-white"><i class="fa d-inline mr-3 text-secondary fa-phone"></i>+246 - 542 550 5462</a>
+            <a href="tel:+246 - 542 550 5462" class="text-white"><i class="fa d-inline mr-3 text-secondary fa-phone"></i>+54 - 11 5555 5555</a>
           </p>
           <p>
-            <a href="mailto:info@pingendo.com" class="text-white"><i class="fa d-inline mr-3 text-secondary fa-envelope-o"></i>info@pingendo.com</a>
+            <a href="mailto:info@gg.com" class="text-white"><i class="fa d-inline mr-3 text-secondary fa-envelope-o"></i>info@gg.com</a>
           </p>
           <p>
-            <a href="https://goo.gl/maps/AUq7b9W7yYJ2" class="text-white" target="_blank"><i class="fa d-inline mr-3 fa-map-marker text-secondary"></i>365 Park Street, NY</a>
+            <a href="https://goo.gl/maps/Zdihp1DhnH62" class="text-white" target="_blank"><i class="fa d-inline mr-3 fa-map-marker text-secondary"></i>Mozart 2300, Buenos Aires</a>
           </p>
-        </div>
-        <div class="p-4 col-md-3">
-          <h2 class="mb-4 text-light">Subscribe</h2>
-          <form>
-            <fieldset class="form-group text-white"> <label for="exampleInputEmail1">Get our newsletter</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> </fieldset>
-            <button type="submit" class="btn btn-outline-secondary">Submit</button>
-          </form>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 mt-3">
-          <p class="text-center text-white">© Copyright 2017 GabrielGabriel - All rights reserved. </p>
+          <p class="text-center text-white">© Copyright 2017 Grupo 18 - Todos los derechos reservados. </p>
         </div>
       </div>
     </div>

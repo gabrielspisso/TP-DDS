@@ -41,6 +41,7 @@ public class testPersistencia {
 		Usuario usuario3 = new Usuario("SantiagoParedes","123");
 		RepositorioDeUsuario.agregarUsuario(usuario3);
 		
+		
 		CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().forEach(emp-> RepositorioDeEmpresas.agregarEmpresas(emp));
 	}	
 	

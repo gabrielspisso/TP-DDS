@@ -5,6 +5,45 @@
 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
 */
 
+.shadow-usr {
+  text-shadow: 0 0 0.3em #c6c5ff; } 
+
+.bg-dark-nuevo {
+  background-color: #2A2A2A !important;
+}
+
+.btn-transt {
+ border: none;
+ width: 150px;
+ height: 45px;
+ overflow:hidden;
+ background: #F16D6D;
+ display: inline-block;
+ color: #f2f2f2;
+ padding: 10px 5px;
+ font-size: 17px;
+ border-radius: 5px;
+ position: relative;
+ box-sizing: border-box;
+ transition: all 500ms ease;
+ appearance: button;
+ user-select: none;
+ cursor:pointer;
+}
+
+.btn-transt:before {
+ font-family: FontAwesome;
+ content:"\f08b";
+ position: absolute;
+ top: 10px;
+ left: -30px;
+ transition: all 200ms ease;
+}
+
+.btn-transt:hover:before {
+ left: 7px;
+}
+
 .progresscircle {
   margin: 20px;
   width: 200px;
@@ -5525,6 +5564,10 @@ a.text-primary:focus, a.text-primary:hover {
 
 .text-secondary {
   color: #185F7D !important; }
+
+.text-secondary-brillante {
+  text-shadow: 0 0 0.2em #00cdff;
+  color: #29A2CC !important; }
 
 a.text-secondary:focus, a.text-secondary:hover {
   color: #103e52 !important; }
