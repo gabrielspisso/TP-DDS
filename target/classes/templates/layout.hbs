@@ -59,7 +59,7 @@ margin:9px 0;
 </style>
 
 <li class="nav-item"><div role="presentation" class="dropdown">
-    <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle navbar-brand text-white ">
+    <a data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle navbar-brand text-white ">
       Indicadores <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
@@ -81,8 +81,10 @@ margin:9px 0;
           </li>
         </ul>
         <div class="form-inline m-2">
-         <h4 class="text-light shadow-usr" style="margin-right: 0.5em">{{nombreUsuario}}</h4>
-          <button id="c_button" class="btn-transt" onclick="window.location.href='/logout'"">Cerrar sesión</button>
+         <h4 class="text-light shadow-usr">{{nombreUsuario}}</h4>
+         
+         <a href="/logout"><button id="c_button" class="btn-transt">Cerrar sesión</button></a>
+         
         </div>
       </div>
     </div>

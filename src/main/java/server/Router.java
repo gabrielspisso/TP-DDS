@@ -66,7 +66,7 @@ public class Router {
 		Spark.get("/indicadores/nuevo", indicadoresControllers::formularioIndicador, engine);
 		Spark.post("/indicadores/nuevo", indicadoresControllers::recibirFormula);
 		
-		//Spark.get("*", Router::paginaDeError,engine);
+		Spark.get("*", Router::paginaDeError,engine);
 		Spark.get("/404notFound", Router::paginaDeError,engine);
 	}
 	

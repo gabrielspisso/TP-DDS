@@ -6,7 +6,9 @@
 */
 
 .shadow-usr {
-  text-shadow: 0 0 0.3em #c6c5ff; } 
+  text-shadow: 0 0 0.05em #c6c5ff;
+margin-right: 0.5em;
+ } 
 
 .bg-dark-nuevo {
   background-color: #2A2A2A !important;
