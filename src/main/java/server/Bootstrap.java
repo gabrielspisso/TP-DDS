@@ -39,6 +39,12 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		Usuario usuario3 = new Usuario("SantiagoParedes","123");
 		RepositorioDeUsuario.agregarUsuario(usuario3);
 		
+		Usuario usuario4 = new Usuario("TomasMoreira","123");
+		RepositorioDeUsuario.agregarUsuario(usuario4);
+		
+		Usuario usuario5 = new Usuario("Roli","123");
+		RepositorioDeUsuario.agregarUsuario(usuario5);
+		
 		CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().forEach(emp-> RepositorioDeEmpresas.agregarEmpresas(emp));
 		
 		IOs.listaDeIndicadoresMockeada().forEach(ind-> RepositorioDeIndicadores.agregarIndicador(ind));
