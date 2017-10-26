@@ -46,28 +46,37 @@ public class Router {
 			}
 		});
 		
+		// -> Base-Otros
 		Spark.get("/", homeController::home, engine);
-		Spark.get("/main", homeController::home, engine);
-		Spark.get("/empresas", empresaController::empresas, engine);
-		Spark.get("/metodologias", metodologiasController::showMetodologias, engine);
-		Spark.post("/metodologias", metodologiasController::postMetodologias);
-		Spark.get("/metodologias/:idMetodologia/resultado", metodologiasController::mostrarResultadoMetodologia, engine);
+		Spark.get("/404notFound", Router::paginaDeError,engine);
+		
+		// -> Login
 		Spark.get("/login", homeController::showLogin, engine);
 		Spark.post("/login", homeController::login);
 		Spark.get("/logout", homeController::logout);
 		
-		///Estos 2 son casi iguales
+		// -> Principal
+		Spark.get("/main", homeController::home, engine);
+		
+		// -> Pestania Empresas
+		Spark.get("/empresas", empresaController::empresas, engine);
+		
+		// -> Pestania Indicadores
 		Spark.get("/indicadores", indicadoresControllers::indicadores, engine);//Pantalla sin resultados
 		Spark.get("/indicadores/:idIndicador/:idEmpresa", indicadoresControllers::mostrarResultados, engine); 
-
-		//Estos 2 son casi iguales
-		Spark.post("/indicadores", indicadoresControllers::postIndicadores);//Pantalla sin resultados
 		Spark.post("/indicadores/:idIndicador/:idEmpresa", indicadoresControllers::recibirDatos);
 		Spark.get("/indicadores/nuevo", indicadoresControllers::formularioIndicador, engine);
 		Spark.post("/indicadores/nuevo", indicadoresControllers::recibirFormula);
 		
+		
+		// -> Pestania Metodologias
+		Spark.get("/metodologias", metodologiasController::showMetodologias, engine);
+		Spark.get("/metodologias/:idMetodologia/resultado", metodologiasController::mostrarResultadoMetodologia, engine);
+		Spark.post("/metodologias", metodologiasController::postMetodologias);
+		
+		
+		
 		Spark.get("*", Router::paginaDeError,engine);
-		Spark.get("/404notFound", Router::paginaDeError,engine);
 	}
 	
 	private static ModelAndView paginaDeError(Request req, Response res) {
