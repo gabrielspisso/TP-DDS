@@ -1,18 +1,6 @@
 {{#partial "contenido"}}
   
 
-<script type="text/javascript">
-  $(document).ready( function() {
-      $("#evaluarEmpresa").attr("action", "/indicadores/" + $('#sel1').val() + "/" + $('#sel2').val());
-      $('#sel1').change(function() {
-        $("#evaluarEmpresa").attr("action", "/indicadores/" + $('#sel1').val() + "/" + $('#sel2').val());
-      });
-      $('#sel2').change(function() {
-        $("#evaluarEmpresa").attr("action", "/indicadores/" + $('#sel1').val() + "/" + $('#sel2').val());
-      });
-      
-   });
-</script>
 
   <div class="py-5">
     <div class="container">

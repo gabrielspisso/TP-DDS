@@ -1,23 +1,43 @@
 {{#partial "contenido"}}
   
-
-  
-        
+    <script>
+    function capturar()
+    {
+        // obtenemos e valor por el numero de elemento
+        var porElementos=document.forms["form_formulaIndicador"].elements[0].value;
+        // Obtenemos el valor por el id
+        var porId=document.getElementById("input_FormulaIndicador").value;
+        // Obtenemos el valor por el Nombre
+        var porNombre=document.getElementsByName("formula")[0].value;
+        // Obtenemos el valor por el tipo de tag
+        var porTagName=document.getElementsByTagName("input")[0].value;
+        // Obtenemos el valor por el nombre de la clase
+        var porClassName=document.getElementsByClassName("form-control")[0].value;
+ 
+ 
+    	document.formulaIndicador.formula.value = porId;
+    }
+    </script>
         
         <div class="py-5">
           <h4 class=""> Creacion de indicadores </h4>
           <div class="row">
             <div class="col-md-6">
               <div class="form-group"> <label for="usr">Ingrese formula:</label>
-              <form action="/indicadores/nuevo" method="post">
-                <input type="text" name="formula" class="form-control" placeholder="Ejemplo: indicador1 = FDS * 4"> </div>
+             
+              <form id="form_formulaIndicador" name="formulaIndicador" action="/indicadores/nuevo" method="post">
+                <input type="text" name="formula" id="input_FormulaIndicador" class="form-control" placeholder="Ejemplo: indicador1 = FDS * 4"> </div>
             </div>
             <div class="col-md-6">
-              <button class="btn btn-primary btn-lg btn-block my-4">Crear nuevo indicador </a>
+              <button class="btn btn-primary btn-lg btn-block my-4" onclick="capturar()">Crear nuevo indicador </a>
               </form>
+              
             </div>
           </div>
 
+<br>
+
+ <div id="resultado"></div>
 
 
           <div class="row">

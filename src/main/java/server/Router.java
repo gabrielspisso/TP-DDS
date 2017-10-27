@@ -72,9 +72,7 @@ public class Router {
 		// -> Pestania Metodologias
 		Spark.get("/metodologias", metodologiasController::showMetodologias, engine);
 		Spark.get("/metodologias/:idMetodologia/resultado", metodologiasController::mostrarResultadoMetodologia, engine);
-		Spark.post("/metodologias", metodologiasController::postMetodologias);
-		
-		
+		Spark.post("/metodologias", metodologiasController::postMetodologias);		
 		
 		Spark.get("*", Router::paginaDeError,engine);
 	}
