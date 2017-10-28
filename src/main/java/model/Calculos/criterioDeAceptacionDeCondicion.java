@@ -17,7 +17,6 @@ public abstract class criterioDeAceptacionDeCondicion {
 	
 	public criterioDeAceptacionDeCondicion() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public abstract boolean cumpleCriterioDeAceptacionDeCondicion(double valorMinimo, double valorActual);

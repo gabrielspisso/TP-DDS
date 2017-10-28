@@ -17,11 +17,10 @@ public  class Mediana extends Calculo {
 		return instancia;
 	}
 	
-	
 	public Mediana() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+
 	public double realizarCalculo(List<Double> listaDeResultados){
 		int cantidadDeElementos = listaDeResultados.size();
 		double mediana = listaDeResultados.get(cantidadDeElementos/2);
@@ -31,6 +30,7 @@ public  class Mediana extends Calculo {
 		}
 		return mediana;
 	}
+	
 	@Override
 	public String toString(){
 		return "Mediana";

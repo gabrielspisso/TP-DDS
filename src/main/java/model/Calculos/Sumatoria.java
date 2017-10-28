@@ -19,8 +19,8 @@ public class Sumatoria extends Calculo{
 	
 	private Sumatoria() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+
 	@Transient
 	private double total;
 	public double realizarCalculo(List<Double> listaDeResultados){
@@ -28,6 +28,7 @@ public class Sumatoria extends Calculo{
 		listaDeResultados.forEach(x-> total+=x);
 		return total;
 	}
+	
 	@Override
 	public String toString(){
 		return "Sumatoria";
