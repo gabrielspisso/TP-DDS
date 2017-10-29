@@ -21,9 +21,6 @@ public  class Repositorio {
 			return em.createQuery("from " + clase.getName(), clase).getResultList();		
 	}
 	public static <T> void  addInstanceToDB(Class<T> clase,T ObjetoAPersistir) {
-
-
-
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 					
@@ -34,8 +31,7 @@ public  class Repositorio {
 			}
 			catch (Exception ex) {
 				tx.rollback();
-			}
-			
+			}	
 		}
 
 

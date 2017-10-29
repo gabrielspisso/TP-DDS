@@ -28,12 +28,21 @@ public class condicionConCalculo extends CondicionDeFiltrado {
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	Calculo calculo;
 	
+	private condicionConCalculo() {
+		super();
+	}
 	
 	public condicionConCalculo(Indicador indicador, criterioDeAceptacionDeCondicion criterio, Calculo calculo, double valorMinimo,String nombre){
 		super(indicador,criterio,nombre);
-
 		this.valorMinimo = valorMinimo;
 		this.calculo = calculo;	
+	}
+	
+	public boolean cumpleLaCondicion(Empresa empresa) {
+		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
+		
+		double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));
+		return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);			
 	}
 	
 	//@Override
@@ -43,16 +52,5 @@ public class condicionConCalculo extends CondicionDeFiltrado {
 			double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));
 			return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);			
 		
-	}
-	/*
-	public String toString(){
-		return "el " + calculo.toString()+ "del indicador"+ indicador.toString() +"es "+ criterio.toString() + " a "+ valorMinimo;
-		
-		//Intente que no repita lo de indicador to string y que se ocupe la clase padre, pero a java no le importo y me tomaba la del padre.
-	}
-	*/
-	private condicionConCalculo() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 }

@@ -35,4 +35,12 @@ public class CondicionConAño extends CondicionDeFiltrado{
 		List<Balance> listaDeBalances = empresa.getBalances().subList(0,cantidadDeAños);
 		return listaDeBalances.stream().allMatch(balance->criterio.cumpleCriterioDeAceptacionDeCondicion(this.valorMinimo,this.indicador.calcularValor(balance.getCuentas())));				
 	}
+	
+	public boolean cumpleLaCondicion(Empresa empresa){
+		if(empresa.getBalances().size() < cantidadDeAños)
+			return false;
+		
+		List<Balance> listaDeBalances = empresa.getBalances().subList(0,cantidadDeAños);
+		return listaDeBalances.stream().allMatch(balance->criterio.cumpleCriterioDeAceptacionDeCondicion(this.valorMinimo,this.indicador.calcularValor(balance.getCuentas())));				
+	}
 }

@@ -25,21 +25,16 @@ public class CondicionConComportamiento extends CondicionDeFiltrado {
 
 	int cantidadDeAños= 0;
 	
-	public CondicionConComportamiento(Indicador indicador,criterioDeAceptacionDeCondicion criterio,int cantidadDeAños,String nombre){
-		super(indicador,criterio,nombre);
-		this.cantidadDeAños = cantidadDeAños;
-	}
-	
-	
-
 	private CondicionConComportamiento() {
 		super();
 	}
 
-
+	public CondicionConComportamiento(Indicador indicador,criterioDeAceptacionDeCondicion criterio,int cantidadDeAños,String nombre){
+		super(indicador,criterio,nombre);
+		this.cantidadDeAños = cantidadDeAños;
+	}
 
 	@Override
-	
 	public boolean seCumpleCondicionFiltrar(Empresa empresa){
 		if(cantidadDeAños>empresa.getBalances().size()) 
 			return false;
@@ -47,16 +42,18 @@ public class CondicionConComportamiento extends CondicionDeFiltrado {
 		List<Balance> balances = empresa.getBalances().subList(0, cantidadDeAños);
 		
 		return balances.stream().allMatch(x-> revisarComportamiento(balances,x));			
-		
 	}
-	/*
-	public boolean cumpleCondicion(Empresa empresa, Empresa empresa1){
+	
+	public boolean cumpleLaCondicion(Empresa empresa) {
+		if(cantidadDeAños>empresa.getBalances().size()) 
+			return false;
 		
+		List<Balance> balances = empresa.getBalances().subList(0, cantidadDeAños);
 		
-		List<Balance> balances = empresa.getBalances().subList(0, (cantidadDeAños>empresa.getBalances().size()?cantidadDeAños:getBalances().size()));
-		return empresa.all(x-> revisarComportamiento(balances,posicionActual))
+		return balances.stream().allMatch(x-> revisarComportamiento(balances,x));			
+
 	}
-	*/
+
 	public boolean revisarComportamiento(List<Balance> balances, Balance balance){
 		if(balances.isEmpty()) return false;
 		int posicion = balances.indexOf(balance);
@@ -69,10 +66,4 @@ public class CondicionConComportamiento extends CondicionDeFiltrado {
 		double res2 = indicador.calcularValor(balances.get(posicion+1).getCuentas());
 		return criterio.cumpleCriterioDeAceptacionDeCondicion(res1, res2);
 	}
-	/*@Override
-	public String toString(){
-		return indicador.toString()+ "es " + criterio.toString() +" durante "+ cantidadDeAños;
-		
-	}
-	*/
 }

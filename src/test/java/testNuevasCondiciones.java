@@ -40,8 +40,27 @@ public class testNuevasCondiciones {
 
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 
-		condicionConCalculo test = new condicionConCalculo(indicador,Mayor.getSingletonMayor(),Promedio.getSingletonPromedio(),9,""); //Deberian ser estaticos
+		condicionConCalculo test = new condicionConCalculo(indicador,Mayor.getSingletonMayor(),Promedio.getSingletonPromedio(),9,"");
 		
-		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
+		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
+	}
+	
+	@Test
+	public void condicionConanioalgotieenequellegarasalir() {
+		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+
+		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
+		
+		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
+	}
+	
+	
+	@Test
+	public void pruebaDeCondicionConComportamientoFacebookConCCEsCreciente(){
+		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
+		
+		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
 	}
 }

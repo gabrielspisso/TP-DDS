@@ -38,6 +38,7 @@ public abstract class CondicionDeFiltrado extends Condicion {
 		}
 	}
 	public abstract boolean seCumpleCondicionFiltrar(Empresa empresa);
+	
 	public String toString(){
 		return nombre;
 	}
