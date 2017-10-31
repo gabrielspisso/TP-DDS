@@ -28,10 +28,8 @@ public abstract class Condicion {
 	protected Indicador indicador;
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	protected criterioDeAceptacionDeCondicion criterio;
-
 	
 	protected Condicion(){
-		
 	}
 	
 	protected Condicion(String nombre, Indicador indicador, criterioDeAceptacionDeCondicion criterio){
@@ -39,10 +37,6 @@ public abstract class Condicion {
 		this.indicador = indicador;
 		this.criterio = criterio;
 	}
-	
-
-	public abstract boolean esCondicionDeFiltrado();
-	
 	
 	@Override
 	public String toString(){
@@ -58,5 +52,6 @@ public abstract class Condicion {
 		}
 	}
 
+	public abstract boolean esCondicionDeFiltrado();
 	public abstract boolean cumpleCondicion(Empresa empresa);
 }
