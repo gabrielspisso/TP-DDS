@@ -74,15 +74,16 @@ public class Metodologia {
 		
 		return descripcion;
 	}
-	
 	public int evaluarMetodologia(Empresa empresa,Empresa empresa2){
+				
 		if(sacarPorcentajeMetodologia(empresa)>sacarPorcentajeMetodologia(empresa2))
 			return -1;
 		else if(sacarPorcentajeMetodologia(empresa) <sacarPorcentajeMetodologia(empresa2) )
 			return 1;
+		
 		return ordenarEmpresasSegunMetodologia(empresa,empresa2);
-	}
 
+	}
 	private int ordenarEmpresasSegunMetodologia(Empresa empresa, Empresa empresa2) {
 		// TODO Auto-generated method stub
 		List <Condicion> CondicionesDeOrdenamiento = condiciones.stream().filter(c->!c.esCondicionDeFiltrado()).collect(Collectors.toList());
@@ -128,5 +129,7 @@ public class Metodologia {
 					new ResultadoMetodologia(emp.getNombre(), this.sacarPorcentajeMetodologia(emp))
 				));
 		return resultado;
-	}	
+	}
+	
+	
 }

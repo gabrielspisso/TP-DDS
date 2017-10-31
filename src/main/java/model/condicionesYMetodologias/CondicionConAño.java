@@ -15,24 +15,28 @@ import model.repositorios.RepositorioDeIndicadores;
 
 @Entity
 public class CondicionConAño extends CondicionDeFiltrado{
-	private double valorMinimo;
-	private int cantidadDeAños;
-
 	private CondicionConAño() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
+	private double valorMinimo;
+	private int cantidadDeAños;
+	
 	public CondicionConAño(Indicador indicador, criterioDeAceptacionDeCondicion criterio, double valorMinimo,int cantidadDeAños,String nombre){
 		super(indicador,criterio,nombre);
+
 		this.valorMinimo = valorMinimo;
 		this.cantidadDeAños = cantidadDeAños;
+		
 	}
 	
 	public boolean seCumpleCondicionFiltrar(Empresa empresa){
-		if(empresa.getBalances().size() < cantidadDeAños)
+		if(empresa.getBalances().size() < cantidadDeAños){
 			return false;
-		
+		}
 		List<Balance> listaDeBalances = empresa.getBalances().subList(0,cantidadDeAños);
-		return listaDeBalances.stream().allMatch(balance->criterio.cumpleCriterioDeAceptacionDeCondicion(this.valorMinimo,this.indicador.calcularValor(balance.getCuentas())));				
+		
+			return listaDeBalances.stream().allMatch(balance->criterio.cumpleCriterioDeAceptacionDeCondicion(this.valorMinimo,this.indicador.calcularValor(balance.getCuentas())));				
 	}
 }

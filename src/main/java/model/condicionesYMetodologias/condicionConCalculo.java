@@ -36,7 +36,7 @@ public class condicionConCalculo extends CondicionDeFiltrado {
 		this.calculo = calculo;	
 	}
 	
-	//@Override
+	@Override
 	public boolean seCumpleCondicionFiltrar(Empresa empresa){
 		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
 	
