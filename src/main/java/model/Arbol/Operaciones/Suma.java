@@ -13,7 +13,7 @@ public class Suma extends Operacion{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Suma(Raiz izquierda, Raiz derecha) {
+	public Suma(Nodo izquierda, Nodo derecha) {
 		super("+", izquierda, derecha);
 	}
 	@Override

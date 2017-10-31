@@ -15,9 +15,9 @@ import model.Cuenta;
 import model.Indicador;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "Raiz")
-public abstract class Raiz {
-	protected Raiz() {
+@Table(name = "Nodo")
+public abstract class Nodo {
+	protected Nodo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,6 +34,5 @@ public abstract class Raiz {
 	public abstract double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores);
 	public abstract String mostrarFormula();
 	public abstract boolean estaCargado();
-	public abstract boolean esOperacion();
 	public abstract String valor();
 }

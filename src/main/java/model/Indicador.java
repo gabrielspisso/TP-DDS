@@ -21,7 +21,7 @@ import javax.persistence.UniqueConstraint;
 import org.uqbar.commons.utils.Observable;
 
 import clasesResultantes.ResultadoIndicador;
-import model.Arbol.Operaciones.Raiz;
+import model.Arbol.Operaciones.Nodo;
 import model.Excepciones.IdentificadorInexistente;
 import model.Excepciones.RecursiveException;
 import model.repositorios.Repositorio;
@@ -52,7 +52,7 @@ public class Indicador {
 	private Usuario usuario;
 	
 	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	private Raiz arbol;
+	private Nodo arbol;
 	
 	
 	@Override
@@ -60,19 +60,19 @@ public class Indicador {
 		return nombre;
 	}
 
-	public Indicador(String nombre, Raiz arbol, String formula) {
+	public Indicador(String nombre, Nodo arbol, String formula) {
 		this.nombre = nombre;
 		this.arbol = arbol;
 		this.usuario = Repositorio.buscarPorId((long)1, Usuario.class);
 	}
 	
-	public Indicador(String nombre, Raiz arbol, String formula, Usuario usuario) {
+	public Indicador(String nombre, Nodo arbol, String formula, Usuario usuario) {
 		this.nombre = nombre;
 		this.arbol = arbol;
 		this.usuario = usuario;
 	}
 	
-	public Raiz getArbol(){
+	public Nodo getArbol(){
 		return arbol;
 	}
 

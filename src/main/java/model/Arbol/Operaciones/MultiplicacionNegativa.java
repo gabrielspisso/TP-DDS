@@ -14,7 +14,7 @@ public class MultiplicacionNegativa extends Operacion {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MultiplicacionNegativa(Raiz izquierda, Raiz derecha) {
+	public MultiplicacionNegativa(Nodo izquierda, Nodo derecha) {
 		super("*-", izquierda, derecha);
 	}
 

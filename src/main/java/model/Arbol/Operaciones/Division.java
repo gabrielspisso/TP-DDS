@@ -13,7 +13,7 @@ public class Division extends Operacion{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Division(Raiz izquierda, Raiz derecha) {
+	public Division(Nodo izquierda, Nodo derecha) {
 		super("/", izquierda, derecha);
 	}
 	@Override
