@@ -177,7 +177,7 @@ public class test {
 	@Test
 	public void pruebaDeIndicadorConMultiplicacion2(){
 		Indicador indicador = IndicadorBuilder.Build("ind11212 = 20/4*5;");
-		assertEquals(4.0, indicador.calcularValor(null), DELTA);
+		assertEquals(25.0, indicador.calcularValor(null), DELTA);
 	}
 	
 	
