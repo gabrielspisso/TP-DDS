@@ -32,16 +32,29 @@ public abstract class Condicion {
 	protected Condicion(){
 	}
 	
-	protected Condicion(String nombre, Indicador indicador, criterioDeAceptacionDeCondicion criterio){
-		this.nombre = nombre;
-		this.indicador = indicador;
-		this.criterio = criterio;
+	protected Condicion(Indicador indicador2, criterioDeAceptacionDeCondicion criterio2, String nombre2){
+		this.indicador = indicador2;
+		this.criterio = criterio2;
+		this.nombre = nombre2;
 	}
 	
 	@Override
 	public String toString(){
 		return nombre;
 	}
+	
+	public boolean cumpleCondicion(Empresa empresa, Empresa empresa2) {
+		try{
+			return this.cumpleLaCondicion(empresa, empresa2);
+		}
+		catch(IdentificadorInexistente oo)
+		{
+			return false;
+		}
+	}
+
+	protected abstract boolean cumpleLaCondicion(Empresa empresa, Empresa empresa2);
+	
 	protected boolean existeEseIndicadorParaEstaEmpresa(Empresa empresa, Indicador indicador){
 		try{
 			indicador.calcularValor(empresa.getBalances().get(0).getCuentas());
@@ -51,7 +64,4 @@ public abstract class Condicion {
 			return false;
 		}
 	}
-
-	public abstract boolean esCondicionDeFiltrado();
-	public abstract boolean cumpleCondicion(Empresa empresa);
 }

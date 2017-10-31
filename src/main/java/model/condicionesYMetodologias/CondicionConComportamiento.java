@@ -21,7 +21,7 @@ import model.Excepciones.IdentificadorInexistente;
 import model.repositorios.RepositorioDeIndicadores;
 
 @Entity
-public class CondicionConComportamiento extends CondicionDeFiltrado {
+public class CondicionConComportamiento extends Condicion {
 
 	int cantidadDeAños= 0;
 	
@@ -33,32 +33,19 @@ public class CondicionConComportamiento extends CondicionDeFiltrado {
 		super(indicador,criterio,nombre);
 		this.cantidadDeAños = cantidadDeAños;
 	}
-
-	@Override
-	public boolean seCumpleCondicionFiltrar(Empresa empresa){
-		if(cantidadDeAños>empresa.getBalances().size()) 
-			return false;
-		
-		List<Balance> balances = empresa.getBalances().subList(0, cantidadDeAños);
-		
-		return balances.stream().allMatch(x-> revisarComportamiento(balances,x));			
-	}
 	
-	public boolean cumpleLaCondicion(Empresa empresa) {
+	public boolean cumpleLaCondicion(Empresa empresa, Empresa empresaNULL) {
 		if(cantidadDeAños>empresa.getBalances().size()) 
 			return false;
 		
 		List<Balance> balances = empresa.getBalances().subList(0, cantidadDeAños);
-		
 		return balances.stream().allMatch(x-> revisarComportamiento(balances,x));			
-
 	}
 
 	public boolean revisarComportamiento(List<Balance> balances, Balance balance){
 		if(balances.isEmpty()) return false;
 		int posicion = balances.indexOf(balance);
-		
-		
+
 		if(posicion == balances.size()-1){
 			return true;
 		}

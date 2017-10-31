@@ -22,7 +22,7 @@ import model.Excepciones.IdentificadorInexistente;
 import model.repositorios.RepositorioDeIndicadores;
 
 @Entity
-public class condicionConCalculo extends CondicionDeFiltrado {
+public class condicionConCalculo extends Condicion {
 
 	double valorMinimo;
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -38,7 +38,7 @@ public class condicionConCalculo extends CondicionDeFiltrado {
 		this.calculo = calculo;	
 	}
 	
-	public boolean cumpleLaCondicion(Empresa empresa) {
+	public boolean cumpleLaCondicion(Empresa empresa,  Empresa empresaNULL) {
 		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
 		
 		double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));

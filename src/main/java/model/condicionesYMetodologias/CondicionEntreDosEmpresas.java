@@ -15,20 +15,14 @@ import model.Excepciones.IdentificadorInexistente;
 
 @Entity
 public class CondicionEntreDosEmpresas extends Condicion {
-
-	
 	private CondicionEntreDosEmpresas() {
 	}
 
 	public CondicionEntreDosEmpresas(Indicador indicador, criterioDeAceptacionDeCondicion criterio,String nombre) {
-		super(nombre,indicador,criterio);
-		// TODO Auto-generated constructor stub
+		super(indicador, criterio, nombre);
 	}
 
-	
-
 	public int compararEmpresas(Empresa empresa, Empresa empresa2){
-			
 			if(existeEseIndicadorParaEstaEmpresa(empresa,indicador)&& existeEseIndicadorParaEstaEmpresa(empresa2,indicador)){
 				return criterio.cumpleCriterioDeAceptacionDeCondicion(indicador.calcularValor(empresa2.getBalances().get(0).getCuentas()),indicador.calcularValor(empresa.getBalances().get(0).getCuentas()))? 1: -1;	
 			}
@@ -39,25 +33,8 @@ public class CondicionEntreDosEmpresas extends Condicion {
 				return -1;
 			return 0;
 	}
-	/*
-	public String toString(){
-		return "Compara si el indicador \"" +indicador.toString() +"\"de una empresa  es "+criterio.toString()+"a otra empresa";
-		
-		//Intente que no repita lo de indicador to string y que se ocupe la clase padre, pero a java no le importo y me tomaba la del padre.
+
+	public boolean cumpleLaCondicion(Empresa empresa, Empresa empresa2) {
+		return true;
 	}
-	*/
-
-	@Override
-	public boolean esCondicionDeFiltrado() {
-		return false;
-	}
-
-	@Override
-	public boolean cumpleCondicion(Empresa empresa) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	
 }

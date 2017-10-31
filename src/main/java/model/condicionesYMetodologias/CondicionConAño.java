@@ -14,7 +14,7 @@ import model.Excepciones.IdentificadorInexistente;
 import model.repositorios.RepositorioDeIndicadores;
 
 @Entity
-public class CondicionConAño extends CondicionDeFiltrado{
+public class CondicionConAño extends Condicion{
 	private double valorMinimo;
 	private int cantidadDeAños;
 
@@ -36,7 +36,7 @@ public class CondicionConAño extends CondicionDeFiltrado{
 		return listaDeBalances.stream().allMatch(balance->criterio.cumpleCriterioDeAceptacionDeCondicion(this.valorMinimo,this.indicador.calcularValor(balance.getCuentas())));				
 	}
 	
-	public boolean cumpleLaCondicion(Empresa empresa){
+	public boolean cumpleLaCondicion(Empresa empresa, Empresa empresaNULL){
 		if(empresa.getBalances().size() < cantidadDeAños)
 			return false;
 		

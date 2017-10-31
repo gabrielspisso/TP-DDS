@@ -48,16 +48,21 @@ public class Metodologia {
 	String nombre;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	List<Condicion> condiciones;
+	List<Condicion> condicionesFiltradoras;
+	
+
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	List<Condicion> condicionesOrdenadoras;
 	
 	String descripcion;
 	
 	protected Metodologia() {
 	}
 
-	public Metodologia(	String nombre,String Metodologia,List<Condicion> Condiciones, Usuario usuario){
+	public Metodologia(String nombre,String Metodologia,List<Condicion> CondicionesFiltro, List<Condicion> CondicionesOrden, Usuario usuario){
 		this.nombre = nombre;
-		this.condiciones = Condiciones;
+		this.condicionesFiltradoras = CondicionesFiltro;
+		this.condicionesOrdenadoras = CondicionesOrden;
 		this.descripcion = Metodologia;
 		this.usuario = usuario;
 	}
@@ -85,7 +90,7 @@ public class Metodologia {
 
 	private int ordenarEmpresasSegunMetodologia(Empresa empresa, Empresa empresa2) {
 		// TODO Auto-generated method stub
-		List <Condicion> CondicionesDeOrdenamiento = condiciones.stream().filter(c->!c.esCondicionDeFiltrado()).collect(Collectors.toList());
+/*		List <Condicion> CondicionesDeOrdenamiento = condiciones.stream().filter(c->!c.esCondicionDeFiltrado()).collect(Collectors.toList());
 		int i;
 		CondicionEntreDosEmpresas condicion;
 		for(i=0;i<CondicionesDeOrdenamiento.size();i++){
@@ -93,19 +98,18 @@ public class Metodologia {
 			int comparacion = condicion.compararEmpresas(empresa,empresa2);
 			if(comparacion!=0)
 				return comparacion;
-		}
+		}*/
 		return 0;
 	}
 
-	//No deberia ser public, pero por los test
+	//Esta Es Mia
 	public int sacarPorcentajeMetodologia(Empresa empresa) {
-		
-		List<Condicion> CondicionesParaFiltrar = condiciones.stream().filter(c->c.esCondicionDeFiltrado()).collect(Collectors.toList());
-		Stream<Condicion> streamDeCondiciones =CondicionesParaFiltrar.stream().filter(condicion -> (condicion).cumpleCondicion(empresa));
-		List<Condicion> condicionesFiltradas = streamDeCondiciones.collect(Collectors.toList());
-				
-		return condicionesFiltradas.size()*100/CondicionesParaFiltrar.size();
+		List<Condicion> condicionesQueCumplieron = condicionesFiltradoras.stream().filter(condicion -> (condicion).cumpleCondicion(empresa, null)).collect(Collectors.toList());
+		return (condicionesQueCumplieron.size()*100)/(condicionesFiltradoras.size());
 	}
+	
+	//OtraMia
+	//public 
 
 	public List<Empresa> listarEmpresas(List<Empresa> listaDeEmpresas){
 		ordenarListadeEmpresasDeAcuerdoALaEvaluacionDeMetodologias(listaDeEmpresas);
