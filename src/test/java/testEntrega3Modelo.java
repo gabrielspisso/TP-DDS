@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import mockers.CargadorDeEmpresasMock;
 import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
@@ -31,7 +32,7 @@ public class testEntrega3Modelo {
 	Usuario user;
 	@Before
 	public void cargarEmpresas(){
-		List<Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada();
+		List<Empresa> le = CargadorDeEmpresasMock.obtenerCuentasEmpresas();
 		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		user = new Usuario("pipo", "");

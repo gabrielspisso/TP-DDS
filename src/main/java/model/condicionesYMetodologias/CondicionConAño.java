@@ -36,7 +36,7 @@ public class CondicionConAño extends Condicion{
 		return listaDeBalances.stream().allMatch(balance->criterio.cumpleCriterioDeAceptacionDeCondicion(this.valorMinimo,this.indicador.calcularValor(balance.getCuentas())));				
 	}
 	
-	public boolean cumpleLaCondicion(Empresa empresa, Empresa empresaNULL){
+	public boolean cumpleLaCondicion(Empresa empresa){
 		if(empresa.getBalances().size() < cantidadDeAños)
 			return false;
 		

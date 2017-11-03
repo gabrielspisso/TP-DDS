@@ -43,7 +43,7 @@ public class testNuevasCondiciones {
 
 		condicionConCalculo test = new condicionConCalculo(indicador,Mayor.getSingletonMayor(),Promedio.getSingletonPromedio(),9,"");
 		
-		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0), null));
+		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
 	}
 	
 	@Test
@@ -52,7 +52,7 @@ public class testNuevasCondiciones {
 
 		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
 		
-		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0), null));
+		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
 	}
 	
 	
@@ -62,7 +62,7 @@ public class testNuevasCondiciones {
 
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
 		
-		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0), null));
+		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class testNuevasCondiciones {
 
 		CondicionEntreDosEmpresas test = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
 		
-		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0), RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1)));
+		assertTrue(test.cumpleLaCondicionEmpresarial(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0), Arrays.asList(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1))));
 	}
 
 	@Test
@@ -80,8 +80,8 @@ public class testNuevasCondiciones {
 
 		CondicionEntreDosEmpresas test = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
 		
-		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1), RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
-	}
+		assertTrue(test.cumpleLaCondicionEmpresarial(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1), Arrays.asList(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0))));
+		}
 	
 	@Test
 	public void creandoUnaMetodologia(){

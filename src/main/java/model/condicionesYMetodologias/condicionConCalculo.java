@@ -38,7 +38,7 @@ public class condicionConCalculo extends Condicion {
 		this.calculo = calculo;	
 	}
 	
-	public boolean cumpleLaCondicion(Empresa empresa,  Empresa empresaNULL) {
+	public boolean cumpleLaCondicion(Empresa empresa) {
 		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
 		
 		double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));

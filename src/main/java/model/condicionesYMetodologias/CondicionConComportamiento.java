@@ -34,7 +34,7 @@ public class CondicionConComportamiento extends Condicion {
 		this.cantidadDeAños = cantidadDeAños;
 	}
 	
-	public boolean cumpleLaCondicion(Empresa empresa, Empresa empresaNULL) {
+	public boolean cumpleLaCondicion(Empresa empresa) {
 		if(cantidadDeAños>empresa.getBalances().size()) 
 			return false;
 		

@@ -33,31 +33,23 @@ public class Metodologia {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
-	public Long getId() {
-		return id;
-	}
 
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	Usuario usuario;
 	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	String nombre;
-	
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	List<Condicion> condicionesFiltradoras;
-	
 
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	List<Condicion> condicionesOrdenadoras;
 	
+	@Transient
+	private List<Empresa> todasLasEmpresas;
+	
+	String nombre;
 	String descripcion;
 	
-	protected Metodologia() {
-	}
+	protected Metodologia() {}
 
 	public Metodologia(String nombre,String Metodologia,List<Condicion> CondicionesFiltro, List<Condicion> CondicionesOrden, Usuario usuario){
 		this.nombre = nombre;
@@ -70,63 +62,55 @@ public class Metodologia {
 	public String getNombre(){
 		return nombre;
 	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
 	public String toString(){
 		return nombre;
 	}
+	
 	public String getDescripcion(){
 		if(descripcion==null)
 			descripcion="No hay descripcion";
 		
 		return descripcion;
 	}
+
+	private int cantidadCondicionesCumplieronFiltro(Empresa empresa) {
+		if(condicionesFiltradoras.isEmpty())
+			return 0;
+		
+		List<Condicion> condicionesQueCumplieron = condicionesFiltradoras.stream().filter(condicion -> (condicion).cumpleCondicion(empresa)).collect(Collectors.toList());
+		return condicionesQueCumplieron.size();
+	}
 	
-	public int evaluarMetodologia(Empresa empresa,Empresa empresa2){
-		if(sacarPorcentajeMetodologia(empresa)>sacarPorcentajeMetodologia(empresa2))
-			return -1;
-		else if(sacarPorcentajeMetodologia(empresa) <sacarPorcentajeMetodologia(empresa2) )
-			return 1;
-		return ordenarEmpresasSegunMetodologia(empresa,empresa2);
+	private int cantidadCondicionesCumplieronFiltroEntreEmpresas(Empresa empresa) {
+		if(condicionesOrdenadoras.isEmpty())
+			return 0;
+		
+		List<Condicion> condicionesQueCumplenEntreEmpresas = condicionesOrdenadoras.stream().filter(condicion -> (condicion).cumpleLaCondicionEmpresarial(empresa, todasLasEmpresas)).collect(Collectors.toList());
+		return condicionesQueCumplenEntreEmpresas.size();
 	}
-
-	private int ordenarEmpresasSegunMetodologia(Empresa empresa, Empresa empresa2) {
-		// TODO Auto-generated method stub
-/*		List <Condicion> CondicionesDeOrdenamiento = condiciones.stream().filter(c->!c.esCondicionDeFiltrado()).collect(Collectors.toList());
-		int i;
-		CondicionEntreDosEmpresas condicion;
-		for(i=0;i<CondicionesDeOrdenamiento.size();i++){
-			condicion = (CondicionEntreDosEmpresas) CondicionesDeOrdenamiento.get(i);
-			int comparacion = condicion.compararEmpresas(empresa,empresa2);
-			if(comparacion!=0)
-				return comparacion;
-		}*/
-		return 0;
-	}
-
-	//Esta Es Mia
+	
+	//Deberia ser private , pero para los test
 	public int sacarPorcentajeMetodologia(Empresa empresa) {
-		List<Condicion> condicionesQueCumplieron = condicionesFiltradoras.stream().filter(condicion -> (condicion).cumpleCondicion(empresa, null)).collect(Collectors.toList());
-		return (condicionesQueCumplieron.size()*100)/(condicionesFiltradoras.size());
-	}
-	
-	//OtraMia
-	//public 
-
-	public List<Empresa> listarEmpresas(List<Empresa> listaDeEmpresas){
-		ordenarListadeEmpresasDeAcuerdoALaEvaluacionDeMetodologias(listaDeEmpresas);
-		return listaDeEmpresas;
-	}
-	private void ordenarListadeEmpresasDeAcuerdoALaEvaluacionDeMetodologias(List<Empresa> listaDeEmpresas){
-		Collections.sort(listaDeEmpresas,new Comparator<Empresa>() {
-			public int compare(Empresa empresa1, Empresa empresa2) {
-
-				return evaluarMetodologia(empresa1,empresa2);
-		    }
-		});
+		int cant_condiciones = condicionesFiltradoras.size() + condicionesOrdenadoras.size();
+		int cant_condicionesCumplidas = cantidadCondicionesCumplieronFiltro(empresa) + cantidadCondicionesCumplieronFiltroEntreEmpresas(empresa);
+		
+		return (cant_condicionesCumplidas*100)/(cant_condiciones);
 	}
 	
 	public List<ResultadoMetodologia> generarResultado(List<Empresa> listaDeEmpresas){
+		
 		List<ResultadoMetodologia> resultado = new ArrayList<>();
-		listaDeEmpresas = this.listarEmpresas(listaDeEmpresas);
+		this.todasLasEmpresas = listaDeEmpresas;
+		
 		listaDeEmpresas.forEach(emp -> 
 			resultado.add( 
 					new ResultadoMetodologia(emp.getNombre(), this.sacarPorcentajeMetodologia(emp))

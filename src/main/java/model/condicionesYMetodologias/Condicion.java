@@ -1,5 +1,7 @@
 package model.condicionesYMetodologias;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,9 +45,9 @@ public abstract class Condicion {
 		return nombre;
 	}
 	
-	public boolean cumpleCondicion(Empresa empresa, Empresa empresa2) {
+	public boolean cumpleCondicion(Empresa empresa) {
 		try{
-			return this.cumpleLaCondicion(empresa, empresa2);
+			return this.cumpleLaCondicion(empresa);
 		}
 		catch(IdentificadorInexistente oo)
 		{
@@ -53,7 +55,7 @@ public abstract class Condicion {
 		}
 	}
 
-	protected abstract boolean cumpleLaCondicion(Empresa empresa, Empresa empresa2);
+	protected abstract boolean cumpleLaCondicion(Empresa empresa);
 	
 	protected boolean existeEseIndicadorParaEstaEmpresa(Empresa empresa, Indicador indicador){
 		try{
@@ -63,5 +65,9 @@ public abstract class Condicion {
 		catch(RuntimeException ex){
 			return false;
 		}
+	}
+
+	public boolean cumpleLaCondicionEmpresarial(Empresa empresa, List<Empresa> todasLasEmpresas) {
+		return false;
 	}
 }
