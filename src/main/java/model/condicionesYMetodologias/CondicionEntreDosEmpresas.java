@@ -50,10 +50,9 @@ public class CondicionEntreDosEmpresas extends Condicion {
 	
 	@Override
 	public boolean cumpleLaCondicionEmpresarial(Empresa empresa, List<Empresa> listaDeEmpresas) {
-		if(!existeEseIndicadorParaEstaEmpresa(empresa,indicador)) {
+		if(!existeEseIndicadorParaEstaEmpresa(empresa,indicador) || listaDeEmpresas.size() == 0) {
 			return false;  
 		}
-		
 		emppresaAux = listaDeEmpresas.get(0);
 			
 		listaDeEmpresas.forEach(em->emppresaAux=comparador(emppresaAux, em));	

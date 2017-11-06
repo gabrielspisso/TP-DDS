@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import clasesResultantes.ResultadoMetodologia;
+import mockers.CargadorDeEmpresasMock;
 import model.CargadorDeEmpresas;
 import model.Cuenta;
 import model.Empresa;
@@ -31,7 +33,7 @@ public class testNuevasCondiciones {
 	Usuario user;
 	@Before
 	public void cargarEmpresas(){
-		List<Empresa> le = CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada();
+		List<Empresa> le = CargadorDeEmpresasMock.obtenerCuentasEmpresas();
 		le.forEach(e -> RepositorioDeEmpresas.agregarEmpresas(e));
 		IOs.leerIndicadoresDeArchivo("archivoIndicadores.txt");
 		user = new Usuario("pipo", "");
@@ -67,7 +69,7 @@ public class testNuevasCondiciones {
 
 	@Test
 	public void pruebaDeComprararDosEmpresasEmpresa1mayorAEmpresa2(){
-		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+		Indicador indicador = IndicadorBuilder.Build("cc=10;");
 
 		CondicionEntreDosEmpresas test = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
 		
@@ -76,12 +78,10 @@ public class testNuevasCondiciones {
 
 	@Test
 	public void pruebaDeComprararDosEmpresasEmpresa2mayorAEmpresa1(){
-		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-
+		Indicador indicador = IndicadorBuilder.Build("cc=10;");
 		CondicionEntreDosEmpresas test = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
-		
 		assertTrue(test.cumpleLaCondicionEmpresarial(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1), Arrays.asList(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0))));
-		}
+	}
 	
 	@Test
 	public void creandoUnaMetodologia(){
@@ -108,42 +108,95 @@ public class testNuevasCondiciones {
 	}	
 
 	@Test
-	public void unaEmpresaTieneAplicaAl00lametsdfdsfsdodologia(){
+	public void unaEmpresaTieneAplicaAl0lametsdfdsfsdodologia(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 
-		Empresa twitter = CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(1);
+		Empresa twitter = CargadorDeEmpresasMock.obtenerCuentasEmpresas().get(1);
 		CondicionEntreDosEmpresas entreEmpresas = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
-		condicionConCalculo conCalculo = new condicionConCalculo(indicador,Mayor.getSingletonMayor(),Promedio.getSingletonPromedio(),9,"");
-		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(conCalculo), Arrays.asList(entreEmpresas), user);
+		condicionConCalculo conCalculo = new condicionConCalculo(indicador,Mayor.getSingletonMayor(),Promedio.getSingletonPromedio(),10000,"");
+		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(conCalculo), Arrays.asList(), user);
 
 		assertEquals(0,meto.sacarPorcentajeMetodologia(twitter));
 	}	
 	
 	
 	@Test
-	public void unaEmpresaTieneAplicaAlPorcientosdodologia(){
-		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+	public void unaEmpresaTieneAplicaAl100Porcientosdodologia1(){
+		Indicador indicador = IndicadorBuilder.Build("cc=10;");
 
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
 		CondicionEntreDosEmpresas entreEmpresas = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
+		CondicionConAño testanio = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
 		
-		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(test), Arrays.asList(entreEmpresas), user);
+		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));		
+		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio), Arrays.asList(entreEmpresas), user);
+		
+		Empresa em1 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1);
+		Empresa em2 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(2);
 
+		
+		meto.setTodasLasEmpresas(Arrays.asList(em1, em2));
+	
 		assertEquals(100,meto.sacarPorcentajeMetodologia(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
 	}	
 	
 	@Test
-	public void unaEmpresaTieneAplicaAl75Porcientosdodologia(){
-		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
+	public void unaEmpresaTieneAplicaAl75Porcientosdodologia1(){
+		Indicador indicador = IndicadorBuilder.Build("cc=10;");
 
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
-		CondicionConComportamiento test2 = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
-		CondicionConComportamiento test3 = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
-		CondicionConComportamiento test4 = new CondicionConComportamiento(indicador,Menor.getSingletonMenor(),2,"");
 		CondicionEntreDosEmpresas entreEmpresas = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
+		CondicionConAño testanio = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
 		
-		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(test, test2, test3, test4), Arrays.asList(entreEmpresas), user);
-
+		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));		
+		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio, test, test), Arrays.asList(entreEmpresas), user);
+		
+		Empresa em1 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1);
+		Empresa em2 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(2);
+		
+		meto.setTodasLasEmpresas(Arrays.asList(em1, em2));
+	
 		assertEquals(75,meto.sacarPorcentajeMetodologia(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
+	}	
+	
+	@Test
+	public void TestFinalAplicarTalMEtodologia(){
+		Indicador indicador = IndicadorBuilder.Build("cc=10;");
+
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
+		CondicionEntreDosEmpresas entreEmpresas = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
+		CondicionConAño testanio = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
+		
+		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));		
+		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio, test, test), Arrays.asList(entreEmpresas), user);
+
+		Empresa em0 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0);
+		Empresa em1 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1);
+		Empresa em2 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(2);
+		
+		List<ResultadoMetodologia> resultado = meto.generarResultado(Arrays.asList(em0, em1, em2));
+		
+		assertEquals(75, (int) resultado.get(0).getValor());
+	}	
+
+	@Test
+	public void TestFinalAplicarTalMEtodologiaRESULTADO2(){
+		Indicador indicador = IndicadorBuilder.Build("cc=10;");
+
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
+		CondicionEntreDosEmpresas entreEmpresas = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
+		CondicionConAño testanio = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
+		
+		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));		
+		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio, test, test), Arrays.asList(entreEmpresas), user);
+
+		Empresa em0 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0);
+		Empresa em1 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1);
+		Empresa em2 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(2);
+	
+		List<ResultadoMetodologia> resultado = meto.generarResultado(Arrays.asList(em0, em1, em2));
+		
+		assertEquals(25, (int) resultado.get(2).getValor());
 	}
+	
 }

@@ -8,7 +8,7 @@ public class ResultadoMetodologia {
 	public ResultadoMetodologia(String nombreEmpresa, int valor) {
 		super();
 		this.nombreEmpresa = nombreEmpresa;
-		this.valor = ((double)valor)/100;
+		this.valor = ((double)valor);///100;
 	}
 	
 	public String getNombreEmpresa() {

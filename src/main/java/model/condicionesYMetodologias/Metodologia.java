@@ -75,6 +75,14 @@ public class Metodologia {
 		return nombre;
 	}
 	
+	public List<Empresa> getTodasLasEmpresas() {
+		return todasLasEmpresas;
+	}
+
+	public void setTodasLasEmpresas(List<Empresa> todasLasEmpresas) {
+		this.todasLasEmpresas = todasLasEmpresas;
+	}
+
 	public String getDescripcion(){
 		if(descripcion==null)
 			descripcion="No hay descripcion";
@@ -83,7 +91,7 @@ public class Metodologia {
 	}
 
 	private int cantidadCondicionesCumplieronFiltro(Empresa empresa) {
-		if(condicionesFiltradoras.isEmpty())
+		if(condicionesFiltradoras.size() == 0)
 			return 0;
 		
 		List<Condicion> condicionesQueCumplieron = condicionesFiltradoras.stream().filter(condicion -> (condicion).cumpleCondicion(empresa)).collect(Collectors.toList());
@@ -91,8 +99,10 @@ public class Metodologia {
 	}
 	
 	private int cantidadCondicionesCumplieronFiltroEntreEmpresas(Empresa empresa) {
-		if(condicionesOrdenadoras.isEmpty())
+		if(condicionesOrdenadoras.size() == 0) {
+			System.out.println("NO TIENE CONDICION ENTRE EMPRESASASASAS");
 			return 0;
+		}
 		
 		List<Condicion> condicionesQueCumplenEntreEmpresas = condicionesOrdenadoras.stream().filter(condicion -> (condicion).cumpleLaCondicionEmpresarial(empresa, todasLasEmpresas)).collect(Collectors.toList());
 		return condicionesQueCumplenEntreEmpresas.size();
@@ -103,11 +113,12 @@ public class Metodologia {
 		int cant_condiciones = condicionesFiltradoras.size() + condicionesOrdenadoras.size();
 		int cant_condicionesCumplidas = cantidadCondicionesCumplieronFiltro(empresa) + cantidadCondicionesCumplieronFiltroEntreEmpresas(empresa);
 		
+		System.out.println("PASO POR ACA SOY UN RESuLTADOOOOOOOOOOOO: "+ ((cant_condicionesCumplidas*100)/(cant_condiciones)));
+		
 		return (cant_condicionesCumplidas*100)/(cant_condiciones);
 	}
 	
 	public List<ResultadoMetodologia> generarResultado(List<Empresa> listaDeEmpresas){
-		
 		List<ResultadoMetodologia> resultado = new ArrayList<>();
 		this.todasLasEmpresas = listaDeEmpresas;
 		
