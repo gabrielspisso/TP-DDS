@@ -128,35 +128,55 @@ public class testNuevasCondiciones {
 		CondicionEntreDosEmpresas entreEmpresas = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
 		CondicionConAño testanio = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
 		
-		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));		
 		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio), Arrays.asList(entreEmpresas), user);
 		
 		Empresa em1 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1);
 		Empresa em2 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(2);
-
 		
 		meto.setTodasLasEmpresas(Arrays.asList(em1, em2));
 	
-		assertEquals(100,meto.sacarPorcentajeMetodologia(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
+		assertEquals(50,meto.sacarPorcentajeMetodologia(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
 	}	
+	
+	@Test
+	public void unaEmpresaTieneAplicaAl0Porcientosdodologia1(){
+		Indicador indicador = IndicadorBuilder.Build("cc=10;");
+
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
+		CondicionEntreDosEmpresas entreEmpresas = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
+		CondicionConAño testanio = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
+		
+		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio), Arrays.asList(), user);
+		
+		Empresa em1 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1);
+		Empresa em2 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(2);
+		
+		meto.setTodasLasEmpresas(Arrays.asList(em1, em2));
+	
+		assertEquals(0,meto.sacarPorcentajeMetodologia(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
+	}	
+	
 	
 	@Test
 	public void unaEmpresaTieneAplicaAl75Porcientosdodologia1(){
 		Indicador indicador = IndicadorBuilder.Build("cc=10;");
 
-		CondicionConComportamiento test = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
+		CondicionConComportamiento test = new CondicionConComportamiento(indicador,Menor.getSingletonMenor(),2,"");
+		
 		CondicionEntreDosEmpresas entreEmpresas = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
+		
 		CondicionConAño testanio = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
 		
 		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));		
-		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio, test, test), Arrays.asList(entreEmpresas), user);
+		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio, test), Arrays.asList(entreEmpresas), user);
 		
+		Empresa em0 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0);
 		Empresa em1 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1);
 		Empresa em2 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(2);
 		
-		meto.setTodasLasEmpresas(Arrays.asList(em1, em2));
+		meto.setTodasLasEmpresas(Arrays.asList(em0, em1, em2));
 	
-		assertEquals(75,meto.sacarPorcentajeMetodologia(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
+		assertEquals(33,meto.sacarPorcentajeMetodologia(em0));
 	}	
 	
 	@Test
@@ -165,10 +185,11 @@ public class testNuevasCondiciones {
 
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
 		CondicionEntreDosEmpresas entreEmpresas = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
-		CondicionConAño testanio = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
+		CondicionConAño testanio = new CondicionConAño(indicador,Menor.getSingletonMenor(),5,1,"");
+		CondicionConAño esteCONDICIONTEstDADISTINTOALDEARRBA = new CondicionConAño(indicador,Mayor.getSingletonMayor(),5,1,"");
 		
 		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));		
-		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio, test, test), Arrays.asList(entreEmpresas), user);
+		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio, test, test, esteCONDICIONTEstDADISTINTOALDEARRBA), Arrays.asList(entreEmpresas), user);
 
 		Empresa em0 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0);
 		Empresa em1 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1);
@@ -176,7 +197,7 @@ public class testNuevasCondiciones {
 		
 		List<ResultadoMetodologia> resultado = meto.generarResultado(Arrays.asList(em0, em1, em2));
 		
-		assertEquals(75, (int) resultado.get(0).getValor());
+		assertEquals(25, (int) resultado.get(1).getValor());
 	}	
 
 	@Test
@@ -184,11 +205,14 @@ public class testNuevasCondiciones {
 		Indicador indicador = IndicadorBuilder.Build("cc=10;");
 
 		CondicionConComportamiento test = new CondicionConComportamiento(indicador,Mayor.getSingletonMayor(),2,"");
-		CondicionEntreDosEmpresas entreEmpresas = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"nnombre");
-		CondicionConAño testanio = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
+
+		CondicionEntreDosEmpresas entreEmpresas = new CondicionEntreDosEmpresas(indicador,Menor.getSingletonMenor(),"nnombre");
+		CondicionConAño testanio = new CondicionConAño(indicador,Menor.getSingletonMenor(),5,1,"");
+		CondicionConAño esteCONDICIONTEstDADISTINTOALDEARRBA = new CondicionConAño(indicador,Mayor.getSingletonMayor(),5,1,"");
+		
 		
 		assertTrue(test.cumpleLaCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));		
-		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio, test, test), Arrays.asList(entreEmpresas), user);
+		Metodologia meto = new Metodologia("Metodologia Testenado", null, Arrays.asList(testanio, test, esteCONDICIONTEstDADISTINTOALDEARRBA), Arrays.asList(entreEmpresas), user);
 
 		Empresa em0 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0);
 		Empresa em1 = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1);

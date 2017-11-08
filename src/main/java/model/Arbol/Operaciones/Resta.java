@@ -13,7 +13,7 @@ public class Resta extends Operacion{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Resta(Raiz izquierda, Raiz derecha) {
+	public Resta(Nodo izquierda, Nodo derecha) {
 		super("-", izquierda, derecha);
 	}
 	@Override

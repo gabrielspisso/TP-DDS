@@ -9,11 +9,11 @@ import javax.persistence.Table;
 
 import model.Cuenta;
 import model.Indicador;
-import model.Arbol.Operaciones.Raiz;
+import model.Arbol.Operaciones.Nodo;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Operando extends Raiz{
+public abstract class Operando extends Nodo{
 	protected Operando() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -27,10 +27,6 @@ public abstract class Operando extends Raiz{
 	public String valor() {
 		return valor;
 	};
-	@Override
-	public boolean esOperacion() {
-		return false;
-	}
 	@Override
 	public boolean estaCargado() {
 		return true;

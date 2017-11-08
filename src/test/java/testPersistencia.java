@@ -7,6 +7,9 @@ import javax.transaction.Transactional;
 
 import org.junit.FixMethodOrder;
 import org.junit.runners.*;
+
+import mockers.CargadorDeEmpresasMock;
+
 import org.junit.Test;
 
 import model.Empresa;
@@ -42,7 +45,7 @@ public class testPersistencia {
 		RepositorioDeUsuario.agregarUsuario(usuario3);
 		
 		
-		CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().forEach(emp-> RepositorioDeEmpresas.agregarEmpresas(emp));
+		CargadorDeEmpresasMock.obtenerCuentasEmpresas().forEach(emp-> RepositorioDeEmpresas.agregarEmpresas(emp));
 	}	
 	
 	@Test
@@ -80,25 +83,14 @@ public class testPersistencia {
 	public void test7_creoUnaMetodologiaYPrueboQueExiste() {
 		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
 		
-		
 		CondicionConAño test = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
 		CondicionEntreDosEmpresas test2 = new CondicionEntreDosEmpresas(Repositorio.buscar("indicador1", Indicador.class), Mayor.getSingletonMayor(), "hola");
 		CondicionConAño test3 = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
-		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test, test2, test3, test), Repositorio.buscarPorId((long)1, Usuario.class));
+		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test, test3), Arrays.asList(test2), Repositorio.buscarPorId((long)1, Usuario.class));
 		
 		RepositorioDeCondiciones.agregarCondicion(test);
-		
 		RepositorioDeMetodologias.agregarMetodologia(metodologia);
-		
-		
 		
 		assertTrue(RepositorioDeMetodologias.existe("Esto es una prueba"));
 	}
-	/*
-	@Test
-	public void test8_borroLaEmpresaDelTestAnteriorYComprueboQueYaNoExiste() {
-		RepositorioDeMetodologias.borrar("Esto es una prueba");
-		assertFalse(RepositorioDeMetodologias.existe("Esto es una prueba"));
-	}*/
-	
 }

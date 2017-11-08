@@ -39,14 +39,7 @@ public class HomeController extends Controller{
 
 	
 	public  ModelAndView showLogin(Request req, Response res){
-		String huboError = req.params("er");
 		
-		if(huboError==null){
-			System.out.println("WAWAWAW NO HAY {ARAMETRPS");
-		}
-		else {
-			System.out.println(huboError);
-		}
 		return new ModelAndView(null, "login.hbs");
 	}
 	
@@ -62,7 +55,7 @@ public class HomeController extends Controller{
 		Usuario user = Repositorio.buscar(req.queryParams("nombre"), Usuario.class);
 		
 		if (user == null) {
-			res.redirect("/login?er=v1");
+			res.redirect("/login");
 		}
 		else if(user.getPassword().equals(req.queryParams("password"))) {
 			res.cookie("id", user.getId().toString());	
@@ -70,7 +63,8 @@ public class HomeController extends Controller{
 			res.redirect("/main");
 		}
 		else {
-			res.redirect("/login?er=v1");			
+
+			res.redirect("/login");			
 		}
 		return null;
 	}

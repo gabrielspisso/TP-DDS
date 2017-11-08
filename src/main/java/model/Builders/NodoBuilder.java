@@ -4,27 +4,28 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import model.Arbol.Operaciones.*;
+import model.Arbol.Operaciones.Nodo;
+import model.Arbol.Operaciones.Operacion;
 
 public class NodoBuilder {
-	Queue<Raiz> colaDeOperandos;
-	Queue<Raiz> colaDeOperadores;
+	Queue<Nodo> colaDeOperandos;
+	Queue<Nodo> colaDeOperadores;
 	
-	Raiz nodoActual = null;
+	Nodo nodoActual = null;
 	
 	
-	public NodoBuilder(List<Raiz> lista) {
+	public NodoBuilder(List<Nodo> lista) {
 		colaDeOperandos = new LinkedList<>();
 		colaDeOperadores = new LinkedList<>();
 		lista.forEach(nodo->clasificar(nodo));
 	}
 	
-	public NodoBuilder(Queue<Raiz> colaDeOperandos, Queue<Raiz> colaDeOperaciones) {
+	public NodoBuilder(Queue<Nodo> colaDeOperandos, Queue<Nodo> colaDeOperaciones) {
 		this.colaDeOperandos = colaDeOperandos;
 		this.colaDeOperadores = colaDeOperaciones;
 	}
 
-	public Raiz Build() {
+	public Nodo Build() {
 		if(colaDeOperandos.size() == 1)
 			return colaDeOperandos.poll();
 		while(!colaDeOperadores.isEmpty()) {
@@ -33,18 +34,19 @@ public class NodoBuilder {
 			Operacion operacion = (Operacion)(colaDeOperadores.poll());
 			//Esto podria ser un switch
 			if(operacion.prioridad() == 0) {
-				acomodarOperacionSecundaria(operacion);
+					acomodarOperacionSecundaria(operacion);
 			}
 			else {
 				return bifurcarArbol(operacion);
 			}
 		}
-		((Operacion)nodoActual).setDerecha(colaDeOperandos.poll());
+		if(!((Operacion)nodoActual).estaCargado())//pregunto si no esta cargado, si paso es porque le falta un operando
+			((Operacion)nodoActual).setDerecha(colaDeOperandos.poll());
 		return nodoActual;
 	}
 	
-	private Raiz bifurcarArbol(Operacion operacion) {
-		Raiz nodoIzquierdo = (nodoActual == null) ? colaDeOperandos.poll() : nodoActual;
+	private Nodo bifurcarArbol(Operacion operacion) {
+		Nodo nodoIzquierdo = (nodoActual == null) ? colaDeOperandos.poll() : nodoActual;
 		operacion.setIzquierda(nodoIzquierdo);
 		operacion.setDerecha(new NodoBuilder(colaDeOperandos, colaDeOperadores).Build());
 		return operacion;
@@ -59,8 +61,8 @@ public class NodoBuilder {
 	}
 	
 	
-	private void clasificar(Raiz nodo) {
-		if(nodo.esOperacion())
+	private void clasificar(Nodo nodo) {
+		if(!nodo.estaCargado())
 			colaDeOperadores.add(nodo);
 		else
 			colaDeOperandos.add(nodo);

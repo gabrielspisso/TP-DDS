@@ -5,7 +5,7 @@ import model.Arbol.Hojas.Numero;
 import model.Arbol.Operaciones.Division;
 import model.Arbol.Operaciones.Multiplicacion;
 import model.Arbol.Operaciones.MultiplicacionNegativa;
-import model.Arbol.Operaciones.Raiz;
+import model.Arbol.Operaciones.Nodo;
 import model.Arbol.Operaciones.Resta;
 import model.Arbol.Operaciones.Suma;
 
@@ -32,8 +32,8 @@ public class NodoNoClasificado {
 		return tipo.equals("ParentesisIzquierdo");
 	}
 	
-	public Raiz convertirEnHoja() {
-		Raiz nODO = null;
+	public Nodo convertirEnHoja() {
+		Nodo nODO = null;
 		tipoDeHoja enumval = tipoDeHoja.valueOf(tipo);
 		switch(enumval){
 			case Identificador:{
@@ -45,8 +45,8 @@ public class NodoNoClasificado {
 		}
 		return nODO;
 	}
-	public Raiz convertirAOperacion(){
-		Raiz nuevaOperacion = null;
+	public Nodo convertirAOperacion(){
+		Nodo nuevaOperacion = null;
 		if(valor.equals("*")){
 			nuevaOperacion = new Multiplicacion(null, null);
 		}

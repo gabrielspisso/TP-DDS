@@ -22,13 +22,13 @@ import model.Excepciones.IdentificadorInexistente;
 import model.repositorios.RepositorioDeIndicadores;
 
 @Entity
-public class condicionConCalculo extends Condicion {
+public class condicionConCalculo extends CondicionesFiltro {
 
 	double valorMinimo;
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	Calculo calculo;
 	
-	private condicionConCalculo() {
+	protected condicionConCalculo() {
 		super();
 	}
 	
@@ -38,19 +38,11 @@ public class condicionConCalculo extends Condicion {
 		this.calculo = calculo;	
 	}
 	
+	@Override
 	public boolean cumpleLaCondicion(Empresa empresa) {
 		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
 		
 		double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));
-		return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);			
-	}
-	
-	//@Override
-	public boolean seCumpleCondicionFiltrar(Empresa empresa){
-		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
-	
-			double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));
-			return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);			
-		
+		return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);
 	}
 }

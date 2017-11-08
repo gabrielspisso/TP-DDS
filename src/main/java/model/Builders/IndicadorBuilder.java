@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.Indicador;
 import model.Usuario;
-import model.Arbol.Operaciones.Raiz;
+import model.Arbol.Operaciones.Nodo;
 import model.Excepciones.RecursiveException;
 import model.parser.NodoNoClasificado;
 import model.parser.SCANNER;
@@ -13,13 +13,13 @@ public class IndicadorBuilder {
 
 	
 	public static Indicador Build(String expresion, Usuario usuario) {
-    	List<Raiz> lista = SCANNER.obtenerNodos(expresion);
+    	List<Nodo> lista = SCANNER.obtenerNodos(expresion);
     	String nombre = lista.get(0).valor();
-    	List<Raiz> listaDeTokens =lista.subList(2, lista.size()-1);
+    	List<Nodo> listaDeTokens =lista.subList(2, lista.size()-1);
     	
     	NodoBuilder nb = new NodoBuilder(listaDeTokens);
     	
-    	Raiz arbol = nb.Build();
+    	Nodo arbol = nb.Build();
     	Indicador indicador = (usuario == null) ? new Indicador(nombre, arbol, expresion) : new Indicador(nombre, arbol, expresion, usuario);
     	
 		if(indicador.contieneEsteToken(nombre)){
@@ -32,9 +32,9 @@ public class IndicadorBuilder {
 		return Build(expresion, null);
 	}
 	
-	public static Raiz buildTreeFromExpresion(String expresion) {
-		List<Raiz> lista = SCANNER.obtenerApartirDeExpresion(expresion);
-		Raiz arbol = new NodoBuilder(lista).Build();
+	public static Nodo buildTreeFromExpresion(String expresion) {
+		List<Nodo> lista = SCANNER.obtenerApartirDeExpresion(expresion);
+		Nodo arbol = new NodoBuilder(lista).Build();
 		return arbol;
 	}
 }

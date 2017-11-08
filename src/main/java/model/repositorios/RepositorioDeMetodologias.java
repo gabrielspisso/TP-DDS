@@ -13,17 +13,6 @@ import model.Indicador;
 import model.condicionesYMetodologias.Metodologia;
 
 public class RepositorioDeMetodologias {
-	//private static List<Metodologia> listaDeMetodologias = new ArrayList<>();
-
-	
-	/*public static List<Metodologia> getListaDeMetodologias() {
-	*	return listaDeMetodologias;
-	*}
-
-	/*public static void agregarMetodologia(Metodologia metodologia) {
-	*	listaDeMetodologias.removeIf(metodologia2-> metodologia2.getNombre().equals(metodologia.getNombre()));
-	*	listaDeMetodologias.add(metodologia);
-	}*/
 	
 		public static List<Metodologia>  traerMetodologiasDeLaDB(Long id) {		
 			EntityManager em = PerThreadEntityManagers.getEntityManager();

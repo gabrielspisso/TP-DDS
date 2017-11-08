@@ -13,15 +13,15 @@ import model.Cuenta;
 import model.Indicador;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Operacion extends Raiz{
+public abstract class Operacion extends Nodo{
 	
 	
 	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	protected Raiz izquierda;
+	protected Nodo izquierda;
 	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	protected Raiz derecha;
+	protected Nodo derecha;
 	
-	public Operacion(String operador, Raiz izquierda, Raiz derecha) {
+	public Operacion(String operador, Nodo izquierda, Nodo derecha) {
 		super();
 		this.valor = operador;
 		this.izquierda = izquierda;
@@ -37,22 +37,18 @@ public abstract class Operacion extends Raiz{
 		return izquierda != null && derecha != null;
 	}
 	
-	public void setIzquierda(Raiz izquierda) {
+	public void setIzquierda(Nodo izquierda) {
 		this.izquierda = izquierda;
 	}
 
-	public void cargar(Raiz izquierda, Raiz derecha) {
+	public void cargar(Nodo izquierda, Nodo derecha) {
 		this.izquierda = izquierda;
 		this.derecha = derecha;
 	}
-	public void setDerecha(Raiz derecha) {
+	public void setDerecha(Nodo derecha) {
 		this.derecha = derecha;
 	}
 
-	@Override
-	public boolean esOperacion() {
-		return true;
-	}
 	@Override
 	public boolean contieneEsteToken(String token, Long id) {
 		return izquierda.contieneEsteToken(token, id) || derecha.contieneEsteToken(token, id);

@@ -93,12 +93,12 @@ public class IndicadoresControllers extends Controller{
 			contenido ="El indicador ya se encuentra disponible para su uso. Seleccionelo desde la pestaña indicadores";
 		}
 		catch(RecursiveException ex) {
-			titulo ="No se pudo crear el indicador: '"+req.queryParams("formula")+"'";
+			titulo ="No se pudo crear el indicador";
 			tipoDeMensaje = "alert-warning";
 			contenido ="La definicion que usted ha ingresado es recursiva. Por favor intentelo de nuevo.";
 		}
 		catch(ParserException ex) {
-			titulo ="No se pudo crear el indicador: '"+req.queryParams("formula")+"'";
+			titulo ="No se pudo crear el indicador";
 			tipoDeMensaje = "alert-danger";
 			contenido ="La formula que ha ingresado no es lexicamente correcta. Por favor intentelo de nuevo.";
 		}

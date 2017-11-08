@@ -37,11 +37,11 @@ public class Metodologia {
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	Usuario usuario;
 	
-	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	List<Condicion> condicionesFiltradoras;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	List<CondicionesFiltro> condicionesFiltradoras;
 
-	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	List<Condicion> condicionesOrdenadoras;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	List<CondicionEntreDosEmpresas> condicionesOrdenadoras;
 	
 	@Transient
 	private List<Empresa> todasLasEmpresas;
@@ -51,7 +51,7 @@ public class Metodologia {
 	
 	protected Metodologia() {}
 
-	public Metodologia(String nombre,String Metodologia,List<Condicion> CondicionesFiltro, List<Condicion> CondicionesOrden, Usuario usuario){
+	public Metodologia(String nombre,String Metodologia,List<CondicionesFiltro> CondicionesFiltro, List<CondicionEntreDosEmpresas> CondicionesOrden, Usuario usuario){
 		this.nombre = nombre;
 		this.condicionesFiltradoras = CondicionesFiltro;
 		this.condicionesOrdenadoras = CondicionesOrden;
@@ -89,18 +89,16 @@ public class Metodologia {
 		
 		return descripcion;
 	}
-
 	private int cantidadCondicionesCumplieronFiltro(Empresa empresa) {
 		if(condicionesFiltradoras.size() == 0)
 			return 0;
 		
-		List<Condicion> condicionesQueCumplieron = condicionesFiltradoras.stream().filter(condicion -> (condicion).cumpleCondicion(empresa)).collect(Collectors.toList());
-		return condicionesQueCumplieron.size();
+		List<Condicion> condicionesQueCumplenEntreEmpresas = condicionesOrdenadoras.stream().filter(condicion -> (condicion).cumpleCondicion(empresa)).collect(Collectors.toList());
+		return condicionesQueCumplenEntreEmpresas.size();
 	}
 	
 	private int cantidadCondicionesCumplieronFiltroEntreEmpresas(Empresa empresa) {
 		if(condicionesOrdenadoras.size() == 0) {
-			System.out.println("NO TIENE CONDICION ENTRE EMPRESASASASAS");
 			return 0;
 		}
 		
@@ -113,7 +111,9 @@ public class Metodologia {
 		int cant_condiciones = condicionesFiltradoras.size() + condicionesOrdenadoras.size();
 		int cant_condicionesCumplidas = cantidadCondicionesCumplieronFiltro(empresa) + cantidadCondicionesCumplieronFiltroEntreEmpresas(empresa);
 		
-		System.out.println("PASO POR ACA SOY UN RESuLTADOOOOOOOOOOOO: "+ ((cant_condicionesCumplidas*100)/(cant_condiciones)));
+		if(cant_condiciones == 0) {
+			return 0;
+		}
 		
 		return (cant_condicionesCumplidas*100)/(cant_condiciones);
 	}
@@ -127,5 +127,5 @@ public class Metodologia {
 					new ResultadoMetodologia(emp.getNombre(), this.sacarPorcentajeMetodologia(emp))
 				));
 		return resultado;
-	}	
+	}
 }

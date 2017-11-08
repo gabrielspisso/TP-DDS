@@ -8,8 +8,8 @@ public class Menor extends criterioDeAceptacionDeCondicion{
 	
 	private Menor() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-
 	//@Transient
 	private static Menor instancia = null; 
 	public static Menor getSingletonMenor(){
@@ -17,12 +17,11 @@ public class Menor extends criterioDeAceptacionDeCondicion{
 			instancia = new Menor();
 		}
 		return instancia;
-	}
 	
+	}
 	public boolean cumpleCriterioDeAceptacionDeCondicion(double valorMinimo, double valorActual) {
 		return valorMinimo >= valorActual;
 	}
-
 	@Override
 	public String toString(){
 		return "Menor";

@@ -14,7 +14,7 @@ public class Multiplicacion extends Operacion {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Multiplicacion(Raiz izquierda, Raiz derecha) {
+	public Multiplicacion(Nodo izquierda, Nodo derecha) {
 		super("*", izquierda, derecha);
 	}
 

@@ -21,11 +21,12 @@ import model.Excepciones.IdentificadorInexistente;
 import model.repositorios.RepositorioDeIndicadores;
 
 @Entity
-public class CondicionConComportamiento extends Condicion {
+public class CondicionConComportamiento extends CondicionesFiltro {
 
 	int cantidadDeAños= 0;
 	
-	private CondicionConComportamiento() {
+	
+	protected CondicionConComportamiento() {
 		super();
 	}
 
@@ -34,6 +35,7 @@ public class CondicionConComportamiento extends Condicion {
 		this.cantidadDeAños = cantidadDeAños;
 	}
 	
+	@Override
 	public boolean cumpleLaCondicion(Empresa empresa) {
 		if(cantidadDeAños>empresa.getBalances().size()) 
 			return false;

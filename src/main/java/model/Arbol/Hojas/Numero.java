@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 
 import model.Cuenta;
 import model.Indicador;
-import model.Arbol.Operaciones.Raiz;
+import model.Arbol.Operaciones.Nodo;
 @Entity
 public class Numero extends Operando{
 
