@@ -56,12 +56,11 @@ private void chequearEmpresa(Empresa empresa) {
 private void actualizarBalance(Balance balance, Empresa empresaDelArchivo) {
 	
 	System.out.println(balance.toString());
-	Stream<Balance> bal = empresaDelArchivo.getBalances().stream().filter( b-> b.equals(balance));
-	if(bal == null) {
-		Balance balanceNuevo = bal.findFirst().get();
+	
+	if(empresaDelArchivo.getBalances().stream().anyMatch( b-> b.equals(balance))) {
+		Balance balanceNuevo = empresaDelArchivo.getBalances().stream().filter( b-> b.equals(balance)).findFirst().get();
 		List<Cuenta> cuentas = balance.getCuentas();
 		cuentas.forEach(cuenta -> cuenta.actualizarCuenta(balance,balanceNuevo));
-		
 	}
 	
 	
