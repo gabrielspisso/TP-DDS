@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -48,12 +49,12 @@ public class Indicador {
 
 	private String nombre;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Usuario usuario;
 	
-	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Nodo arbol;
-	
+
 	
 	@Override
 	public String toString(){
@@ -106,22 +107,39 @@ public class Indicador {
 	
 	public List<ResultadoIndicador> evaluarEmpresa(Empresa empresa){
 		List<ResultadoIndicador> resultado = new ArrayList<>();
-		empresa.getBalances().forEach(bal -> resultado.add(evaluarBalance(bal)));
+		empresa.getBalances().forEach(bal -> resultado.add(evaluarBalance(bal,empresa)));
 		return resultado;
 	}
 	
-	public ResultadoIndicador evaluarBalance(Balance bal) {
-		double valor;
-		try {
-			valor = this.calcularValor(bal.getCuentas());
-			return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), Double.toString(valor));
+	public ResultadoIndicador evaluarBalance(Balance bal,Empresa empresa) {
+		Double valor = bal.buscarEnListaDeResultados(this,empresa);
+		if(valor == null){
+			try {
+				valor = this.calcularValor(bal.getCuentas());
+				bal.agregarIndicadorPrecalculado(this,valor);
+				return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), Double.toString(valor));
+			}
+			catch(RecursiveException ex) {
+				return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), "No se puede calcular porque es recursivo");
+			}
+			catch(IdentificadorInexistente ex) {
+				return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), "No se pudo encontrar el valor: " + ex.getMessage());
+			}	
 		}
-		catch(RecursiveException ex) {
-			return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), "No se puede calcular porque es recursivo");
-		}
-		catch(IdentificadorInexistente ex) {
-			return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), "No se pudo encontrar el valor: " + ex.getMessage());
-		}
+		return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), Double.toString(valor));
 	}
 
+/*	private Double buscarEnListaDeResultados(Balance bal, Empresa empresa) {
+		Resultado res = listaDeResultados.stream().filter(x-> x.getAnio()== bal.getAnio() && x.getPeriodo().equals(bal.getPeriodo()) && x.getEmpresa().equals(empresa)).findFirst().get();
+		return res.getResultado();
+	}
+
+	public void borrarPrecalculo(Cuenta cuenta, Empresa empresaDelArchivo, Balance balance) {
+		listaDeResultados.removeIf(x-> x.getAnio() == balance.getAnio() 
+									&& this.contieneEsteToken(cuenta.getNombre())
+									&& balance.getPeriodo() == x.getPeriodo()
+									&& empresaDelArchivo.equals(x.getEmpresa()));
+		//return null;
+	}
+*/
 }

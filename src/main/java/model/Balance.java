@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,9 +26,16 @@ public class Balance {
 
 	private String periodo;
 	private int anio;
-	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "balance_id")
 	private List<Cuenta> cuentas;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "indicadorPrecalculado_id")
+	private List<Resultado> indicadoresPrecalculado = new ArrayList<Resultado>();
+	public List<Resultado> getIndicadoresPrecalculado() {
+		return indicadoresPrecalculado;
+	}
 	public String getPeriodo() {
 		return periodo;
 	}
@@ -48,4 +56,26 @@ public class Balance {
 		return this.getPeriodo() +" "+ this.getAnio();
 	}
 
+	@Override
+	public boolean equals(Object Objeto){
+		try{
+			Balance balance = (Balance) Objeto;
+			return balance.getAnio() == this.getAnio() && this.getPeriodo().equals(balance.getPeriodo());
+		}
+		catch(Exception ex){
+			return false;
+		}
+	}
+	public void agregarIndicadorPrecalculado(Indicador indicador, Double valor) {
+		Resultado resultado = new Resultado(indicador,valor);
+		indicadoresPrecalculado.add(resultado);
+	}
+	public Double buscarEnListaDeResultados(Indicador indicador, Empresa empresa) {
+		Resultado res = indicadoresPrecalculado.stream().filter(res1 -> res1.getIndicador().getNombre().equals(indicador.getNombre())).findFirst().get();
+		return res.getValor();
+	}
+	public void agregarCuenta(Cuenta cuenta) {
+		cuentas.add(cuenta);		
+	}
+	
 }

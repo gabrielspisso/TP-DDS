@@ -31,7 +31,7 @@ import model.repositorios.RepositorioDeUsuario;
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps{
 	
 	public void init(){
-		Usuario usuario = new Usuario("GabrielSpisso","123");
+			Usuario usuario = new Usuario("GabrielSpisso","123");
 		RepositorioDeUsuario.agregarUsuario(usuario);
 		Usuario usuario2 = new Usuario("GabrielMaiori","123");
 		RepositorioDeUsuario.agregarUsuario(usuario2);
@@ -50,7 +50,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		IOs.listaDeIndicadoresMockeada().forEach(ind-> RepositorioDeIndicadores.agregarIndicador(ind));
 		
 		
-		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		Indicador indicador = IOs.listaDeIndicadoresMockeada().get(0);
 		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
 		CondicionConAño test2 = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
 		Metodologia metodologiaAimplementarDeSpisso = new Metodologia("Metodologia DDS",null,Arrays.asList(test, test2),usuario );

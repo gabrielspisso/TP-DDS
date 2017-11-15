@@ -22,11 +22,11 @@ public class CargadorDeEmpresas {
 		Cuenta CuentaFCFFacebook = new Cuenta("FREE CASH FLOW", 2);
 		
 		
-		Balance BalanceFacebook1 = new Balance(2017, "Primer Semetre",Arrays.asList(CuentaFDSFacebook,CuentaFCFFacebook));
+		Balance BalanceFacebook1 = new Balance(2017, "Primer Semestre",Arrays.asList(CuentaFDSFacebook,CuentaFCFFacebook));
 		
 		
 		
-		Balance BalanceFacebook2 =  new Balance(2017, "Segundo Semetre",Arrays.asList(new Cuenta("FDS", 1)));
+		Balance BalanceFacebook2 =  new Balance(2017, "Segundo Semestre",Arrays.asList(new Cuenta("FDS", 1)));
 		Empresa facebook = new Empresa("Facebook",Arrays.asList(BalanceFacebook1,BalanceFacebook2));
 		
 		

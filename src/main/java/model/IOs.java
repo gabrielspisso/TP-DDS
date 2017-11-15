@@ -2,11 +2,13 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -158,6 +160,16 @@ public class IOs {
 		return Arrays.asList(indicador1,indicador2,indicador3,indicador4,indicador5,indicador6,indicador7,indicador8,indicador9,indicador10);
 
 	}
+
+
+		public static boolean fueModificadoDesdeLaUltimaLectura(String path, Date ultimaModificacion) {
+			if(ultimaModificacion == null) {
+				return true;
+			}
+			File file = new File(path);
+			Date lastModified = new Date(file.lastModified()); 
+			return lastModified.after(ultimaModificacion);
+		}
 	
 	
 	
