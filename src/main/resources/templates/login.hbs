@@ -3,6 +3,9 @@
 <head><title>Login</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 	<link rel="stylesheet" href="login.css" >
+	  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 </head>
  
  
@@ -47,7 +50,17 @@ This is a very simple parallax effect achieved by simple CSS 3 multiple backgrou
                 <input type="password" class="form-control py-2" name="password" id="exampleInputPassword1" placeholder="Password" required>
                 <input type="submit" value="Ingresar" class="btn btn-success btn-sm"  />
                 
+                
+                <div class="alert alert-warning my-3 {{clase}}" role="alert">
+			      <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+			      <h5 class="alert-heading">Usuario y/o contraseña inválidos</h5>
+			    </div>
+                
+                
+                
                 </form>
+   
+   				
    
             </div>
         </div>

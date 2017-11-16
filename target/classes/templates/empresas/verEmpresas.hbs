@@ -5,9 +5,9 @@
 function mostrarYOcultar(valor) {
    $("#"+valor).toggle("slow"); 
 }
-function mostrarValorDeCuenta(id,valor){
+function mostrarValorDeCuenta(id,nombre,valor){
 $("#textoDeEmpresa"+id).empty();
-  $("#textoDeEmpresa"+id).append("El valor de la cuenta es: <h1>" + valor + "</h1>"); 
+  $("#textoDeEmpresa"+id).append("<h1>" +nombre + "=" + valor+ "</h1>"); 
 }
 </script>
    <div class="py-5">
@@ -55,7 +55,7 @@ $("#textoDeEmpresa"+id).empty();
 
                             <div class="dropdown-menu">
                         {{#each cuentas}}
-                              <a class="dropdown-item" href="#" onclick="mostrarValorDeCuenta({{../../id}},{{valor}})">{{nombre}}</a>
+                              <a class="dropdown-item" href="#" onclick="mostrarValorDeCuenta({{../../id}},'{{nombre}}',{{valor}})">{{nombre}}</a>
                         {{/each}}
                             </div>
                           </div>
@@ -66,8 +66,8 @@ $("#textoDeEmpresa"+id).empty();
                     </tbody>
                   </table>
                 </td>
-                <td id="textoDeEmpresa{{id}}">El valor es de:
-                  <h1> Aun no selecciono nada </h1>
+                <td id="textoDeEmpresa{{id}}">
+                  <h1> Seleccione un valor </h1>
                 </td>
               </tr>
 			{{/each}}

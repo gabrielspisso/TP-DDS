@@ -47,8 +47,8 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		
 		CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().forEach(emp-> RepositorioDeEmpresas.agregarEmpresas(emp));
 		
-		IOs.listaDeIndicadoresMockeada().forEach(ind-> RepositorioDeIndicadores.agregarIndicador(ind));
-		
+		//IOs.listaDeIndicadoresMockeada().forEach(ind-> RepositorioDeIndicadores.agregarIndicador(ind));
+		IOs.listaDeIndicadoresMockeada().stream().skip(1).forEach(ind -> RepositorioDeIndicadores.agregarIndicador(ind));
 		
 		Indicador indicador = IOs.listaDeIndicadoresMockeada().get(0);
 		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");

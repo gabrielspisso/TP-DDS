@@ -49,9 +49,11 @@ public class Router {
 		Spark.get("/", homeController::home, engine);
 		Spark.get("/main", homeController::home, engine);
 		Spark.get("/empresas", empresaController::empresas, engine);
+		
 		Spark.get("/metodologias", metodologiasController::showMetodologias, engine);
-		Spark.post("/metodologias", metodologiasController::postMetodologias);
-		Spark.get("/metodologias/:idMetodologia/resultado", metodologiasController::mostrarResultadoMetodologia, engine);
+		Spark.post("/metodologias", metodologiasController::postMetodologias);//Envia al servidor las empresas seleccionadas, y la metodologia a usar
+		Spark.get("/metodologias/resultado", metodologiasController::mostrarResultadoMetodologia, engine);
+		
 		Spark.get("/login", homeController::showLogin, engine);
 		Spark.post("/login", homeController::login);
 		Spark.get("/logout", homeController::logout);
@@ -60,9 +62,6 @@ public class Router {
 		Spark.get("/indicadores", indicadoresControllers::indicadores, engine);//Pantalla sin resultados
 		Spark.get("/indicadores/:idIndicador/:idEmpresa", indicadoresControllers::mostrarResultados, engine); 
 
-		//Estos 2 son casi iguales
-		Spark.post("/indicadores", indicadoresControllers::postIndicadores);//Pantalla sin resultados
-		Spark.post("/indicadores/:idIndicador/:idEmpresa", indicadoresControllers::recibirDatos);
 		Spark.get("/indicadores/nuevo", indicadoresControllers::formularioIndicador, engine);
 		Spark.post("/indicadores/nuevo", indicadoresControllers::recibirFormula);
 		

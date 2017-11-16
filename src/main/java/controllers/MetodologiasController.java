@@ -29,7 +29,6 @@ List<ResultadoMetodologia> resultado;
 		model.put("clase", clase);
 		req.session().removeAttribute("clase");
 		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
-		
 		model.put("metodologias", RepositorioDeMetodologias.traerMetodologiasDeLaDB( id_usuario(req)) );//--Habria que sacarlas del repo
 		
 		return new ModelAndView(model, "metodologias/listarMetodologias.hbs");
@@ -43,23 +42,18 @@ List<ResultadoMetodologia> resultado;
 				.collect(Collectors.toList());
 		
 		req.session().attribute("empresasAEvaluar", empresasAEvaluar);
-		res.redirect("metodologias/" + req.queryParams("metodologia") + "/resultado");
+		req.session().attribute("idMetodologia", req.queryParams("metodologia"));
+		res.redirect("metodologias/resultado");
 		return null;
 	}
 	
-	private void seguridad(String id_metodologia, Request req, Response res) {
-		
-		if(!RepositorioDeMetodologias.lePertenece(id_metodologia, id_usuario(req))) {
-			req.session().removeAttribute("empresasAEvaluar");
-			res.redirect("/404notFound");
-		}
-	}
 	
 	public ModelAndView mostrarResultadoMetodologia(Request req, Response res) {
-		seguridad(req.params(":idMetodologia"), req, res);
 		Map<String, Object> model = mapa(req);
 		List<Empresa> empresas = req.session().attribute("empresasAEvaluar");
-		Metodologia metodologia = Repositorio.buscarPorId(req.params(":idMetodologia"), Metodologia.class);
+		Long idMetodologia = Long.valueOf(  req.session().attribute("idMetodologia")  ).longValue();
+		
+		Metodologia metodologia = Repositorio.buscarPorId(idMetodologia, Metodologia.class);
 		
 		if(noHayEmpresas(empresas)) {
 			req.session().attribute("clase","");

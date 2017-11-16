@@ -39,7 +39,7 @@
 		{{#each empresas }}
             <a onclick='seleccionarEmpresa("{{nombre}}")'>
             <li class="list-group-item" id="li{{nombre}}">
-              <input type="checkbox" id="check{{nombre}}"  name="check{{nombre}}"> {{nombre}} </li>
+              <input style="display:none" type="checkbox" id="check{{nombre}}"  name="check{{nombre}}"> {{nombre}} </li>
             </a>
             
          {{/each}}

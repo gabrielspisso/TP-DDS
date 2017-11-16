@@ -30,6 +30,7 @@ public class IndicadoresControllers extends Controller{
 	protected Map<String, Object> mapa(Request req){
 		Map<String, Object> model = super.mapa(req);
 		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
+		System.out.println(id_usuario(req));
 		model.put("indicadores", RepositorioDeIndicadores.traerIndicadoresDeLaDB(id_usuario(req)));
 		return model;
 	}
@@ -55,23 +56,16 @@ public class IndicadoresControllers extends Controller{
 	}
 	
 	
-	public  Void recibirDatos(Request req, Response res){
-		res.redirect("/indicadores/" + req.params(":idIndicador") + "/" + req.params(":idEmpresa"));
-		return null;
-	}
-	//Hago esta voltereta porque sino me tira direcciones de memoria
-	public  Void postIndicadores(Request req, Response res){
-		res.redirect("/indicadores/" + req.queryParams("selIndicador") + "/" + req.params("selEmpresa"));
-		return null;
-	}
-	
+
 	public ModelAndView formularioIndicador(Request req, Response res) {
 		Map<String, Object> model = super.mapa(req);
 		model.put("titulo", req.cookie("titulo"));
 		model.put("tipoDeMensaje", req.cookie("tipoDeMensaje"));
 		model.put("contenido", req.cookie("contenido"));
+		model.put("formula", req.cookie("formula"));
 		if(req.cookie("nuevo") != null) {
 			res.removeCookie("nuevo");
+			res.removeCookie("formula");
 		}else {
 			model.put("abierto", "collapse");
 		}
@@ -81,34 +75,37 @@ public class IndicadoresControllers extends Controller{
 	
 	public  Void recibirFormula(Request req, Response res){
 		res.cookie("nuevo", "");
-		String formula = req.queryParams("formula") + ";";
+		String formula = req.queryParams("formula");
 		Usuario usuario = Repositorio.buscarPorId(req.cookie("id"), Usuario.class);
 		Indicador indicador; 
 		String titulo = null, tipoDeMensaje = null, contenido = null;
 		try {
-			indicador = IndicadorBuilder.Build(formula, usuario);
+			indicador = IndicadorBuilder.Build(formula + ";", usuario);
 			RepositorioDeIndicadores.agregarIndicador(indicador);
-			titulo = "El indicador se ha creado con exito!";
-			tipoDeMensaje ="alert-success";
-			contenido ="El indicador ya se encuentra disponible para su uso. Seleccionelo desde la pestaña indicadores";
+			mensajeDeConfirmacion(res);
 		}
 		catch(RecursiveException ex) {
-			titulo ="No se pudo crear el indicador";
-			tipoDeMensaje = "alert-warning";
-			contenido ="La definicion que usted ha ingresado es recursiva. Por favor intentelo de nuevo.";
+			mensajeDeError(res, formula, "alert-warning", "La definicion que usted ha ingresado es recursiva. Por favor intentelo de nuevo.");
 		}
 		catch(ParserException ex) {
-			titulo ="No se pudo crear el indicador";
-			tipoDeMensaje = "alert-danger";
-			contenido ="La formula que ha ingresado no es lexicamente correcta. Por favor intentelo de nuevo.";
+			mensajeDeError(res, formula, "alert-danger", "La formula que ha ingresado no es lexicamente correcta. Por favor intentelo de nuevo.");
 		}
-		res.cookie("titulo", titulo);
-		res.cookie("tipoDeMensaje", tipoDeMensaje);
-		res.cookie("contenido",contenido);
+		
 		
 		res.redirect("/indicadores/nuevo");
 		return null;
 	}
 	
+	private void mensajeDeConfirmacion(Response res) {
+		res.cookie("titulo",  "El indicador se ha creado con exito!");
+		res.cookie("tipoDeMensaje", "alert-success");
+		res.cookie("contenido","El indicador ya se encuentra disponible para su uso. Seleccionelo desde la pestaña indicadores");
+	}
+	private void mensajeDeError(Response res, String formula, String color, String motivo) {
+		res.cookie("titulo", "No se pudo crear el indicador");
+		res.cookie("formula", formula );
+		res.cookie("tipoDeMensaje", color);
+		res.cookie("contenido", motivo);
+	}
 	
 }
