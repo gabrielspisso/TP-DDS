@@ -81,7 +81,7 @@ public class testEntrega3Modelo {
 		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
 	}
 	@Test
-	public void testFacebookTieneCincuentaPorcientoDeccConCondicionConAñoYCondicionConCalculo(){
+	public void testFacebookTieneCincuentaPorcientoDeccConCondicionConAnioYCondicionConCalculo(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		CondicionConAnio test = new CondicionConAnio(indicador,Mayor.getSingletonMayor(),300,1,"");
 		condicionConCalculo test2 = new condicionConCalculo(indicador,Mayor.getSingletonMayor(),Promedio.getSingletonPromedio(),9,""); //Deberian ser estaticos
