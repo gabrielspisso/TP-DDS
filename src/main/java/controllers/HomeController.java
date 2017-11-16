@@ -15,7 +15,7 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import clasesResultantes.ResultadoMetodologia;
 import model.Calculos.Mayor;
 import model.Calculos.Menor;
-import model.condicionesYMetodologias.CondicionConAño;
+import model.condicionesYMetodologias.CondicionConAnio;
 import model.condicionesYMetodologias.Metodologia;
 import model.Empresa;
 import model.Indicador;

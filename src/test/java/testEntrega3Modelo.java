@@ -18,7 +18,7 @@ import model.Builders.IndicadorBuilder;
 import model.Calculos.Mayor;
 import model.Calculos.Menor;
 import model.Calculos.Promedio;
-import model.condicionesYMetodologias.CondicionConAño;
+import model.condicionesYMetodologias.CondicionConAnio;
 import model.condicionesYMetodologias.CondicionConComportamiento;
 import model.condicionesYMetodologias.CondicionEntreDosEmpresas;
 import model.condicionesYMetodologias.Metodologia;
@@ -83,7 +83,7 @@ public class testEntrega3Modelo {
 	@Test
 	public void testFacebookTieneCincuentaPorcientoDeccConCondicionConAñoYCondicionConCalculo(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),300,1,"");
+		CondicionConAnio test = new CondicionConAnio(indicador,Mayor.getSingletonMayor(),300,1,"");
 		condicionConCalculo test2 = new condicionConCalculo(indicador,Mayor.getSingletonMayor(),Promedio.getSingletonPromedio(),9,""); //Deberian ser estaticos
 		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test,test2),null,user);
 		assertEquals(50,metodologia.sacarPorcentajeMetodologia(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
@@ -103,7 +103,7 @@ public class testEntrega3Modelo {
 	public void pruebaOrdenarMetodologias(){
 		Indicador indicador =IOs.listaDeIndicadoresMockeada().get(0);
 		
-		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),7,1,"");
+		CondicionConAnio test = new CondicionConAnio(indicador,Mayor.getSingletonMayor(),7,1,"");
 		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test),new ArrayList<CondicionEntreDosEmpresas>(),user);
 		List<Empresa> listaDeEmpresas = Arrays.asList(CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(1),CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(2),CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(0));
 		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada() ));
@@ -112,8 +112,8 @@ public class testEntrega3Modelo {
 	@Test
 	public void testDemierda(){
 		Indicador indicador =IOs.listaDeIndicadoresMockeada().get(0);
-		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
-		CondicionConAño test2 = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
+		CondicionConAnio test = new CondicionConAnio(indicador,Mayor.getSingletonMayor(),8,1,"");
+		CondicionConAnio test2 = new CondicionConAnio(indicador,Menor.getSingletonMenor(),8,1,"");
 		Metodologia metodologiaAimplementar = new Metodologia("Metodologia 1",null,Arrays.asList(test, test2),new ArrayList<CondicionEntreDosEmpresas>(),user);
 		
 		Empresa emp = Repositorio.buscar("Twitter", Empresa.class);

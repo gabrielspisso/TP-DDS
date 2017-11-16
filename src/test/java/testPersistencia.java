@@ -15,7 +15,7 @@ import model.Usuario;
 import model.Builders.IndicadorBuilder;
 import model.Calculos.Mayor;
 import model.Calculos.Menor;
-import model.condicionesYMetodologias.CondicionConAño;
+import model.condicionesYMetodologias.CondicionConAnio;
 import model.condicionesYMetodologias.CondicionEntreDosEmpresas;
 import model.condicionesYMetodologias.Metodologia;
 import model.repositorios.Repositorio;
@@ -81,9 +81,9 @@ public class testPersistencia {
 		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
 		
 		
-		CondicionConAño test = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
+		CondicionConAnio test = new CondicionConAnio(indicador,Menor.getSingletonMenor(),8,1,"");
 		CondicionEntreDosEmpresas test2 = new CondicionEntreDosEmpresas(Repositorio.buscar("indicador1", Indicador.class), Mayor.getSingletonMayor(), "hola");
-		CondicionConAño test3 = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
+		CondicionConAnio test3 = new CondicionConAnio(indicador,Mayor.getSingletonMayor(),8,1,"");
 		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test,  test3, test),Arrays.asList(test2), Repositorio.buscarPorId((long)1, Usuario.class));
 		
 		RepositorioDeCondiciones.agregarCondicion(test);

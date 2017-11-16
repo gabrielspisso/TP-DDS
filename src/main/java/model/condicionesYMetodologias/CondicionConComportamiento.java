@@ -23,11 +23,11 @@ import model.repositorios.RepositorioDeIndicadores;
 @Entity
 public class CondicionConComportamiento extends CondicionDeFiltrado {
 
-	int cantidadDeAños= 0;
+	int cantidadDeAnios= 0;
 	
-	public CondicionConComportamiento(Indicador indicador,criterioDeAceptacionDeCondicion criterio,int cantidadDeAños,String nombre){
+	public CondicionConComportamiento(Indicador indicador,criterioDeAceptacionDeCondicion criterio,int cantidadDeAnios,String nombre){
 		super(indicador,criterio,nombre);
-		this.cantidadDeAños = cantidadDeAños;
+		this.cantidadDeAnios = cantidadDeAnios;
 	}
 	
 	
@@ -41,10 +41,10 @@ public class CondicionConComportamiento extends CondicionDeFiltrado {
 	@Override
 	
 	public boolean seCumpleCondicionFiltrar(Empresa empresa){
-		if(cantidadDeAños>empresa.getBalances().size()) 
+		if(cantidadDeAnios>empresa.getBalances().size()) 
 			return false;
 		
-		List<Balance> balances = empresa.getBalances().subList(0, cantidadDeAños);
+		List<Balance> balances = empresa.getBalances().subList(0, cantidadDeAnios);
 		
 		return balances.stream().allMatch(x-> revisarComportamiento(balances,x));			
 		
@@ -53,7 +53,7 @@ public class CondicionConComportamiento extends CondicionDeFiltrado {
 	public boolean cumpleCondicion(Empresa empresa, Empresa empresa1){
 		
 		
-		List<Balance> balances = empresa.getBalances().subList(0, (cantidadDeAños>empresa.getBalances().size()?cantidadDeAños:getBalances().size()));
+		List<Balance> balances = empresa.getBalances().subList(0, (cantidadDeAnios>empresa.getBalances().size()?cantidadDeAnios:getBalances().size()));
 		return empresa.all(x-> revisarComportamiento(balances,posicionActual))
 	}
 	*/
@@ -71,7 +71,7 @@ public class CondicionConComportamiento extends CondicionDeFiltrado {
 	}
 	/*@Override
 	public String toString(){
-		return indicador.toString()+ "es " + criterio.toString() +" durante "+ cantidadDeAños;
+		return indicador.toString()+ "es " + criterio.toString() +" durante "+ cantidadDeAnios;
 		
 	}
 	*/

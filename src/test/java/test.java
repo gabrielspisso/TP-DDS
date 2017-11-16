@@ -22,7 +22,7 @@ import model.Calculos.Menor;
 import model.Calculos.Promedio;
 import model.Calculos.Sumatoria;
 import model.condicionesYMetodologias.Condicion;
-import model.condicionesYMetodologias.CondicionConAño;
+import model.condicionesYMetodologias.CondicionConAnio;
 import model.condicionesYMetodologias.CondicionConComportamiento;
 import model.condicionesYMetodologias.Metodologia;
 import model.condicionesYMetodologias.condicionConCalculo;
@@ -158,13 +158,13 @@ public class test {
 	@Test
 	public void pruebaFacebookTieneCCMayorA3(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),3,1,"");
+		CondicionConAnio test = new CondicionConAnio(indicador,Mayor.getSingletonMayor(),3,1,"");
 		assertTrue(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
 	}
 	@Test
 	public void pruebaFacebookNoTieneCCMayorA30(){
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
-		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),30, 1, "");
+		CondicionConAnio test = new CondicionConAnio(indicador,Mayor.getSingletonMayor(),30, 1, "");
 		assertFalse(test.cumpleCondicion(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
 	}
 	

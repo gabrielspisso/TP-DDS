@@ -16,7 +16,7 @@ import model.Builders.IndicadorBuilder;
 import model.Calculos.Mayor;
 import model.Calculos.Menor;
 import model.Calculos.Promedio;
-import model.condicionesYMetodologias.CondicionConAño;
+import model.condicionesYMetodologias.CondicionConAnio;
 import model.condicionesYMetodologias.CondicionEntreDosEmpresas;
 import model.condicionesYMetodologias.Metodologia;
 import model.condicionesYMetodologias.condicionConCalculo;
@@ -51,8 +51,8 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		IOs.listaDeIndicadoresMockeada().stream().skip(1).forEach(ind -> RepositorioDeIndicadores.agregarIndicador(ind));
 		
 		Indicador indicador = IOs.listaDeIndicadoresMockeada().get(0);
-		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
-		CondicionConAño test2 = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
+		CondicionConAnio test = new CondicionConAnio(indicador,Mayor.getSingletonMayor(),8,1,"");
+		CondicionConAnio test2 = new CondicionConAnio(indicador,Menor.getSingletonMenor(),8,1,"");
 		Metodologia metodologiaAimplementarDeSpisso = new Metodologia("Metodologia DDS",null,Arrays.asList(test, test2),null,usuario );
 		
 		RepositorioDeMetodologias.agregarMetodologia(metodologiaAimplementarDeSpisso);
