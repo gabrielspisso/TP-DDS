@@ -10,3 +10,4 @@
 {"nombre":"Instagram",
 "balances":[{"periodo":"Segundo Semestre","anio":"2016",
 "cuentas":[{"nombre":"EBITDA","valor":1},{"nombre":"INGRESO NETO DISCONTINUO","valor":25000},{"nombre":"FREE CASH FLOW","valor":5000}]}]}]
+ 

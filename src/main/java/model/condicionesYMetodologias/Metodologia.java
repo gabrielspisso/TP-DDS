@@ -48,16 +48,21 @@ public class Metodologia {
 	String nombre;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	List<Condicion> condiciones;
+	List<CondicionDeFiltrado> condicionesDeFiltrado;
+	
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	List<CondicionEntreDosEmpresas> condicionesDeOrdenamiento;
 	
 	String descripcion;
 	
 	protected Metodologia() {
 	}
 
-	public Metodologia(	String nombre,String Metodologia,List<Condicion> Condiciones, Usuario usuario){
+	public Metodologia(	String nombre,String Metodologia,List<CondicionDeFiltrado> CondicionesDeFiltrado,List<CondicionEntreDosEmpresas> CondicionesDeOrdenamiento, Usuario usuario){
 		this.nombre = nombre;
-		this.condiciones = Condiciones;
+		this.condicionesDeOrdenamiento = CondicionesDeOrdenamiento;
+		this.condicionesDeFiltrado = CondicionesDeFiltrado;
+		
 		this.descripcion = Metodologia;
 		this.usuario = usuario;
 	}
@@ -86,11 +91,10 @@ public class Metodologia {
 	}
 	private int ordenarEmpresasSegunMetodologia(Empresa empresa, Empresa empresa2) {
 		// TODO Auto-generated method stub
-		List <Condicion> CondicionesDeOrdenamiento = condiciones.stream().filter(c->!c.esCondicionDeFiltrado()).collect(Collectors.toList());
 		int i;
 		CondicionEntreDosEmpresas condicion;
-		for(i=0;i<CondicionesDeOrdenamiento.size();i++){
-			condicion = (CondicionEntreDosEmpresas) CondicionesDeOrdenamiento.get(i);
+		for(i=0;i<condicionesDeOrdenamiento.size();i++){
+			condicion = (CondicionEntreDosEmpresas) condicionesDeOrdenamiento.get(i);
 			int comparacion = condicion.compararEmpresas(empresa,empresa2);
 			if(comparacion!=0)
 				return comparacion;
@@ -101,11 +105,10 @@ public class Metodologia {
 	//No deberia ser public, pero por los test
 	public int sacarPorcentajeMetodologia(Empresa empresa) {
 		
-		List<Condicion> CondicionesParaFiltrar = condiciones.stream().filter(c->c.esCondicionDeFiltrado()).collect(Collectors.toList());
-		Stream<Condicion> streamDeCondiciones =CondicionesParaFiltrar.stream().filter(condicion -> (condicion).cumpleCondicion(empresa));
-		List<Condicion> condicionesFiltradas = streamDeCondiciones.collect(Collectors.toList());
+		Stream<CondicionDeFiltrado> streamDeCondiciones =condicionesDeFiltrado.stream().filter(condicion -> (condicion).cumpleCondicion(empresa));
+		List<CondicionDeFiltrado> condicionesFiltradas = streamDeCondiciones.collect(Collectors.toList());
 				
-		return condicionesFiltradas.size()*100/CondicionesParaFiltrar.size();
+		return condicionesFiltradas.size()*100/condicionesDeFiltrado.size();
 	}
 
 	public List<Empresa> listarEmpresas(List<Empresa> listaDeEmpresas){

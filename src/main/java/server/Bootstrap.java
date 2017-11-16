@@ -53,17 +53,17 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		Indicador indicador = IOs.listaDeIndicadoresMockeada().get(0);
 		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
 		CondicionConAño test2 = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
-		Metodologia metodologiaAimplementarDeSpisso = new Metodologia("Metodologia DDS",null,Arrays.asList(test, test2),usuario );
+		Metodologia metodologiaAimplementarDeSpisso = new Metodologia("Metodologia DDS",null,Arrays.asList(test, test2),null,usuario );
 		
 		RepositorioDeMetodologias.agregarMetodologia(metodologiaAimplementarDeSpisso);
-		Metodologia metodologiaAimplementarDeMaiori = new Metodologia("Metodologia DDS",null,Arrays.asList(test, test2),usuario2 );
+		Metodologia metodologiaAimplementarDeMaiori = new Metodologia("Metodologia DDS",null,Arrays.asList(test, test2),null,usuario2 );
 
 		RepositorioDeMetodologias.agregarMetodologia(metodologiaAimplementarDeMaiori);
 		
 		CondicionEntreDosEmpresas test3 = new CondicionEntreDosEmpresas(indicador,Menor.getSingletonMenor(),"Mayor indicador1" );
 		condicionConCalculo test4 = new condicionConCalculo(indicador,Menor.getSingletonMenor(),Promedio.getSingletonPromedio(),3,"Promedio de indicador 1");
 		
-		Metodologia metodologiaAimplementarDeSpisso2 = new Metodologia("Metodologia PDEP",null,Arrays.asList(test, test2,test3,test4),usuario );
+		Metodologia metodologiaAimplementarDeSpisso2 = new Metodologia("Metodologia PDEP",null,Arrays.asList(test, test2,test4),Arrays.asList(test3),usuario );
 		RepositorioDeMetodologias.agregarMetodologia(metodologiaAimplementarDeSpisso2);
 	}
 }

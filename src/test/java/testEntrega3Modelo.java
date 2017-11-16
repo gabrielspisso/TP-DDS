@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -84,14 +85,14 @@ public class testEntrega3Modelo {
 		Indicador indicador = IndicadorBuilder.Build("cc=FDS+10;");
 		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),300,1,"");
 		condicionConCalculo test2 = new condicionConCalculo(indicador,Mayor.getSingletonMayor(),Promedio.getSingletonPromedio(),9,""); //Deberian ser estaticos
-		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test,test2),user);
+		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test,test2),null,user);
 		assertEquals(50,metodologia.sacarPorcentajeMetodologia(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0)));
 	}
 	
 
 	@Test
 	public void pruebaCondicionDosEmpresas(){
-		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		Indicador indicador =IOs.listaDeIndicadoresMockeada().get(0);
 		Empresa facebook = CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(0);
 		Empresa twitter = CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(1);
 		CondicionEntreDosEmpresas test = new CondicionEntreDosEmpresas(indicador,Mayor.getSingletonMayor(),"");
@@ -100,20 +101,20 @@ public class testEntrega3Modelo {
 	}
 	@Test
 	public void pruebaOrdenarMetodologias(){
-		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		Indicador indicador =IOs.listaDeIndicadoresMockeada().get(0);
 		
 		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),7,1,"");
-		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test),user);
-		List<Empresa> listaDeEmpresas = Arrays.asList(RepositorioDeEmpresas.traerEmpresasDeLaDB().get(1),RepositorioDeEmpresas.traerEmpresasDeLaDB().get(2),RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0));
-		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(RepositorioDeEmpresas.traerEmpresasDeLaDB() ));
+		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test),new ArrayList<CondicionEntreDosEmpresas>(),user);
+		List<Empresa> listaDeEmpresas = Arrays.asList(CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(1),CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(2),CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(0));
+		assertEquals(listaDeEmpresas,metodologia.listarEmpresas(CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada() ));
 	}
 	
 	@Test
 	public void testDemierda(){
-		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		Indicador indicador =IOs.listaDeIndicadoresMockeada().get(0);
 		CondicionConAño test = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
 		CondicionConAño test2 = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
-		Metodologia metodologiaAimplementar = new Metodologia("Metodologia 1",null,Arrays.asList(test, test2),user);
+		Metodologia metodologiaAimplementar = new Metodologia("Metodologia 1",null,Arrays.asList(test, test2),new ArrayList<CondicionEntreDosEmpresas>(),user);
 		
 		Empresa emp = Repositorio.buscar("Twitter", Empresa.class);
 		System.out.println(metodologiaAimplementar.generarResultado(Arrays.asList(emp)).get(0).getValor());

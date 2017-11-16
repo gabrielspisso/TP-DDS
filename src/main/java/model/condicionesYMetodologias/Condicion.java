@@ -8,14 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import model.Empresa;
 import model.Indicador;
 import model.Calculos.criterioDeAceptacionDeCondicion;
 import model.Excepciones.IdentificadorInexistente;
 
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@MappedSuperclass
 public abstract class Condicion {
 	
 	@Id

@@ -84,7 +84,7 @@ public class testPersistencia {
 		CondicionConAño test = new CondicionConAño(indicador,Menor.getSingletonMenor(),8,1,"");
 		CondicionEntreDosEmpresas test2 = new CondicionEntreDosEmpresas(Repositorio.buscar("indicador1", Indicador.class), Mayor.getSingletonMayor(), "hola");
 		CondicionConAño test3 = new CondicionConAño(indicador,Mayor.getSingletonMayor(),8,1,"");
-		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test, test2, test3, test), Repositorio.buscarPorId((long)1, Usuario.class));
+		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test,  test3, test),Arrays.asList(test2), Repositorio.buscarPorId((long)1, Usuario.class));
 		
 		RepositorioDeCondiciones.agregarCondicion(test);
 		
