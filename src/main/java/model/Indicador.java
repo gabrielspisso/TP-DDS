@@ -107,15 +107,18 @@ public class Indicador {
 	
 	public List<ResultadoIndicador> evaluarEmpresa(Empresa empresa){
 		List<ResultadoIndicador> resultado = new ArrayList<>();
-		empresa.getBalances().forEach(bal -> resultado.add(evaluarBalance(bal,empresa)));
+		empresa.getBalances().forEach(bal -> resultado.add(evaluarBalance(bal)));
 		return resultado;
 	}
 	
-	public ResultadoIndicador evaluarBalance(Balance bal,Empresa empresa) {
-		Double valor = bal.buscarEnListaDeResultados(this,empresa);
-		if(valor == null){
+	public ResultadoIndicador evaluarBalance(Balance bal) {
+		if(bal.estaPrecalculadoElIndicador(this)){
+			Double valor = bal.buscarEnListaDeResultados(this);
+			return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), Double.toString(valor));	
+		}
+		else{
 			try {
-				valor = this.calcularValor(bal.getCuentas());
+				Double valor = this.calcularValor(bal.getCuentas());
 				bal.agregarIndicadorPrecalculado(this,valor);
 				return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), Double.toString(valor));
 			}
@@ -126,7 +129,7 @@ public class Indicador {
 				return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), "No se pudo encontrar el valor: " + ex.getMessage());
 			}	
 		}
-		return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), Double.toString(valor));
+		
 	}
 
 /*	private Double buscarEnListaDeResultados(Balance bal, Empresa empresa) {

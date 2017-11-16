@@ -55,20 +55,15 @@ public class Cuenta {
 	public void actualizarCuenta(Balance balanceViejo,Balance balance) {
 		Cuenta cuenta = balance.getCuentas().stream().filter(c-> c.equals(this)).findFirst().get();
 		if(cuenta != null) {
-			this.valor = cuenta.getValor();
-			limpiarIndicadoresPrecalculados(balance);
+			if(cuenta.getValor() != this.valor) {
+				this.valor = cuenta.getValor();
+				balanceViejo.limpiarIndicadoresPrecalculados(this);				
+			}
 		}
 		else {
 			balanceViejo.agregarCuenta(this);
 		}
 	}
 	
-	private void limpiarIndicadoresPrecalculados( Balance balance) {
-		List<Resultado> resultados = balance.getIndicadoresPrecalculado();
-		if(resultados.isEmpty()) {
-			resultados.removeIf(res-> res.fueAfectadoPor(this));
-		}
-		//List<Indicador> listaDeIndicadores = Repositorio.getFromDB(Indicador.class);
-		//listaDeIndicadores.forEach(indicador->indicador.borrarPrecalculo(cuenta,empresaDelArchivo,balance));	
-	}
+	
 }

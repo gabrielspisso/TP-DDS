@@ -18,7 +18,7 @@ public class Resultado {
 	public Long getId() {
 		return id;
 	}
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	Indicador indicador;
 	Double valor;
 
