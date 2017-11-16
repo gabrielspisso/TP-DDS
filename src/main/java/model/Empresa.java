@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,6 +17,7 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.uqbar.commons.utils.Observable;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 @Entity
 @Observable
@@ -72,5 +75,18 @@ public class Empresa {
 		}
 		//return empresa.nombre == this.nombre;
 		
+	}
+	public void agregarBalance(Balance balance) {
+		
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+			balances.add(balance);
+			tx.commit();
+		}
+		catch(Exception ex) {
+			tx.rollback();
+		}
 	}
 }

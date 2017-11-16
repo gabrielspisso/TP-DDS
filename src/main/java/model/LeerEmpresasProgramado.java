@@ -48,19 +48,22 @@ private void chequearEmpresa(Empresa empresa) {
 		RepositorioDeEmpresas.agregarEmpresas(empresa);
 	}
 	else {
-		empresaDeDB.getBalances().forEach(balance -> this.actualizarBalance(balance,empresa));
+		empresa.getBalances().forEach(balance -> this.actualizarBalance(balance,empresaDeDB));
 		//Agregar balances que no esten en la empresa de la bd.
 	}
 }
 
-private void actualizarBalance(Balance balance, Empresa empresaDelArchivo) {
+private void actualizarBalance(Balance balance, Empresa empresaDeLaDB) {
 	
 	System.out.println(balance.toString());
 	
-	if(empresaDelArchivo.getBalances().stream().anyMatch( b-> b.equals(balance))) {
-		Balance balanceNuevo = empresaDelArchivo.getBalances().stream().filter( b-> b.equals(balance)).findFirst().get();
-		List<Cuenta> cuentas = balance.getCuentas();
-		cuentas.forEach(cuenta -> cuenta.actualizarCuenta(balance,balanceNuevo));
+	if(empresaDeLaDB.getBalances().stream().anyMatch( b-> b.equals(balance))) {
+		Balance balanceViejo = empresaDeLaDB.getBalances().stream().filter( b-> b.equals(balance)).findFirst().get();
+		List<Cuenta> cuentas = balanceViejo.getCuentas();
+		cuentas.forEach(cuenta -> cuenta.actualizarCuenta(balanceViejo,balance));
+	}
+	else {
+		empresaDeLaDB.agregarBalance(balance);
 	}
 	
 	
