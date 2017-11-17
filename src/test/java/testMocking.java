@@ -1,34 +1,22 @@
 import static org.junit.Assert.*;
 
-import java.sql.DriverManager;
-import java.util.List;
-import java.util.Map;
-import static org.mockito.Matchers.*;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito.*;
-import org.mockito.*;
-import org.powermock.*;
-import org.powermock.core.*;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.mockito.Mock;
-
-import org.mockito.Matchers.*;
-import model.Empresa;
-import model.IOs;
-import model.CargadorDeEmpresas;
+ 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.when;
 import model.Indicador;
-import model.Builders.IndicadorBuilder;
-import model.repositorios.Repo;
 import model.repositorios.Repositorio;
-import model.repositorios.RepositorioDeEmpresas;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import org.powermock.api.mockito.PowerMockito;;
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Repositorio.class)
+@PrepareForTest({Repositorio.class})
 public class testMocking {
 
 	@Test
@@ -36,7 +24,8 @@ public class testMocking {
 		
 		PowerMockito.mockStatic(Repositorio.class);
 		Indicador in1 = new Indicador("",null,"");
-		BDDMockito.given(Repositorio.buscarPorId((long)2, Indicador.class)).willReturn(in1);
+		when(Repositorio.buscarPorId(any(Long.class), eq(Indicador.class))).thenReturn(in1);
+
 		Indicador in = Repositorio.buscarPorId((long)2, Indicador.class);
 		
 		
