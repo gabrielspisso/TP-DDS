@@ -12,7 +12,7 @@ import spark.utils.HandlebarsTemplateEngineBuilder;
 public class Server {
 	public static void main(String[] args) {
 		new Bootstrap().init();
-		Spark.port(9000);
+		Spark.port(8080);
 		TimerTask cargarEmpresasBatch = new LeerEmpresasProgramado("archivoEmpresas.txt");
         Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(cargarEmpresasBatch, 0, 10*60*1000);	
