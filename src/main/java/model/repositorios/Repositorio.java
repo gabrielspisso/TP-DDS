@@ -12,7 +12,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import model.condicionesYMetodologias.Condicion;
 import model.condicionesYMetodologias.Metodologia;
 
-public  class Repositorio {
+public  class Repositorio{
 
 
 	public static <T> List<T>  getFromDB(Class<T> clase) {		
