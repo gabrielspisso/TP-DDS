@@ -15,7 +15,7 @@ public class Server {
 		Spark.port(9000);
 		TimerTask cargarEmpresasBatch = new LeerEmpresasProgramado("archivoEmpresas.txt");
         Timer timer = new Timer(true);
-        timer.scheduleAtFixedRate(cargarEmpresasBatch, 0, 10*60*1000);	
+        timer.scheduleAtFixedRate(cargarEmpresasBatch, 0, 30*1000);	
 		DebugScreen.enableDebugScreen();
 		Router.configure();
 	}

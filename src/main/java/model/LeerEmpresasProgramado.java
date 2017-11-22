@@ -27,6 +27,8 @@ public LeerEmpresasProgramado(String path) {
 @Override
 public void run() {
 	
+	System.out.println("CARGANDO EMPRESAS...");
+	
 	if(IOs.fueModificadoDesdeLaUltimaLectura(path,ultimaModificacion)) {
 		try {
 				List<Empresa> listaDeEmpresas = IOs.leerArchivo(path);

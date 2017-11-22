@@ -85,9 +85,6 @@ public class Balance {
 		else {
 			 resultado = new Resultado(indicador,valor);	
 		}
-		List<Resultado> resultados = new ArrayList<Resultado>();
-		resultados.addAll(indicadoresPrecalculado);
-		resultados.add(resultado);
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		try {
@@ -113,7 +110,6 @@ public class Balance {
 		cuentas.add(cuenta);		
 	}
 	public boolean estaPrecalculadoElIndicador(Indicador indicador) {
-		// TODO Auto-generated method stub
 		return indicadoresPrecalculado.stream().anyMatch(res1 -> res1.getIndicador().getNombre().equals(indicador.getNombre()));
 	}
 	public void limpiarIndicadoresPrecalculados(Cuenta cuenta) {

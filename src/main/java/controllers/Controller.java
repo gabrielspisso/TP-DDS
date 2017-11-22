@@ -16,6 +16,9 @@ public abstract class Controller {
 	}
 	
 	protected Long id_usuario(Request req) {
+		if(req.cookie("id") == null) {
+			return null;
+		}
 		return Long.valueOf(req.cookie("id")).longValue();
 	}
 	

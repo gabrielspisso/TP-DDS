@@ -3,33 +3,60 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
- 
+
+import controllers.IndicadoresControllers;
+
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
+
+import java.util.Map;
+
+import model.CargadorDeEmpresas;
+import model.Empresa;
+import model.IOs;
 import model.Indicador;
+import model.Builders.IndicadorBuilder;
 import model.repositorios.Repositorio;
+import model.repositorios.RepositorioDeIndicadores;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Repositorio.class})
+@PrepareForTest({Repositorio.class,RepositorioDeIndicadores.class})
 public class testMocking {
 
 	@Test
 	public void test() {
 		
 		PowerMockito.mockStatic(Repositorio.class);
-		Indicador in1 = new Indicador("",null,"");
-		when(Repositorio.buscarPorId(any(Long.class), eq(Indicador.class))).thenReturn(in1);
+		PowerMockito.mockStatic(RepositorioDeIndicadores.class);
 
-		Indicador in = Repositorio.buscarPorId((long)2, Indicador.class);
+		Indicador in1 =  IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		Empresa em1 = CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(0);
+		when(Repositorio.buscarPorId(any(Long.class), eq(Indicador.class))).thenReturn(in1);
+	
+		when(Repositorio.buscarPorId(any(Long.class), eq(Empresa.class))).thenReturn(em1);
+
+		Request req = Mockito.mock(Request.class);
+		when(req.params(":idIndicador")).thenReturn("");
 		
-		
-		fail("Not yet implemented");
+		IndicadoresControllers controller = new IndicadoresControllers();
+		Response res = Mockito.mock(Response.class);
+		when(RepositorioDeIndicadores.lePertenece(anyString(), anyLong())).thenReturn(true);
+		ModelAndView view = controller.mostrarResultados(req, res);
+		Map<String, Object> model = (Map<String, Object>) view.getModel();
+		assertEquals(model.get("resultados"),7);
+
 	}
 	
 	

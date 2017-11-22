@@ -36,10 +36,11 @@ public class IndicadoresControllers extends Controller{
 	}
 	
 	//Es para que no usen los indicadores de alguien mas
-	public void seguridad(String id_indicador, long id_usuario, Response res) {
+	public Void seguridad(String id_indicador, long id_usuario, Response res) {
 		if(!RepositorioDeIndicadores.lePertenece(id_indicador, id_usuario)) {
 			res.redirect("/404notFound");
 		}
+		return null;
 	}
 	
 	//Ya se, este metodo es re largo
@@ -52,6 +53,7 @@ public class IndicadoresControllers extends Controller{
 		model.put("resultados", indicador.evaluarEmpresa(empresa));
 		model.put("formula", indicador.mostrarFormulaCompleta());
 		model.put("empresa", empresa.getNombre());
+		
 		return new ModelAndView(model, "indicadores/indicadoresConCalculos.hbs");
 	}
 	

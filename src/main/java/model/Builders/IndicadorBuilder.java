@@ -21,10 +21,11 @@ public class IndicadorBuilder {
     	
     	Nodo arbol = nb.Build();
     	Indicador indicador = (usuario == null) ? new Indicador(nombre, arbol, expresion) : new Indicador(nombre, arbol, expresion, usuario);
-    	
-		if(indicador.contieneEsteToken(nombre)){
-			throw new RecursiveException("No se pudo crear ya que es recursivo");
-		}
+    	if(usuario != null) {
+    		if(indicador.contieneEsteToken(nombre)){
+    			throw new RecursiveException("No se pudo crear ya que es recursivo");
+    		}    		
+    	}
     	return indicador;
 	}
 	
