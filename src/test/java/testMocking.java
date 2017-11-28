@@ -28,20 +28,22 @@ import model.Indicador;
 import model.Builders.IndicadorBuilder;
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
+import model.repositorios.RepositorioDeIndicadoresMockeado;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Repositorio.class,RepositorioDeIndicadores.class})
 public class testMocking {
-
+	RepositorioDeIndicadoresInterfaz repo = new RepositorioDeIndicadoresMockeado();
 	@Test
 	public void test() {
 		
 		PowerMockito.mockStatic(Repositorio.class);
 		PowerMockito.mockStatic(RepositorioDeIndicadores.class);
 
-		Indicador in1 =  IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		Indicador in1 =  IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;",repo);
 		Empresa em1 = CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(0);
 		when(Repositorio.buscarPorId(any(Long.class), eq(Indicador.class))).thenReturn(in1);
 	

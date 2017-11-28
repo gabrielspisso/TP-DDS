@@ -12,6 +12,7 @@ import model.Indicador;
 import model.Calculos.criterioDeAceptacionDeCondicion;
 import model.Excepciones.IdentificadorInexistente;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 
 @Entity
 public class CondicionConAnio extends CondicionDeFiltrado{
@@ -31,12 +32,11 @@ public class CondicionConAnio extends CondicionDeFiltrado{
 		
 	}
 	
-	public boolean seCumpleCondicionFiltrar(Empresa empresa){
+	public boolean seCumpleCondicionFiltrar(Empresa empresa,	RepositorioDeIndicadoresInterfaz repo){
 		if(empresa.getBalances().size() < cantidadDeAnios){
 			return false;
 		}
 		List<Balance> listaDeBalances = empresa.getBalances().subList(0,cantidadDeAnios);
-		
-			return listaDeBalances.stream().allMatch(balance->criterio.cumpleCriterioDeAceptacionDeCondicion(this.valorMinimo,this.indicador.calcularValor(balance.getCuentas())));				
+			return listaDeBalances.stream().allMatch(balance->criterio.cumpleCriterioDeAceptacionDeCondicion(this.valorMinimo,this.indicador.calcularValor(balance.getCuentas(),repo)));				
 	}
 }

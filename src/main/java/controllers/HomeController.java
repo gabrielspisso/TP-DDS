@@ -24,12 +24,19 @@ import model.Builders.IndicadorBuilder;
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeEmpresas;
 import model.repositorios.RepositorioDeMetodologias;
+import model.repositorios.RepositorioDeUsuarioInterfaz;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 public class HomeController extends Controller{
 	
+	public HomeController(RepositorioDeUsuarioInterfaz repoUsuario) {
+		super(repoUsuario);
+		// TODO Auto-generated constructor stub
+	}
+
+	RepositorioDeUsuarioInterfaz repo;
 	
 	public  ModelAndView home(Request req, Response res){	
 		
@@ -56,7 +63,7 @@ public class HomeController extends Controller{
 	public Void login(Request req, Response res){
 		
 		
-		Usuario user = Repositorio.buscar(req.queryParams("nombre"), Usuario.class);
+		Usuario user = repo.buscar(req.queryParams("nombre"));
 		
 		if (user == null) {
 			res.cookie("abierto", "");
@@ -87,7 +94,7 @@ public class HomeController extends Controller{
 			}
 		}
 		else {
-			Usuario usuario = Repositorio.buscarPorId( id, Usuario.class);
+			Usuario usuario = repo.buscarPorId( id);
 			if(usuario == null && this.esPaginaPrivada(req)) {
 				res.redirect("/login");
 			}

@@ -19,6 +19,7 @@ import model.Calculos.Calculo;
 import model.Calculos.criterioDeAceptacionDeCondicion;
 import model.Excepciones.IdentificadorInexistente;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 
 @Entity
 public class CondicionConComportamiento extends CondicionDeFiltrado {
@@ -40,13 +41,13 @@ public class CondicionConComportamiento extends CondicionDeFiltrado {
 
 	@Override
 	
-	public boolean seCumpleCondicionFiltrar(Empresa empresa){
+	public boolean seCumpleCondicionFiltrar(Empresa empresa,RepositorioDeIndicadoresInterfaz repo){
 		if(cantidadDeAnios>empresa.getBalances().size()) 
 			return false;
 		
 		List<Balance> balances = empresa.getBalances().subList(0, cantidadDeAnios);
 		
-		return balances.stream().allMatch(x-> revisarComportamiento(balances,x));			
+		return balances.stream().allMatch(x-> revisarComportamiento(balances,x,repo));			
 		
 	}
 	/*
@@ -57,7 +58,7 @@ public class CondicionConComportamiento extends CondicionDeFiltrado {
 		return empresa.all(x-> revisarComportamiento(balances,posicionActual))
 	}
 	*/
-	public boolean revisarComportamiento(List<Balance> balances, Balance balance){
+	public boolean revisarComportamiento(List<Balance> balances, Balance balance,RepositorioDeIndicadoresInterfaz repo){
 		if(balances.isEmpty()) return false;
 		int posicion = balances.indexOf(balance);
 		
@@ -65,8 +66,8 @@ public class CondicionConComportamiento extends CondicionDeFiltrado {
 		if(posicion == balances.size()-1){
 			return true;
 		}
-		double res1 = indicador.calcularValor(balance.getCuentas());
-		double res2 = indicador.calcularValor(balances.get(posicion+1).getCuentas());
+		double res1 = indicador.calcularValor(balance.getCuentas(),repo);
+		double res2 = indicador.calcularValor(balances.get(posicion+1).getCuentas(),repo);
 		return criterio.cumpleCriterioDeAceptacionDeCondicion(res1, res2);
 	}
 	/*@Override

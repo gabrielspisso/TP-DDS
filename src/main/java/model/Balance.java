@@ -19,6 +19,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import model.Excepciones.NoItemSelectedException;
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 
 
 @Entity
@@ -76,8 +77,8 @@ public class Balance {
 			return false;
 		}
 	}
-	public void agregarIndicadorPrecalculado(Indicador indicador, Double valor) {
-		Indicador indicadorDeDB = Repositorio.buscar(indicador.getNombre(), Indicador.class);
+	public void agregarIndicadorPrecalculado(Indicador indicador, Double valor,RepositorioDeIndicadoresInterfaz repo) {
+		Indicador indicadorDeDB = repo.buscar(indicador.getNombre());
 		Resultado resultado;
 		if(indicadorDeDB != null) {
 			 resultado = new Resultado(indicadorDeDB,valor);

@@ -27,6 +27,7 @@ import model.Excepciones.IdentificadorInexistente;
 import model.Excepciones.RecursiveException;
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 import model.repositorios.RepositorioDeUsuario;
 
 @Entity
@@ -61,11 +62,7 @@ public class Indicador {
 		return nombre;
 	}
 
-	public Indicador(String nombre, Nodo arbol, String formula) {
-		this.nombre = nombre;
-		this.arbol = arbol;
-		this.usuario = Repositorio.buscarPorId((long)1, Usuario.class);
-	}
+	
 	
 	public Indicador(String nombre, Nodo arbol, String formula, Usuario usuario) {
 		this.nombre = nombre;
@@ -77,16 +74,16 @@ public class Indicador {
 		return arbol;
 	}
 
-	private boolean esRecursivo(){
-		return arbol.contieneEsteToken(nombre, usuario.getId());
+	private boolean esRecursivo(RepositorioDeIndicadoresInterfaz repo){
+		return arbol.contieneEsteToken(nombre, usuario.getId(),repo);
 	}
-	public double calcularValor(List<Cuenta> listaDeCuentas) {
-		if(esRecursivo()){
+	public double calcularValor(List<Cuenta> listaDeCuentas,RepositorioDeIndicadoresInterfaz repo) {
+		if(esRecursivo(repo)){
 			throw new RuntimeException("Es recursivo, modifique uno de los dos para calcular el valor nuevamente");
 			
 		}
 
-		return arbol.calcularValor(listaDeCuentas, RepositorioDeIndicadores.traerIndicadoresDeLaDB(usuario.getId()));
+		return arbol.calcularValor(listaDeCuentas, repo.traerIndicadoresDeLaDB(usuario.getId()),repo);
 	}
 	public String mostrarFormula() {
 		return arbol.mostrarFormula();
@@ -101,25 +98,25 @@ public class Indicador {
 	}
 
 
-	public boolean contieneEsteToken(String token) {
-		return arbol.contieneEsteToken(token, usuario.getId());
+	public boolean contieneEsteToken(String token,RepositorioDeIndicadoresInterfaz repo) {
+		return arbol.contieneEsteToken(token, usuario.getId(),repo);
 	}
 	
-	public List<ResultadoIndicador> evaluarEmpresa(Empresa empresa){
+	public List<ResultadoIndicador> evaluarEmpresa(Empresa empresa,RepositorioDeIndicadoresInterfaz repo){
 		List<ResultadoIndicador> resultado = new ArrayList<>();
-		empresa.getBalances().forEach(bal -> resultado.add(evaluarBalance(bal)));
+		empresa.getBalances().forEach(bal -> resultado.add(evaluarBalance(bal,repo)));
 		return resultado;
 	}
 	
-	public ResultadoIndicador evaluarBalance(Balance bal) {
+	public ResultadoIndicador evaluarBalance(Balance bal,RepositorioDeIndicadoresInterfaz repo) {
 		if(bal.estaPrecalculadoElIndicador(this)){
 			Double valor = bal.buscarEnListaDeResultados(this);
 			return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), Double.toString(valor));	
 		}
 		else{
 			try {
-				Double valor = this.calcularValor(bal.getCuentas());
-				bal.agregarIndicadorPrecalculado(this,valor);
+				Double valor = this.calcularValor(bal.getCuentas(),repo);
+				bal.agregarIndicadorPrecalculado(this,valor,repo);
 				return new ResultadoIndicador(bal.getAnio(), bal.getPeriodo(), Double.toString(valor));
 			}
 			catch(RecursiveException ex) {

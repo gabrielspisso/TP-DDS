@@ -12,6 +12,7 @@ import model.Empresa;
 import model.Indicador;
 import model.Calculos.criterioDeAceptacionDeCondicion;
 import model.Excepciones.IdentificadorInexistente;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 
 @Entity
 public class CondicionEntreDosEmpresas extends Condicion {
@@ -27,15 +28,15 @@ public class CondicionEntreDosEmpresas extends Condicion {
 
 	
 
-	public int compararEmpresas(Empresa empresa, Empresa empresa2){
+	public int compararEmpresas(Empresa empresa, Empresa empresa2,RepositorioDeIndicadoresInterfaz repo){
 			
-			if(existeEseIndicadorParaEstaEmpresa(empresa,indicador)&& existeEseIndicadorParaEstaEmpresa(empresa2,indicador)){
-				return criterio.cumpleCriterioDeAceptacionDeCondicion(indicador.calcularValor(empresa2.getBalances().get(0).getCuentas()),indicador.calcularValor(empresa.getBalances().get(0).getCuentas()))? 1: -1;	
+			if(existeEseIndicadorParaEstaEmpresa(empresa,indicador,repo)&& existeEseIndicadorParaEstaEmpresa(empresa2,indicador,repo)){
+				return criterio.cumpleCriterioDeAceptacionDeCondicion(indicador.calcularValor(empresa2.getBalances().get(0).getCuentas(),repo),indicador.calcularValor(empresa.getBalances().get(0).getCuentas(),repo))? 1: -1;	
 			}
-			else if(existeEseIndicadorParaEstaEmpresa(empresa,indicador)){
+			else if(existeEseIndicadorParaEstaEmpresa(empresa,indicador,repo)){
 				return 1;
 			}
-			else if(existeEseIndicadorParaEstaEmpresa(empresa2,indicador))
+			else if(existeEseIndicadorParaEstaEmpresa(empresa2,indicador,repo))
 				return -1;
 			return 0;
 	}
@@ -53,7 +54,7 @@ public class CondicionEntreDosEmpresas extends Condicion {
 	}
 
 	@Override
-	public boolean cumpleCondicion(Empresa empresa) {
+	public boolean cumpleCondicion(Empresa empresa,RepositorioDeIndicadoresInterfaz repo) {
 		// TODO Auto-generated method stub
 		return false;
 	}

@@ -24,6 +24,8 @@ import clasesResultantes.ResultadoMetodologia;
 import model.Empresa;
 import model.Usuario;
 import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
+
 import javax.persistence.UniqueConstraint;
 
 @Entity
@@ -79,23 +81,23 @@ public class Metodologia {
 		
 		return descripcion;
 	}
-	public int evaluarMetodologia(Empresa empresa,Empresa empresa2){
+	public int evaluarMetodologia(Empresa empresa,Empresa empresa2,RepositorioDeIndicadoresInterfaz repo){
 				
-		if(sacarPorcentajeMetodologia(empresa)>sacarPorcentajeMetodologia(empresa2))
+		if(sacarPorcentajeMetodologia(empresa,repo)>sacarPorcentajeMetodologia(empresa2,repo))
 			return -1;
-		else if(sacarPorcentajeMetodologia(empresa) <sacarPorcentajeMetodologia(empresa2) )
+		else if(sacarPorcentajeMetodologia(empresa,repo) <sacarPorcentajeMetodologia(empresa2,repo) )
 			return 1;
 		
-		return ordenarEmpresasSegunMetodologia(empresa,empresa2);
+		return ordenarEmpresasSegunMetodologia(empresa,empresa2,repo);
 
 	}
-	private int ordenarEmpresasSegunMetodologia(Empresa empresa, Empresa empresa2) {
+	private int ordenarEmpresasSegunMetodologia(Empresa empresa, Empresa empresa2,RepositorioDeIndicadoresInterfaz repo) {
 		// TODO Auto-generated method stub
 		int i;
 		CondicionEntreDosEmpresas condicion;
 		for(i=0;i<condicionesDeOrdenamiento.size();i++){
 			condicion = (CondicionEntreDosEmpresas) condicionesDeOrdenamiento.get(i);
-			int comparacion = condicion.compararEmpresas(empresa,empresa2);
+			int comparacion = condicion.compararEmpresas(empresa,empresa2,repo);
 			if(comparacion!=0)
 				return comparacion;
 		}
@@ -103,33 +105,34 @@ public class Metodologia {
 	}
 
 	//No deberia ser public, pero por los test
-	public int sacarPorcentajeMetodologia(Empresa empresa) {
+	public int sacarPorcentajeMetodologia(Empresa empresa, RepositorioDeIndicadoresInterfaz repo) {
 		
-		Stream<CondicionDeFiltrado> streamDeCondiciones =condicionesDeFiltrado.stream().filter(condicion -> (condicion).cumpleCondicion(empresa));
+		Stream<CondicionDeFiltrado> streamDeCondiciones =condicionesDeFiltrado.stream().filter(condicion -> (condicion).cumpleCondicion(empresa,repo));
 		List<CondicionDeFiltrado> condicionesFiltradas = streamDeCondiciones.collect(Collectors.toList());
 				
 		return condicionesFiltradas.size()*100/condicionesDeFiltrado.size();
 	}
 
-	public List<Empresa> listarEmpresas(List<Empresa> listaDeEmpresas){
-		ordenarListadeEmpresasDeAcuerdoALaEvaluacionDeMetodologias(listaDeEmpresas);
+	public List<Empresa> listarEmpresas(List<Empresa> listaDeEmpresas,RepositorioDeIndicadoresInterfaz repo){
+		ordenarListadeEmpresasDeAcuerdoALaEvaluacionDeMetodologias(listaDeEmpresas,repo);
 		return listaDeEmpresas;
 	}
-	private void ordenarListadeEmpresasDeAcuerdoALaEvaluacionDeMetodologias(List<Empresa> listaDeEmpresas){
+	private void ordenarListadeEmpresasDeAcuerdoALaEvaluacionDeMetodologias(List<Empresa> listaDeEmpresas,RepositorioDeIndicadoresInterfaz repo){
 		Collections.sort(listaDeEmpresas,new Comparator<Empresa>() {
+
 			public int compare(Empresa empresa1, Empresa empresa2) {
 
-				return evaluarMetodologia(empresa1,empresa2);
+				return evaluarMetodologia(empresa1,empresa2,repo);
 		    }
 		});
 	}
 	
-	public List<ResultadoMetodologia> generarResultado(List<Empresa> listaDeEmpresas){
+	public List<ResultadoMetodologia> generarResultado(List<Empresa> listaDeEmpresas,RepositorioDeIndicadoresInterfaz repo){
 		List<ResultadoMetodologia> resultado = new ArrayList<>();
-		listaDeEmpresas = this.listarEmpresas(listaDeEmpresas);
+		listaDeEmpresas = this.listarEmpresas(listaDeEmpresas,repo);
 		listaDeEmpresas.forEach(emp -> 
 			resultado.add( 
-					new ResultadoMetodologia(emp.getNombre(), this.sacarPorcentajeMetodologia(emp))
+					new ResultadoMetodologia(emp.getNombre(), this.sacarPorcentajeMetodologia(emp,repo))
 				));
 		return resultado;
 	}

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 
 import model.Cuenta;
 import model.Indicador;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 @Entity
 public class Division extends Operacion{
 
@@ -17,9 +18,9 @@ public class Division extends Operacion{
 		super("/", izquierda, derecha);
 	}
 	@Override
-	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-		return izquierda.calcularValor(listaDeCuentas, listaDeIndicadores) /
-				derecha.calcularValor(listaDeCuentas, listaDeIndicadores);
+	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores,RepositorioDeIndicadoresInterfaz repo) {
+		return izquierda.calcularValor(listaDeCuentas, listaDeIndicadores,repo) /
+				derecha.calcularValor(listaDeCuentas, listaDeIndicadores,repo);
 	}
 	@Override
 	public int prioridad() {

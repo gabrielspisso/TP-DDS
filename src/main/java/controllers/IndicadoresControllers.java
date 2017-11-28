@@ -12,7 +12,10 @@ import model.Excepciones.ParserException;
 import model.Excepciones.RecursiveException;
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeEmpresasInterfaz;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
+import model.repositorios.RepositorioDeUsuarioInterfaz;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -20,6 +23,16 @@ import spark.Spark;
 import spark.http.matching.Halt;
 
 public class IndicadoresControllers extends Controller{
+	private RepositorioDeEmpresasInterfaz repositorioDeEmpresas;
+	private RepositorioDeIndicadoresInterfaz repositorioDeIndicadores;
+
+	public IndicadoresControllers(RepositorioDeEmpresasInterfaz repositorioDeEmpresas,
+			RepositorioDeIndicadoresInterfaz repositorioDeIndicadores, RepositorioDeUsuarioInterfaz repoUsuario) {
+		super(repoUsuario);
+		this.repositorioDeEmpresas = repositorioDeEmpresas;
+		this.repositorioDeIndicadores = repositorioDeIndicadores;
+	}
+
 	public  ModelAndView indicadores(Request req, Response res){	
 		Map<String, Object> model = mapa(req);
 		
@@ -29,15 +42,15 @@ public class IndicadoresControllers extends Controller{
 	@Override
 	protected Map<String, Object> mapa(Request req){
 		Map<String, Object> model = super.mapa(req);
-		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
+		model.put("empresas", repositorioDeEmpresas.traerEmpresasDeLaDB());
 		System.out.println(id_usuario(req));
-		model.put("indicadores", RepositorioDeIndicadores.traerIndicadoresDeLaDB(id_usuario(req)));
+		model.put("indicadores", repositorioDeIndicadores.traerIndicadoresDeLaDB(id_usuario(req)));
 		return model;
 	}
 	
 	//Es para que no usen los indicadores de alguien mas
 	public Void seguridad(String id_indicador, long id_usuario, Response res) {
-		if(!RepositorioDeIndicadores.lePertenece(id_indicador, id_usuario)) {
+		if(!repositorioDeIndicadores.lePertenece(id_indicador, id_usuario)) {
 			res.redirect("/404notFound");
 		}
 		return null;
@@ -46,11 +59,11 @@ public class IndicadoresControllers extends Controller{
 	//Ya se, este metodo es re largo
 	public ModelAndView mostrarResultados(Request req, Response res) {
 		seguridad(req.params(":idIndicador"), id_usuario(req), res);
-		Indicador indicador = Repositorio.buscarPorId(req.params(":idIndicador"), Indicador.class);
-		Empresa empresa = Repositorio.buscarPorId(req.params(":idEmpresa"), Empresa.class);
+		Indicador indicador = repositorioDeIndicadores.buscarPorId(req.params(":idIndicador"));
+		Empresa empresa = repositorioDeEmpresas.buscarPorId(req.params(":idEmpresa"));
 		
 		Map<String, Object> model = mapa(req);
-		model.put("resultados", indicador.evaluarEmpresa(empresa));
+		model.put("resultados", indicador.evaluarEmpresa(empresa,repositorioDeIndicadores));
 		model.put("formula", indicador.mostrarFormulaCompleta());
 		model.put("empresa", empresa.getNombre());
 		
@@ -78,12 +91,12 @@ public class IndicadoresControllers extends Controller{
 	public  Void recibirFormula(Request req, Response res){
 		res.cookie("nuevo", "");
 		String formula = req.queryParams("formula");
-		Usuario usuario = Repositorio.buscarPorId(req.cookie("id"), Usuario.class);
+		Usuario usuario = repoUsuario.buscarPorId(req.cookie("id"));
 		Indicador indicador; 
 		String titulo = null, tipoDeMensaje = null, contenido = null;
 		try {
-			indicador = IndicadorBuilder.Build(formula + ";", usuario);
-			RepositorioDeIndicadores.agregarIndicador(indicador);
+			indicador = IndicadorBuilder.Build(formula + ";", usuario,repositorioDeIndicadores);
+			repositorioDeIndicadores.agregarIndicador(indicador);
 			mensajeDeConfirmacion(res);
 		}
 		catch(RecursiveException ex) {

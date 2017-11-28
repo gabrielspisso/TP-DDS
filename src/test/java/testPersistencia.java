@@ -20,79 +20,89 @@ import model.condicionesYMetodologias.CondicionEntreDosEmpresas;
 import model.condicionesYMetodologias.Metodologia;
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeCondiciones;
+import model.repositorios.RepositorioDeCondicionesMock;
 import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeEmpresasMock;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
+import model.repositorios.RepositorioDeIndicadoresMockeado;
 import model.repositorios.RepositorioDeMetodologias;
+import model.repositorios.RepositorioDeMetodologiasMockeado;
 import model.repositorios.RepositorioDeUsuario;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testPersistencia {
-
+	RepositorioDeEmpresasMock repositorioDeEmpresasMock = new RepositorioDeEmpresasMock();
+	RepositorioDeIndicadoresInterfaz repoDeIndicadores = new RepositorioDeIndicadoresMockeado();
+	RepositorioDeMetodologiasMockeado repoMetodologia = new RepositorioDeMetodologiasMockeado();
+	RepositorioDeUsuario repoUsuario = new RepositorioDeUsuario();
 	@Test
 	public void test0_cargarEmpresas() {
 		long p = (long) 1;
-		Metodologia metodologiaAimplementar = Repositorio.buscarPorId(p, Metodologia.class);
-		Empresa emp2 = Repositorio.buscarPorId((long)2, Empresa.class);
+		Metodologia metodologiaAimplementar = repoMetodologia.buscarPorId(p);
+		Empresa emp2 = repositorioDeEmpresasMock.buscarPorId("2");
 		
 		Usuario usuario = new Usuario("GabrielSpisso","123");
-		RepositorioDeUsuario.agregarUsuario(usuario);
+		repoUsuario.agregarUsuario(usuario);
 		Usuario usuario2 = new Usuario("GabrielMaiori","123");
-		RepositorioDeUsuario.agregarUsuario(usuario2);
+		repoUsuario.agregarUsuario(usuario2);
 		
 		Usuario usuario3 = new Usuario("SantiagoParedes","123");
-		RepositorioDeUsuario.agregarUsuario(usuario3);
+		repoUsuario.agregarUsuario(usuario3);
 		
 		
-		CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().forEach(emp-> RepositorioDeEmpresas.agregarEmpresas(emp));
+		CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().forEach(emp->repositorioDeEmpresasMock.agregarEmpresas(emp));
 	}	
 	
 	@Test
 	public void test1_existeFacebook() {
-		assertTrue(RepositorioDeEmpresas.existe("Facebook"));
+		assertTrue(repositorioDeEmpresasMock.existe("Facebook"));
 	}
 	
 	@Test
 	public void test2_creoUnaEmpresaYPrueboQueExiste() {
-		RepositorioDeEmpresas.agregarEmpresas(new Empresa("EmpresaNueva", null));
-		assertTrue(RepositorioDeEmpresas.existe("EmpresaNueva"));
+		repositorioDeEmpresasMock.agregarEmpresas(new Empresa("EmpresaNueva", null));
+		assertTrue(repositorioDeEmpresasMock.existe("EmpresaNueva"));
 	}
 	@Test
 	public void test3_borroLaEmpresaDelTestAnteriorYComprueboQueYaNoExiste() {
-		RepositorioDeEmpresas.borrar("EmpresaNueva");
-		assertFalse(RepositorioDeEmpresas.existe("EmpresaNueva"));
+		repositorioDeEmpresasMock.borrar("EmpresaNueva");
+		assertFalse(repositorioDeEmpresasMock.existe("EmpresaNueva"));
 	}
 	@Test
 	public void test4_existeIndicador1() {
-		assertTrue(RepositorioDeIndicadores.existe("indicador1"));
+		assertTrue(repoDeIndicadores.existe("indicador1"));
 	}
 	
 	@Test
 	public void test5_creoUnIndicadorYPrueboQueExiste() {
-		RepositorioDeIndicadores.agregarIndicador(IndicadorBuilder.Build("love = 123 * 4 +2;"));
-		assertTrue(RepositorioDeIndicadores.existe("love"));
+		repoDeIndicadores.agregarIndicador(IndicadorBuilder.Build("love = 123 * 4 +2;",repoDeIndicadores));
+		assertTrue(repoDeIndicadores.existe("love"));
 	}
 	@Test
 	public void test6_borroElIndicadorDelTestAnteriorYComprueboQueYaNoExiste() {
-		RepositorioDeIndicadores.borrar("love");
-		assertFalse(RepositorioDeIndicadores.existe("love"));
+		repoDeIndicadores.borrar("love");
+		assertFalse(repoDeIndicadores.existe("love"));
 	}
 	
 	@Test
 	public void test7_creoUnaMetodologiaYPrueboQueExiste() {
-		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		Indicador indicador = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;",repoDeIndicadores);
 		
 		
 		CondicionConAnio test = new CondicionConAnio(indicador,Menor.getSingletonMenor(),8,1,"");
-		CondicionEntreDosEmpresas test2 = new CondicionEntreDosEmpresas(Repositorio.buscar("indicador1", Indicador.class), Mayor.getSingletonMayor(), "hola");
+		CondicionEntreDosEmpresas test2 = new CondicionEntreDosEmpresas(repoDeIndicadores.buscar("indicador1"), Mayor.getSingletonMayor(), "hola");
 		CondicionConAnio test3 = new CondicionConAnio(indicador,Mayor.getSingletonMayor(),8,1,"");
-		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test,  test3, test),Arrays.asList(test2), Repositorio.buscarPorId((long)1, Usuario.class));
+		Metodologia metodologia = new Metodologia("Esto es una prueba",null,Arrays.asList(test,  test3, test),Arrays.asList(test2), repoUsuario.buscarPorId("1"));
 		
-		RepositorioDeCondiciones.agregarCondicion(test);
+		RepositorioDeCondicionesMock Repo = new RepositorioDeCondicionesMock();
 		
-		RepositorioDeMetodologias.agregarMetodologia(metodologia);
+		Repo.agregarCondicion(test);
+		RepositorioDeMetodologiasMockeado RepoMetodologia = new RepositorioDeMetodologiasMockeado();
+		RepoMetodologia.agregarMetodologia(metodologia);
 		
 		
 		
-		assertTrue(RepositorioDeMetodologias.existe("Esto es una prueba"));
+		assertTrue(RepoMetodologia.existe("Esto es una prueba"));
 	}
 	/*
 	@Test

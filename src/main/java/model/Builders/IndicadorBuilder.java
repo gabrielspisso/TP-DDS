@@ -8,11 +8,12 @@ import model.Arbol.Operaciones.Nodo;
 import model.Excepciones.RecursiveException;
 import model.parser.NodoNoClasificado;
 import model.parser.SCANNER;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 
 public class IndicadorBuilder {
 
 	
-	public static Indicador Build(String expresion, Usuario usuario) {
+	public static Indicador Build(String expresion, Usuario usuario,RepositorioDeIndicadoresInterfaz repo) {
     	List<Nodo> lista = SCANNER.obtenerNodos(expresion);
     	String nombre = lista.get(0).valor();
     	List<Nodo> listaDeTokens =lista.subList(2, lista.size()-1);
@@ -20,17 +21,21 @@ public class IndicadorBuilder {
     	NodoBuilder nb = new NodoBuilder(listaDeTokens);
     	
     	Nodo arbol = nb.Build();
-    	Indicador indicador = (usuario == null) ? new Indicador(nombre, arbol, expresion) : new Indicador(nombre, arbol, expresion, usuario);
-    	if(usuario != null) {
-    		if(indicador.contieneEsteToken(nombre)){
+    	if(usuario == null) {
+    		throw new RuntimeException("Usuario inexistente para crear indicador");
+    	}
+    	Indicador indicador =  new Indicador(nombre, arbol, expresion, usuario);
+
+    		if(indicador.contieneEsteToken(nombre,repo)){
     			throw new RecursiveException("No se pudo crear ya que es recursivo");
     		}    		
-    	}
     	return indicador;
 	}
 	
-	public static Indicador Build(String expresion) {
-		return Build(expresion, null);
+	public static Indicador Build(String expresion,RepositorioDeIndicadoresInterfaz repo) {
+		
+		return Build(expresion, new Usuario("",""),repo);
+		
 	}
 	
 	public static Nodo buildTreeFromExpresion(String expresion) {

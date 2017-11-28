@@ -12,6 +12,7 @@ import model.Empresa;
 import model.Indicador;
 import model.Calculos.criterioDeAceptacionDeCondicion;
 import model.Excepciones.IdentificadorInexistente;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -28,16 +29,16 @@ public abstract class CondicionDeFiltrado extends Condicion {
 		this.criterio = criterio;
 	}
 	
-	public boolean cumpleCondicion(Empresa empresa){
+	public boolean cumpleCondicion(Empresa empresa,	RepositorioDeIndicadoresInterfaz repo){
 		try{
-			return this.seCumpleCondicionFiltrar(empresa);
+			return this.seCumpleCondicionFiltrar(empresa, repo);
 		}
 		catch(IdentificadorInexistente oo)
 		{
 			return false;
 		}
 	}
-	public abstract boolean seCumpleCondicionFiltrar(Empresa empresa);
+	public abstract boolean seCumpleCondicionFiltrar(Empresa empresa,	RepositorioDeIndicadoresInterfaz repo);
 	public String toString(){
 		return nombre;
 	}

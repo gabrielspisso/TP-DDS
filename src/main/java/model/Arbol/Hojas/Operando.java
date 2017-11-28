@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import model.Cuenta;
 import model.Indicador;
 import model.Arbol.Operaciones.Nodo;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -32,12 +33,12 @@ public abstract class Operando extends Nodo{
 		return true;
 	}
 	@Override
-	public boolean contieneEsteToken(String token, Long id) {
+	public boolean contieneEsteToken(String token, Long id,RepositorioDeIndicadoresInterfaz repo) {
 		return false;
 	}
 	
 	@Override
-	public abstract double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores);
+	public abstract double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores,RepositorioDeIndicadoresInterfaz repo);
 	
 	@Override
 	public String mostrarFormula() {

@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeEmpresasInterfaz;
 import model.repositorios.RepositorioDeIndicadores;
 
 public class LeerEmpresasProgramado extends TimerTask{
@@ -32,7 +33,7 @@ public void run() {
 	if(IOs.fueModificadoDesdeLaUltimaLectura(path,ultimaModificacion)) {
 		try {
 				List<Empresa> listaDeEmpresas = IOs.leerArchivo(path);
-				listaDeEmpresas.forEach(x->this.chequearEmpresa(x));
+				listaDeEmpresas.forEach(x->this.chequearEmpresa(x,new RepositorioDeEmpresas()));
 			
 		}
 		catch (Exception e) {
@@ -44,10 +45,10 @@ public void run() {
 	}
 }
 
-private void chequearEmpresa(Empresa empresa) {
-	Empresa empresaDeDB = Repositorio.buscar(empresa.getNombre(), Empresa.class);
+private void chequearEmpresa(Empresa empresa,RepositorioDeEmpresasInterfaz repo) {
+	Empresa empresaDeDB = new RepositorioDeEmpresas().buscar(empresa.getNombre());
 	if(empresaDeDB == null) {
-		RepositorioDeEmpresas.agregarEmpresas(empresa);
+		repo.agregarEmpresas(empresa);
 	}
 	else {
 		empresa.getBalances().forEach(balance -> this.actualizarBalance(balance,empresaDeDB));

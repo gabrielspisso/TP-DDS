@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 
 import model.Cuenta;
 import model.Indicador;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 @Entity
 public class MultiplicacionNegativa extends Operacion {
 
@@ -19,9 +20,9 @@ public class MultiplicacionNegativa extends Operacion {
 	}
 
 	@Override
-	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-		return izquierda.calcularValor(listaDeCuentas, listaDeIndicadores) *-
-				derecha.calcularValor(listaDeCuentas, listaDeIndicadores);
+	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores,RepositorioDeIndicadoresInterfaz repo) {
+		return izquierda.calcularValor(listaDeCuentas, listaDeIndicadores,repo) *-
+				derecha.calcularValor(listaDeCuentas, listaDeIndicadores,repo);
 	}
 
 	@Override

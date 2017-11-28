@@ -23,17 +23,26 @@ import model.Usuario;
 import model.Builders.IndicadorBuilder;
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeEmpresasInterfaz;
 import model.repositorios.RepositorioDeMetodologias;
+import model.repositorios.RepositorioDeUsuarioInterfaz;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 public class EmpresasController extends Controller{
+	RepositorioDeEmpresasInterfaz repo;
+	
+	public EmpresasController(RepositorioDeUsuarioInterfaz repoUsuario, RepositorioDeEmpresasInterfaz repo) {
+		super(repoUsuario);
+		this.repo = repo;
+	}
+
 	public  ModelAndView empresas(Request req, Response res){
 		
 		Map<String, Object> model = mapa(req);
 		
-		model.put("empresas", RepositorioDeEmpresas.traerEmpresasDeLaDB());
+		model.put("empresas", repo.traerEmpresasDeLaDB());
 		
 		return new ModelAndView(model, "empresas/verEmpresas.hbs");
 	}

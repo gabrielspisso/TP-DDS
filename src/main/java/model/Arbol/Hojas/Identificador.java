@@ -11,6 +11,7 @@ import model.Usuario;
 import model.Arbol.Operaciones.Nodo;
 import model.Excepciones.IdentificadorInexistente;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 @Entity
 public class Identificador extends Operando{
 	protected Identificador() {
@@ -24,8 +25,8 @@ public class Identificador extends Operando{
 
 
 	@Override
-	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
-			return buscarValorDeIdentificador(listaDeCuentas, listaDeIndicadores);
+	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores,RepositorioDeIndicadoresInterfaz repo) {
+			return buscarValorDeIdentificador(listaDeCuentas, listaDeIndicadores,repo);
 	}
 	private boolean estaEnCuentas(List<Cuenta> listaDeCuentas){
 		return  listaDeCuentas.stream()
@@ -36,12 +37,12 @@ public class Identificador extends Operando{
 		return listaDeIndicadores.stream().anyMatch(indic -> indic.getNombre().equals(valor));
 	}
 	
-	private double buscarValorDeIdentificador(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
+	private double buscarValorDeIdentificador(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores,RepositorioDeIndicadoresInterfaz repo) {
 		if(estaEnCuentas(listaDeCuentas)){
 			return buscarEnCuentas(listaDeCuentas);
 		}
 		else if(estaEnIndicadores(listaDeIndicadores)){
-			return buscarEnIndicadores(listaDeIndicadores, listaDeCuentas);
+			return buscarEnIndicadores(listaDeIndicadores, listaDeCuentas,repo);
 		}
 		throw new IdentificadorInexistente(valor);
 	}
@@ -54,7 +55,7 @@ public class Identificador extends Operando{
 		return cuenta.getValor();
 	}
 
-	private double buscarEnIndicadores(List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas){
+	private double buscarEnIndicadores(List<Indicador> listaDeIndicadores, List<Cuenta> listaDeCuentas,RepositorioDeIndicadoresInterfaz repo){
 		Indicador indicador;
 
 
@@ -62,22 +63,22 @@ public class Identificador extends Operando{
 					.filter(indic -> indic.getNombre().equals(valor))
 					.findFirst().get();
 			
-		return indicador.calcularValor(listaDeCuentas);
+		return indicador.calcularValor(listaDeCuentas,repo);
 	}
-	public boolean noEsRecursivo(String token, Long id){
+	public boolean noEsRecursivo(String token, Long id,RepositorioDeIndicadoresInterfaz repo){
 		Indicador indicador;
-		if(!estaEnIndicadores(RepositorioDeIndicadores.traerIndicadoresDeLaDB(id))){
+		if(!estaEnIndicadores(repo.traerIndicadoresDeLaDB(id))){
 			return false;
 		}
-		indicador = RepositorioDeIndicadores.traerIndicadoresDeLaDB(id).stream()
+		indicador = repo.traerIndicadoresDeLaDB(id).stream()
 					.filter(indic -> indic.getNombre().equals(valor))
 					.findFirst().get();
-			return indicador.contieneEsteToken(token);
+			return indicador.contieneEsteToken(token,repo);
 		
 	}
 	@Override
-	public boolean contieneEsteToken(String string, Long id) {
-		return valor.equals(string) || noEsRecursivo(string, id);
+	public boolean contieneEsteToken(String string, Long id,RepositorioDeIndicadoresInterfaz repo) {
+		return valor.equals(string) || noEsRecursivo(string, id,repo);
 	}
 
 

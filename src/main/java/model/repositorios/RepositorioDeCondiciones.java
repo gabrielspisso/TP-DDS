@@ -12,7 +12,7 @@ import model.Empresa;
 import model.Indicador;
 import model.condicionesYMetodologias.Condicion;
 
-public class RepositorioDeCondiciones {
+public class RepositorioDeCondiciones extends Repositorio {
 
 	/*public static void agregarCondicion(Condicion condicionAAgregar) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
@@ -39,18 +39,18 @@ public class RepositorioDeCondiciones {
 		tx.commit();
 	}*/
 
-	public static void agregarCondicion(Condicion condicionAAgregar) {
-		Repositorio.addInstanceToDB(Condicion.class, condicionAAgregar);
+	public void agregarCondicion(Condicion condicionAAgregar) {
+		this.addInstanceToDB(Condicion.class, condicionAAgregar);
 	}
 	
-	public static List<Condicion> mostrarListaDeCondiciones() {
-		return Repositorio.getFromDB(Condicion.class);
+	public List<Condicion> mostrarListaDeCondiciones() {
+		return this.getFromDB(Condicion.class);
 	}
-	public static boolean existe(String nombre) {
-		return Repositorio.existe(nombre, Condicion.class);
+	public boolean existe(String nombre) {
+		return this.existe(nombre, Condicion.class);
 	}
-	public static void borrar(String nombre) {
-		Repositorio.borrar(nombre, Condicion.class);
+	public void borrar(String nombre) {
+		this.borrar(nombre, Condicion.class);
 	}
 
 }

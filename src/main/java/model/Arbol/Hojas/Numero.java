@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import model.Cuenta;
 import model.Indicador;
 import model.Arbol.Operaciones.Nodo;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 @Entity
 public class Numero extends Operando{
 
@@ -21,7 +22,7 @@ public class Numero extends Operando{
 	}
 
 	@Override
-	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores) {
+	public double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores,RepositorioDeIndicadoresInterfaz repo) {
 		return Double.parseDouble(valor);
 	}
 }

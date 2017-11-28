@@ -14,6 +14,7 @@ import model.Empresa;
 import model.Indicador;
 import model.Calculos.criterioDeAceptacionDeCondicion;
 import model.Excepciones.IdentificadorInexistente;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 
 @MappedSuperclass
 public abstract class Condicion {
@@ -48,9 +49,9 @@ public abstract class Condicion {
 	public String toString(){
 		return nombre;
 	}
-	protected boolean existeEseIndicadorParaEstaEmpresa(Empresa empresa, Indicador indicador){
+	protected boolean existeEseIndicadorParaEstaEmpresa(Empresa empresa, Indicador indicador,RepositorioDeIndicadoresInterfaz repositorio){
 		try{
-			indicador.calcularValor(empresa.getBalances().get(0).getCuentas());
+			indicador.calcularValor(empresa.getBalances().get(0).getCuentas(),repositorio);
 			return true;
 		}
 		catch(RuntimeException ex){
@@ -58,5 +59,5 @@ public abstract class Condicion {
 		}
 	}
 
-	public abstract boolean cumpleCondicion(Empresa empresa);
+	public abstract boolean cumpleCondicion(Empresa empresa,	RepositorioDeIndicadoresInterfaz repo);
 }

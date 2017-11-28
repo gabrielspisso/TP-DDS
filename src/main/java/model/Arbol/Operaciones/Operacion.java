@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 
 import model.Cuenta;
 import model.Indicador;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Operacion extends Nodo{
@@ -50,11 +51,11 @@ public abstract class Operacion extends Nodo{
 	}
 
 	@Override
-	public boolean contieneEsteToken(String token, Long id) {
-		return izquierda.contieneEsteToken(token, id) || derecha.contieneEsteToken(token, id);
+	public boolean contieneEsteToken(String token, Long id,RepositorioDeIndicadoresInterfaz repo) {
+		return izquierda.contieneEsteToken(token, id,repo) || derecha.contieneEsteToken(token, id,repo);
 	}
 
-	public abstract double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores);
+	public abstract double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores,RepositorioDeIndicadoresInterfaz repo);
 	
 	public abstract int prioridad();
 	

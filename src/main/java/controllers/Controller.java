@@ -5,12 +5,19 @@ import java.util.Map;
 
 import model.Usuario;
 import model.repositorios.Repositorio;
+import model.repositorios.RepositorioDeUsuarioInterfaz;
 import spark.Request;
 
 public abstract class Controller {
+	RepositorioDeUsuarioInterfaz repoUsuario;
+	public Controller(RepositorioDeUsuarioInterfaz repoUsuario) {
+		super();
+		this.repoUsuario = repoUsuario;
+	}
+
 	protected Map<String, Object> mapa(Request req){
 		Map<String, Object> model = new HashMap<>();
-		Usuario user =Repositorio.buscarPorId(id_usuario(req),Usuario.class);
+		Usuario user =repoUsuario.buscarPorId(id_usuario(req).toString());
 		model.put("nombreUsuario", user.getNombre());
 		return model;
 	}

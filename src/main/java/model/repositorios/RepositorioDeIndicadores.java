@@ -12,7 +12,7 @@ import model.Empresa;
 import model.Indicador;
 
 
-public class RepositorioDeIndicadores {
+public class RepositorioDeIndicadores extends Repositorio implements RepositorioDeIndicadoresInterfaz{
 	//private static List<Indicador> listaDeIndicadores = new ArrayList<>();
 
 	/*public static List<Indicador> getListaDeIndicadores() {
@@ -20,29 +20,38 @@ public class RepositorioDeIndicadores {
 	}*/
 	
 
-	public static List<Indicador>  traerIndicadoresDeLaDB(Long id) {		
+	public List<Indicador>  traerIndicadoresDeLaDB(Long id) {		
 			EntityManager em = PerThreadEntityManagers.getEntityManager();
 			return em.createQuery("from Indicador i where i.usuario.id = :id", Indicador.class)
 					.setParameter("id", id)
 					.getResultList();		
 	}
 	
-	public static void agregarIndicador(Indicador indicador) {
-		Repositorio.addInstanceToDB(Indicador.class,  indicador);
+	public void agregarIndicador(Indicador indicador) {
+		this.addInstanceToDB(Indicador.class,  indicador);
 	}
 	
 
-	public static boolean existe(String nombre) {
-		return Repositorio.existe(nombre, Indicador.class);
+	public boolean existe(String nombre) {
+		return this.existe(nombre, Indicador.class);
 	}
-	public static void borrar(String nombre) {
-		Repositorio.borrar(nombre, Indicador.class);
+	public void borrar(String nombre) {
+		this.borrar(nombre, Indicador.class);
 	}
 	
-	public static boolean lePertenece(String id_indicador, Long id_usuario) {
-		Indicador ind = Repositorio.buscarPorId(Long.valueOf(id_indicador).longValue(), Indicador.class);
+	public boolean lePertenece(String id_indicador, Long id_usuario) {
+		Indicador ind = this.buscarPorId(Long.valueOf(id_indicador).longValue(), Indicador.class);
 		if(ind == null) return false;
 		return ind.getUsuario().getId() == id_usuario;
+	}
+
+	public Indicador buscar(String nombre) {
+		return this.buscar(nombre,Indicador.class);
+	}
+
+	
+	public Indicador buscarPorId(String params) {
+		return buscarPorId(params,Indicador.class);
 	}
 	
 }

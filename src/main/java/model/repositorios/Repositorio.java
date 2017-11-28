@@ -15,12 +15,12 @@ import model.condicionesYMetodologias.Metodologia;
 public  class Repositorio{
 
 
-	public static <T> List<T>  getFromDB(Class<T> clase) {		
+	protected <T> List<T>  getFromDB(Class<T> clase) {		
 		//Por suerte la tabla se llama igual que la clase, por eso en el from puedo poner clase.getName(), asi solo paso un parametro
 			EntityManager em = PerThreadEntityManagers.getEntityManager();
 			return em.createQuery("from " + clase.getName(), clase).getResultList();		
 	}
-	public static <T> void  addInstanceToDB(Class<T> clase,T ObjetoAPersistir) {
+	protected  <T> void  addInstanceToDB(Class<T> clase,T ObjetoAPersistir) {
 
 
 
@@ -41,14 +41,14 @@ public  class Repositorio{
 
 
 		
-	public static <T> boolean existe(String nombre,Class<T> clase) {
+	protected <T> boolean existe(String nombre,Class<T> clase) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		return !em.createQuery("from " + clase.getName() + " c where c.nombre = :nombre", clase) //
 		        .setParameter("nombre", nombre) //
 		        .getResultList().isEmpty();
 	}
 	
-	public static <T> T buscar(String nombre, Class <T> clase){
+	protected <T> T buscar(String nombre, Class <T> clase){
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		List <T> resultado = em.createQuery("from " + clase.getName() + " c where c.nombre = :nombre", clase) //
 		        .setParameter("nombre", nombre) //
@@ -58,7 +58,7 @@ public  class Repositorio{
 	
 	
 	
-	public static <T> T buscarPorId(Long id, Class <T> clase){
+	protected <T> T buscarPorId(Long id, Class <T> clase){
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		List <T> resultado = em.createQuery("from " + clase.getName() + " c where c.id = :id", clase) //
 		        .setParameter("id", id) //
@@ -66,11 +66,11 @@ public  class Repositorio{
 		return (resultado.isEmpty()) ? null : resultado.get(0);
 	}
 	
-	public static <T> T buscarPorId(String id, Class <T> clase){
+	protected <T> T buscarPorId(String id, Class <T> clase){
 		return buscarPorId(Long.valueOf(id).longValue(), clase);
 	}
 	
-	public static <T> void borrar(String nombre,Class<T> clase) {
+	protected <T> void borrar(String nombre,Class<T> clase) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();
 		T resultado = buscar(nombre, clase);
 		if(resultado != null) {

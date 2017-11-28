@@ -13,6 +13,7 @@ import org.uqbar.commons.utils.Observable;
 
 import model.Cuenta;
 import model.Indicador;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "Nodo")
@@ -30,8 +31,8 @@ public abstract class Nodo {
 	}
 	protected String valor;
 	
-	public abstract boolean contieneEsteToken(String token, Long id);
-	public abstract double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores);
+	public abstract boolean contieneEsteToken(String token, Long id,RepositorioDeIndicadoresInterfaz repo);
+	public abstract double calcularValor(List<Cuenta> listaDeCuentas, List<Indicador> listaDeIndicadores,RepositorioDeIndicadoresInterfaz repo);
 	public abstract String mostrarFormula();
 	public abstract boolean estaCargado();
 	public abstract String valor();

@@ -7,6 +7,10 @@ import controllers.MetodologiasController;
 import model.Usuario;
 import model.Excepciones.ParserException;
 import model.repositorios.Repositorio;
+import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeMetodologias;
+import model.repositorios.RepositorioDeUsuario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -26,11 +30,11 @@ public class Router {
 				.build();
 
 		Spark.staticFiles.location("/public");
-		
-		HomeController homeController = new HomeController();
-		EmpresasController empresaController = new EmpresasController();
-		IndicadoresControllers indicadoresControllers = new IndicadoresControllers();
-		MetodologiasController metodologiasController = new MetodologiasController();
+	
+		HomeController homeController = new HomeController(	new RepositorioDeUsuario());
+		EmpresasController empresaController = new EmpresasController(new RepositorioDeUsuario(),	new RepositorioDeEmpresas());
+		IndicadoresControllers indicadoresControllers = new IndicadoresControllers(new RepositorioDeEmpresas(),new RepositorioDeIndicadores(), new RepositorioDeUsuario());
+		MetodologiasController metodologiasController = new MetodologiasController(new RepositorioDeEmpresas(),new RepositorioDeIndicadores(), new RepositorioDeMetodologias(),	new RepositorioDeUsuario());
 		
 		Spark.before((req,res)-> {
 			String id = req.cookie("id");
@@ -39,7 +43,7 @@ public class Router {
 					res.redirect("/login");
 			}
 			else {
-				Usuario usuario = Repositorio.buscarPorId( id, Usuario.class);
+				Usuario usuario = new RepositorioDeUsuario().buscarUsuario( id);
 				if(usuario == null && Router.esPaginaPrivada(req)) {
 					res.redirect("/login");
 				}

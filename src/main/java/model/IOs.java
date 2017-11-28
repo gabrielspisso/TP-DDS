@@ -17,6 +17,7 @@ import model.Builders.IndicadorBuilder;
 import model.Excepciones.RecursiveException;
 import model.condicionesYMetodologias.Metodologia;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 import model.repositorios.RepositorioDeMetodologias;
 
 
@@ -55,13 +56,13 @@ public class IOs {
 	}
 
 	
-	public static void leerIndicadoresDeArchivo(String path) {
+	public static void leerIndicadoresDeArchivo(String path,RepositorioDeIndicadoresInterfaz repo) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(path));
 			String line;
 		    while ((line = br.readLine()) != null) {
-		    	Indicador indicador = IndicadorBuilder.Build(line);
-				RepositorioDeIndicadores.agregarIndicador(indicador);
+		    	Indicador indicador = IndicadorBuilder.Build(line,repo);
+				repo.agregarIndicador(indicador);
 		    }
 		    br.close();
 		} catch (IOException e) {
@@ -118,7 +119,7 @@ public class IOs {
 	
 	public static void guardarMetodologias(Metodologia metodologia, String path) {
 		vaciarArchivo(path);
-		RepositorioDeMetodologias.traerMetodologiasDeLaDB().forEach(m -> escribirMetodologia(m, path));
+		//RepositorioDeMetodologias.traerMetodologiasDeLaDB().forEach(m -> escribirMetodologia(m, path));
 	}
 	//El escribir no va a andar con el leer, porque escribis de a metodologias, si escribis todas juntas anda.
 	private static String convertirMetodologiaEnJson(Metodologia metodologia) {
@@ -135,27 +136,26 @@ public class IOs {
 	}
 	
 	
-		public static List<Indicador> listaDeIndicadoresMockeada(){
-		
-		Indicador indicador1 = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;");
+		public static List<Indicador> listaDeIndicadoresMockeada(RepositorioDeIndicadoresInterfaz repo){
+		Indicador indicador1 = IndicadorBuilder.Build("indicador1=FREE CASH FLOW+4;",repo);
 
-		Indicador indicador2 = IndicadorBuilder.Build("cc=FDS+10;");
+		Indicador indicador2 = IndicadorBuilder.Build("cc=FDS+10;",repo);
 
-		Indicador indicador3 = IndicadorBuilder.Build("b=2+2;");
+		Indicador indicador3 = IndicadorBuilder.Build("b=2+2;",repo);
 
-		Indicador indicador4 = IndicadorBuilder.Build("ro=6;");
+		Indicador indicador4 = IndicadorBuilder.Build("ro=6;",repo);
 
-		Indicador indicador5 = IndicadorBuilder.Build("barby=42;");
+		Indicador indicador5 = IndicadorBuilder.Build("barby=42;",repo);
 
-		Indicador indicador6 = IndicadorBuilder.Build("super=barby;");
+		Indicador indicador6 = IndicadorBuilder.Build("super=barby;",repo);
 
-		Indicador indicador7 = IndicadorBuilder.Build("I1=1;");
+		Indicador indicador7 = IndicadorBuilder.Build("I1=1;",repo);
 
-		Indicador indicador8 = IndicadorBuilder.Build("I2=I1+1;");
+		Indicador indicador8 = IndicadorBuilder.Build("I2=I1+1;",repo);
 
-		Indicador indicador9 = IndicadorBuilder.Build("L3=L4;");
+		Indicador indicador9 = IndicadorBuilder.Build("L3=L4;",repo);
 
-		Indicador indicador10 = IndicadorBuilder.Build("HOLA=798+indicador1;");
+		Indicador indicador10 = IndicadorBuilder.Build("HOLA=798+indicador1;",repo);
 
 		return Arrays.asList(indicador1,indicador2,indicador3,indicador4,indicador5,indicador6,indicador7,indicador8,indicador9,indicador10);
 

@@ -12,7 +12,7 @@ import model.Empresa;
 import model.Indicador;
 import model.condicionesYMetodologias.Metodologia;
 
-public class RepositorioDeMetodologias {
+public class RepositorioDeMetodologias extends Repositorio implements RepositorioDeMetodologiasInterfaz {
 	//private static List<Metodologia> listaDeMetodologias = new ArrayList<>();
 
 	
@@ -25,33 +25,36 @@ public class RepositorioDeMetodologias {
 	*	listaDeMetodologias.add(metodologia);
 	}*/
 	
-		public static List<Metodologia>  traerMetodologiasDeLaDB(Long id) {		
+		public  List<Metodologia>  traerMetodologiasDeLaDB(Long id) {		
 			EntityManager em = PerThreadEntityManagers.getEntityManager();
 			return em.createQuery("from Metodologia i where i.usuario.id = :id", Metodologia.class)
 					.setParameter("id", id)
 					.getResultList();		
 		}
-		public static void agregarMetodologia(Metodologia metodologiaAAgregar) {
-			Repositorio.addInstanceToDB(Metodologia.class, metodologiaAAgregar);
+		public  void agregarMetodologia(Metodologia metodologiaAAgregar) {
+			this.addInstanceToDB(Metodologia.class, metodologiaAAgregar);
 		
 		 }
 	
-		 public static List<Metodologia> traerMetodologiasDeLaDB() {
-			 return Repositorio.getFromDB(Metodologia.class);
+		 public  List<Metodologia> traerMetodologiasDeLaDB() {
+			 return this.getFromDB(Metodologia.class);
 		 }
 		 
-		 public static boolean existe(String nombre) {
-				return Repositorio.existe(nombre, Metodologia.class);
+		 public  boolean existe(String nombre) {
+				return this.existe(nombre, Metodologia.class);
 		}
-		 public static void borrar(String nombre) {
-				Repositorio.borrar(nombre, Metodologia.class);
+		 public  void borrar(String nombre) {
+			 this.borrar(nombre, Metodologia.class);
 			}
 
-		public static boolean lePertenece(String id_metodologia, Long id_usuario) {
+		public  boolean lePertenece(String id_metodologia, Long id_usuario) {
 			if(id_metodologia == null) return false;
-			Metodologia met = Repositorio.buscarPorId(id_metodologia, Metodologia.class);
+			Metodologia met = this.buscarPorId(id_metodologia, Metodologia.class);
 			if(met == null) return false;
 			return met.getUsuario().getId() == id_usuario;
+		}
+		public Metodologia buscarPorId(Long idMetodologia) {
+			return buscarPorId(idMetodologia,Metodologia.class);
 		}
 		 
 		 

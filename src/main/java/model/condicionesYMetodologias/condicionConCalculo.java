@@ -20,6 +20,7 @@ import model.Calculos.Calculo;
 import model.Calculos.criterioDeAceptacionDeCondicion;
 import model.Excepciones.IdentificadorInexistente;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 
 @Entity
 public class condicionConCalculo extends CondicionDeFiltrado {
@@ -37,8 +38,8 @@ public class condicionConCalculo extends CondicionDeFiltrado {
 	}
 	
 	@Override
-	public boolean seCumpleCondicionFiltrar(Empresa empresa){
-		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas()));
+	public boolean seCumpleCondicionFiltrar(Empresa empresa,	RepositorioDeIndicadoresInterfaz repo){
+		Stream<Double>  StreamDeValores= empresa.getBalances().stream().map(balance->indicador.calcularValor(balance.getCuentas(),repo));
 	
 			double resultado =calculo.realizarCalculo(StreamDeValores.collect(Collectors.toList()));
 			return criterio.cumpleCriterioDeAceptacionDeCondicion(valorMinimo, resultado);			

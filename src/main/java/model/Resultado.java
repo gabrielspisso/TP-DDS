@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeIndicadores;
+
 @Entity
 public class Resultado {
 		
@@ -40,7 +43,7 @@ public class Resultado {
 
 	public boolean fueAfectadoPor(Cuenta cuenta) {
 		
-		return indicador.contieneEsteToken(cuenta.getNombre());
+		return indicador.contieneEsteToken(cuenta.getNombre(),new RepositorioDeIndicadores());
 	}
 
 	

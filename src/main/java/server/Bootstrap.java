@@ -32,38 +32,38 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 	
 	public void init(){
 			Usuario usuario = new Usuario("GabrielSpisso","123");
-		RepositorioDeUsuario.agregarUsuario(usuario);
+		new RepositorioDeUsuario().agregarUsuario(usuario);
 		Usuario usuario2 = new Usuario("GabrielMaiori","123");
-		RepositorioDeUsuario.agregarUsuario(usuario2);
+		new RepositorioDeUsuario().agregarUsuario(usuario2);
 		
 		Usuario usuario3 = new Usuario("SantiagoParedes","123");
-		RepositorioDeUsuario.agregarUsuario(usuario3);
+		new RepositorioDeUsuario().agregarUsuario(usuario3);
 		
 		Usuario usuario4 = new Usuario("TomasMoreira","123");
-		RepositorioDeUsuario.agregarUsuario(usuario4);
+		new RepositorioDeUsuario().agregarUsuario(usuario4);
 		
 		Usuario usuario5 = new Usuario("Roli","123");
-		RepositorioDeUsuario.agregarUsuario(usuario5);
+		new RepositorioDeUsuario().agregarUsuario(usuario5);
 		
-		CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().forEach(emp-> RepositorioDeEmpresas.agregarEmpresas(emp));
+		CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().forEach(emp-> new RepositorioDeEmpresas().agregarEmpresas(emp));
 		
 		//IOs.listaDeIndicadoresMockeada().forEach(ind-> RepositorioDeIndicadores.agregarIndicador(ind));
-		IOs.listaDeIndicadoresMockeada().stream().skip(1).forEach(ind -> RepositorioDeIndicadores.agregarIndicador(ind));
+		IOs.listaDeIndicadoresMockeada(new RepositorioDeIndicadores()).stream().skip(1).forEach(ind -> new RepositorioDeIndicadores().agregarIndicador(ind));
 		
-		Indicador indicador = IOs.listaDeIndicadoresMockeada().get(0);
+		Indicador indicador = IOs.listaDeIndicadoresMockeada(new RepositorioDeIndicadores()).get(0);
 		CondicionConAnio test = new CondicionConAnio(indicador,Mayor.getSingletonMayor(),8,1,"");
 		CondicionConAnio test2 = new CondicionConAnio(indicador,Menor.getSingletonMenor(),8,1,"");
 		Metodologia metodologiaAimplementarDeSpisso = new Metodologia("Metodologia DDS",null,Arrays.asList(test, test2),null,usuario );
 		
-		RepositorioDeMetodologias.agregarMetodologia(metodologiaAimplementarDeSpisso);
+		new RepositorioDeMetodologias().agregarMetodologia(metodologiaAimplementarDeSpisso);
 		Metodologia metodologiaAimplementarDeMaiori = new Metodologia("Metodologia DDS",null,Arrays.asList(test, test2),null,usuario2 );
 
-		RepositorioDeMetodologias.agregarMetodologia(metodologiaAimplementarDeMaiori);
+		new RepositorioDeMetodologias().agregarMetodologia(metodologiaAimplementarDeMaiori);
 		
 		CondicionEntreDosEmpresas test3 = new CondicionEntreDosEmpresas(indicador,Menor.getSingletonMenor(),"Mayor indicador1" );
 		condicionConCalculo test4 = new condicionConCalculo(indicador,Menor.getSingletonMenor(),Promedio.getSingletonPromedio(),3,"Promedio de indicador 1");
 		
 		Metodologia metodologiaAimplementarDeSpisso2 = new Metodologia("Metodologia PDEP",null,Arrays.asList(test, test2,test4),Arrays.asList(test3),usuario );
-		RepositorioDeMetodologias.agregarMetodologia(metodologiaAimplementarDeSpisso2);
+		new RepositorioDeMetodologias().agregarMetodologia(metodologiaAimplementarDeSpisso2);
 	}
 }

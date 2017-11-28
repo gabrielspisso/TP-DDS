@@ -8,17 +8,20 @@ import model.IOs;
 import model.Indicador;
 import model.LeerEmpresasProgramado;
 import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
+import model.repositorios.RepositorioDeIndicadoresMockeado;
 
 public class testEntrega6 {
 
+	RepositorioDeIndicadoresInterfaz repo = new RepositorioDeIndicadoresMockeado();
 	@Test
 	public void testearQueSeGuardaElPrecalculo() {
 		new LeerEmpresasProgramado("archivoEmpresas.txt").run();;
 		
-		Indicador indicador = IOs.listaDeIndicadoresMockeada().get(0);
+		Indicador indicador = IOs.listaDeIndicadoresMockeada(repo).get(0);
 		//Balance balance = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0).getBalances().get(0);
 		Balance balance =CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(0).getBalances().get(0);
-		indicador.evaluarBalance(balance);
+		indicador.evaluarBalance(balance,repo);
 		assertTrue(balance.estaPrecalculadoElIndicador(indicador));
 		//new LeerEmpresasProgramado("archivoEmpresas.txt").run();;
 		
@@ -28,10 +31,10 @@ public class testEntrega6 {
 	public void testearQueSeGuardaElValorCorrecto() {
 		new LeerEmpresasProgramado("archivoEmpresas.txt").run();;
 		
-		Indicador indicador = IOs.listaDeIndicadoresMockeada().get(0);
+		Indicador indicador = IOs.listaDeIndicadoresMockeada(repo).get(0);
 		//Balance balance = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0).getBalances().get(0);
 		Balance balance =CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().get(0).getBalances().get(0);
-		String valor = indicador.evaluarBalance(balance).getResultado();
+		String valor = indicador.evaluarBalance(balance,repo).getResultado();
 		assertEquals(valor,balance.buscarEnListaDeResultados(indicador).toString());
 		//new LeerEmpresasProgramado("archivoEmpresas.txt").run();;
 		
