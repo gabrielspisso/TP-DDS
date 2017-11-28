@@ -57,7 +57,6 @@ public class MetodologiasController extends Controller {
 				.stream()
 				.filter(empresa -> req.queryParams("check" + empresa.getNombre() ) != null )
 				.collect(Collectors.toList());
-		
 		req.session().attribute("empresasAEvaluar", empresasAEvaluar);
 		req.session().attribute("idMetodologia", req.queryParams("metodologia"));
 		res.redirect("metodologias/resultado");

@@ -8,6 +8,7 @@ import model.IOs;
 import model.Indicador;
 import model.LeerEmpresasProgramado;
 import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeEmpresasMock;
 import model.repositorios.RepositorioDeIndicadoresInterfaz;
 import model.repositorios.RepositorioDeIndicadoresMockeado;
 
@@ -16,7 +17,7 @@ public class testEntrega6 {
 	RepositorioDeIndicadoresInterfaz repo = new RepositorioDeIndicadoresMockeado();
 	@Test
 	public void testearQueSeGuardaElPrecalculo() {
-		new LeerEmpresasProgramado("archivoEmpresas.txt").run();;
+		new LeerEmpresasProgramado("archivoEmpresas.txt").run(new RepositorioDeEmpresasMock());;
 		
 		Indicador indicador = IOs.listaDeIndicadoresMockeada(repo).get(0);
 		//Balance balance = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0).getBalances().get(0);
@@ -29,7 +30,7 @@ public class testEntrega6 {
 	}
 	@Test
 	public void testearQueSeGuardaElValorCorrecto() {
-		new LeerEmpresasProgramado("archivoEmpresas.txt").run();;
+		new LeerEmpresasProgramado("archivoEmpresas.txt").run(new RepositorioDeEmpresasMock());;
 		
 		Indicador indicador = IOs.listaDeIndicadoresMockeada(repo).get(0);
 		//Balance balance = RepositorioDeEmpresas.traerEmpresasDeLaDB().get(0).getBalances().get(0);

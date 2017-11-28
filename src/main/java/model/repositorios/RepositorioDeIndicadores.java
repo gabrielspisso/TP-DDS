@@ -10,6 +10,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import model.Empresa;
 import model.Indicador;
+import model.Resultado;
 
 
 public class RepositorioDeIndicadores extends Repositorio implements RepositorioDeIndicadoresInterfaz{
@@ -52,6 +53,23 @@ public class RepositorioDeIndicadores extends Repositorio implements Repositorio
 	
 	public Indicador buscarPorId(String params) {
 		return buscarPorId(params,Indicador.class);
+	}
+
+	@Override
+	public void agregarResueltado(List<Resultado> indicadoresPrecalculado, Resultado resultado) {
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+			indicadoresPrecalculado.add(resultado);
+			em.persist(resultado);
+			tx.commit();
+		}
+		catch(Exception ex) {
+			tx.rollback();
+		}
+		
+		
 	}
 	
 }

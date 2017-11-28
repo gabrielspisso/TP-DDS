@@ -25,15 +25,17 @@ public LeerEmpresasProgramado(String path) {
 	ultimaModificacion = null;
 }
 
-@Override
-public void run() {
+public void run(){
+	this.run(new RepositorioDeEmpresas());
+}
+public void run(RepositorioDeEmpresasInterfaz repo) {
 	
 	System.out.println("CARGANDO EMPRESAS...");
 	
 	if(IOs.fueModificadoDesdeLaUltimaLectura(path,ultimaModificacion)) {
 		try {
 				List<Empresa> listaDeEmpresas = IOs.leerArchivo(path);
-				listaDeEmpresas.forEach(x->this.chequearEmpresa(x,new RepositorioDeEmpresas()));
+				listaDeEmpresas.forEach(x->this.chequearEmpresa(x,repo));
 			
 		}
 		catch (Exception e) {
@@ -46,7 +48,7 @@ public void run() {
 }
 
 private void chequearEmpresa(Empresa empresa,RepositorioDeEmpresasInterfaz repo) {
-	Empresa empresaDeDB = new RepositorioDeEmpresas().buscar(empresa.getNombre());
+	Empresa empresaDeDB = repo.buscar(empresa.getNombre());
 	if(empresaDeDB == null) {
 		repo.agregarEmpresas(empresa);
 	}

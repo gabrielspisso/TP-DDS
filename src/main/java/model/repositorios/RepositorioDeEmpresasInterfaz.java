@@ -10,4 +10,5 @@ public interface RepositorioDeEmpresasInterfaz {
 	public boolean existe(String nombre) ;
 	public void borrar(String nombre);
 	public Empresa buscarPorId(String params);
+	public Empresa buscar(String nombre);
 }

@@ -60,7 +60,7 @@ public class Router {
 		
 		Spark.get("/login", homeController::showLogin, engine);
 		Spark.post("/login", homeController::login);
-		Spark.get("/logout", homeController::logout);
+		Spark.put("/logout", homeController::logout);
 		
 		///Estos 2 son casi iguales
 		Spark.get("/indicadores", indicadoresControllers::indicadores, engine);//Pantalla sin resultados

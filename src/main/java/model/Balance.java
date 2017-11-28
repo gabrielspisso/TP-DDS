@@ -86,17 +86,7 @@ public class Balance {
 		else {
 			 resultado = new Resultado(indicador,valor);	
 		}
-		EntityManager em = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		try {
-			tx.begin();
-			indicadoresPrecalculado.add(resultado);
-			em.persist(resultado);
-			tx.commit();
-		}
-		catch(Exception ex) {
-			tx.rollback();
-		}
+		repo.agregarResueltado(indicadoresPrecalculado,resultado);
 		
 	}
 	public void setIndicadoresPrecalculado(List<Resultado> indicadoresPrecalculado) {

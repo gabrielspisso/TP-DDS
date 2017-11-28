@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import model.Indicador;
+import model.Resultado;
 
 public class RepositorioDeIndicadoresMockeado implements RepositorioDeIndicadoresInterfaz {
 	List<Indicador> listaDeIndicadores = new ArrayList<Indicador>();
@@ -48,5 +49,12 @@ public Indicador buscar(String nombre) {
 		return listaDeIndicadores.stream().filter(ind->ind.getNombre().equals(nombre)).findFirst().get();
 	}
 	return  null;
+}
+
+@Override
+public void agregarResueltado(List<Resultado> indicadoresPrecalculado, Resultado resultado) {
+	// TODO Auto-generated method stub
+	indicadoresPrecalculado.add(resultado);
+
 }
 }
