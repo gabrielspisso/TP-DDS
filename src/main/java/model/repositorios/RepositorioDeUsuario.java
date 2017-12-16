@@ -26,8 +26,7 @@ public class RepositorioDeUsuario extends Repositorio implements RepositorioDeUs
 		}
 
 		public Usuario buscarUsuario(String id) {
-			buscarPorId(id, Usuario.class);
-			return null;
+			return buscarPorId(id, Usuario.class);
 		}
 
 		@Override

@@ -36,7 +36,6 @@ public class HomeController extends Controller{
 		// TODO Auto-generated constructor stub
 	}
 
-	RepositorioDeUsuarioInterfaz repo;
 	
 	public  ModelAndView home(Request req, Response res){	
 		
@@ -63,7 +62,7 @@ public class HomeController extends Controller{
 	public Void login(Request req, Response res){
 		
 		
-		Usuario user = repo.buscar(req.queryParams("nombre"));
+		Usuario user = repoUsuario.buscar(req.queryParams("nombre"));
 		
 		if (user == null) {
 			res.cookie("abierto", "");
@@ -94,7 +93,7 @@ public class HomeController extends Controller{
 			}
 		}
 		else {
-			Usuario usuario = repo.buscarPorId( id);
+			Usuario usuario = repoUsuario.buscarPorId( id);
 			if(usuario == null && this.esPaginaPrivada(req)) {
 				res.redirect("/login");
 			}
