@@ -52,7 +52,7 @@ public class RepositorioDeEmpresas extends Repositorio implements RepositorioDeE
 	@Override
 	public Empresa buscarPorId(String params) {
 		// TODO Auto-generated method stub
-		return this.buscar(params, Empresa.class);
+		return buscarPorId(params, Empresa.class);
 	}
 	
 }
