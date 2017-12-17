@@ -7,7 +7,9 @@ function mostrarYOcultar(valor) {
 }
 function mostrarValorDeCuenta(id,nombre,valor){
 $("#textoDeEmpresa"+id).empty();
-  $("#textoDeEmpresa"+id).append("<h5>" +nombre + "=" + valor+ "</h5>"); 
+  $("#textoDeEmpresa"+id).append("<h5>"+valor+"</h5>"); 
+  $("#botonSelecionador"+id).empty();
+  $("#botonSelecionador"+id).append(nombre);
 }
 </script>
    <div class="py-5">
@@ -38,36 +40,38 @@ $("#textoDeEmpresa"+id).empty();
                         <th>Periodo</th>
                         <th>Año</th>
                         <th>Cuenta</th>
+                        <th>Valor</th>
                       </tr>
                     </thead>
+                   
                     <tbody>
                     {{#each balances}}
                     
                       <tr>
                         <td>{{periodo}}</td>
+                        
                         <td>{{anio}}</td>
+                        
                         <td>
+                          	<div class="btn-group">
+                          		<button id="botonSelecionador{{id}}" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Seleccione cuenta</button>
+                    	     	<div class="dropdown-menu">
+	                       			{{#each cuentas}}
+    	               		        	<a class="dropdown-item" href="#" onclick="mostrarValorDeCuenta({{../id}},'{{nombre}}',{{valor}})">{{nombre}}</a>
+    	                   			{{/each}}
+                 	    		</div>
+                      		</div>
+                        </td>       
                         
-                        
-                          <div class="btn-group">
-                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Seleccione cuenta</button>
-
-
-                            <div class="dropdown-menu">
-                        {{#each cuentas}}
-                              <a class="dropdown-item" href="#" onclick="mostrarValorDeCuenta({{../../id}},'{{nombre}}',{{valor}})">{{nombre}}</a>
-                        {{/each}}
-                            </div>
-                          </div>
-                        </td>                        
+                	   <td id="textoDeEmpresa{{id}}" >
+                           <h5> - - - </h5>  
+                       </td>  
+                                  
                       </tr>
                       
 					{{/each}}
                     </tbody>
                   </table>
-                </td>
-                <td id="textoDeEmpresa{{id}}">
-                  <h5> Seleccione un valor </h5>
                 </td>
               </tr>
 			{{/each}}

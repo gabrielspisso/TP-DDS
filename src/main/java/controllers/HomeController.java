@@ -60,8 +60,6 @@ public class HomeController extends Controller{
 	}
 	
 	public Void login(Request req, Response res){
-		
-		
 		Usuario user = repoUsuario.buscar(req.queryParams("nombre"));
 		
 		if (user == null) {
