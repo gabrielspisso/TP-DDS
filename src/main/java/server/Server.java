@@ -12,11 +12,17 @@ import spark.utils.HandlebarsTemplateEngineBuilder;
 public class Server {
 	public static void main(String[] args) {
 		new Bootstrap().init();
-		Spark.port(9000);
-		TimerTask cargarEmpresasBatch = new LeerEmpresasProgramado("archivoEmpresas.txt");
+		
+		/*TimerTask cargarEmpresasBatch = new LeerEmpresasProgramado("archivoEmpresas.txt");
         Timer timer = new Timer(true);
-        timer.scheduleAtFixedRate(cargarEmpresasBatch, 0, 30*1000);	
-		DebugScreen.enableDebugScreen();
+        timer.scheduleAtFixedRate(cargarEmpresasBatch, 0, 30*1000);*/
+        ProcessBuilder process = new ProcessBuilder();
+        Integer port = 9000;
+        if(process.environment().get("PORT") != null) { 
+        	port = Integer.parseInt(process.environment().get("PORT"));
+        }
+        Spark.port(port);
+        DebugScreen.enableDebugScreen();
 		Router.configure();
 	}
 

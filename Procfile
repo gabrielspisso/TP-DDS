@@ -1,0 +1,1 @@
+web: java -jar -Dserver.port=$PORT target/TP-Anual-DDS-1-SNAPSHOT-jar-with-dependencies.jar
