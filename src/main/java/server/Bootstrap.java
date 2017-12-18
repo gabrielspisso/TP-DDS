@@ -31,7 +31,7 @@ import model.repositorios.RepositorioDeUsuario;
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps{
 	
 	public void init(){
-			Usuario usuario = new Usuario("GabrielSpisso","123");
+		Usuario usuario = new Usuario("GabrielSpisso","123");
 		new RepositorioDeUsuario().agregarUsuario(usuario);
 		Usuario usuario2 = new Usuario("GabrielMaiori","123");
 		new RepositorioDeUsuario().agregarUsuario(usuario2);
@@ -48,9 +48,10 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		CargadorDeEmpresas.obtenerCuentasEmpresasHardcodeada().forEach(emp-> new RepositorioDeEmpresas().agregarEmpresas(emp));
 		
 		//IOs.listaDeIndicadoresMockeada().forEach(ind-> RepositorioDeIndicadores.agregarIndicador(ind));
-		IOs.listaDeIndicadoresMockeada(new RepositorioDeIndicadores()).stream().skip(1).forEach(ind -> new RepositorioDeIndicadores().agregarIndicador(ind));
+		//IOs.listaDeIndicadoresMockeada(new RepositorioDeIndicadores()).stream().skip(1).forEach(ind -> new RepositorioDeIndicadores().agregarIndicador(ind));
 		
 		Indicador indicador = IOs.listaDeIndicadoresMockeada(new RepositorioDeIndicadores()).get(0);
+		indicador.setUsuario(usuario);
 		CondicionConAnio test = new CondicionConAnio(indicador,Mayor.getSingletonMayor(),8,1,"");
 		CondicionConAnio test2 = new CondicionConAnio(indicador,Menor.getSingletonMenor(),8,1,"");
 		Metodologia metodologiaAimplementarDeSpisso = new Metodologia("Metodologia DDS",null,Arrays.asList(test, test2),null,usuario );

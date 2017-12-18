@@ -8,6 +8,7 @@ import model.Empresa;
 import model.Indicador;
 import model.Usuario;
 import model.Builders.IndicadorBuilder;
+import model.Excepciones.DuplicateExecption;
 import model.Excepciones.ParserException;
 import model.Excepciones.RecursiveException;
 import model.repositorios.Repositorio;
@@ -104,6 +105,9 @@ public class IndicadoresControllers extends Controller{
 		}
 		catch(ParserException ex) {
 			mensajeDeError(res, formula, "alert-danger", "La formula que ha ingresado no es lexicamente correcta. Por favor intentelo de nuevo.");
+		}
+		catch(DuplicateExecption ex) {
+			mensajeDeError(res, formula, "alert-danger", "La formula que ha ingresado ya existe. Por favor intente un nuevo nombre.");
 		}
 		
 		

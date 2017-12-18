@@ -11,15 +11,11 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import model.Empresa;
 import model.Indicador;
 import model.Resultado;
+import model.Excepciones.DuplicateExecption;
 
 
 public class RepositorioDeIndicadores extends Repositorio implements RepositorioDeIndicadoresInterfaz{
-	//private static List<Indicador> listaDeIndicadores = new ArrayList<>();
 
-	/*public static List<Indicador> getListaDeIndicadores() {
-		return listaDeIndicadores;
-	}*/
-	
 
 	public List<Indicador>  traerIndicadoresDeLaDB(Long id) {		
 			EntityManager em = PerThreadEntityManagers.getEntityManager();
@@ -29,6 +25,14 @@ public class RepositorioDeIndicadores extends Repositorio implements Repositorio
 	}
 	
 	public void agregarIndicador(Indicador indicador) {
+		
+		Indicador indi = buscar(indicador.getNombre());
+		if(indi!=null){
+			if(indi.getUsuario() == indicador.getUsuario()){
+				throw new DuplicateExecption("YA EXISTIA ESTE INDICADOR CON ESE USUARIO NAAB");
+			}
+		}
+		
 		this.addInstanceToDB(Indicador.class,  indicador);
 	}
 	
@@ -54,7 +58,7 @@ public class RepositorioDeIndicadores extends Repositorio implements Repositorio
 	public Indicador buscarPorId(String params) {
 		return buscarPorId(params,Indicador.class);
 	}
-
+	
 	@Override
 	public void agregarResueltado(List<Resultado> indicadoresPrecalculado, Resultado resultado) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();

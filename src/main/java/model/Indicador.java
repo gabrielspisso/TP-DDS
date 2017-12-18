@@ -129,6 +129,10 @@ public class Indicador {
 		
 	}
 
+	public void setUsuario(Usuario user) {
+		this.usuario = user;
+	}
+
 /*	private Double buscarEnListaDeResultados(Balance bal, Empresa empresa) {
 		Resultado res = listaDeResultados.stream().filter(x-> x.getAnio()== bal.getAnio() && x.getPeriodo().equals(bal.getPeriodo()) && x.getEmpresa().equals(empresa)).findFirst().get();
 		return res.getResultado();

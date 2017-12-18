@@ -34,12 +34,15 @@ public  class Repositorio{
 			}
 			catch (Exception ex) {
 				tx.rollback();
+				burbujeoExcepecion(ObjetoAPersistir);
 			}
-			
 		}
 
 
-
+	protected <T> void burbujeoExcepecion(T ObjetoAPersistir)
+	{
+		
+	}
 		
 	protected <T> boolean existe(String nombre,Class<T> clase) {
 		EntityManager em = PerThreadEntityManagers.getEntityManager();

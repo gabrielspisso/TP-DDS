@@ -62,6 +62,7 @@ public class Router {
 		Spark.post("/login", homeController::login);
 		Spark.post("/logout", homeController::logout);
 		
+		
 		///Estos 2 son casi iguales
 		Spark.get("/indicadores", indicadoresControllers::indicadores, engine);//Pantalla sin resultados
 		Spark.get("/indicadores/:idIndicador/:idEmpresa", indicadoresControllers::mostrarResultados, engine); 
