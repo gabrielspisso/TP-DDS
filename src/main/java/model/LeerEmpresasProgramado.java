@@ -19,7 +19,7 @@ import model.repositorios.RepositorioDeIndicadores;
 public class LeerEmpresasProgramado extends TimerTask{
 
 private String path;
-private Date ultimaModificacion;
+private Long ultimaModificacion;
 
 public LeerEmpresasProgramado(String path) {
 	super();
@@ -33,6 +33,7 @@ public void run(){
 public void run(RepositorioDeEmpresasInterfaz repo) {
 	
 	System.out.println("CARGANDO EMPRESAS...");
+	
 	File file = RepositorioDeArchivos.getInstance().descargarArchivo("archivoEmpresas.txt");
 	if(file != null) {
 		
@@ -41,6 +42,7 @@ public void run(RepositorioDeEmpresasInterfaz repo) {
 			try {
 					List<Empresa> listaDeEmpresas = IOs.leerArchivo(file);
 					listaDeEmpresas.forEach(x->this.chequearEmpresa(x,repo));
+					ultimaModificacion = file.lastModified();
 				
 			}
 			catch (Exception e) {

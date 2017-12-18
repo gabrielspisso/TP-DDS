@@ -1,6 +1,7 @@
 package model.repositorios;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,7 @@ public class RepositorioDeArchivos {
 													 .build();
 
 
-	private RepositorioDeArchivos() {}
+	public RepositorioDeArchivos() {}
 
 
 	public static RepositorioDeArchivos getInstance() {
@@ -68,11 +69,20 @@ public class RepositorioDeArchivos {
 
 		File localFile = new File(nombreDelArchivo);
 
+		ObjectMetadata object = this.s3Client.getObject(new GetObjectRequest(this.bucket, nombreDelArchivo), localFile);
+		
+		
+		return localFile;
+
+	}
+	public Date ultimaModificacionDelArchivo(String nombreDelArchivo) {
+
+		File localFile = new File(nombreDelArchivo);
 
 		ObjectMetadata object = this.s3Client.getObject(new GetObjectRequest(this.bucket, nombreDelArchivo), localFile);
-
-
-		return localFile;
+		
+		
+		return object.getLastModified();
 
 	}
 

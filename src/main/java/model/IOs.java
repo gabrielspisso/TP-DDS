@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import model.Builders.IndicadorBuilder;
 import model.Excepciones.RecursiveException;
 import model.condicionesYMetodologias.Metodologia;
+import model.repositorios.RepositorioDeArchivos;
 import model.repositorios.RepositorioDeIndicadores;
 import model.repositorios.RepositorioDeIndicadoresInterfaz;
 import model.repositorios.RepositorioDeMetodologias;
@@ -181,12 +182,12 @@ public class IOs {
 	}
 
 
-		public static boolean fueModificadoDesdeLaUltimaLectura(File file, Date ultimaModificacion) {
+		public static boolean fueModificadoDesdeLaUltimaLectura(File file, Long ultimaModificacion) {
 			if(ultimaModificacion == null) {
 				return true;
 			}
-			Date lastModified = new Date(file.lastModified()); 
-			return lastModified.after(ultimaModificacion);
+			
+			return RepositorioDeArchivos.getInstance().ultimaModificacionDelArchivo("archivoEmpresas.txt").after(new Date(ultimaModificacion));
 		}
 	
 	
