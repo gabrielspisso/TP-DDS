@@ -10,6 +10,9 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -102,6 +105,22 @@ public class IOs {
 	
 		return listaDeEmpresas;
 	}
+	public static List<Empresa> leerArchivo(File file){
+		String json;
+		try {
+			json = FileUtils.readFileToString(file);
+			Type listType = new TypeToken<List<Empresa>>(){}.getType();
+			
+			List<Empresa> listaDeEmpresas = new Gson().fromJson(json, listType); 
+		
+			return listaDeEmpresas;
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	
 	private static void escribirMetodologia(Metodologia metodologia, String path) {
@@ -162,11 +181,10 @@ public class IOs {
 	}
 
 
-		public static boolean fueModificadoDesdeLaUltimaLectura(String path, Date ultimaModificacion) {
+		public static boolean fueModificadoDesdeLaUltimaLectura(File file, Date ultimaModificacion) {
 			if(ultimaModificacion == null) {
 				return true;
 			}
-			File file = new File(path);
 			Date lastModified = new Date(file.lastModified()); 
 			return lastModified.after(ultimaModificacion);
 		}

@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import model.repositorios.Repositorio;
+import model.repositorios.RepositorioDeArchivos;
 import model.repositorios.RepositorioDeEmpresas;
 import model.repositorios.RepositorioDeEmpresasInterfaz;
 import model.repositorios.RepositorioDeIndicadores;
@@ -31,10 +33,10 @@ public void run(){
 public void run(RepositorioDeEmpresasInterfaz repo) {
 	
 	System.out.println("CARGANDO EMPRESAS...");
-	
-	if(IOs.fueModificadoDesdeLaUltimaLectura(path,ultimaModificacion)) {
+	File file = RepositorioDeArchivos.getInstance().descargarArchivo("archivoEmpresas.txt");
+	if(IOs.fueModificadoDesdeLaUltimaLectura(file,ultimaModificacion)) {
 		try {
-				List<Empresa> listaDeEmpresas = IOs.leerArchivo(path);
+				List<Empresa> listaDeEmpresas = IOs.leerArchivo(file);
 				listaDeEmpresas.forEach(x->this.chequearEmpresa(x,repo));
 			
 		}

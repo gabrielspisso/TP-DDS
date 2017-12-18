@@ -108,17 +108,7 @@ public class Balance {
 		if(indicadoresPrecalculado != null) {
 			
 			if(!indicadoresPrecalculado.isEmpty()) {
-				
-				EntityManager em = PerThreadEntityManagers.getEntityManager();
-				EntityTransaction tx = em.getTransaction();
-				try {
-					tx.begin();
-					indicadoresPrecalculado.removeIf(res-> res.fueAfectadoPor(cuenta));
-					tx.commit();
-				}
-				catch(Exception ex) {
-					tx.rollback();
-				}
+				new RepositorioDeIndicadores().limpiarIndicadores(indicadoresPrecalculado,cuenta);
 			}
 		}
 		

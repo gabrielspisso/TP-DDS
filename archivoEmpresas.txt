@@ -1,7 +1,7 @@
 [
 {"nombre":"Facebook",
 "balances":[{"periodo":"Primer Semestre","anio":"2017",
-"cuentas":[{"nombre":"FDS","valor":0},{"nombre":"FREE CASH FLOW","valor":2}]},
+"cuentas":[{"nombre":"FDS","valor":0},{"nombre":"FREE CASH FLOW","valor":53}]},
 {"periodo":"Segundo Semestre","anio":"2017","cuentas":[{"nombre":"FDS","valor":1}]}]},
 
 {"nombre":"Twitter","balances":[{"periodo":"Anual","anio":"2016","cuentas":

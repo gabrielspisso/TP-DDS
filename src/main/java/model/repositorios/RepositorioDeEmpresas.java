@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import model.Cuenta;
 import model.Empresa;
 import model.Indicador;
 import model.condicionesYMetodologias.Condicion;
@@ -55,4 +56,16 @@ public class RepositorioDeEmpresas extends Repositorio implements RepositorioDeE
 		return buscarPorId(params, Empresa.class);
 	}
 	
+	public void ActualizarCuenta(Cuenta cuenta, int valor) {
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+			cuenta.setValor(valor);
+			tx.commit();
+		}
+		catch(Exception ex) {
+			tx.rollback();
+		}
+	}
 }

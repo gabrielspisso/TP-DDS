@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import model.Cuenta;
 import model.Empresa;
 import model.Indicador;
 import model.Resultado;
@@ -73,7 +74,18 @@ public class RepositorioDeIndicadores extends Repositorio implements Repositorio
 			tx.rollback();
 		}
 		
-		
+	}
+	public void limpiarIndicadores(List<Resultado> indicadoresPrecalculado,Cuenta cuenta) {
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+			indicadoresPrecalculado.removeIf(res-> res.fueAfectadoPor(cuenta));
+			tx.commit();
+		}
+		catch(Exception ex) {
+			tx.rollback();
+		}
 	}
 	
 }

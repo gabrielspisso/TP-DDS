@@ -9,6 +9,8 @@ import javax.persistence.Table;
 
 import org.uqbar.commons.utils.Observable;
 
+import model.repositorios.RepositorioDeEmpresas;
+
 @Observable
 @Entity
 @Table(name = "Cuenta")
@@ -56,7 +58,7 @@ public class Cuenta {
 		Cuenta cuenta = balance.getCuentas().stream().filter(c-> c.equals(this)).findFirst().get();
 		if(cuenta != null) {
 			if(cuenta.getValor() != this.valor) {
-				this.valor = cuenta.getValor();
+				new RepositorioDeEmpresas().ActualizarCuenta(this,cuenta.getValor());
 				balanceViejo.limpiarIndicadoresPrecalculados(this);				
 			}
 		}
