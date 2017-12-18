@@ -34,18 +34,22 @@ public void run(RepositorioDeEmpresasInterfaz repo) {
 	
 	System.out.println("CARGANDO EMPRESAS...");
 	File file = RepositorioDeArchivos.getInstance().descargarArchivo("archivoEmpresas.txt");
-	if(IOs.fueModificadoDesdeLaUltimaLectura(file,ultimaModificacion)) {
-		try {
-				List<Empresa> listaDeEmpresas = IOs.leerArchivo(file);
-				listaDeEmpresas.forEach(x->this.chequearEmpresa(x,repo));
-			
+	if(file != null) {
+		
+	
+		if(IOs.fueModificadoDesdeLaUltimaLectura(file,ultimaModificacion)) {
+			try {
+					List<Empresa> listaDeEmpresas = IOs.leerArchivo(file);
+					listaDeEmpresas.forEach(x->this.chequearEmpresa(x,repo));
+				
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+		    }
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-	    }
-	}
-	else {
-		System.out.println("el archivo no fue modificado"); // esto es para guiarme
+		else {
+			System.out.println("el archivo no fue modificado"); // esto es para guiarme
+		}
 	}
 }
 
