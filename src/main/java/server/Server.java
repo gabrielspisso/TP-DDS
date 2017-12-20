@@ -19,7 +19,7 @@ public class Server {
 		
 		TimerTask cargarEmpresasBatch = new LeerEmpresasProgramado("archivoEmpresas.txt");
         Timer timer = new Timer(true);
-        timer.scheduleAtFixedRate(cargarEmpresasBatch, 0, 30*1000);
+        timer.scheduleAtFixedRate(cargarEmpresasBatch, 0, 600*1000);
         ProcessBuilder process = new ProcessBuilder();
         Integer port = 9000;
         if(process.environment().get("PORT") != null) { 

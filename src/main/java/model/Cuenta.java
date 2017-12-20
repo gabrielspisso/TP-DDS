@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import org.uqbar.commons.utils.Observable;
 
 import model.repositorios.RepositorioDeEmpresas;
+import model.repositorios.RepositorioDeEmpresasInterfaz;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 
 @Observable
 @Entity
@@ -54,12 +56,12 @@ public class Cuenta {
 			return false;
 		}
 	}
-	public void actualizarCuenta(Balance balanceViejo,Balance balance) {
+	public void actualizarCuenta(Balance balanceViejo,Balance balance,RepositorioDeEmpresasInterfaz repoEmpresas, RepositorioDeIndicadoresInterfaz repoIndicadores) {
 		Cuenta cuenta = balance.getCuentas().stream().filter(c-> c.equals(this)).findFirst().get();
 		if(cuenta != null) {
 			if(cuenta.getValor() != this.valor) {
-				new RepositorioDeEmpresas().ActualizarCuenta(this,cuenta.getValor());
-				balanceViejo.limpiarIndicadoresPrecalculados(this);				
+				repoEmpresas.ActualizarCuenta(this,cuenta.getValor());
+				balanceViejo.limpiarIndicadoresPrecalculados(this,repoIndicadores);				
 			}
 		}
 		else {

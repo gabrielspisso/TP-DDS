@@ -12,9 +12,11 @@ import java.util.stream.Stream;
 
 import model.repositorios.Repositorio;
 import model.repositorios.RepositorioDeArchivos;
+import model.repositorios.RepositorioDeArchivosInterfaz;
 import model.repositorios.RepositorioDeEmpresas;
 import model.repositorios.RepositorioDeEmpresasInterfaz;
 import model.repositorios.RepositorioDeIndicadores;
+import model.repositorios.RepositorioDeIndicadoresInterfaz;
 
 public class LeerEmpresasProgramado extends TimerTask{
 
@@ -28,9 +30,9 @@ public LeerEmpresasProgramado(String path) {
 }
 
 public void run(){
-	this.run(new RepositorioDeEmpresas());
+	this.run(new RepositorioDeEmpresas(),new RepositorioDeIndicadores(),RepositorioDeArchivos.getInstance());
 }
-public void run(RepositorioDeEmpresasInterfaz repo) {
+public void run(RepositorioDeEmpresasInterfaz repo,RepositorioDeIndicadoresInterfaz repoindicadores,RepositorioDeArchivosInterfaz repoArchivos) {
 	
 	System.out.println("CARGANDO EMPRESAS...");
 	
@@ -73,7 +75,7 @@ private void actualizarBalance(Balance balance, Empresa empresaDeLaDB) {
 	if(empresaDeLaDB.getBalances().stream().anyMatch( b-> b.equals(balance))) {
 		Balance balanceViejo = empresaDeLaDB.getBalances().stream().filter( b-> b.equals(balance)).findFirst().get();
 		List<Cuenta> cuentas = balanceViejo.getCuentas();
-		cuentas.forEach(cuenta -> cuenta.actualizarCuenta(balanceViejo,balance));
+		cuentas.forEach(cuenta -> cuenta.actualizarCuenta(balanceViejo,balance, null, null));
 	}
 	else {
 		empresaDeLaDB.agregarBalance(balance);

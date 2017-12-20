@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import model.Cuenta;
 import model.Indicador;
 import model.Resultado;
 
@@ -23,4 +24,6 @@ public Indicador buscarPorId(String params);
 public Indicador buscar(String nombre);
 
 public void agregarResueltado(List<Resultado> indicadoresPrecalculado, Resultado resultado);
+
+public void limpiarIndicadores(List<Resultado> indicadoresPrecalculado, Cuenta cuenta);
 }

@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import model.Cuenta;
 import model.Indicador;
 import model.Resultado;
 
@@ -56,5 +57,11 @@ public void agregarResueltado(List<Resultado> indicadoresPrecalculado, Resultado
 	// TODO Auto-generated method stub
 	indicadoresPrecalculado.add(resultado);
 
+}
+
+@Override
+public void limpiarIndicadores(List<Resultado> indicadoresPrecalculado, Cuenta cuenta) {
+	indicadoresPrecalculado.removeIf(res-> res.fueAfectadoPor(cuenta));
+	
 }
 }

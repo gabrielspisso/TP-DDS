@@ -2,6 +2,7 @@ package model.repositorios;
 
 import java.util.List;
 
+import model.Cuenta;
 import model.Empresa;
 
 public interface RepositorioDeEmpresasInterfaz {
@@ -11,4 +12,5 @@ public interface RepositorioDeEmpresasInterfaz {
 	public void borrar(String nombre);
 	public Empresa buscarPorId(String params);
 	public Empresa buscar(String nombre);
+	public void ActualizarCuenta(Cuenta cuenta, int valor);
 }

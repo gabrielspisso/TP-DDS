@@ -14,7 +14,7 @@ import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
-public class RepositorioDeArchivos {
+public class RepositorioDeArchivos implements RepositorioDeArchivosInterfaz {
 
 	private static RepositorioDeArchivos instance = new RepositorioDeArchivos();
 

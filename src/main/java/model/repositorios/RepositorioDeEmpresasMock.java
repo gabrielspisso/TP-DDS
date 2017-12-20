@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.core.databinding.observable.set.ListToSetAdapter;
 
+import model.Cuenta;
 import model.Empresa;
 
 public class RepositorioDeEmpresasMock implements RepositorioDeEmpresasInterfaz{
@@ -42,6 +43,12 @@ public class RepositorioDeEmpresasMock implements RepositorioDeEmpresasInterfaz{
 			return listaDeEmpresas.stream().filter(emp->emp.getNombre().equals(string)).findFirst().get();
 		}
 		return  null;
+	}
+
+	@Override
+	public void ActualizarCuenta(Cuenta cuenta, int valor) {
+		
+		cuenta.setValor(valor);
 	}
 	
 }

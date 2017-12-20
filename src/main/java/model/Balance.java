@@ -104,11 +104,11 @@ public class Balance {
 	public boolean estaPrecalculadoElIndicador(Indicador indicador) {
 		return indicadoresPrecalculado.stream().anyMatch(res1 -> res1.getIndicador().getNombre().equals(indicador.getNombre()));
 	}
-	public void limpiarIndicadoresPrecalculados(Cuenta cuenta) {
+	public void limpiarIndicadoresPrecalculados(Cuenta cuenta, RepositorioDeIndicadoresInterfaz repoIndicadores) {
 		if(indicadoresPrecalculado != null) {
 			
 			if(!indicadoresPrecalculado.isEmpty()) {
-				new RepositorioDeIndicadores().limpiarIndicadores(indicadoresPrecalculado,cuenta);
+				repoIndicadores.limpiarIndicadores(indicadoresPrecalculado,cuenta);
 			}
 		}
 		

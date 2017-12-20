@@ -48,6 +48,10 @@ public class HomeController extends Controller{
 		Map<String, Object> model = new HashMap<>();
 		
 		String collapse = req.cookie("abierto") == null ? "collapse" : req.cookie("abierto");
+		if(req.cookie("nombre") != null) {
+			model.put("nombreDeUsuario", req.cookie("nombre"));	
+			res.removeCookie("nombre");
+		}
 		model.put("abierto", collapse);
 		res.removeCookie("abierto");
 		return new ModelAndView(model, "login.hbs");
@@ -64,6 +68,7 @@ public class HomeController extends Controller{
 		
 		if (user == null) {
 			res.cookie("abierto", "");
+			res.cookie("nombre", req.queryParams("nombre"));
 			res.redirect("/login");
 		}
 		else if(user.getPassword().equals(req.queryParams("password"))) {
@@ -74,6 +79,7 @@ public class HomeController extends Controller{
 		}
 		else {
 			res.cookie("abierto", "");
+			res.cookie("nombre", req.queryParams("nombre"));
 			res.redirect("/login");		
 		}
 		return null;
